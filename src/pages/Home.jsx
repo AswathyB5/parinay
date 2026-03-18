@@ -73,11 +73,17 @@ const Home = () => {
             });
         }, observerOptions);
 
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => observer.observe(el));
+        const timeoutId = setTimeout(() => {
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        }, 100);
 
-        return () => revealElements.forEach(el => observer.unobserve(el));
-    }, []);
+        return () => {
+            clearTimeout(timeoutId);
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.unobserve(el));
+        };
+    }, [content]);
 
     const portfolioItems = home.portfolioItems || [];
 
@@ -104,11 +110,12 @@ const Home = () => {
 
                 <div className="pw-hero__content">
                     <span className="pw-hero__eyebrow"></span>
-                    <h1 className="pw-hero__title">
-                        <span className="pw-hero__title-main">{home.heroTitle}</span>
-                        <span className="pw-hero__title-sub">{home.heroTitleSub}</span>
-                    </h1>
                     <p className="pw-hero__tagline">{home.heroTagline}</p>
+                    <div className="pw-hero__ctas">
+                        <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
+                            {home.heroBtnText || "Get Started"}
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="pw-hero__floating-img reveal">

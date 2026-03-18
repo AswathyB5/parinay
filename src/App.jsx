@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <ScrollToTop />
       {!isAdminRoute && <Header />}
       <main className="main-content">
         <Routes>
@@ -23,7 +25,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/stories" element={<Stories />} />
+          <Route path="/stories" element={<Stories sectionKey="storiesDestination" />} />
+          <Route path="/destination-weddings" element={<Stories sectionKey="storiesDestination" />} />
+          <Route path="/themed-weddings" element={<Stories sectionKey="storiesThemed" />} />
+          <Route path="/traditional-weddings" element={<Stories sectionKey="storiesTraditional" />} />
           <Route path="/journals" element={<Journals />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>

@@ -9,21 +9,25 @@ import './Admin.css';
 
 /* ── Section Icon Map ──────────────────────────── */
 const SECTION_ICONS = {
-    home:     <Home size={17} />,
-    about:    <Info size={17} />,
-    services: <Briefcase size={17} />,
-    stories:  <BookOpen size={17} />,
-    journals: <Newspaper size={17} />,
-    contact:  <Mail size={17} />,
+    home:               <Home size={17} />,
+    about:              <Info size={17} />,
+    services:           <Briefcase size={17} />,
+    storiesDestination: <BookOpen size={17} />,
+    storiesThemed:      <BookOpen size={17} />,
+    storiesTraditional: <BookOpen size={17} />,
+    journals:           <Newspaper size={17} />,
+    contact:            <Mail size={17} />,
 };
 
 const SECTION_LABELS = {
-    home:     'Home',
-    about:    'About Us',
-    services: 'Services',
-    stories:  'Wedding Stories',
-    journals: 'Journal',
-    contact:  'Contact',
+    home:               'Home',
+    about:              'About Us',
+    services:           'Services',
+    storiesDestination: 'Stories: Destination',
+    storiesThemed:      'Stories: Themed',
+    storiesTraditional: 'Stories: Traditional',
+    journals:           'Journal',
+    contact:            'Contact',
 };
 
 /* ── Toast Component ───────────────────────────── */
@@ -163,9 +167,13 @@ const AdminDashboard = () => {
 
     const handleSave = async () => {
         setIsSaving(true);
-        await updateSection(activeTab, formData);
+        const success = await updateSection(activeTab, formData);
         setIsSaving(false);
-        showToast(`${SECTION_LABELS[activeTab]} updated successfully!`);
+        if (success) {
+            showToast(`${SECTION_LABELS[activeTab]} updated successfully!`);
+        } else {
+            showToast(`Error saving. Is MongoDB connected?`, 'error');
+        }
     };
 
     const showToast = useCallback((message, type = 'success') => {
@@ -423,7 +431,9 @@ const AdminDashboard = () => {
                             <BookOpen size={28} className="admin-stat-card__icon" />
                             <div className="admin-stat-card__label">Wedding Stories</div>
                             <div className="admin-stat-card__value">
-                                {content?.stories?.storiesList?.length ?? 0}
+                                {(content?.storiesDestination?.storiesList?.length ?? 0) +
+                                 (content?.storiesThemed?.storiesList?.length ?? 0) +
+                                 (content?.storiesTraditional?.storiesList?.length ?? 0)}
                             </div>
                         </div>
                     </div>

@@ -6,7 +6,9 @@ const initialContent = {
     home: {
         heroTitle: "Parinay",
         heroTitleSub: "Weddings",
-        heroTagline: "Thoughtfully Planned. Beautifully Executed.",
+        heroTagline: "Thoughtfully Planned.\nBeautifully Executed.",
+        heroBtnText: "Get Started",
+        heroBtnUrl: "/contact",
         heroImages: [
             { id: 1, image: "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg", alt: "Wedding Celebration 1" },
             { id: 2, image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", alt: "Wedding Celebration 2" },
@@ -154,13 +156,11 @@ const initialContent = {
         formBtnText: "Send Inquiry",
         footerImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1600&q=80"
     },
-    stories: {
-        pageBannerTitle: "Wedding Stories",
+    storiesDestination: {
+        pageBannerTitle: "Destination Weddings",
         storiesList: [
             { id: 1, title: "Backwater Bliss in Kumarakom", desc: "An elegant three-day celebration on the serene backwaters of Kerala, blending contemporary luxury with local charm.", image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=800&q=80", badge: "Destination" },
-            { id: 2, title: "Heritage Grandeur at Mysore", desc: "A royal celebration at a heritage palace, honouring centuries-old traditions with opulent decor and meticulous planning.", image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80", badge: "Cultural" },
-            { id: 3, title: "The Secret Garden Soirée", desc: "A whimsical floral-themed wedding that transformed a colonial estate into an ethereal garden oasis.", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80", badge: "Intimate" },
-            { id: 4, title: "Clifftop Vows in Varkala", desc: "A breathtaking sunset ceremony on the red cliffs of Varkala, overlooking the endless expanse of the Arabian Sea.", image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80", badge: "Destination" }
+            { id: 2, title: "Clifftop Vows in Varkala", desc: "A breathtaking sunset ceremony on the red cliffs of Varkala, overlooking the endless expanse of the Arabian Sea.", image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80", badge: "Destination" }
         ],
         heroImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1920&q=80",
         heroTitle: "A Visual Narrative",
@@ -168,6 +168,30 @@ const initialContent = {
         testimonialQuote: "Parinay Weddings didn't just plan our event; they orchestrated a symphony of moments that we'll cherish forever.",
         testimonialAuthor: "Priya & Rohan",
         testimonialLocation: "Destination Wedding, Kumarakom"
+    },
+    storiesThemed: {
+        pageBannerTitle: "Themed Weddings",
+        storiesList: [
+            { id: 3, title: "The Secret Garden Soirée", desc: "A whimsical floral-themed wedding that transformed a colonial estate into an ethereal garden oasis.", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80", badge: "Themed" }
+        ],
+        heroImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80",
+        heroTitle: "Signature Themed Concepts",
+        heroSubtitle: "Transforming spaces into immersive worlds that tell your unique love story through design.",
+        testimonialQuote: "The attention to detail in our themed decor was absolutely breathtaking. It was like stepping into a dream.",
+        testimonialAuthor: "Anjali & Vikram",
+        testimonialLocation: "Themed Wedding, Kochi"
+    },
+    storiesTraditional: {
+        pageBannerTitle: "Traditional Weddings",
+        storiesList: [
+            { id: 2, title: "Heritage Grandeur at Mysore", desc: "A royal celebration at a heritage palace, honouring centuries-old traditions with opulent decor and meticulous planning.", image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80", badge: "Traditional" }
+        ],
+        heroImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1920&q=80",
+        heroTitle: "Honouring Our Heritage",
+        heroSubtitle: "Timeless traditions celebrated with contemporary elegance and profound respect for cultural roots.",
+        testimonialQuote: "They respected our traditions perfectly while bringing a fresh, premium feel to every ritual.",
+        testimonialAuthor: "Meera & Arjun",
+        testimonialLocation: "Traditional Wedding, Madurai"
     },
     journals: {
         pageBannerTitle: "Journal",
@@ -244,8 +268,13 @@ export const ContentProvider = ({ children }) => {
         setContent(updated);
         if (isLoaded) {
             const fromBackend = await saveToDB(updated);
-            if (fromBackend) setContent(fromBackend);
+            if (fromBackend) {
+                setContent(fromBackend);
+                return true;
+            }
+            return false;
         }
+        return true;
     };
 
     return (

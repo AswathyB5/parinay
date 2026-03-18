@@ -24,7 +24,9 @@ const Footer = () => {
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/about">About Us</Link></li>
                             <li><Link to="/services">Our Services</Link></li>
-                            <li><Link to="/stories">Wedding Stories</Link></li>
+                            <li><Link to="/destination-weddings">Destination Weddings</Link></li>
+                            <li><Link to="/themed-weddings">Themed Weddings</Link></li>
+                            <li><Link to="/traditional-weddings">Traditional Weddings</Link></li>
                             <li><Link to="/journals">Journals</Link></li>
                         </ul>
                     </div>

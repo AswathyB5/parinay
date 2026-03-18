@@ -17,10 +17,16 @@ const Journals = () => {
             });
         }, observerOptions);
 
-        const revealElements = document.querySelectorAll('.reveal');
-        revealElements.forEach(el => observer.observe(el));
+        const timeoutId = setTimeout(() => {
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        }, 100);
 
-        return () => revealElements.forEach(el => observer.unobserve(el));
+        return () => {
+            clearTimeout(timeoutId);
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.unobserve(el));
+        };
     }, [content]);
 
     return (

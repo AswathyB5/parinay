@@ -24,16 +24,37 @@ const Header = () => {
     return (
         <header className={`main-header ${isScrolled ? 'scrolled' : ''}`}>
             <nav className="container">
-                <div className="logo">
-                    <Link to="/">PARINAY<span>WEDDINGS</span></Link>
-                </div>
-                <ul className={`nav-links ${mobileMenuOpen ? 'active' : ''}`}>
+                <ul className="nav-links nav-links--left">
                     <li><Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link></li>
                     <li><Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link></li>
                     <li><Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link></li>
-                    <li><Link to="/stories" className={location.pathname === '/stories' ? 'active' : ''}>Wedding Stories</Link></li>
+                </ul>
+
+                <div className="logo">
+                    <Link to="/">PARINAY</Link>
+                </div>
+
+                <ul className="nav-links nav-links--right">
+                    <li className="nav-dropdown">
+                        <Link to="/stories" className={location.pathname.startsWith('/stories') ? 'active' : ''}>Wedding Stories</Link>
+                        <ul className="nav-dropdown-menu">
+                            <li><Link to="/destination-weddings">Destination Weddings</Link></li>
+                            <li><Link to="/themed-weddings">Themed Weddings</Link></li>
+                            <li><Link to="/traditional-weddings">Traditional Weddings</Link></li>
+                        </ul>
+                    </li>
                     <li><Link to="/journals" className={location.pathname === '/journals' ? 'active' : ''}>Journals</Link></li>
                     <li><Link to="/contact" className={`cta-nav ${location.pathname === '/contact' ? 'active' : ''}`}>Contact</Link></li>
+                </ul>
+
+                {/* Mobile Menu Content (Aggregated for simple mobile view) */}
+                <ul className={`nav-links mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/services">Services</Link></li>
+                    <li><Link to="/stories">Wedding Stories</Link></li>
+                    <li><Link to="/journals">Journals</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
                 </ul>
                 <div 
                     className={`mobile-menu-btn ${mobileMenuOpen ? 'open' : ''}`}
