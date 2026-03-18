@@ -1,0 +1,566 @@
+/*
+ * PARINAY WEDDINGS — INNER PAGES REDESIGN
+ * Complementing the Home Redesign (home-redesign.css)
+ */
+
+/* ─── PAGE BANNER ───────────────────────────────────────────────────────────── */
+.pw-page-banner {
+    background: var(--primary-color);
+    padding: 180px 0 100px;
+    /* Expansive, premium padding */
+    position: relative;
+    z-index: 90;
+    text-align: left;
+    /* Explicitly left-aligned */
+}
+
+.pw-page-banner::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    /* Match container padding */
+    width: 80px;
+    height: 4px;
+    background: var(--accent-color);
+}
+
+.pw-page-banner__title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7.5rem);
+    /* Truly "big size" */
+    font-weight: 300;
+    line-height: 0.9;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    color: var(--accent-color);
+    margin: 0;
+    opacity: 0;
+    animation: bannerFadeUp 1.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes bannerFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── INNER PAGE HERO ───────────────────────────────────────────────────────── */
+.pw-page-hero {
+    position: relative;
+    padding: 200px 0 100px;
+    background: var(--primary-color);
+    text-align: center;
+    color: var(--secondary-color);
+    overflow: visible; /* Changed from hidden to avoid clipping issues with fixed child in some browsers */
+    clip-path: inset(0); /* This creates the window effect for the fixed image */
+    z-index: 10;
+}
+
+.pw-page-banner+.pw-page-hero {
+    padding: 80px 0 100px;
+}
+
+.pw-page-hero--light {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.pw-page-hero__bg {
+    position: fixed; /* Fix it to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Fill the whole viewport */
+    object-fit: cover;
+    opacity: 0.15;
+    z-index: 0;
+}
+
+.pw-page-hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pw-page-hero__title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+}
+
+.pw-page-hero__title em {
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+.pw-page-hero__subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(253, 251, 247, 0.7);
+    margin: 0 auto;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.pw-page-hero--light .pw-page-hero__subtitle {
+    color: rgba(29, 53, 40, 0.6);
+}
+
+/* ─── TEAM GRID ───────────────────────────────────────────────────────────── */
+.pw-team {
+    padding: 120px 0;
+    background: var(--secondary-color);
+}
+
+.pw-team__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Changed from 4 to 2 for much larger images */
+    gap: 60px 80px;
+    /* Increased gap for better breathing space between big cards */
+    margin-top: 80px;
+    max-width: 1100px;
+    /* Controlled width for a refined look */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pw-team__card {
+    text-align: center;
+}
+
+.pw-team__img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    /* Slightly taller for a more editorial portrait look */
+    overflow: hidden;
+    margin-bottom: 32px;
+}
+
+.pw-team__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.pw-team__card:hover .pw-team__img {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+.pw-team__name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    /* Increased from 1.6rem to match bigger cards */
+    font-weight: 300;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.pw-team__role {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    /* Increased from 0.75rem */
+    color: var(--accent-color);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    /* Wider tracking */
+}
+
+/* ─── STORY GRID ──────────────────────────────────────────────────────────── */
+.pw-story {
+    padding: 120px 0;
+    background: var(--secondary-color);
+}
+
+.pw-story__filter {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.pw-story__filter-btn {
+    background: transparent;
+    border: 1px solid rgba(29, 53, 40, 0.2);
+    color: var(--primary-color);
+    padding: 10px 24px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pw-story__filter-btn.is-active,
+.pw-story__filter-btn:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border-color: var(--primary-color);
+}
+
+.pw-story__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
+}
+
+.pw-story__card {
+    display: block;
+    text-decoration: none;
+}
+
+.pw-story__img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    margin-bottom: 24px;
+}
+
+.pw-story__badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 6px 16px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    z-index: 2;
+}
+
+.pw-story__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.pw-story__card:hover .pw-story__img {
+    transform: scale(1.05);
+}
+
+.pw-story__content {
+    text-align: center;
+}
+
+.pw-story__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+.pw-story__desc {
+    font-family: 'Outfit', sans-serif;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.pw-story__link {
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+/* ─── JOURNAL/BLOG ────────────────────────────────────────────────────────── */
+.pw-journal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.pw-journal__card {
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.pw-journal__card:hover {
+    border-color: var(--accent-color);
+}
+
+.pw-journal__img-wrap {
+    aspect-ratio: 3/2;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.pw-journal__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.pw-journal__card:hover .pw-journal__img {
+    transform: scale(1.05);
+}
+
+.pw-journal__meta {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.pw-journal__title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    line-height: 1.3;
+    margin-bottom: 12px;
+}
+
+.pw-journal__excerpt {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+/* ─── CONTACT PAGE ────────────────────────────────────────────────────────── */
+.pw-contact {
+    padding: 100px 0;
+    background: var(--secondary-color);
+}
+
+.pw-contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 80px;
+}
+
+.pw-contact__info {
+    padding-right: 40px;
+    border-right: 1px solid rgba(29, 53, 40, 0.1);
+}
+
+.pw-contact__block {
+    margin-bottom: 40px;
+}
+
+.pw-contact__block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.pw-contact__block p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.pw-contact__block a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.pw-contact__block a:hover {
+    color: var(--accent-color);
+}
+
+.pw-contact__whatsapp {
+    margin-top: 40px;
+    padding: 30px;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.pw-contact__whatsapp:hover {
+    transform: translateY(-5px);
+}
+
+.pw-contact__whatsapp h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+    color: var(--secondary-color);
+}
+
+.pw-contact__whatsapp p {
+    font-size: 0.8rem;
+    color: rgba(253, 251, 247, 0.7);
+}
+
+.pw-contact__whatsapp i {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+/* Service Detail Cards (For Services Page) */
+.pw-service-detail {
+    padding: 120px 0;
+    background: var(--secondary-color);
+}
+
+.pw-service-detail__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 120px;
+}
+
+.pw-service-detail__row:nth-child(even) {
+    grid-template-columns: 1.1fr 0.9fr;
+    direction: rtl;
+}
+
+.pw-service-detail__row:nth-child(even)>* {
+    direction: ltr;
+}
+
+.pw-service-detail__img-wrap {
+    position: relative;
+    padding: 20px;
+}
+
+.pw-service-detail__img-wrap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: 0;
+}
+
+.pw-service-detail__row:nth-child(even) .pw-service-detail__img-wrap::before {
+    left: auto;
+    right: 0;
+}
+
+.pw-service-detail__img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+}
+
+.pw-service-detail__content h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    line-height: 1.1;
+}
+
+.pw-service-detail__content p {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.pw-service-detail__list {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+.pw-service-detail__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: var(--primary-color);
+}
+
+.pw-service-detail__list i {
+    color: var(--accent-color);
+    margin-top: 4px;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────────────────── */
+@media (max-width: 992px) {
+    .pw-team__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .pw-story__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pw-journal__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pw-contact__grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .pw-contact__info {
+        border-right: none;
+        padding-right: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .pw-service-detail__row,
+    .pw-service-detail__row:nth-child(even) {
+        grid-template-columns: 1fr;
+        direction: ltr;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .pw-team__grid,
+    .pw-journal__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pw-contact__info {
+        grid-template-columns: 1fr;
+    }
+
+    .pw-page-hero__title {
+        font-size: 3.5rem;
+    }
+}

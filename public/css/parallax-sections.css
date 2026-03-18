@@ -1,0 +1,139 @@
+/* Parallax Fixed Background Sections */
+
+/* Hero Video - Fixed Parallax Effect */
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Green Sections with Fixed Background Images */
+.features.hero-text-section {
+    position: relative;
+    overflow: visible !important;
+    background: linear-gradient(rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.2)),
+        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Journey CTA Section - Fixed Background */
+.journey-cta {
+    position: relative;
+    height: 70vh;
+    background: linear-gradient(rgba(18, 35, 26, 0.2), rgba(29, 53, 40, 0.2)),
+        url('https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+/* Diagonal Split - Dark Side Fixed Background */
+.diagonal-content-side {
+    position: relative;
+    overflow: visible !important;
+    background: linear-gradient(rgba(18, 35, 26, 0.2), rgba(29, 53, 40, 0.2)),
+        url('https://media.istockphoto.com/id/536012807/vector/vintage-gold-wedding-pattern-background.jpg?s=170667a&w=0&k=20&c=q216u4VxqnrHV2_pCQ3DDn5kqNrcISXym1r23EKXLYw=') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Services Overview Section (if it has green background) */
+.services-overview {
+    position: relative;
+    overflow: visible !important;
+    background: linear-gradient(rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.2)),
+        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Destination Highlight Section */
+.destination-highlight {
+    position: relative;
+    overflow: visible !important;
+    background: linear-gradient(rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.2)),
+        url('https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1600&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Add subtle texture overlay to all fixed backgrounds */
+/* Add subtle texture overlay to all fixed backgrounds */
+.diagonal-content-side::before,
+.services-overview::before,
+.destination-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Ensure content is above background */
+.features.hero-text-section .container,
+.journey-cta .container,
+.diagonal-content-side .content-inner,
+.services-overview .container,
+.destination-highlight .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive - Disable fixed on mobile for performance */
+@media (max-width: 768px) {
+    .video-background {
+        position: absolute;
+    }
+
+    .features.hero-text-section,
+    .journey-cta,
+    .diagonal-content-side,
+    .services-overview,
+    .destination-highlight {
+        background-attachment: scroll !important;
+    }
+}
+
+/* Smooth scrolling enhancement */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Parallax container optimization removed to fix background-attachment: fixed */
+/* .hero, ... { transform: translateZ(0); } */
