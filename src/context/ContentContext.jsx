@@ -60,11 +60,11 @@ const initialContent = {
         portfolioViewAllUrl: "/stories",
         testimonialLabel: "Testimonials",
         testimonials: [
-            { id: 1, text: "Parinay Weddings turned our dream into reality. Every single detail was handled with such grace and precision — we didn't have to worry about a thing.", author: "Ananya & Rohit", location: "Kumarakom" },
-            { id: 2, text: "From the first consultation to the last dance, the team was exceptional. They understood our vision perfectly and delivered something beyond imagination.", author: "Priya & Siddharth", location: "Udaipur" },
-            { id: 3, text: "The attention to detail and personal touch Parinay Weddings brought to our wedding was truly remarkable. Our guests are still talking about the beautiful decor!", author: "Rahul & Meera", location: "Kerala" },
-            { id: 4, text: "Choosing Parinay Weddings was the best decision we made. They managed everything so seamlessly, allowing us to fully enjoy every moment of our special day.", author: "Sneha & Arjun", location: "Goa" },
-            { id: 5, text: "Professional, creative, and extremely reliable. Parinay Weddings exceeded all our expectations and made our destination wedding a truly unforgettable experience.", author: "Vikram & Ishani", location: "Jaipur" }
+            { id: 1, text: "Parinay Weddings turned our dream into reality. Every single detail was handled with such grace and precision — we didn't have to worry about a thing.", author: "Ananya & Rohit", location: "Kumarakom", image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80" },
+            { id: 2, text: "From the first consultation to the last dance, the team was exceptional. They understood our vision perfectly and delivered something beyond imagination.", author: "Priya & Siddharth", location: "Udaipur", image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=400&q=80" },
+            { id: 3, text: "The attention to detail and personal touch Parinay Weddings brought to our wedding was truly remarkable. Our guests are still talking about the beautiful decor!", author: "Rahul & Meera", location: "Kerala", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80" },
+            { id: 4, text: "Choosing Parinay Weddings was the best decision we made. They managed everything so seamlessly, allowing us to fully enjoy every moment of our special day.", author: "Sneha & Arjun", location: "Goa", image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=400&q=80" },
+            { id: 5, text: "Professional, creative, and extremely reliable. Parinay Weddings exceeded all our expectations and made our destination wedding a truly unforgettable experience.", author: "Vikram & Ishani", location: "Jaipur", image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=400&q=80" }
         ],
         transitionHeading: "We manage complexity so your celebration feels effortless",
         formLabel: "Get In Touch",
@@ -167,7 +167,8 @@ const initialContent = {
         heroSubtitle: "A curation of extraordinary celebrations, capturing the unique essence and emotion of every couple we serve.",
         testimonialQuote: "Parinay Weddings didn't just plan our event; they orchestrated a symphony of moments that we'll cherish forever.",
         testimonialAuthor: "Priya & Rohan",
-        testimonialLocation: "Destination Wedding, Kumarakom"
+        testimonialLocation: "Destination Wedding, Kumarakom",
+        testimonialImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80"
     },
     storiesThemed: {
         pageBannerTitle: "Themed Weddings",
@@ -179,7 +180,8 @@ const initialContent = {
         heroSubtitle: "Transforming spaces into immersive worlds that tell your unique love story through design.",
         testimonialQuote: "The attention to detail in our themed decor was absolutely breathtaking. It was like stepping into a dream.",
         testimonialAuthor: "Anjali & Vikram",
-        testimonialLocation: "Themed Wedding, Kochi"
+        testimonialLocation: "Themed Wedding, Kochi",
+        testimonialImage: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=400&q=80"
     },
     storiesTraditional: {
         pageBannerTitle: "Traditional Weddings",
@@ -191,7 +193,8 @@ const initialContent = {
         heroSubtitle: "Timeless traditions celebrated with contemporary elegance and profound respect for cultural roots.",
         testimonialQuote: "They respected our traditions perfectly while bringing a fresh, premium feel to every ritual.",
         testimonialAuthor: "Meera & Arjun",
-        testimonialLocation: "Traditional Wedding, Madurai"
+        testimonialLocation: "Traditional Wedding, Madurai",
+        testimonialImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80"
     },
     journals: {
         pageBannerTitle: "Journal",

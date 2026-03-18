@@ -35,6 +35,11 @@ const Footer = () => {
                         <p><i className="fas fa-envelope"></i> hello@parinayweddings.com</p>
                         <p><i className="fas fa-phone-alt"></i> +91 98765 43210</p>
                         <p><i className="fas fa-map-marker-alt"></i> Cochin, Kerala, India</p>
+
+                        <div className="footer-cta" style={{ marginTop: '45px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '25px' }}>
+                            <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.25rem', fontStyle: 'italic', marginBottom: '22px', opacity: '1', color: 'var(--secondary-color)' }}>Let's Start Your Journey</p>
+                            <Link to="/contact" className="pw-btn pw-btn--gold" style={{ padding: '12px 28px', fontSize: '0.78rem' }}>Book a Consultation</Link>
+                        </div>
                     </div>
                 </div>
                 <div className="footer-bottom container">

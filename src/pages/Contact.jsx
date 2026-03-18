@@ -53,19 +53,6 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* HERO SECTION */}
-            <section className="pw-page-hero">
-                <img src={contact.heroImage} alt="Background" className="pw-page-hero__bg" />
-                <div className="pw-container pw-page-hero__content reveal">
-                    <h1 className="pw-page-hero__title">
-                        {contact.heroTitle}<br />
-                        <em>{contact.heroTitleEm}</em>
-                    </h1>
-                    <p className="pw-page-hero__subtitle">
-                        {contact.heroSubtitle}
-                    </p>
-                </div>
-            </section>
 
             {/* CONTACT BODY */}
             <section className="pw-contact reveal">
@@ -169,10 +156,18 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* MAP / IMAGE FOOTER */}
-            <section style={{ height: '500px', width: '100%', position: 'relative', overflow: 'hidden' }}>
-                <img src={contact.footerImage} alt="Kerala Backwaters Venue" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', background: 'rgba(18, 53, 36, 0.2)' }}>
+
+            {/* HERO SECTION */}
+            <section className="pw-page-hero">
+                <img src={contact.heroImage} alt="Background" className="pw-page-hero__bg" />
+                <div className="pw-container pw-page-hero__content reveal">
+                    <h1 className="pw-page-hero__title">
+                        {contact.heroTitle}<br />
+                        <em>{contact.heroTitleEm}</em>
+                    </h1>
+                    <p className="pw-page-hero__subtitle">
+                        {contact.heroSubtitle}
+                    </p>
                 </div>
             </section>
         </div>

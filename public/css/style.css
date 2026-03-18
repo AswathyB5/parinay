@@ -1507,19 +1507,30 @@ section {
 
 .youtube-text-content .editorial-label {
     display: block;
-    font-size: 0.8rem;
-    letter-spacing: 3px;
+    font-size: 0.85rem;
+    letter-spacing: 5px;
     color: var(--accent-color);
     text-transform: uppercase;
-    margin-bottom: 20px;
-    font-weight: 600;
+    margin-bottom: 25px;
+    font-weight: 500;
 }
 
+.youtube-text-content .editorial-label::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--accent-color);
+    margin-top: 15px;
+}
+
+
 .youtube-text-content h2 {
-    font-size: 3rem;
+    font-size: clamp(2.8rem, 4.5vw, 4.2rem);
     color: var(--primary-color);
-    margin-bottom: 25px;
+    margin-bottom: 35px;
     line-height: 1.1;
+    font-weight: 300;
 }
 
 .youtube-text-content h2 em {
@@ -1528,10 +1539,11 @@ section {
 }
 
 .youtube-text-content p {
-    font-size: 1rem;
-    color: #666;
+    font-size: 1.1rem;
+    color: #555;
     line-height: 1.8;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    font-weight: 300;
 }
 
 .youtube-text-content .btn {
@@ -1543,8 +1555,9 @@ section {
 }
 
 .youtube-card.featured-single {
-    box-shadow: 0 20px 60px rgba(29, 53, 40, 0.12);
+    box-shadow: 0 40px 100px rgba(18, 35, 26, 0.12);
 }
+
 
 .youtube-card.featured-single .youtube-card-info {
     padding: 30px;

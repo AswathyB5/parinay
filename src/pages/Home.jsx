@@ -292,12 +292,52 @@ const Home = () => {
                     </div>
                 </div>
             </section><br />
+ 
+            {/* ═══ YOUTUBE SHOWCASE SECTION ═══ */}
+            <section className="youtube-showcase-section reveal">
+                <div className="pw-container">
+                    <div className="youtube-split-layout">
+                        {/* Left: Editorial Text Content */}
+                        <div className="youtube-text-content">
+                            <span className="editorial-label">CINEMATIC STORYTELLING</span>
+                            <h2>Every Love Story <br />Deserves a <em>Film</em></h2>
+                            <p>Your wedding isn't just an event; it's a collection of fleeting, beautiful moments. Our films
+                                capture
+                                the laughter, the tears, and the quiet glances that make your day unique.</p>
+                            <p>We don't just document; we craft a narrative that feels like a movie starring you. From the grand
+                                entry to the intimate rituals, we preserve the emotion of your celebration forever.</p>
+
+                            <a href="https://www.youtube.com/@parinayweddings" target="_blank" rel="noopener noreferrer"
+                                className="btn btn-outline youtube-cta-btn">
+                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> WATCH MORE FILMS
+                            </a>
+                        </div>
+
+                        {/* Right: Single Featured Video */}
+                        <div className="youtube-video-wrapper">
+                            <div className="youtube-card featured-single">
+                                <div className="video-thumbnail-wrapper">
+                                    <div className="video-frame">
+                                        <iframe width="560" height="315"
+                                            src="https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+                                            title="YouTube video player"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section><br />
+
 
             {/* ═══ SECTION 7: TESTIMONIALS ═══ */}
             <section className="pw-testimonials">
                 <div className="pw-container">
                     <div className="pw-testimonials__inner">
                         <span className="pw-label pw-label--gold">{home.testimonialLabel || 'Testimonials'}</span>
+
 
                         <div className="pw-testimonials__quote-wrap">
                             <div className="pw-testimonials__quote-mark">"</div>
@@ -308,9 +348,17 @@ const Home = () => {
 
                         <div className="pw-testimonials__author">
                             <div className="pw-testimonials__author-line"></div>
-                            <div className="pw-testimonials__author-info">
-                                <strong>{testimonials[currentTestimonial]?.author}</strong>
-                                <span>{testimonials[currentTestimonial]?.location}</span>
+                            <div className="pw-testimonials__author-flex">
+                                <div className="pw-testimonials__author-img">
+                                    <img 
+                                        src={testimonials[currentTestimonial]?.image} 
+                                        alt={testimonials[currentTestimonial]?.author} 
+                                    />
+                                </div>
+                                <div className="pw-testimonials__author-info">
+                                    <strong>{testimonials[currentTestimonial]?.author}</strong>
+                                    <span>{testimonials[currentTestimonial]?.location}</span>
+                                </div>
                             </div>
                         </div>
 
@@ -327,16 +375,69 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+ 
+            {/* ═══ SECTION: JOURNAL SNIPPET ═══ */}
+            <section className="pw-journal reveal" style={{ padding: '120px 0', background: '#fff' }}>
+                <div className="pw-container">
+                    <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+                        <span className="pw-label">{content.journals.sectionLabel}</span>
+                        <h2 className="pw-section-header__title" style={{ fontSize: '3.5rem' }}>
+                            {content.journals.sectionTitle.split(' ').map((word, i, arr) => (
+                                i === arr.length - 1 ? <em key={i} style={{ fontStyle: 'italic', color: 'var(--accent-color)' }}>{word}</em> : `${word} `
+                            ))}
+                        </h2>
+                    </div>
+ 
+                    <div className="pw-journal__grid">
+                        {content.journals.journalsList.slice(0, 3).map((item) => (
+                            <Link key={item.id} to="/journals" className="pw-journal__card" style={{ textDecoration: 'none' }}>
+                                <div className="pw-journal__img-wrap">
+                                    <img src={item.image} alt={item.title} className="pw-journal__img" />
+                                </div>
+                                <span className="pw-journal__meta">{item.date}</span>
+                                <h3 className="pw-journal__title">{item.title}</h3>
+                                <p className="pw-journal__excerpt">{item.excerpt}</p>
+                                <span style={{ fontSize: '0.8rem', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: '600' }}>Read Entry</span>
+                            </Link>
+                        ))}
+                    </div>
+ 
+                    <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                        <Link to="/journals" className="pw-btn pw-btn--outline">View All Entries</Link>
+                    </div>
+                </div>
+            </section>
+
 
             {/* ═══ SECTION 3: TRANSITION ═══ */}
             <section className="pw-transition">
+                <div className="pw-transition__video-bg">
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="pw-transition__video"
+                        preload="auto"
+                    >
+                        <source src="/1330-147084829_medium.mp4" type="video/mp4" />
+                    </video>
+                    <div className="pw-transition__overlay"></div>
+                </div>
+
                 <div className="pw-container reveal">
                     <h2 className="pw-transition__heading">
                         {home.transitionHeading.split(' ').slice(0, -2).join(' ')} <br />
                         <em>{home.transitionHeading.split(' ').slice(-2).join(' ')}</em>
                     </h2>
+                    <div className="pw-transition__cta" style={{ marginTop: '40px' }}>
+                        <Link to="/contact" className="pw-btn pw-btn--gold">
+                            Work With Us
+                        </Link>
+                    </div>
                 </div>
             </section>
+
 
 
             {/* ═══ SECTION 8: LEAD FORM ═══ */}
@@ -361,6 +462,10 @@ const Home = () => {
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Email Address</label>
                                     <input type="email" className="pw-form__input" placeholder="your@email.com" required />
+                                </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Phone Number</label>
+                                    <input type="tel" className="pw-form__input" placeholder="+91 00000 00000" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Wedding Location</label>
