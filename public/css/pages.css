@@ -692,25 +692,25 @@ header.main-header .mobile-menu-btn span {
 /* Styles from services.html */
 /* Services Page Specific Styles */
 .services-hero {
-    height: 60vh;
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: var(--primary-color);
+    padding: 140px 0 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
+    color: var(--secondary-color);
     position: relative;
 }
 
 .services-hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+    color: var(--accent-color);
 }
+
 
 .intro-section {
     padding: 100px 0;
@@ -841,19 +841,15 @@ header.main-header .mobile-menu-btn span {
 
 /* Styles from stories.html */
 .stories-hero {
-    height: 70vh;
-    background: linear-gradient(rgba(18, 53, 36, 0.5), rgba(18, 53, 36, 0.5)),
-        url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=80');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-color: var(--primary-color);
+    padding: 140px 0 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
-    position: relative;
+    color: var(--secondary-color);
 }
+
 
 .category-filter {
     padding: 60px 0;
