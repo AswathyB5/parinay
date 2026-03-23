@@ -53,7 +53,7 @@ const Services = () => {
             {/* INTRO TEXT */}
             <section className="intro-section reveal">
                 <div className="container">
-                    <span className="intro-subheading">How We Work</span>
+                    <span className="section-label">How We Work</span>
                     <h2 className="intro-heading">A Structured, Calm Planning Process</h2>
                 </div>
             </section>

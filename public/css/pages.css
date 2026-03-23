@@ -713,10 +713,11 @@ header.main-header .mobile-menu-btn span {
 
 
 .intro-section {
-    padding: 100px 0;
+    padding: 100px 0 20px;
     text-align: center;
     background: #FDFBF7;
 }
+
 
 .intro-heading {
     font-family: 'Playfair Display', serif;
