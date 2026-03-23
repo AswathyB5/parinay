@@ -33,10 +33,10 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
 
     return (
         <div className="pw-page">
-            {/* PAGE BANNER */}
-            <section className="pw-page-banner">
-                <div className="pw-container">
-                    <h1 className="pw-page-banner__title">{stories.pageBannerTitle}</h1>
+            {/* HERO SECTION */}
+            <section className="about-hero-new">
+                <div className="container reveal">
+                    <h1>{stories.pageBannerTitle || "Wedding Stories"}</h1>
                 </div>
             </section>
 
@@ -92,9 +92,16 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                         </div>
                         <div className="pw-testimonials__author">
                             <div className="pw-testimonials__author-line"></div>
-                            <div className="pw-testimonials__author-info">
-                                <strong>{stories.testimonialAuthor}</strong>
-                                <span>{stories.testimonialLocation}</span>
+                            <div className="pw-testimonials__author-flex">
+                                {stories.testimonialImage && (
+                                    <div className="pw-testimonials__author-img">
+                                        <img src={stories.testimonialImage} alt={stories.testimonialAuthor} />
+                                    </div>
+                                )}
+                                <div className="pw-testimonials__author-info">
+                                    <strong>{stories.testimonialAuthor}</strong>
+                                    <span>{stories.testimonialLocation}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

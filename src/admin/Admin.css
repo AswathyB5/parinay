@@ -81,8 +81,12 @@
     display: block;
 }
 
+.admin-sidebar__group {
+    margin-bottom: 1.5rem;
+}
+
 .admin-sidebar__label {
-    padding: 1.8rem 2.5rem 0.6rem;
+    padding: 1.2rem 2.5rem 0.6rem;
     font-size: 0.65rem;
     font-weight: 600;
     color: rgba(253, 251, 247, 0.3);
@@ -259,11 +263,156 @@
 }
 
 /* ── Section Divider ─────────────────────────────── */
-.admin-section {
-    margin-bottom: 3rem;
+/* ── Accordion / Collapsible Sections ─────────────── */
+.admin-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-accordion__item {
+    background: var(--admin-cream);
+    border: 1px solid var(--admin-border);
+    border-left: 3px solid var(--admin-gold);
+    border-radius: 2px;
+    box-shadow: var(--admin-shadow);
+    transition: var(--transition);
+    overflow: visible;
+    position: relative;
+}
+
+
+.admin-accordion__item:hover {
+    border-left-color: var(--admin-gold);
+    border-color: rgba(197, 160, 89, 0.5);
+    border-left-color: var(--admin-gold);
+    box-shadow: 0 6px 28px rgba(29, 53, 40, 0.1);
+    transform: translateY(-1px);
+}
+
+.admin-accordion__item.is-expanded {
+    border-color: var(--admin-green);
+    border-left-color: var(--admin-green);
+    box-shadow: var(--admin-shadow-lg);
+    transform: none;
+}
+
+/* ── Accordion Header: Edit | Title | ⋯ layout ──── */
+.admin-accordion__header {
+    padding: 1.25rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--admin-cream);
+    transition: background 0.25s;
+    cursor: default;
+}
+
+.admin-accordion__header:hover {
+    background: var(--admin-cream-dark);
+}
+
+.admin-accordion__item.is-expanded .admin-accordion__header {
+    border-bottom: 1px solid var(--admin-border);
+    background: rgba(29, 53, 40, 0.04);
+}
+
+.admin-accordion__title {
+    font-family: var(--hero-font);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--admin-green);
+    margin: 0;
+    flex: 1;         /* fills middle space */
+    pointer-events: none;
+}
+
+/* ── Edit button (left of title) ─────────────────── */
+.admin-acc-edit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.52rem 1.15rem;
+    border: 1.5px solid var(--admin-green);
+    border-radius: 2px;
+    background: rgba(29, 53, 40, 0.07);
+    color: var(--admin-green);
+    font-family: var(--body-font);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.admin-acc-edit-btn:hover {
+    background: var(--admin-green);
+    color: var(--admin-cream);
+    border-color: var(--admin-green);
+    box-shadow: 0 4px 12px rgba(29, 53, 40, 0.25);
+    transform: translateY(-1px);
+}
+
+.admin-acc-edit-btn.is-active {
+    background: var(--admin-green);
+    color: var(--admin-cream);
+    border-color: var(--admin-green);
+}
+
+/* ── Hover Actions (right) ─────────────────────── */
+.admin-acc-actions-hover {
+    display: flex;
+    gap: 8px;
+}
+
+
+
+.admin-btn-icon-hover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(29, 53, 40, 0.15);
+    background: rgba(29, 53, 40, 0.06);
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--admin-green);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.admin-btn-icon-hover:hover {
+    background: rgba(29, 53, 40, 0.15);
+    border-color: rgba(29, 53, 40, 0.3);
+}
+
+.admin-btn-icon-hover--danger {
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.06);
+    border-color: rgba(220, 38, 38, 0.2);
+}
+
+.admin-btn-icon-hover--danger:hover {
+    background: rgba(220, 38, 38, 0.15);
+    border-color: rgba(220, 38, 38, 0.3);
+    color: #b91c1c;
+}
+
+/* ── Accordion content ──────────────────────────── */
+.admin-accordion__content {
+    padding: 2.5rem;
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .admin-section__title {
+    margin-top: 3.5rem;
     font-family: var(--hero-font);
     font-size: 1.3rem;
     font-weight: 400;
@@ -276,6 +425,11 @@
     gap: 10px;
 }
 
+/* First title should not have top margin */
+.admin-section > .admin-section__title:first-child {
+    margin-top: 0;
+}
+
 .admin-section__title::before {
     content: '';
     display: inline-block;
@@ -286,9 +440,28 @@
     flex-shrink: 0;
 }
 
+.admin-section__desc {
+    font-size: 0.82rem;
+    color: var(--admin-muted);
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.admin-field-hint {
+    font-size: 0.72rem;
+    color: var(--admin-gold);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    font-style: italic;
+    opacity: 0.85;
+}
+
 /* ── Form Elements ───────────────────────────────── */
 .admin-form-group {
-    margin-bottom: 1.6rem;
+    margin-bottom: 2.2rem;
 }
 
 .admin-form-group label,

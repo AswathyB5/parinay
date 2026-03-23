@@ -88,6 +88,9 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 
 /* ── Get Content ───────────────────────────────── */
 app.get('/api/content', async (_req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database not connected. Please check your MongoDB server.' });
+    }
     try {
         // Always return the most recently saved document
         const doc = await Content.findOne().sort({ createdAt: -1 }).lean();
@@ -103,6 +106,9 @@ app.get('/api/content', async (_req, res) => {
 
 /* ── Save Content ──────────────────────────────── */
 app.post('/api/content', async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database not connected. Cannot save content.' });
+    }
     try {
         const payload = req.body;
         if (!payload || typeof payload !== 'object') {
@@ -147,17 +153,18 @@ app.use((err, _req, res, _next) => {
 ══════════════════════════════════════════════════ */
 const PORT = process.env.PORT || 5000;
 
+app.listen(PORT, () => {
+    console.log(`[Server] Listening on http://localhost:${PORT}`);
+});
+
 mongoose
     .connect(process.env.MONGODB_URI, {
         serverSelectionTimeoutMS: 8000,
     })
     .then(() => {
         console.log('[MongoDB] Connected successfully.');
-        app.listen(PORT, () => {
-            console.log(`[Server] Listening on http://localhost:${PORT}`);
-        });
     })
     .catch((err) => {
-        console.error('[MongoDB] Connection failed:', err.message);
-        process.exit(1);
+        console.error('[MongoDB] Connection failed:');
+        console.error(err);
     });

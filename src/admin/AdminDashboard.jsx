@@ -1,33 +1,185 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { ContentContext } from '../context/ContentContext';
 import {
-    Save, Plus, Trash2, Eye, LogOut, Image, Film, Type,
+    Save, Plus, Trash2, Eye, EyeOff, LogOut, Image, Film, Type,
     Home, Info, Briefcase, BookOpen, Newspaper, Mail,
-    Menu, X, Check, AlertCircle, LayoutGrid
+    Menu, X, Check, AlertCircle, LayoutGrid, MoreVertical, Pencil,
+    Layout, AlignLeft
 } from 'lucide-react';
 import './Admin.css';
 
 /* ── Section Icon Map ──────────────────────────── */
 const SECTION_ICONS = {
-    home:               <Home size={17} />,
-    about:              <Info size={17} />,
-    services:           <Briefcase size={17} />,
+    home: <Home size={17} />,
+    about: <Info size={17} />,
+    services: <Briefcase size={17} />,
     storiesDestination: <BookOpen size={17} />,
-    storiesThemed:      <BookOpen size={17} />,
+    storiesThemed: <BookOpen size={17} />,
     storiesTraditional: <BookOpen size={17} />,
-    journals:           <Newspaper size={17} />,
-    contact:            <Mail size={17} />,
+    journals: <Newspaper size={17} />,
+    contact: <Mail size={17} />,
+    header: <Layout size={17} />,
+    footer: <AlignLeft size={17} />,
 };
 
 const SECTION_LABELS = {
-    home:               'Home',
-    about:              'About Us',
-    services:           'Services',
-    storiesDestination: 'Stories: Destination',
-    storiesThemed:      'Stories: Themed',
-    storiesTraditional: 'Stories: Traditional',
-    journals:           'Journal',
-    contact:            'Contact',
+    home: 'Main Homepage',
+    about: 'About Us Page',
+    services: 'Our Services',
+    storiesDestination: 'Destination Weddings',
+    storiesThemed: 'Themed Weddings',
+    storiesTraditional: 'Traditional Weddings',
+    journals: 'Journal / Blog',
+    contact: 'Contact Page',
+    header: 'Site Header & Nav',
+    footer: 'Site Footer',
+};
+
+const SIDEBAR_GROUPS = [
+    {
+        title: 'Site Settings',
+        tabs: ['header', 'footer']
+    },
+    {
+        title: 'Main Site Pages',
+        tabs: ['home', 'about', 'services', 'contact']
+    },
+    {
+        title: 'Wedding Stories',
+        tabs: ['storiesDestination', 'storiesThemed', 'storiesTraditional']
+    },
+    {
+        title: 'Editorial Content',
+        tabs: ['journals']
+    }
+];
+
+/* ── Field Grouping Map ────────────────────────── */
+// This allows us to inject headers between fields for complex pages like Home
+const FIELD_GROUPS = {
+    home: {
+        heroTagline: 'Hero Section',
+        introHeading: 'Introduction Text',
+        stat1Label: 'Statistics Counter',
+        servicesLabel: 'Services Preview',
+        destinationLabel: 'Destination Weddings Feature',
+        portfolioLabel: 'Portfolio Glimpse',
+        testimonialLabel: 'Client Testimonials',
+        transitionHeading: 'Call to Action Section',
+        youtubeLabel: 'YouTube / Video Section',
+        formLabel: 'Consultation Form Section',
+        journalNote: 'Journal Preview Section'
+    },
+    about: {
+        pageBannerTitle: 'Page Header',
+        differentiatorLabel: 'The Parinay Difference',
+        heroImage: 'Hero Section',
+        teamLabel: 'Team Section',
+        stat1Label: 'Statistics',
+        philosophyQuote: 'Core Philosophy',
+        ctaHeading: 'Ready to Start'
+    },
+    services: {
+        pageBannerTitle: 'Page Header',
+        service1Label: 'Service 1: Full Planning',
+        service2Label: 'Service 2: Partial Planning',
+        service3Label: 'Service 3: Coordination',
+        processLabel: 'Our Process Section',
+        ctaHeading: 'Call to Action'
+    },
+    contact: {
+        pageBannerTitle: 'Page Header',
+        heroImage: 'Contact Hero',
+        emailLabel: 'Inquiry Methods',
+        whatsappNumber: 'Social & Chat',
+        footerImage: 'Footer Visual'
+    },
+    storiesDestination: {
+        pageBannerTitle: 'Page Header',
+        storiesList: 'Wedding Stories List',
+        heroImage: 'Banner & Description',
+        testimonialQuote: 'Featured Testimonial'
+    },
+    storiesThemed: {
+        pageBannerTitle: 'Page Header',
+        storiesList: 'Wedding Stories List',
+        heroImage: 'Banner & Description',
+        testimonialQuote: 'Featured Testimonial'
+    },
+    storiesTraditional: {
+        pageBannerTitle: 'Page Header',
+        storiesList: 'Wedding Stories List',
+        heroImage: 'Banner & Description',
+        testimonialQuote: 'Featured Testimonial'
+    },
+    journals: {
+        pageBannerTitle: 'Page Header',
+        sectionLabel: 'Content Settings',
+        journalsList: 'Blog Posts List',
+        guideLabel: 'Downloadable Guide Section'
+    },
+    header: {
+        logoText: 'Logo & Branding',
+        nav1Label: 'Primary Navigation',
+        nav4Sub1Label: 'Wedding Stories Dropdown',
+        nav6Label: 'CTA / Contact Link'
+    },
+    footer: {
+        logoText: 'Footer Branding',
+        tagline: 'Tagline & Description',
+        instagramUrl: 'Social Media Links',
+        email: 'Contact Details',
+        ctaTagline: 'Footer CTA',
+        copyrightName: 'Copyright'
+    }
+};
+
+const GROUP_DESCRIPTIONS = {
+    'Hero Section': 'This is the very first part of your page that visitors see. It should be high-impact.',
+    'Introduction Text': 'Detailed text that introduces your brand and services.',
+    'Statistics Counter': 'Use these to showcase your experience and success in numbers.',
+    'Services Preview': 'A short glimpse of your core offerings displayed on the homepage.',
+    'Destination Weddings Feature': 'Showcase your expertise in destination wedding planning.',
+    'Portfolio Glimpse': 'Highlight specific weddings or projects to build trust.',
+    'Client Testimonials': 'Quotes from happy couples that add social proof.',
+    'Call to Action Section': 'The final push to get visitors to contact you or explore more.',
+    'YouTube / Video Section': 'Embed cinematic wedding films from your YouTube channel.',
+    'Consultation Form Section': 'Text around the consultation request form.',
+    'Journal Preview Section': 'This section is controlled by the Journal / Blog page.',
+    'The Parinay Difference': 'Explain why your approach is unique and special.',
+    'Team Section': 'Introduce the faces behind Parinay Weddings.',
+    'Service 1: Full Planning': 'Details for the comprehensive planning package.',
+    'Service 2: Partial Planning': 'Details for the collaborative planning package.',
+    'Service 3: Coordination': 'Details for the month-of coordination package.',
+    'Our Process Section': 'Explain the steps of working with you.',
+    'Social & Chat': 'WhatsApp and social media profile links.',
+    'Wedding Stories List': 'Manage the collection of stories displayed on the page.',
+    'Blog Posts List': 'The main list of journal entries/blog posts.',
+    'Downloadable Guide Section': 'A section to offer a free guide in exchange for contact info.',
+    'Logo & Branding': 'The logo text that appears in the top-left of the navigation bar.',
+    'Primary Navigation': 'The main navigation links shown on the left side of the header.',
+    'Dropdown Sub-links': 'The three category links shown inside the Wedding Stories dropdown.',
+    'CTA / Contact Link': 'The highlighted call-to-action link on the right side of the nav.',
+    'Footer Branding': 'Logo text and sub-label shown at the top of the footer.',
+    'Tagline & Description': 'The short description text shown below the footer logo.',
+    'Social Media Links': 'URLs for Instagram, Facebook, Pinterest, and YouTube icons.',
+    'Contact Details': 'Email, phone and address shown in the Connect With Us column.',
+    'Footer CTA': 'The italic tagline and button shown at the bottom of the footer.',
+    'Copyright': 'The copyright name shown in the footer bottom bar.',
+};
+
+const FIELD_HINTS = {
+    heroTagline: 'Use \n for line breaks in the text.',
+    heroVideo1: 'Upload a short, atmospheric video (MP4 format).',
+    heroImages: 'Upload high-resolution images for the background slideshow.',
+    stat1Label: 'Example: "8+ Years of \nExperience"',
+    youtubeEmbedUrl: 'Paste the YouTube "Embed" URL (e.g. https://www.youtube.com/embed/...)',
+    whatsappNumber: 'Must include country code without "+" (e.g. 919876543210)',
+    pageBannerTitle: 'The large heading at the top of the page.',
+    excerpt: 'A short one-sentence summary for the preview card.',
+    storiesList: 'Manage the collection of stories below.',
+    journalsList: 'Manage your blog posts here.',
+    journalNote: 'Note: The journal section on your homepage automatically pulls the latest 3 entries from the Journal / Blog section in the sidebar. To edit the journal titles or posts, please click on "Journal / Blog" under Editorial Content.',
 };
 
 /* ── Toast Component ───────────────────────────── */
@@ -72,11 +224,21 @@ const MediaPreview = ({ value, isVideo }) => {
 const AdminDashboard = () => {
     const { content, updateSection, isLoaded } = useContext(ContentContext);
 
-    const [activeTab, setActiveTab]     = useState('home');
-    const [formData, setFormData]       = useState(null);
+    const [activeTab, setActiveTab] = useState('header');
+    const [formData, setFormData] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [toast, setToast]             = useState(null);
-    const [isSaving, setIsSaving]       = useState(false);
+    const [toast, setToast] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
+    const [expandedSections, setExpandedSections] = useState({});
+    const [openMenuId, setOpenMenuId] = useState(null);
+
+    /* Toggle section expansion */
+    const toggleSection = (sectionId) => {
+        setExpandedSections(prev => ({
+            ...prev,
+            [sectionId]: !prev[sectionId]
+        }));
+    };
 
     /* Sync formData when tab changes or content loads */
     useEffect(() => {
@@ -167,12 +329,12 @@ const AdminDashboard = () => {
 
     const handleSave = async () => {
         setIsSaving(true);
-        const success = await updateSection(activeTab, formData);
+        const res = await updateSection(activeTab, formData);
         setIsSaving(false);
-        if (success) {
+        if (res.success) {
             showToast(`${SECTION_LABELS[activeTab]} updated successfully!`);
         } else {
-            showToast(`Error saving. Is MongoDB connected?`, 'error');
+            showToast(res.error || `Error saving. Is MongoDB connected?`, 'error');
         }
     };
 
@@ -180,13 +342,29 @@ const AdminDashboard = () => {
         setToast({ message, type });
     }, []);
 
-    /* ── Field Renderer ──────────────────────────── */
     const renderField = (key, value, onChange, onFileUpload) => {
         if (key === 'id') return null;
+
+        // Special case: just info, no input
+        if (key === 'journalNote') {
+            return (
+                <div className="admin-form-group" key={key}>
+                    <p className="admin-field-hint" style={{ fontSize: '0.9rem', color: 'var(--admin-text)' }}>
+                        <AlertCircle size={14} style={{ marginRight: '8px' }} />
+                        {FIELD_HINTS[key]}
+                    </p>
+                </div>
+            )
+        }
 
         const isMedia = key.toLowerCase().includes('image') || key.toLowerCase().includes('video');
         const isVideo = key.toLowerCase().includes('video');
         const isUrl = key.toLowerCase().includes('url');
+        const isInternalUrl = (key.toLowerCase().endsWith('btnurl') || key.toLowerCase() === 'herobtnurl' || key.toLowerCase().endsWith('viewallurl'))
+            && !key.toLowerCase().includes('youtube')
+            && !key.toLowerCase().includes('instagram')
+            && !key.toLowerCase().includes('facebook')
+            && !key.toLowerCase().includes('pinterest');
         const isLongText = typeof value === 'string' && value.length > 60
             && !value.startsWith('http')
             && !value.startsWith('/');
@@ -215,7 +393,7 @@ const AdminDashboard = () => {
                             style={{ marginTop: '6px' }}
                         />
                     </>
-                ) : isUrl ? (
+                ) : isInternalUrl ? (
                     <select
                         value={value || '/'}
                         onChange={(e) => onChange(e.target.value)}
@@ -243,6 +421,12 @@ const AdminDashboard = () => {
                         className="admin-input"
                     />
                 )}
+                {FIELD_HINTS[key] && (
+                    <p className="admin-field-hint">
+                        <AlertCircle size={10} style={{ marginRight: '4px' }} />
+                        {FIELD_HINTS[key]}
+                    </p>
+                )}
             </div>
         );
     };
@@ -251,66 +435,153 @@ const AdminDashboard = () => {
     const renderForm = () => {
         if (!formData) return null;
 
+        const groupHeaders = FIELD_GROUPS[activeTab] || {};
+        const sectionsData = [];
+        let currentGroup = null;
+
+        // Group fields based on FIELD_GROUPS mapping
+        Object.keys(formData).forEach((key) => {
+            const header = groupHeaders[key];
+            if (header) {
+                currentGroup = {
+                    id: `${activeTab}-${key}`,
+                    title: header,
+                    description: GROUP_DESCRIPTIONS[header],
+                    fields: []
+                };
+                sectionsData.push(currentGroup);
+            }
+            if (currentGroup) {
+                currentGroup.fields.push(key);
+            }
+        });
+
+        const filteredSections = sectionsData.filter(section => !(formData._deletedSections || []).includes(section.id));
+
         return (
-            <div className="admin-section">
-                {Object.keys(formData).map((key) => {
-                    if (Array.isArray(formData[key])) {
-                        const arrayName = key;
-                        return (
-                            <div key={arrayName} className="admin-array-section" style={{ marginTop: '2rem', marginBottom: '2rem', padding: '1.5rem', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #eaeaea' }}>
-                                <h3 style={{ marginBottom: '1rem', textTransform: 'capitalize', color: 'var(--primary-color)' }}>{arrayName.replace(/([A-Z])/g, ' $1').trim()}</h3>
+            <div className="admin-accordion" onClick={() => setOpenMenuId(null)}>
+                {filteredSections.map((section) => {
+                    const isExpanded = expandedSections[section.id];
 
-                                {formData[arrayName].length === 0 && (
-                                    <div className="admin-empty" style={{ margin: '1rem 0' }}>
-                                        <div className="admin-empty__icon"><LayoutGrid size={24} /></div>
-                                        <p>No items yet. Click "Add New" to get started.</p>
+                    return (
+                        <div key={section.id} className={`admin-accordion__item ${isExpanded ? 'is-expanded' : ''}`}>
+                            {/* Header row */}
+                            <header
+                                className="admin-accordion__header"
+                            >
+                                <div className="admin-acc-header-left">
+                                    <button
+                                        className={`admin-acc-edit-btn ${isExpanded ? 'is-active' : ''}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleSection(section.id);
+                                        }}
+                                        title={isExpanded ? 'Close section' : 'Edit section'}
+                                    >
+                                        {isExpanded ? 'Close' : 'Edit'}
+                                    </button>
+                                </div>
+
+                                {/* Section title */}
+                                <h2 className="admin-accordion__title">
+                                    {section.title}
+                                </h2>
+
+                                {/* Actions — right (visible on hover) */}
+                                <div className="admin-acc-actions-hover">
+                                    <button
+                                        className="admin-btn-icon-hover admin-btn-icon-hover--danger"
+                                        title="Delete Section"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (window.confirm(`Are you sure you want to permanently delete the "${section.title}" section? This cannot be undone.`)) {
+                                                handleChange('_deletedSections', [...(formData._deletedSections || []), section.id]);
+                                            }
+                                        }}
+                                    >
+                                        <Trash2 size={15} />
+                                    </button>
+                                </div>
+                            </header>
+
+                            {isExpanded && (
+                                <div className="admin-accordion__content">
+                                    {section.description && (
+                                        <p className="admin-section__desc" style={{ marginTop: '0', marginBottom: '1.5rem' }}>
+                                            {section.description}
+                                        </p>
+                                    )}
+                                    <div className="admin-fields-grid">
+                                        {section.fields.map((fieldKey) => {
+                                            const val = formData[fieldKey];
+                                            if (Array.isArray(val)) {
+                                                return (
+                                                    <div key={fieldKey} className="admin-array-section" style={{ marginTop: '1rem', marginBottom: '2rem' }}>
+                                                        <h3 style={{ marginBottom: '1.5rem', textTransform: 'capitalize', color: 'var(--admin-green)' }}>
+                                                            {fieldKey.replace(/([A-Z])/g, ' $1').trim()}
+                                                        </h3>
+
+                                                        {val.length === 0 && (
+                                                            <div className="admin-empty" style={{ margin: '1rem 0' }}>
+                                                                <div className="admin-empty__icon"><LayoutGrid size={24} /></div>
+                                                                <p>No items yet. Click "Add New" to get started.</p>
+                                                            </div>
+                                                        )}
+
+                                                        {val.map((item, index) => (
+                                                            <div key={item.id || index} className="admin-array-item">
+                                                                <span className="admin-array-item__index">#{index + 1}</span>
+                                                                <button
+                                                                    className="admin-array-item__remove"
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        removeArrayItem(index, fieldKey);
+                                                                    }}
+                                                                    title="Remove this item"
+                                                                >
+                                                                    <X size={16} />
+                                                                </button>
+
+                                                                <div style={{ marginTop: '1.5rem' }}>
+                                                                    {Object.keys(item).map((itemKey) =>
+                                                                        renderField(
+                                                                            itemKey,
+                                                                            item[itemKey],
+                                                                            (newVal) => handleArrayChange(index, fieldKey, itemKey, newVal),
+                                                                            (e) => handleArrayFileUpload(e, index, fieldKey, itemKey)
+                                                                        )
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+
+                                                        <button
+                                                            className="admin-btn admin-btn--outline"
+                                                            style={{ marginTop: '0.5rem' }}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                addArrayItem(fieldKey);
+                                                            }}
+                                                        >
+                                                            <Plus size={15} />
+                                                            Add New {fieldKey.replace(/s$/, '').replace(/List$/, '')}
+                                                        </button>
+                                                    </div>
+                                                );
+                                            } else {
+                                                return renderField(
+                                                    fieldKey,
+                                                    val,
+                                                    (newVal) => handleChange(fieldKey, newVal),
+                                                    (e) => handleFileUpload(e, fieldKey)
+                                                );
+                                            }
+                                        })}
                                     </div>
-                                )}
-
-                                {formData[arrayName].map((item, index) => (
-                                    <div key={item.id || index} className="admin-array-item" style={{ position: 'relative', background: 'white', padding: '1.5rem', border: '1px solid #ddd', borderRadius: '6px', marginBottom: '1rem' }}>
-                                        <span className="admin-array-item__index" style={{ position: 'absolute', top: '-10px', left: '15px', background: 'var(--accent-color)', color: 'white', padding: '2px 8px', borderRadius: '10px', fontSize: '0.8rem', fontWeight: 'bold' }}>#{index + 1}</span>
-                                        <button
-                                            className="admin-array-item__remove"
-                                            onClick={() => removeArrayItem(index, arrayName)}
-                                            title="Remove this item"
-                                            style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 'none', color: '#ff4d4f', cursor: 'pointer' }}
-                                        >
-                                            <X size={16} />
-                                        </button>
-
-                                        <div style={{ marginTop: '1rem' }}>
-                                            {Object.keys(item).map((itemKey) =>
-                                                renderField(
-                                                    itemKey,
-                                                    item[itemKey],
-                                                    (val) => handleArrayChange(index, arrayName, itemKey, val),
-                                                    (e)   => handleArrayFileUpload(e, index, arrayName, itemKey)
-                                                )
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
-
-                                <button
-                                    className="admin-btn admin-btn--outline"
-                                    style={{ marginTop: '0.5rem' }}
-                                    onClick={() => addArrayItem(arrayName)}
-                                >
-                                    <Plus size={15} />
-                                    Add New {arrayName.replace(/s$/, '')}
-                                </button>
-                            </div>
-                        );
-                    } else if (typeof formData[key] !== 'object' || formData[key] === null) {
-                        return renderField(
-                            key,
-                            formData[key],
-                            (val) => handleChange(key, val),
-                            (e)   => handleFileUpload(e, key)
-                        );
-                    }
-                    return null;
+                                </div>
+                            )}
+                        </div>
+                    );
                 })}
             </div>
         );
@@ -346,23 +617,32 @@ const AdminDashboard = () => {
                     <span className="admin-sidebar__brand-sub">Admin Console</span>
                 </div>
 
-                <p className="admin-sidebar__label">Content Sections</p>
-
-                <ul className="admin-sidebar__nav">
-                    {Object.keys(content || {}).map((tab) => (
-                        <li key={tab}>
-                            <button
-                                className={`admin-sidebar__nav-btn ${activeTab === tab ? 'is-active' : ''}`}
-                                onClick={() => handleTabSwitch(tab)}
-                            >
-                                <span className="admin-sidebar__nav-icon">
-                                    {SECTION_ICONS[tab] || <LayoutGrid size={17} />}
-                                </span>
-                                {SECTION_LABELS[tab] || tab}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                {SIDEBAR_GROUPS.map((group) => (
+                    <div key={group.title} className="admin-sidebar__group">
+                        <p className="admin-sidebar__label">
+                            {group.title === 'Main Site Pages' && <LayoutGrid size={11} style={{ marginRight: '8px', opacity: 0.6 }} />}
+                            {group.title === 'Wedding Stories' && <Image size={11} style={{ marginRight: '8px', opacity: 0.6 }} />}
+                            {group.title === 'Editorial Content' && <Newspaper size={11} style={{ marginRight: '8px', opacity: 0.6 }} />}
+                            {group.title === 'Site Settings' && <Layout size={11} style={{ marginRight: '8px', opacity: 0.6 }} />}
+                            {group.title}
+                        </p>
+                        <ul className="admin-sidebar__nav">
+                            {group.tabs.map((tab) => (
+                                <li key={tab}>
+                                    <button
+                                        className={`admin-sidebar__nav-btn ${activeTab === tab ? 'is-active' : ''}`}
+                                        onClick={() => handleTabSwitch(tab)}
+                                    >
+                                        <span className="admin-sidebar__nav-icon">
+                                            {SECTION_ICONS[tab] || <LayoutGrid size={17} />}
+                                        </span>
+                                        {SECTION_LABELS[tab] || tab}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
 
                 <div className="admin-sidebar__footer">
                     <button
@@ -422,7 +702,7 @@ const AdminDashboard = () => {
                         </div>
                         <div className="admin-stat-card">
                             <BookOpen size={28} className="admin-stat-card__icon" />
-                            <div className="admin-stat-card__label">Journal Posts</div>
+                            <div className="admin-stat-card__label">Journal Entries</div>
                             <div className="admin-stat-card__value">
                                 {content?.journals?.journalsList?.length ?? 0}
                             </div>
@@ -432,8 +712,8 @@ const AdminDashboard = () => {
                             <div className="admin-stat-card__label">Wedding Stories</div>
                             <div className="admin-stat-card__value">
                                 {(content?.storiesDestination?.storiesList?.length ?? 0) +
-                                 (content?.storiesThemed?.storiesList?.length ?? 0) +
-                                 (content?.storiesTraditional?.storiesList?.length ?? 0)}
+                                    (content?.storiesThemed?.storiesList?.length ?? 0) +
+                                    (content?.storiesTraditional?.storiesList?.length ?? 0)}
                             </div>
                         </div>
                     </div>

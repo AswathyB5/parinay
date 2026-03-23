@@ -1,10 +1,22 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext } from '../context/ContentContext';
 
 const Services = () => {
     const { content } = useContext(ContentContext);
-    const services = content.services;
+    const home = content.home;
+    const testimonials = home.testimonials || [];
+
+    // --- Testimonial Carousel Logic ---
+    const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+    useEffect(() => {
+        if (testimonials.length === 0) return;
+        const interval = setInterval(() => {
+            setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [testimonials.length]);
 
     // --- Scroll Reveal Logic ---
     useEffect(() => {
@@ -29,114 +41,143 @@ const Services = () => {
         };
     }, [content]);
 
-    // Helper to parse newline-delimited list strings
-    const parseList = (str) => (str || '').split('\n').filter(Boolean);
-
     return (
-        <div className="pw-page">
-            {/* PAGE BANNER */}
-            <section className="pw-page-banner">
-                <div className="pw-container">
-                    <h1 className="pw-page-banner__title">{services.pageBannerTitle}</h1>
+        <div className="services-page-new">
+            {/* HERO SECTION */}
+            <section className="services-hero">
+                <div className="container reveal">
+                    <h1>SERVICES</h1>
                 </div>
             </section>
 
-            {/* SERVICES IN DETAIL */}
-            <section className="pw-service-detail reveal">
-                <div className="pw-container">
-                    {/* Full Planning */}
-                    <div className="pw-service-detail__row reveal">
-                        <div className="pw-service-detail__img-wrap">
-                            <img src={services.service1Image} alt={services.service1Heading} className="pw-service-detail__img" />
-                        </div>
-                        <div className="pw-service-detail__content">
-                            <span className="pw-label">{services.service1Label}</span>
-                            <h2>{services.service1Heading.split(' ').slice(0, -1).join(' ')} <em>{services.service1Heading.split(' ').slice(-1)}</em></h2>
-                            <p>{services.service1Desc}</p>
-                            <ul className="pw-service-detail__list">
-                                {parseList(services.service1List).map((item, i) => (
-                                    <li key={i}><i className="fas fa-check"></i> <span>{item}</span></li>
-                                ))}
-                            </ul>
-                            <Link to={services.inquireBtnUrl || '/contact'} className="pw-btn pw-btn--outline" style={{ marginTop: '30px' }}>{services.inquireBtnText}</Link>
-                        </div>
-                    </div>
-
-                    {/* Partial Planning */}
-                    <div className="pw-service-detail__row reveal">
-                        <div className="pw-service-detail__img-wrap">
-                            <img src={services.service2Image} alt={services.service2Heading} className="pw-service-detail__img" />
-                        </div>
-                        <div className="pw-service-detail__content">
-                            <span className="pw-label">{services.service2Label}</span>
-                            <h2>{services.service2Heading.split(' ').slice(0, -1).join(' ')} <em>{services.service2Heading.split(' ').slice(-1)}</em></h2>
-                            <p>{services.service2Desc}</p>
-                            <ul className="pw-service-detail__list">
-                                {parseList(services.service2List).map((item, i) => (
-                                    <li key={i}><i className="fas fa-check"></i> <span>{item}</span></li>
-                                ))}
-                            </ul>
-                            <Link to={services.inquireBtnUrl || '/contact'} className="pw-btn pw-btn--outline" style={{ marginTop: '30px' }}>{services.inquireBtnText}</Link>
-                        </div>
-                    </div>
-
-                    {/* Month-Of Coordination */}
-                    <div className="pw-service-detail__row reveal" style={{ marginBottom: 0 }}>
-                        <div className="pw-service-detail__img-wrap">
-                            <img src={services.service3Image} alt={services.service3Heading} className="pw-service-detail__img" />
-                        </div>
-                        <div className="pw-service-detail__content">
-                            <span className="pw-label">{services.service3Label}</span>
-                            <h2>{services.service3Heading.split(' ').slice(0, -1).join(' ')} <em>{services.service3Heading.split(' ').slice(-1)}</em></h2>
-                            <p>{services.service3Desc}</p>
-                            <ul className="pw-service-detail__list">
-                                {parseList(services.service3List).map((item, i) => (
-                                    <li key={i}><i className="fas fa-check"></i> <span>{item}</span></li>
-                                ))}
-                            </ul>
-                            <Link to={services.inquireBtnUrl || '/contact'} className="pw-btn pw-btn--outline" style={{ marginTop: '30px' }}>{services.inquireBtnText}</Link>
-                        </div>
-                    </div>
+            {/* INTRO TEXT */}
+            <section className="intro-section reveal">
+                <div className="container">
+                    <span className="intro-subheading">How We Work</span>
+                    <h2 className="intro-heading">A Structured, Calm Planning Process</h2>
                 </div>
             </section>
 
-            {/* PROCESS/METHOD */}
-            <section className="pw-services reveal" style={{ padding: '120px 0', background: 'var(--primary-color)' }}>
-                <div className="pw-container pw-container--wide">
-                    <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                        <span className="pw-label pw-label--light">{services.processLabel}</span>
-                        <h2 className="pw-section-header__title" style={{ color: 'var(--secondary-color)', fontSize: '3rem' }}>
-                            {services.processHeading.split(', ')[0]}, <em>{services.processHeading.split(', ')[1]}</em>
-                        </h2>
-                    </div>
+            {/* PROCESS GRID SECTION */}
+            <section className="process-section reveal">
+                <div className="container">
+                    <div className="process-grid">
+                        {/* Process 1 */}
+                        <div className="process-card reveal">
+                            <span className="process-number">01</span>
+                            <h3 className="process-title">Understanding Your Vision</h3>
+                            <p className="process-desc">We begin by listening - understanding your priorities, preferences and expectations</p>
+                        </div>
 
-                    <div className="pw-services__grid" style={{ height: 'auto', gap: '2px', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-                        {[
-                            { num: '01', title: services.process1Title, desc: services.process1Desc },
-                            { num: '02', title: services.process2Title, desc: services.process2Desc },
-                            { num: '03', title: services.process3Title, desc: services.process3Desc },
-                            { num: '04', title: services.process4Title, desc: services.process4Desc },
-                        ].map((step) => (
-                            <div key={step.num} className="pw-stats__item" style={{ background: 'var(--secondary-color)', padding: '50px 30px', textAlign: 'left', borderRight: 'none' }}>
-                                <span className="pw-stats__val" style={{ fontSize: '2rem', display: 'block', marginBottom: '20px' }}>{step.num}</span>
-                                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.6rem', color: 'var(--primary-color)', marginBottom: '15px' }}>{step.title}</h3>
-                                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: '1.6' }}>{step.desc}</p>
-                            </div>
-                        ))}
+                        {/* Process 2 */}
+                        <div className="process-card reveal">
+                            <span className="process-number">02</span>
+                            <h3 className="process-title">Planning & Designing</h3>
+                            <p className="process-desc">We create timelines and custom designs aligned with your vision</p>
+                        </div>
+
+                        {/* Process 3 */}
+                        <div className="process-card reveal">
+                            <span className="process-number">03</span>
+                            <h3 className="process-title">Coordination & Execution</h3>
+                            <p className="process-desc">Our team manages every detail on ground, ensuring the celebration flows smoothly</p>
+                        </div>
+
+                        {/* Process 4 */}
+                        <div className="process-card reveal">
+                            <span className="process-number">04</span>
+                            <h3 className="process-title">You Celebrate, We Manage</h3>
+                            <p className="process-desc">You stay present with your loved ones while we handle everything behind the scenes.</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* CTA SECTION */}
-            <section className="pw-cta reveal" style={{ padding: '120px 0', textAlign: 'center', background: 'var(--secondary-color)' }}>
-                <div className="pw-container">
-                    <h2 className="pw-section-header__title" style={{ fontSize: '3rem', marginBottom: '30px' }}>
-                        {services.ctaHeading.split(' ').slice(0, -1).join(' ')} <em>{services.ctaHeading.split(' ').slice(-1)}</em>
+            <section className="about-cta-section services-cta" style={{
+                position: 'relative',
+                overflow: 'hidden',
+                zIndex: 1
+            }}>
+                {/* Fixed Background Context via Clip-Path */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    clipPath: 'inset(0)',
+                    zIndex: -1,
+                    pointerEvents: 'none'
+                }}>
+                    <div style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundImage: "linear-gradient(rgba(18, 53, 36, 0.6), rgba(18, 53, 36, 0.6)), url('https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg')",
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        pointerEvents: 'none'
+                    }}></div>
+                </div>
+
+                <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+                    <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
+                        Let’s Begin Planning Your Wedding
                     </h2>
-                    <p className="pw-intro__text" style={{ maxWidth: '800px', margin: '0 auto 40px' }}>
-                        {services.ctaDesc}
+                    <p style={{ maxWidth: '700px', margin: '0 auto 40px', fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.9)' }}>
+                        If you’re looking for a wedding planning partner who combines experience, creativity and reliability, we’d love to connect.
                     </p>
-                    <Link to={services.ctaBtnUrl || '/contact'} className="pw-btn pw-btn--dark">{services.ctaBtnText}</Link>
+                    <Link to="/contact" className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '15px 40px' }}>
+                        Book a Wedding Consultation
+                    </Link>
+                </div>
+            </section>
+
+
+            {/* ═══ SECTION 7: TESTIMONIALS ═══ */}
+            <section className="pw-testimonials">
+                <div className="pw-container">
+                    <div className="pw-testimonials__inner">
+                        <span className="pw-label pw-label--gold">{home.testimonialLabel || 'Testimonials'}</span>
+
+
+                        <div className="pw-testimonials__quote-wrap">
+                            <div className="pw-testimonials__quote-mark">"</div>
+                            <p className="pw-testimonials__quote" key={currentTestimonial}>
+                                {testimonials[currentTestimonial]?.text}
+                            </p>
+                        </div>
+
+                        <div className="pw-testimonials__author">
+                            <div className="pw-testimonials__author-line"></div>
+                            <div className="pw-testimonials__author-flex">
+                                <div className="pw-testimonials__author-img">
+                                    <img
+                                        src={testimonials[currentTestimonial]?.image}
+                                        alt={testimonials[currentTestimonial]?.author}
+                                    />
+                                </div>
+                                <div className="pw-testimonials__author-info">
+                                    <strong>{testimonials[currentTestimonial]?.author}</strong>
+                                    <span>{testimonials[currentTestimonial]?.location}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="pw-testimonials__dots">
+                            {testimonials.map((_, i) => (
+                                <button
+                                    key={i}
+                                    className={`pw-testimonials__dot ${currentTestimonial === i ? 'is-active' : ''}`}
+                                    onClick={() => setCurrentTestimonial(i)}
+                                    aria-label={`Testimonial ${i + 1}`}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

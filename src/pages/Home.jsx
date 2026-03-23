@@ -8,8 +8,8 @@ const Home = () => {
     // --- Hero Video Crossfade Logic ---
     const [currentVid, setCurrentVid] = useState(0);
     const heroVideos = [
-        '/Untitled design.mp4',
-        '/12874721_1920_1080_30fps.mp4',
+        home.heroVideo1 || '/Untitled design.mp4',
+        home.heroVideo2 || '/12874721_1920_1080_30fps.mp4',
     ];
 
     // --- Hero Floating Image Slideshow Logic ---
@@ -299,17 +299,21 @@ const Home = () => {
                     <div className="youtube-split-layout">
                         {/* Left: Editorial Text Content */}
                         <div className="youtube-text-content">
-                            <span className="editorial-label">CINEMATIC STORYTELLING</span>
-                            <h2>Every Love Story <br />Deserves a <em>Film</em></h2>
-                            <p>Your wedding isn't just an event; it's a collection of fleeting, beautiful moments. Our films
-                                capture
-                                the laughter, the tears, and the quiet glances that make your day unique.</p>
-                            <p>We don't just document; we craft a narrative that feels like a movie starring you. From the grand
-                                entry to the intimate rituals, we preserve the emotion of your celebration forever.</p>
+                            <span className="editorial-label">{home.youtubeLabel}</span>
+                            <h2>
+                                {home.youtubeHeading.split('\n').map((line, i) => (
+                                    <React.Fragment key={i}>
+                                        {i === home.youtubeHeading.split('\n').length - 1 ? <em>{line}</em> : line}
+                                        {i < home.youtubeHeading.split('\n').length - 1 && <br />}
+                                    </React.Fragment>
+                                ))}
+                            </h2>
+                            <p>{home.youtubeText1}</p>
+                            <p>{home.youtubeText2}</p>
 
-                            <a href="https://www.youtube.com/@parinayweddings" target="_blank" rel="noopener noreferrer"
+                            <a href={home.youtubeBtnUrl} target="_blank" rel="noopener noreferrer"
                                 className="btn btn-outline youtube-cta-btn">
-                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> WATCH MORE FILMS
+                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> {home.youtubeBtnText}
                             </a>
                         </div>
 
@@ -319,7 +323,7 @@ const Home = () => {
                                 <div className="video-thumbnail-wrapper">
                                     <div className="video-frame">
                                         <iframe width="560" height="315"
-                                            src="https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+                                            src={home.youtubeEmbedUrl}
                                             title="YouTube video player"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                             referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
@@ -420,7 +424,7 @@ const Home = () => {
                         className="pw-transition__video"
                         preload="auto"
                     >
-                        <source src="/1330-147084829_medium.mp4" type="video/mp4" />
+                        <source src={home.transitionVideoUrl} type="video/mp4" />
                     </video>
                     <div className="pw-transition__overlay"></div>
                 </div>
@@ -431,8 +435,8 @@ const Home = () => {
                         <em>{home.transitionHeading.split(' ').slice(-2).join(' ')}</em>
                     </h2>
                     <div className="pw-transition__cta" style={{ marginTop: '40px' }}>
-                        <Link to="/contact" className="pw-btn pw-btn--gold">
-                            Work With Us
+                        <Link to={home.transitionBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
+                            {home.transitionBtnText || "Work With Us"}
                         </Link>
                     </div>
                 </div>

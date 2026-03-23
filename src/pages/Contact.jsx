@@ -46,10 +46,10 @@ const Contact = () => {
 
     return (
         <div className="pw-page">
-            {/* PAGE BANNER */}
-            <section className="pw-page-banner">
-                <div className="pw-container">
-                    <h1 className="pw-page-banner__title">{contact.pageBannerTitle}</h1>
+            {/* HERO SECTION */}
+            <section className="about-hero-new">
+                <div className="container reveal">
+                    <h1>{contact.pageBannerTitle || "Get in Touch"}</h1>
                 </div>
             </section>
 
@@ -82,9 +82,9 @@ const Contact = () => {
                                 <span className="pw-label">Stay Connected</span>
                                 <h3>Follow Us</h3>
                                 <div style={{ display: 'flex', gap: '20px', marginTop: '15px' }}>
-                                    <Link to="#" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-instagram"></i></Link>
-                                    <Link to="#" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-facebook-f"></i></Link>
-                                    <Link to="#" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-pinterest-p"></i></Link>
+                                    <a href={contact.instagramUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-instagram"></i></a>
+                                    <a href={contact.facebookUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-facebook-f"></i></a>
+                                    <a href={contact.pinterestUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-pinterest-p"></i></a>
                                 </div>
                             </div>
 

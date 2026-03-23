@@ -31,10 +31,10 @@ const Journals = () => {
 
     return (
         <div className="pw-page">
-            {/* PAGE BANNER */}
-            <section className="pw-page-banner">
-                <div className="pw-container">
-                    <h1 className="pw-page-banner__title">{journals.pageBannerTitle}</h1>
+            {/* HERO SECTION */}
+            <section className="about-hero-new">
+                <div className="container reveal">
+                    <h1>{journals.pageBannerTitle || "Our Journal"}</h1>
                 </div>
             </section>
 

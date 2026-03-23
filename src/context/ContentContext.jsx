@@ -4,11 +4,11 @@ export const ContentContext = createContext();
 
 const initialContent = {
     home: {
-        heroTitle: "Parinay",
-        heroTitleSub: "Weddings",
         heroTagline: "Thoughtfully Planned.\nBeautifully Executed.",
         heroBtnText: "Get Started",
         heroBtnUrl: "/contact",
+        heroVideo1: "/Untitled design.mp4",
+        heroVideo2: "/12874721_1920_1080_30fps.mp4",
         heroImages: [
             { id: 1, image: "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg", alt: "Wedding Celebration 1" },
             { id: 2, image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", alt: "Wedding Celebration 2" },
@@ -67,17 +67,28 @@ const initialContent = {
             { id: 5, text: "Professional, creative, and extremely reliable. Parinay Weddings exceeded all our expectations and made our destination wedding a truly unforgettable experience.", author: "Vikram & Ishani", location: "Jaipur", image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=400&q=80" }
         ],
         transitionHeading: "We manage complexity so your celebration feels effortless",
+        transitionVideoUrl: "/1330-147084829_medium.mp4",
+        transitionBtnText: "Work With Us",
+        transitionBtnUrl: "/contact",
+        youtubeLabel: "CINEMATIC STORYTELLING",
+        youtubeHeading: "Every Love Story \nDeserves a Film",
+        youtubeText1: "Your wedding isn't just an event; it's a collection of fleeting, beautiful moments. Our films capture the laughter, the tears, and the quiet glances that make your day unique.",
+        youtubeText2: "We don't just document; we craft a narrative that feels like a movie starring you. From the grand entry to the intimate rituals, we preserve the emotion of your celebration forever.",
+        youtubeBtnText: "WATCH MORE FILMS",
+        youtubeBtnUrl: "https://www.youtube.com/@parinayweddings",
+        youtubeEmbedUrl: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS",
         formLabel: "Get In Touch",
         formHeading: "Schedule a Personalised Consultation",
         formSubtext: "Fill in your details below and our team will get in touch to schedule a personalised consultation within 24 hours.",
         formBtnText: "Request Consultation",
-        ctaBtnUrl: "/contact"
+        ctaBtnUrl: "/contact",
+        journalNote: ""
     },
     about: {
-        pageBannerTitle: "About Us",
-        differentiatorLabel: "WHY PARINAY?",
+        pageBannerTitle: "ABOUT US",
+        differentiatorLabel: "ABOUT US",
         differentiatorHeading: "The Parinay Difference",
-        differentiatorText: "At Parinay Weddings, we believe a wedding is more than an event - It is a deeply personal celebration of family, culture, and connection. For over 8 years. we have been planning and executing weddings across South India and beyond, working closely with couples and families to create celebrations that are meaningful with clarity and care.\nOur approach is rooted in understanding - your vision, your priorities, your expectations - and translating them into a seamless wedding experience that feels authentic and beautifully organised.",
+        differentiatorText: "At Parinay Weddings, we believe a wedding is more than an event - It is a deeply personal celebration of family, culture, and connection.\n\nFor over 8 years. we have been planning and executing weddings across South India and beyond, working closely with couples and families to create celebrations that are meaningful with clarity and care.\n\nEvery couple has a story\nEvery wedding deserves its own identity.\n\nOur approach is rooted in understanding - your vision, your priorities, your expectations - and translating them into a seamless wedding experience that feels authentic and beautifully organised.",
         differentiatorImage: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
         heroImage: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1920&q=80",
         heroQuote: "Every couple has a story. Every wedding deserves its own identity.",
@@ -153,6 +164,9 @@ const initialContent = {
         whatsappNumber: "919876543210",
         whatsappText: "Chat with us",
         whatsappReply: "Typically replies within 1 hour",
+        instagramUrl: "https://instagram.com/parinayweddings",
+        facebookUrl: "https://facebook.com/parinayweddings",
+        pinterestUrl: "https://pinterest.com/parinayweddings",
         formBtnText: "Send Inquiry",
         footerImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1600&q=80"
     },
@@ -216,6 +230,44 @@ const initialContent = {
         guidePlannerLabel: "Planner",
         guideFreeText: "Free Download",
         guideRequestBtnText: "Request Copy"
+    },
+    header: {
+        logoText: "PARINAY",
+        nav1Label: "Home",
+        nav1Url: "/",
+        nav2Label: "About",
+        nav2Url: "/about",
+        nav3Label: "Services",
+        nav3Url: "/services",
+        nav4Label: "Wedding Stories",
+        nav4Url: "/stories",
+        nav4Sub1Label: "Destination Weddings",
+        nav4Sub1Url: "/destination-weddings",
+        nav4Sub2Label: "Themed Weddings",
+        nav4Sub2Url: "/themed-weddings",
+        nav4Sub3Label: "Traditional Weddings",
+        nav4Sub3Url: "/traditional-weddings",
+        nav5Label: "Journals",
+        nav5Url: "/journals",
+        nav6Label: "Contact",
+        nav6Url: "/contact"
+    },
+    footer: {
+        logoText: "PARINAY",
+        logoSub: "WEDDINGS",
+        tagline: "Bespoke destination wedding planners based in Kerala, India. Planning meaningful celebrations for over 8 years.",
+        instagramUrl: "https://instagram.com/parinayweddings",
+        facebookUrl: "https://facebook.com/parinayweddings",
+        pinterestUrl: "https://pinterest.com/parinayweddings",
+        youtubeUrl: "https://youtube.com/@parinayweddings",
+        email: "hello@parinayweddings.com",
+        phone: "+91 98765 43210",
+        address: "Cochin, Kerala, India",
+        whatsappNumber: "919876543210",
+        ctaTagline: "Let's Start Your Journey",
+        ctaBtnText: "Book a Consultation",
+        ctaBtnUrl: "/contact",
+        copyrightName: "Parinay Weddings"
     }
 };
 
@@ -226,7 +278,10 @@ const loadFromDB = async () => {
         const res = await fetch(`${API}/api/content`);
         if (res.ok) return await res.json();
         return null;
-    } catch { return null; }
+    } catch (err) {
+        console.error('[loadFromDB] Connection failed:', err);
+        return null;
+    }
 };
 
 const saveToDB = async (data) => {
@@ -239,9 +294,12 @@ const saveToDB = async (data) => {
         if (res.ok) {
             const result = await res.json();
             if (result.success && result.data) return result.data;
+        } else {
+            const errorData = await res.json().catch(() => ({}));
+            console.error('[saveToDB] Server responded with error:', res.status, errorData);
         }
     } catch (err) {
-        console.error('Save DB Error:', err);
+        console.error('[saveToDB] Connection failed:', err);
     }
     return null;
 };
@@ -269,15 +327,31 @@ export const ContentProvider = ({ children }) => {
     const updateSection = async (section, newData) => {
         const updated = { ...content, [section]: { ...content[section], ...newData } };
         setContent(updated);
+
         if (isLoaded) {
-            const fromBackend = await saveToDB(updated);
-            if (fromBackend) {
-                setContent(fromBackend);
-                return true;
+            try {
+                const res = await fetch(`${API}/api/content`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updated),
+                });
+
+                if (res.ok) {
+                    const result = await res.json();
+                    if (result.success && result.data) {
+                        setContent(result.data);
+                        return { success: true };
+                    }
+                } else {
+                    const errRes = await res.json().catch(() => ({}));
+                    return { success: false, error: errRes.error || `Server error: ${res.status}` };
+                }
+            } catch (err) {
+                console.error('[updateSection] Connection failed:', err);
+                return { success: false, error: 'Could not connect to the backend server. Is it running?' };
             }
-            return false;
         }
-        return true;
+        return { success: true };
     };
 
     return (
