@@ -693,7 +693,7 @@ header.main-header .mobile-menu-btn span {
 /* Services Page Specific Styles */
 .services-hero {
     background-color: var(--primary-color);
-    padding: 140px 0 100px;
+    padding: 80px 0 60px;
     display: flex;
     align-items: center;
     justify-content: center;
