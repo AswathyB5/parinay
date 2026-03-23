@@ -50,6 +50,136 @@ const Services = () => {
                 </div>
             </section>
 
+            {/* NEW PREMIUM SERVICES LISTING (Matching Home Transition Style) */}
+            <section className="services-listing-premium" style={{ backgroundColor: '#FDFBF7', padding: '160px 0', overflow: 'hidden' }}>
+                <div className="container">
+                    <div style={{ textAlign: 'center', marginBottom: '120px' }}>
+                        <span className="section-label" style={{ letterSpacing: '0.3em' }}>OUR SPECIALIZATIONS</span>
+                        <h2 className="intro-heading" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', marginTop: '20px' }}>The Art of Celebration</h2>
+                    </div>
+
+                    {[
+                        {
+                            number: '01',
+                            title: 'Full Planning',
+                            subtitle: 'FLAWLESS EXECUTION',
+                            desc: 'From initial concept to your final dance, we manage every single detail of your celebration, leaving you free to enjoy the journey of becoming one.',
+                            image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80'
+                        },
+                        {
+                            number: '02',
+                            title: 'Design & Styling',
+                            subtitle: 'VISUAL STORYTELLING',
+                            desc: 'We create a cohesive visual narrative for your wedding, including custom mood boards, floral direction, ambient lighting, and bespoke decor elements.',
+                            image: 'https://static.showit.co/800/YNqzxslHRcyKhjuN9mJPfg/119763/elegant-tablescape-portugal-destination-wedding.jpg'
+                        },
+                        {
+                            number: '03',
+                            title: 'Destination',
+                            subtitle: 'SCOUTING & LOGISTICS',
+                            desc: 'We help you find the perfect backdrop for your love story, from hidden coastal gems to world-renowned luxury manor houses and estates.',
+                            image: 'https://assets.zeezest.com/blogs/PROD_goa%20wedding%20venues_1698773064171.jpg'
+                        },
+                        {
+                            number: '04',
+                            title: 'Hospitality',
+                            subtitle: 'GUEST EXPERIENCE',
+                            desc: 'Comprehensive management of your loved ones travel, accommodation, and curated welcome experiences, ensuring they feel as valued as you do.',
+                            image: 'https://images.squarespace-cdn.com/content/v1/65f07a6bb920a639725145b7/1727446736382-BZ6LLFXT3559SS2G8NFR/7D6C6468.jpg'
+                        }
+                    ].map((s, idx) => (
+                        <div key={idx} className="reveal" style={{
+                            display: 'flex',
+                            flexDirection: idx % 2 === 0 ? 'row' : 'row-reverse',
+                            alignItems: 'center',
+                            gap: '100px',
+                            marginBottom: '180px',
+                            position: 'relative'
+                        }}>
+                            {/* IMAGE CONTAINER with Floating Effect */}
+                            <div style={{ flex: '1.2', position: 'relative' }}>
+                                <div style={{
+                                    width: '100%',
+                                    height: '600px',
+                                    overflow: 'hidden',
+                                    position: 'relative'
+                                }}>
+                                    <img
+                                        src={s.image}
+                                        alt={s.title}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                        }}
+                                    />
+                                </div>
+                                {/* Floating Accent Square */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '40px',
+                                    left: idx % 2 === 0 ? '-40px' : '40px',
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'var(--primary-color)',
+                                    border: '6px solid var(--accent-color)',
+                                    zIndex: -1
+                                }}></div>
+                            </div>
+
+                            {/* TEXT CONTAINER with Overlap Potential */}
+                            <div style={{
+                                flex: '1',
+                                textAlign: 'left',
+                                paddingLeft: idx % 2 === 0 ? '0' : '40px',
+                                paddingRight: idx % 2 === 0 ? '40px' : '0'
+                            }}>
+                                <span style={{
+                                    fontSize: '0.8rem',
+                                    color: 'var(--accent-color)',
+                                    letterSpacing: '0.3em',
+                                    fontWeight: '700',
+                                    display: 'block',
+                                    marginBottom: '20px'
+                                }}>{s.subtitle}</span>
+
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
+                                    <span style={{
+                                        fontFamily: 'Playfair Display, serif',
+                                        fontSize: '4rem',
+                                        color: 'var(--primary-color)',
+                                        opacity: '0.1',
+                                        lineHeight: '1'
+                                    }}>{s.number}</span>
+                                    <h3 style={{
+                                        fontSize: '3.5rem',
+                                        margin: '0 0 30px',
+                                        color: 'var(--primary-color)',
+                                        fontFamily: 'Playfair Display, serif',
+                                        lineHeight: '1'
+                                    }}>{s.title}</h3>
+                                </div>
+
+                                <p style={{
+                                    fontSize: '1.2rem',
+                                    lineHeight: '2',
+                                    color: '#555',
+                                    maxWidth: '500px',
+                                    fontWeight: '300'
+                                }}>{s.desc}</p>
+
+                                <div style={{
+                                    width: '60px',
+                                    height: '2px',
+                                    backgroundColor: 'var(--accent-color)',
+                                    marginTop: '40px'
+                                }}></div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
             {/* INTRO TEXT */}
             <section className="intro-section reveal">
                 <div className="container">
@@ -92,6 +222,7 @@ const Services = () => {
                     </div>
                 </div>
             </section>
+
 
             {/* CTA SECTION */}
             <section className="about-cta-section services-cta" style={{

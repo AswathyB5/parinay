@@ -164,10 +164,44 @@ const About = () => {
             </section>
 
             {/* CTA SECTION */}
-            <section className="about-cta-section">
-                <div className="container">
-                    <h2>{about.ctaHeading || "Ready to start your journey?"}</h2>
-                    <Link to={about.ctaBtnUrl || "/contact"} className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)' }}>
+            <section className="about-cta-section" style={{ background: 'none', padding: '160px 0' }}>
+                <div className="cta-video-bg-wrapper" style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 0,
+                    overflow: 'hidden'
+                }}>
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover'
+                        }}
+                    >
+                        <source src="/src/assets/about-video.mp4" type="video/mp4" />
+                    </video>
+                    <div className="cta-video-overlay" style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        background: 'linear-gradient(rgba(29, 53, 40, 0.4), rgba(29, 53, 40, 0.6))'
+                    }}></div>
+                </div>
+
+                <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+                    <h2 style={{ color: '#fff', fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '40px' }}>
+                        {about.ctaHeading || "Ready to start your journey?"}
+                    </h2>
+                    <Link to={about.ctaBtnUrl || "/contact"} className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '20px 45px' }}>
                         {about.ctaBtnText || "Get In Touch"}
                     </Link>
                 </div>
