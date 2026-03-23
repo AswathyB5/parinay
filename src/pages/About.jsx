@@ -185,7 +185,7 @@ const About = () => {
                             objectFit: 'cover'
                         }}
                     >
-                        <source src="/src/assets/about-video.mp4" type="video/mp4" />
+                        <source src="/about-video.mp4" type="video/mp4" />
                     </video>
                     <div className="cta-video-overlay" style={{
                         position: 'absolute',
