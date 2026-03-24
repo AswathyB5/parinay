@@ -79,7 +79,7 @@ const Contact = () => {
                                     <a href={contact.instagramUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-instagram"></i></a>
                                     <a href={contact.facebookUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-facebook-f"></i></a>
                                     <a href={contact.pinterestUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-pinterest-p"></i></a>
-                                    <a href="https://youtube.com/@parinayweddings" target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-youtube"></i></a>
+                                    <a href={contact.youtubeUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-youtube"></i></a>
                                 </div>
                             </div>
 

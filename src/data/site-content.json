@@ -278,7 +278,26 @@
     "instagramUrl": "https://instagram.com/parinayweddings",
     "facebookUrl": "https://facebook.com/parinayweddings",
     "pinterestUrl": "https://pinterest.com/parinayweddings",
+    "youtubeUrl": "https://youtube.com/@parinayweddings",
     "formBtnText": "Send Inquiry",
+    "faqsList": [
+      {
+        "question": "How far in advance should we reach out to Parinay Weddings?",
+        "answer": "To ensure we can provide the dedicated attention each of our weddings deserves, we recommend reaching out 10-12 months before your desired date — especially for destination weddings during the peak Kerala season (November-February)."
+      },
+      {
+        "question": "Do you manage all vendor communications and contracts?",
+        "answer": "Yes. From scouting the perfect venue to negotiating contracts with floral designers and entertainment, we handle the entire vendor lifecycle. You are kept informed and make the final decisions, but we manage the overhead."
+      },
+      {
+        "question": "Do you plan weddings outside of Kerala?",
+        "answer": "While Kerala is our primary specialty, we have extensive experience planning weddings across India (Goa, Udaipur, Jaipur) and international destination celebrations. Our planning methodology is designed to travel."
+      },
+      {
+        "question": "What is the typical investment for a Parinay wedding?",
+        "answer": "Because every wedding we design is bespoke, there is no one-size-fits-all cost. During our initial consultation, we'll discuss your vision and guest count to help define a realistic budget for a high-end, luxury experience."
+      }
+    ],
     "footerImage": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1600&q=80"
   },
   "storiesDestination": {
