@@ -49,6 +49,20 @@ const Services = () => {
             revealElements.forEach(el => observer.unobserve(el));
         };
     }, [content]);
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = 'Sending...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+            alert('Thank you for your inquiry. Our team will get back to you shortly.');
+            e.target.reset();
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+        }, 1500);
+    };
 
     return (
         <div className="services-page-new">
@@ -281,6 +295,58 @@ const Services = () => {
                                 />
                             ))}
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ═══ SECTION 8: LEAD FORM ═══ */}
+            <section className="pw-form-section" style={{ padding: '120px 0', background: '#fdfbf7' }}>
+                <div className="pw-container">
+                    <div className="pw-form-wrap reveal">
+                        <div className="pw-form-wrap__left">
+                            <span className="pw-label">{home.formLabel}</span>
+                            <h2 className="pw-form-wrap__title">
+                                {home.formHeading?.split(' ').slice(0, 1).join(' ')} <br />
+                                <em>{home.formHeading?.split(' ').slice(1).join(' ')}</em>
+                            </h2>
+                            <p className="pw-form-wrap__sub">{home.formSubtext}</p>
+                        </div>
+
+                        <form className="pw-form" onSubmit={handleFormSubmit}>
+                            <div className="pw-form__grid">
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Full Name</label>
+                                    <input type="text" className="pw-form__input" placeholder="Your full name" required />
+                                </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Email Address</label>
+                                    <input type="email" className="pw-form__input" placeholder="your@email.com" required />
+                                </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Phone Number</label>
+                                    <input type="tel" className="pw-form__input" placeholder="+91 00000 00000" required />
+                                </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Wedding Location</label>
+                                    <input type="text" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
+                                </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Approx. Guest Count</label>
+                                    <input type="number" className="pw-form__input" placeholder="Number of guests" required />
+                                </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Wedding Date</label>
+                                    <input type="date" className="pw-form__input" required />
+                                </div>
+                                <div className="pw-form__field" style={{ gridColumn: 'span 2' }}>
+                                    <label className="pw-form__label">Your Expectations</label>
+                                    <textarea className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" className="pw-btn pw-btn--dark btn-submit" style={{ marginTop: '50px', width: '100%' }}>
+                                {home.formBtnText}
+                            </button>
+                        </form>
                     </div>
                 </div>
             </section>

@@ -692,7 +692,7 @@ section {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: #25D366;
+    background: var(--primary-color);
     color: white;
     padding: 15px 25px;
     border-radius: 50px;

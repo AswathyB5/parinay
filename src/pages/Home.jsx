@@ -487,6 +487,14 @@ const Home = () => {
                                     <label className="pw-form__label">Approx. Guest Count</label>
                                     <input type="number" className="pw-form__input" placeholder="Number of guests" required />
                                 </div>
+                                <div className="pw-form__field">
+                                    <label className="pw-form__label">Wedding Date</label>
+                                    <input type="date" className="pw-form__input" required />
+                                </div>
+                                <div className="pw-form__field" style={{ gridColumn: 'span 2' }}>
+                                    <label className="pw-form__label">Your Expectations</label>
+                                    <textarea className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
+                                </div>
                             </div>
                             <button type="submit" className="pw-btn pw-btn--dark btn-submit" style={{ marginTop: '50px', width: '100%' }}>
                                 {home.formBtnText}
