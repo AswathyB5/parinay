@@ -85,66 +85,69 @@ const initialContent = {
         journalNote: ""
     },
     about: {
-        pageBannerTitle: "ABOUT US",
+        pageBannerTitle: "About Us",
+        introLabel: "ABOUT PARINAY",
+        introHeading: "Thoughtfully planned ,\nbeautifully executed.",
+        heroImage: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1920&q=80",
+        value1Title: "Passion",
+        value1Desc: "We are driven by the joy of creating beauty and meaning. Every wedding is a canvas for us to paint your unique love story with vibrant colors and heartfelt details.",
+        value2Title: "Commitment",
+        value2Desc: "Our dedication goes beyond planning; we are committed to your peace of mind. We stand by you at every step, ensuring a seamless and joyful journey.",
+        value3Title: "Team Work",
+        value3Desc: "Excellence is a shared effort. Our team of specialists works in perfect harmony, collaborating closely with you to bring your dream celebration to life.",
         differentiatorLabel: "ABOUT US",
         differentiatorHeading: "The Parinay Difference",
-        differentiatorText: "At Parinay Weddings, we believe a wedding is more than an event - It is a deeply personal celebration of family, culture, and connection.\n\nFor over 8 years. we have been planning and executing weddings across South India and beyond, working closely with couples and families to create celebrations that are meaningful with clarity and care.\n\nEvery couple has a story\nEvery wedding deserves its own identity.\n\nOur approach is rooted in understanding - your vision, your priorities, your expectations - and translating them into a seamless wedding experience that feels authentic and beautifully organised.",
+        differentiatorText: "At Parinay Weddings, we believe a wedding is more than an event - It is a deeply personal celebration of family, culture, and connection.\n\nFor over 8 years, we have been planning and executing weddings across South India and beyond, working closely with couples and families to create celebrations that are meaningful with clarity and care.\n\nEvery couple has a story\nEvery wedding deserves its own identity.\n\nOur approach is rooted in understanding - your vision, your priorities, your expectations - and translating them into a seamless wedding experience that feels authentic and beautifully organised.",
         differentiatorImage: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
-        heroImage: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1920&q=80",
-        heroQuote: "Every couple has a story. Every wedding deserves its own identity.",
-        teamLabel: "MEET THE EXPERTS",
-        teamHeading: "Our Team",
-        teamSubtext: "Behind every Parinay wedding is a dedicated team of planners, coordinators, and creative professionals who work seamlessly together.",
+        teamLabel: "THE EXPERTS",
+        teamHeading: "Meet Our Professional Team",
+        teamDesc: "Behind every Parinay wedding is a dedicated team of planners, coordinators, and creative professionals who work seamlessly together",
         teamMembers: [
             { id: 1, name: "Sarah Thomas", role: "Founder & Lead Planner", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" },
             { id: 2, name: "Rahul Nair", role: "Creative Director", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" },
             { id: 3, name: "Meera Krishna", role: "Logistics Head", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80" },
             { id: 4, name: "Arjun Menon", role: "Senior Coordinator", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" }
         ],
-        stat1Label: "8+ Years of\nExperience",
-        stat2Label: "150+ Weddings\nPlanned",
-        stat3Label: "Destination Wedding\nSpecialists",
-        stat4Label: "Trusted by Clients\nWorldwide",
-        philosophyQuote: "We believe in the magic of beginnings and the beauty of forever. Your wedding is the first page of your greatest adventure.",
-        philosophyAuthor: "The Parinay Promise",
-        philosophySubtitle: "Core Philosophy",
         ctaHeading: "Ready to start your journey?",
         ctaBtnText: "Get in Touch",
-        ctaBtnUrl: "/contact"
+        ctaBtnUrl: "/contact",
+        ctaVideoUrl: "/about-video.mp4"
     },
     services: {
         pageBannerTitle: "Services",
-        service1Label: "COMPREHENSIVE",
+        servicesListLabel: "OUR SPECIALIZATIONS",
+        servicesListHeading: "The Art of Celebration",
+        service1Label: "FLAWLESS EXECUTION",
         service1Heading: "Full Planning",
-        service1Desc: "For couples who desire a seamless, stress-free experience from conception to final execution. We handle the intricacies, curate the finest vendors, and oversee every logistical element of your multi-day celebration.",
-        service1Image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80",
-        service1List: "Complete Venue Scouting & Management\nCustom Design & Concept Creation\nEnd-to-End Vendor Coordination & Contracting\nDetailed Timeline & Budget Navigation",
-        service2Label: "COLLABORATIVE",
-        service2Heading: "Partial Planning",
-        service2Desc: "Ideal for couples who have started their planning journey or secured key vendors but need professional guidance to refine the aesthetic, synchronize logistics, and bring the vision across the finish line beautifully.",
-        service2Image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80",
-        service2List: "Design Refinement & Integration\nVendor Sourcing for Remaining Categories\nLogistical Fine-Tuning\nComprehensive Month-of Handover",
-        service3Label: "EXECUTION",
-        service3Heading: "Month-Of Coordination",
-        service3Desc: "For the meticulous couple who has planned every detail but understands the paramount importance of handing over the reins on the big day. We ensure your plans are executed flawlessly while you remain present and celebrate.",
-        service3Image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
-        service3List: "Final Walkthrough & Rehearsal Management\nMaster Itinerary Creation\nOn-Site Day-Of Execution\nVendor Point of Contact",
+        service1Desc: "From initial concept to your final dance, we manage every single detail of your celebration, leaving you free to enjoy the journey of becoming one.",
+        service1Image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+        service2Label: "VISUAL STORYTELLING",
+        service2Heading: "Design & Styling",
+        service2Desc: "We create a cohesive visual narrative for your wedding, including custom mood boards, floral direction, ambient lighting, and bespoke decor elements.",
+        service2Image: "https://static.showit.co/800/YNqzxslHRcyKhjuN9mJPfg/119763/elegant-tablescape-portugal-destination-wedding.jpg",
+        service3Label: "SCOUTING & LOGISTICS",
+        service3Heading: "Destination",
+        service3Desc: "We help you find the perfect backdrop for your love story, from hidden coastal gems to world-renowned luxury manor houses and estates.",
+        service3Image: "https://assets.zeezest.com/blogs/PROD_goa%20wedding%20venues_1698773064171.jpg",
+        service4Label: "GUEST EXPERIENCE",
+        service4Heading: "Hospitality",
+        service4Desc: "Comprehensive management of your loved ones travel, accommodation, and curated welcome experiences, ensuring they feel as valued as you do.",
+        service4Image: "https://images.squarespace-cdn.com/content/v1/65f07a6bb920a639725145b7/1727446736382-BZ6LLFXT3559SS2G8NFR/7D6C6468.jpg",
         processLabel: "How We Work",
         processHeading: "A Structured, Calm Planning Process",
         process1Title: "Understanding Your Vision",
-        process1Desc: "We begin by listening - understanding your priorities, preferences and expectations. Every detail matters in crafting your story.",
+        process1Desc: "We begin with an in-depth consultation to understand your love story, priorities, and the feeling you want your wedding to evoke.",
         process2Title: "Planning & Designing",
-        process2Desc: "We create timelines and custom designs aligned with your vision, ensuring a cohesive aesthetic and logistical precision.",
+        process2Desc: "We craft a complete wedding plan — timeline, budget, vendor curation, and design direction — tailored entirely to you.",
         process3Title: "Coordination & Execution",
-        process3Desc: "Our team manages every detail on ground, ensuring the celebration flows smoothly and flawless execution.",
+        process3Desc: "We manage all vendor communication, bookings, contracts, and logistics so nothing falls through the cracks.",
         process4Title: "You Celebrate, We Manage",
-        process4Desc: "You stay present with your loved ones while we handle everything behind the scenes, creating memories.",
+        process4Desc: "On your wedding day, we handle every detail behind the scenes so you can be fully present in every moment.",
         ctaHeading: "Let's Begin Planning Your Wedding",
+        ctaImage: "https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg",
         ctaDesc: "If you're looking for a wedding planning partner who combines experience, creativity and reliability, we'd love to connect.",
         ctaBtnText: "Book a Wedding Consultation",
-        ctaBtnUrl: "/contact",
-        inquireBtnText: "Inquire",
-        inquireBtnUrl: "/contact",
+        ctaBtnUrl: "/contact"
     },
     contact: {
         pageBannerTitle: "Contact",
@@ -167,48 +170,38 @@ const initialContent = {
         instagramUrl: "https://instagram.com/parinayweddings",
         facebookUrl: "https://facebook.com/parinayweddings",
         pinterestUrl: "https://pinterest.com/parinayweddings",
-        formBtnText: "Send Inquiry",
-        footerImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1600&q=80"
+        formBtnText: "Send Inquiry"
     },
     storiesDestination: {
         pageBannerTitle: "Destination Weddings",
         storiesList: [
-            { id: 1, title: "Backwater Bliss in Kumarakom", desc: "An elegant three-day celebration on the serene backwaters of Kerala, blending contemporary luxury with local charm.", image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=800&q=80", badge: "Destination" },
-            { id: 2, title: "Clifftop Vows in Varkala", desc: "A breathtaking sunset ceremony on the red cliffs of Varkala, overlooking the endless expanse of the Arabian Sea.", image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80", badge: "Destination" }
+            { id: 1, title: "Backwater Bliss in Kumarakom", desc: "An elegant three-day celebration on the serene backwaters of Kerala, blending contemporary luxury with local charm.", badge: "Destination", video: "/uploads/upload_1773132860733_81.mp4", date: "February 2025", location: "Kumarakom, Kerala" },
+            { id: 2, title: "Clifftop Vows in Varkala", desc: "A breathtaking sunset ceremony on the red cliffs of Varkala, overlooking the endless expanse of the Arabian Sea.", badge: "Destination", video: "/uploads/upload_1773132906231_395.mp4", date: "December 2024", location: "Varkala, Kerala" },
+            { id: 3, title: "Heritage Grandeur in Hyderabad", desc: "A royal celebration at a palatial heritage venue blending Mughal grandeur with contemporary elegance.", badge: "Destination", video: "/uploads/upload_1773132909114_925.mp4", date: "November 2024", location: "Hyderabad" }
         ],
         heroImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1920&q=80",
         heroTitle: "A Visual Narrative",
-        heroSubtitle: "A curation of extraordinary celebrations, capturing the unique essence and emotion of every couple we serve.",
-        testimonialQuote: "Parinay Weddings didn't just plan our event; they orchestrated a symphony of moments that we'll cherish forever.",
-        testimonialAuthor: "Priya & Rohan",
-        testimonialLocation: "Destination Wedding, Kumarakom",
-        testimonialImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80"
+        heroSubtitle: "A curation of extraordinary celebrations, capturing the unique essence and emotion of every couple we serve."
     },
     storiesThemed: {
         pageBannerTitle: "Themed Weddings",
         storiesList: [
-            { id: 3, title: "The Secret Garden Soirée", desc: "A whimsical floral-themed wedding that transformed a colonial estate into an ethereal garden oasis.", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80", badge: "Themed" }
+            { id: 3, title: "The Secret Garden Soirée", desc: "A whimsical floral-themed wedding that transformed a colonial estate into an ethereal garden oasis.", badge: "Themed", video: "/uploads/upload_1773132860733_81.mp4", date: "October 2024", location: "Kochi, Kerala" },
+            { id: 4, title: "Sunset By The Shore", desc: "A dreamy beach-themed celebration where golden hues and ocean breezes created the most romantic backdrop.", badge: "Themed", video: "/uploads/upload_1773132906231_395.mp4", date: "January 2025", location: "Goa" }
         ],
         heroImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80",
         heroTitle: "Signature Themed Concepts",
-        heroSubtitle: "Transforming spaces into immersive worlds that tell your unique love story through design.",
-        testimonialQuote: "The attention to detail in our themed decor was absolutely breathtaking. It was like stepping into a dream.",
-        testimonialAuthor: "Anjali & Vikram",
-        testimonialLocation: "Themed Wedding, Kochi",
-        testimonialImage: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=400&q=80"
+        heroSubtitle: "Transforming spaces into immersive worlds that tell your unique love story through design."
     },
     storiesTraditional: {
         pageBannerTitle: "Traditional Weddings",
         storiesList: [
-            { id: 2, title: "Heritage Grandeur at Mysore", desc: "A royal celebration at a heritage palace, honouring centuries-old traditions with opulent decor and meticulous planning.", image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80", badge: "Traditional" }
+            { id: 2, title: "Heritage Grandeur at Mysore", desc: "A royal celebration at a heritage palace, honouring centuries-old traditions with opulent decor and meticulous planning.", badge: "Traditional", video: "/uploads/upload_1773132909114_925.mp4", date: "March 2025", location: "Mysore, Karnataka" },
+            { id: 5, title: "Sacred Rituals in Madurai", desc: "A traditional Tamil wedding steeped in centuries of ritual, vibrant colour and deep cultural meaning.", badge: "Traditional", video: "/uploads/upload_1773132860733_81.mp4", date: "September 2024", location: "Madurai, Tamil Nadu" }
         ],
         heroImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1920&q=80",
         heroTitle: "Honouring Our Heritage",
-        heroSubtitle: "Timeless traditions celebrated with contemporary elegance and profound respect for cultural roots.",
-        testimonialQuote: "They respected our traditions perfectly while bringing a fresh, premium feel to every ritual.",
-        testimonialAuthor: "Meera & Arjun",
-        testimonialLocation: "Traditional Wedding, Madurai",
-        testimonialImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80"
+        heroSubtitle: "Timeless traditions celebrated with contemporary elegance and profound respect for cultural roots."
     },
     journals: {
         pageBannerTitle: "Journal",
@@ -311,11 +304,61 @@ export const ContentProvider = ({ children }) => {
     useEffect(() => {
         loadFromDB().then((saved) => {
             if (saved) {
-                // Merge: keep any new keys from initialContent that the DB record doesn't have yet
+                /**
+                 * Deep merge strategy:
+                 * 1. For each section, start with initialContent defaults.
+                 * 2. Overlay saved (DB) scalar fields so user edits are preserved.
+                 * 3. For array fields, merge by item ID so:
+                 *    - New fields added in code appear on existing DB items.
+                 *    - New items added in code appear if they don't exist in DB.
+                 *    - Items the user added/edited in admin are fully preserved.
+                 */
+                const mergeArrayField = (codeArr, dbArr) => {
+                    if (!Array.isArray(codeArr) || !Array.isArray(dbArr)) return dbArr ?? codeArr;
+
+                    // Build a map of DB items by ID for fast lookup
+                    const dbById = {};
+                    dbArr.forEach(item => {
+                        if (item.id != null) dbById[item.id] = item;
+                    });
+
+                    // Merge each code item with its DB counterpart (DB values win for existing fields)
+                    const mergedItems = codeArr.map(codeItem => {
+                        const dbItem = dbById[codeItem.id];
+                        if (!dbItem) return codeItem; // New item in code — add it
+                        // Merge: code provides missing fields, DB preserves user-edited values
+                        return { ...codeItem, ...dbItem };
+                    });
+
+                    // Also keep any items the user created in admin that aren't in initialContent
+                    const codeIds = new Set(codeArr.map(i => i.id));
+                    dbArr.forEach(dbItem => {
+                        if (dbItem.id != null && !codeIds.has(dbItem.id)) {
+                            mergedItems.push(dbItem);
+                        }
+                    });
+
+                    return mergedItems;
+                };
+
                 const merged = Object.keys(initialContent).reduce((acc, section) => {
-                    acc[section] = { ...initialContent[section], ...(saved[section] || {}) };
+                    const codeSection = initialContent[section];
+                    const dbSection = saved[section] || {};
+
+                    // Start from code defaults, overlay DB scalar values
+                    const mergedSection = { ...codeSection, ...dbSection };
+
+                    // For every array field, do the smart merge
+                    Object.keys(codeSection).forEach(key => {
+                        if (Array.isArray(codeSection[key])) {
+                            mergedSection[key] = mergeArrayField(codeSection[key], dbSection[key]);
+                        }
+                    });
+
+                    acc[section] = mergedSection;
                     return acc;
                 }, {});
+
                 setContent(merged);
             } else {
                 saveToDB(initialContent);

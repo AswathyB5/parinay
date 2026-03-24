@@ -62,11 +62,13 @@ const About = () => {
                     {/* Upper Split Design (inspired by Weddlin) */}
                     <div className="about-intro-split">
                         <div className="left-content">
-                            <span className="section-label">ABOUT PARINAY</span>
+                            <span className="section-label">{about.introLabel}</span>
                             <h2 className="large-heading">
-                                Thoughtfully planned , <br />
-                                beautifully executed.
-
+                                {about.introHeading.split('\n').map((line, i) => (
+                                    <React.Fragment key={i}>
+                                        {line} <br />
+                                    </React.Fragment>
+                                ))}
                             </h2>
                         </div>
                         <div className="right-image">
@@ -77,16 +79,16 @@ const About = () => {
                     {/* Lower Values Grid */}
                     <div className="values-grid-new">
                         <div className="value-card-new">
-                            <h3>Passion</h3>
-                            <p>We are driven by the joy of creating beauty and meaning. Every wedding is a canvas for us to paint your unique love story with vibrant colors and heartfelt details.</p>
+                            <h3>{about.value1Title}</h3>
+                            <p>{about.value1Desc}</p>
                         </div>
                         <div className="value-card-new">
-                            <h3>Commitment</h3>
-                            <p>Our dedication goes beyond planning; we are committed to your peace of mind. We stand by you at every step, ensuring a seamless and joyful journey.</p>
+                            <h3>{about.value2Title}</h3>
+                            <p>{about.value2Desc}</p>
                         </div>
                         <div className="value-card-new">
-                            <h3>Team Work</h3>
-                            <p>Excellence is a shared effort. Our team of specialists works in perfect harmony, collaborating closely with you to bring your dream celebration to life.</p>
+                            <h3>{about.value3Title}</h3>
+                            <p>{about.value3Desc}</p>
                         </div>
                     </div>
                 </div>
@@ -144,10 +146,10 @@ const About = () => {
             {/* TEAM SECTION */}
             <section className="about-team-new reveal">
                 <div className="container">
-                    <span className="section-label">THE EXPERTS</span>
-                    <h2 style={{ marginBottom: '20px' }}>Meet Our Professional Team</h2>
+                    <span className="section-label">{about.teamLabel}</span>
+                    <h2 style={{ marginBottom: '20px' }}>{about.teamHeading}</h2>
                     <p style={{ maxWidth: '800px', margin: '0 auto 60px', fontSize: '1.2rem', color: '#666', lineHeight: '1.8' }}>
-                        Behind every Parinay wedding is a dedicated team of planners, coordinators, and creative professionals who work seamlessly together
+                        {about.teamDesc}
                     </p>
                     <div className="team-grid-new">
                         {about.teamMembers.map((member) => (
@@ -185,7 +187,7 @@ const About = () => {
                             objectFit: 'cover'
                         }}
                     >
-                        <source src="/about-video.mp4" type="video/mp4" />
+                        <source src={about.ctaVideoUrl || '/about-video.mp4'} type="video/mp4" />
                     </video>
                     <div className="cta-video-overlay" style={{
                         position: 'absolute',

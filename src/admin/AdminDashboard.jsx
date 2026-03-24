@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { ContentContext } from '../context/ContentContext';
 import {
-    Save, Plus, Trash2, Eye, EyeOff, LogOut, Image, Film, Type,
+    Save, Plus, Eye, LogOut, Image, Film, Type,
     Home, Info, Briefcase, BookOpen, Newspaper, Mail,
-    Menu, X, Check, AlertCircle, LayoutGrid, MoreVertical, Pencil,
+    Menu, X, Check, AlertCircle, LayoutGrid,
     Layout, AlignLeft
 } from 'lucide-react';
 import './Admin.css';
@@ -72,45 +72,48 @@ const FIELD_GROUPS = {
     },
     about: {
         pageBannerTitle: 'Page Header',
-        differentiatorLabel: 'The Parinay Difference',
-        heroImage: 'Hero Section',
-        teamLabel: 'Team Section',
-        stat1Label: 'Statistics',
-        philosophyQuote: 'Core Philosophy',
-        ctaHeading: 'Ready to Start'
+        introLabel: 'Split Intro Section',
+        heroImage: 'Upper Right Image',
+        value1Title: 'Core Values Grid',
+        differentiatorLabel: 'Company Philosophy',
+        teamLabel: 'Team Section Header',
+        teamMembers: 'Team Member Management',
+        ctaHeading: 'Call to Action'
     },
     services: {
         pageBannerTitle: 'Page Header',
+        servicesListLabel: 'Services Listing Intro',
         service1Label: 'Service 1: Full Planning',
-        service2Label: 'Service 2: Partial Planning',
-        service3Label: 'Service 3: Coordination',
+        service2Label: 'Service 2: Design & Styling',
+        service3Label: 'Service 3: Destination',
+        service4Label: 'Service 4: Hospitality',
         processLabel: 'Our Process Section',
         ctaHeading: 'Call to Action'
     },
     contact: {
         pageBannerTitle: 'Page Header',
-        heroImage: 'Contact Hero',
+        heroImage: 'Cinematic Band',
+        heroTitle: 'Band Copy',
         emailLabel: 'Inquiry Methods',
-        whatsappNumber: 'Social & Chat',
-        footerImage: 'Footer Visual'
+        whatsappNumber: 'Social & Chat'
     },
     storiesDestination: {
         pageBannerTitle: 'Page Header',
         storiesList: 'Wedding Stories List',
-        heroImage: 'Banner & Description',
-        testimonialQuote: 'Featured Testimonial'
+        heroImage: 'Section Banner',
+        heroTitle: 'Banner Copy'
     },
     storiesThemed: {
         pageBannerTitle: 'Page Header',
         storiesList: 'Wedding Stories List',
-        heroImage: 'Banner & Description',
-        testimonialQuote: 'Featured Testimonial'
+        heroImage: 'Section Banner',
+        heroTitle: 'Banner Copy'
     },
     storiesTraditional: {
         pageBannerTitle: 'Page Header',
         storiesList: 'Wedding Stories List',
-        heroImage: 'Banner & Description',
-        testimonialQuote: 'Featured Testimonial'
+        heroImage: 'Section Banner',
+        heroTitle: 'Banner Copy'
     },
     journals: {
         pageBannerTitle: 'Page Header',
@@ -135,51 +138,136 @@ const FIELD_GROUPS = {
 };
 
 const GROUP_DESCRIPTIONS = {
-    'Hero Section': 'This is the very first part of your page that visitors see. It should be high-impact.',
-    'Introduction Text': 'Detailed text that introduces your brand and services.',
-    'Statistics Counter': 'Use these to showcase your experience and success in numbers.',
-    'Services Preview': 'A short glimpse of your core offerings displayed on the homepage.',
-    'Destination Weddings Feature': 'Showcase your expertise in destination wedding planning.',
-    'Portfolio Glimpse': 'Highlight specific weddings or projects to build trust.',
-    'Client Testimonials': 'Quotes from happy couples that add social proof.',
-    'Call to Action Section': 'The final push to get visitors to contact you or explore more.',
-    'YouTube / Video Section': 'Embed cinematic wedding films from your YouTube channel.',
-    'Consultation Form Section': 'Text around the consultation request form.',
-    'Journal Preview Section': 'This section is controlled by the Journal / Blog page.',
-    'The Parinay Difference': 'Explain why your approach is unique and special.',
-    'Team Section': 'Introduce the faces behind Parinay Weddings.',
-    'Service 1: Full Planning': 'Details for the comprehensive planning package.',
-    'Service 2: Partial Planning': 'Details for the collaborative planning package.',
-    'Service 3: Coordination': 'Details for the month-of coordination package.',
-    'Our Process Section': 'Explain the steps of working with you.',
-    'Social & Chat': 'WhatsApp and social media profile links.',
-    'Wedding Stories List': 'Manage the collection of stories displayed on the page.',
-    'Blog Posts List': 'The main list of journal entries/blog posts.',
-    'Downloadable Guide Section': 'A section to offer a free guide in exchange for contact info.',
-    'Logo & Branding': 'The logo text that appears in the top-left of the navigation bar.',
-    'Primary Navigation': 'The main navigation links shown on the left side of the header.',
-    'Dropdown Sub-links': 'The three category links shown inside the Wedding Stories dropdown.',
-    'CTA / Contact Link': 'The highlighted call-to-action link on the right side of the nav.',
-    'Footer Branding': 'Logo text and sub-label shown at the top of the footer.',
-    'Tagline & Description': 'The short description text shown below the footer logo.',
-    'Social Media Links': 'URLs for Instagram, Facebook, Pinterest, and YouTube icons.',
-    'Contact Details': 'Email, phone and address shown in the Connect With Us column.',
-    'Footer CTA': 'The italic tagline and button shown at the bottom of the footer.',
-    'Copyright': 'The copyright name shown in the footer bottom bar.',
+    /* Home */
+    'Hero Section': 'The very first thing visitors see — video background, tagline and call-to-action button.',
+    'Introduction Text': 'The brand introduction paragraph and italic sub-text shown below the hero.',
+    'Statistics Counter': 'Four credential badges shown as an animated strip (e.g. "8+ Years of Experience").',
+    'Services Preview': 'The four service cards shown on the homepage with image, title and description.',
+    'Destination Weddings Feature': 'The two-column section showcasing destination wedding expertise with images and text.',
+    'Portfolio Glimpse': 'The image grid showing a sample of past weddings with a "View All" button.',
+    'Client Testimonials': 'Rotating quotes from couples. Each item has text, author name, location and photo.',
+    'Call to Action Section': 'The full-screen video band with the "Work With Us" prompt and button.',
+    'YouTube / Video Section': 'The cinematic film embed section — label, heading, body paragraphs, button and YouTube embed URL.',
+    'Consultation Form Section': 'The label, heading, sub-text and button for the enquiry form on the homepage.',
+    'Journal Preview Section': 'Auto-pulls the latest 3 posts from the Journal / Blog page.',
+    /* About */
+    'Page Header': 'The large decorative title shown in the dark banner at the top of the page.',
+    'Split Intro Section': 'The small label and large split heading shown just below the hero banner.',
+    'Upper Right Image': 'The portrait photo shown in the right column of the split intro section.',
+    'Core Values Grid': 'The three value cards (Passion, Commitment, Team Work) shown in the light sand-colored section.',
+    'Company Philosophy': 'The label, heading, body text and left-side image for the "Parinay Difference" block.',
+    'Team Section Header': 'The label, main heading, and introduction paragraph for the "Meet the Experts" team section.',
+    'Team Member Management': 'Add, edit, or remove the individual professional profile cards in the team grid.',
+    'Call to Action': 'The CTA heading, button text, button link and background video for the closing band.',
+    /* Services */
+    'Services Listing Intro': 'The section label and heading shown above the four alternating service entries.',
+    'Service 1: Full Planning': 'Label, image, heading and description for the Full Planning service.',
+    'Service 2: Design & Styling': 'Label, image, heading and description for the Design & Styling service.',
+    'Service 3: Destination': 'Label, image, heading and description for the Destination service.',
+    'Service 4: Hospitality': 'Label, image, heading and description for the Hospitality service.',
+    'Our Process Section': 'The four-step "How We Work" cards — label, heading, title and description for each step.',
+    /* Contact */
+    'Cinematic Band': 'The full-screen image shown at the bottom of the Contact page behind the heading.',
+    'Band Copy': 'The large title, italic emphasis word and subtitle overlaid on the cinematic band image.',
+    'Inquiry Methods': 'Email, phone and full address blocks displayed on the Contact page.',
+    'Social & Chat': 'WhatsApp number, reply indicator, and social profile URLs (Instagram, Facebook, Pinterest).',
+    /* Stories */
+    'Wedding Stories List': 'Each story card — title, description, video file (MP4), date, location and category badge.',
+    'Section Banner': 'The cinematic full-screen image band shown below the story list.',
+    'Banner Copy': 'The heading and subtitle text overlaid on the banner image.',
+    'Featured Testimonial': 'A highlighted couple quote, author name, location and photo shown beneath the banner.',
+    /* Journals */
+    'Content Settings': 'Section label and main section heading for the journal listing page.',
+    'Blog Posts List': 'Individual journal posts — title, date, excerpt and cover image.',
+    'Downloadable Guide Section': 'The guide offer block — label, title, description, three checklist items, cover image and button text.',
+    /* Header / Footer */
+    'Logo & Branding': 'The logo text shown in the top navigation bar.',
+    'Primary Navigation': 'Main nav links (Home, About, Services, Journals…).',
+    'Wedding Stories Dropdown': 'The three sub-links inside the "Wedding Stories" dropdown menu.',
+    'CTA / Contact Link': 'The highlighted Contact link on the right side of the navigation bar.',
+    'Footer Branding': 'Logo text and sub-label at the very top of the footer.',
+    'Tagline & Description': 'Short brand description shown below the footer logo.',
+    'Social Media Links': 'Instagram, Facebook, Pinterest and YouTube profile URLs.',
+    'Contact Details': 'Email, phone and address shown in the footer Connect column.',
+    'Footer CTA': 'Italic tagline and consultation button in the footer.',
+    'Copyright': 'Copyright name shown in the footer bottom bar.',
 };
 
 const FIELD_HINTS = {
-    heroTagline: 'Use \n for line breaks in the text.',
-    heroVideo1: 'Upload a short, atmospheric video (MP4 format).',
-    heroImages: 'Upload high-resolution images for the background slideshow.',
-    stat1Label: 'Example: "8+ Years of \nExperience"',
-    youtubeEmbedUrl: 'Paste the YouTube "Embed" URL (e.g. https://www.youtube.com/embed/...)',
-    whatsappNumber: 'Must include country code without "+" (e.g. 919876543210)',
-    pageBannerTitle: 'The large heading at the top of the page.',
-    excerpt: 'A short one-sentence summary for the preview card.',
-    storiesList: 'Manage the collection of stories below.',
-    journalsList: 'Manage your blog posts here.',
-    journalNote: 'Note: The journal section on your homepage automatically pulls the latest 3 entries from the Journal / Blog section in the sidebar. To edit the journal titles or posts, please click on "Journal / Blog" under Editorial Content.',
+    /* General */
+    heroTagline: 'Use \\n for a line break (e.g. "Thoughtfully Planned.\\nBeautifully Executed.").',
+    heroBtnText: 'Label on the hero call-to-action button.',
+    heroBtnUrl: 'Page the hero button links to.',
+    heroVideo1:  'Primary looping background video (MP4). Upload or paste a /uploads/ path.',
+    heroVideo2:  'Fallback / secondary hero video (MP4).',
+    heroImages:  'Floating image slideshow alongside the hero text. Recommended: 1000×1400 px portrait.',
+    stat1Label:  'Use \\n to split into two lines (e.g. "8+ Years of\\nExperience").',
+    stat2Label:  'Use \\n to split into two lines.',
+    stat3Label:  'Use \\n to split into two lines.',
+    stat4Label:  'Use \\n to split into two lines.',
+    introSubText: 'The smaller italic sentence shown beneath the main introduction heading.',
+    youtubeEmbedUrl: 'Paste the YouTube Embed URL — Share → Embed (e.g. https://www.youtube.com/embed/xxxxx).',
+    youtubeBtnUrl: 'Full URL of the YouTube channel or video (opens in a new tab).',
+    transitionVideoUrl: 'The full-screen background video for the "Work With Us" CTA band (MP4).',
+    transitionBtnUrl: 'Page the CTA band button links to.',
+    whatsappNumber: 'Country code + number, no spaces or "+" (e.g. 919876543210 for India).',
+    pageBannerTitle: 'The large decorative title in the dark banner at the top of the page.',
+    /* Home services preview */
+    servicesHeading: 'Use \\n to split into two lines — the second line renders in italics.',
+    servicesIntroText: 'The short intro sentence shown above the four home service cards.',
+    servicesFooterText: 'Closing italic line shown below the four service cards. Use \\n for line breaks.',
+    /* Services listing */
+    servicesListLabel: 'Small uppercase label shown above the main services heading (e.g. OUR SPECIALIZATIONS).',
+    servicesListHeading: 'Large heading above the alternating service entries (e.g. The Art of Celebration).',
+    processLabel: 'Small uppercase label above the process section heading.',
+    processHeading: 'Main heading of the How We Work process section.',
+    process1Title: 'Heading of the first process step.',
+    process1Desc: 'Short description for the first process step.',
+    process2Title: 'Heading of the second process step.',
+    process2Desc: 'Short description for the second process step.',
+    process3Title: 'Heading of the third process step.',
+    process3Desc: 'Short description for the third process step.',
+    process4Title: 'Heading of the fourth process step.',
+    process4Desc: 'Short description for the fourth process step.',
+    ctaDesc: 'Short paragraph shown below the CTA heading in the background image section at the bottom of the page.',
+    ctaImage: 'Background image for the Call to Action section (Services page). Recommended: 1920×1200 px landscape.',
+    /* About */
+    introLabel: 'Small uppercase label above the intro heading (e.g., ABOUT PARINAY).',
+    introHeading: 'The primary headline for the split section. Use \\n for a line break.',
+    value1Title: 'Title for the first value card.',
+    value1Desc: 'Detailed description for the first value card.',
+    value2Title: 'Title for the second value card.',
+    value2Desc: 'Detailed description for the second value card.',
+    value3Title: 'Title for the third value card.',
+    value3Desc: 'Detailed description for the third value card.',
+    teamHeading: 'The main title for the team section (e.g., Meet Our Professional Team).',
+    teamDesc: 'A short overview paragraph introducing your team of specialists.',
+    ctaVideoUrl: 'Background video for the About page CTA band (MP4). Upload or paste a /uploads/ path.',
+    differentiatorText: 'Separate paragraphs with a blank line (press Enter twice). Each paragraph renders on its own line.',
+    /* Contact */
+    heroTitle: 'Main heading shown in the cinematic band at the bottom of the Contact page.',
+    heroTitleEm: 'Italic emphasis word shown on a second line below the hero title.',
+    heroSubtitle: 'Subtitle paragraph shown beneath the hero heading.',
+    address: 'Use \\n for a line break (e.g. "Cochin, Kerala\\nBy Appointment Only").',
+    /* Stories */
+    storiesList: 'Add, edit or remove story cards shown on this page.',
+    video:    'Upload a wedding video (MP4) or paste an existing /uploads/ path. It autoplays muted on scroll.',
+    badge:    'Short category label on the card (e.g. Destination, Themed, Traditional).',
+    date:     'Wedding month & year shown on the card (e.g. February 2025).',
+    location: 'Venue city / region shown on the card (e.g. Kumarakom, Kerala).',
+    desc:     'One or two sentence summary shown in the story card overlay box.',
+    /* Journals */
+    sectionTitle: 'Main heading of the journal listing section (last word renders in accent colour).',
+    journalsList: 'Add, edit or remove journal / blog posts.',
+    excerpt:  'A single sentence that summarises the post — shown on each listing card.',
+    guideYear: 'Year label on the guide cover badge (e.g. The 2026).',
+    guidePlannerLabel: 'Second line of the cover badge (e.g. Planner).',
+    guideFreeText: 'Small text beneath the cover badge (e.g. Free Download).',
+    guideRequestBtnText: 'Label on the guide request button.',
+    guideChecklist1: 'First bullet point in the guide checklist.',
+    guideChecklist2: 'Second bullet point in the guide checklist.',
+    guideChecklist3: 'Third bullet point in the guide checklist.',
+    journalNote: 'Note: The journal preview on the homepage automatically shows the latest 3 entries from this list. Edit posts here, not on the homepage.',
 };
 
 /* ── Toast Component ───────────────────────────── */
@@ -230,7 +318,6 @@ const AdminDashboard = () => {
     const [toast, setToast] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [expandedSections, setExpandedSections] = useState({});
-    const [openMenuId, setOpenMenuId] = useState(null);
 
     /* Toggle section expansion */
     const toggleSection = (sectionId) => {
@@ -343,7 +430,22 @@ const AdminDashboard = () => {
     }, []);
 
     const renderField = (key, value, onChange, onFileUpload) => {
-        if (key === 'id') return null;
+        // Skip technical metadata and fields starting with underscore (like _id, __v, _hiddenSections)
+        if (key === 'id' || key.startsWith('_')) return null;
+ 
+        // Skip legacy ghost fields for About section that don't follow the underscore pattern
+        if (activeTab === 'about' && [
+            'heroQuote', 'teamSubtext', 'stat1Label', 'stat2Label', 'stat3Label', 'stat4Label',
+            'philosophyAuthor', 'philosophySubtitle', 'philosophyQuote'
+        ].includes(key)) return null;
+
+        // Skip legacy ghost fields for Services section
+        if (activeTab === 'services' && [
+            'service1List', 'service2List', 'service3List', 'inquireBtnText', 'inquireBtnUrl'
+        ].includes(key)) return null;
+
+        // Skip image field in stories list (clutter, since we use video now)
+        if (['storiesDestination', 'storiesThemed', 'storiesTraditional'].includes(activeTab) && key === 'image') return null;
 
         // Special case: just info, no input
         if (key === 'journalNote') {
@@ -456,11 +558,9 @@ const AdminDashboard = () => {
             }
         });
 
-        const filteredSections = sectionsData.filter(section => !(formData._deletedSections || []).includes(section.id));
-
         return (
-            <div className="admin-accordion" onClick={() => setOpenMenuId(null)}>
-                {filteredSections.map((section) => {
+            <div className="admin-accordion">
+                {sectionsData.map((section) => {
                     const isExpanded = expandedSections[section.id];
 
                     return (
@@ -486,22 +586,6 @@ const AdminDashboard = () => {
                                 <h2 className="admin-accordion__title">
                                     {section.title}
                                 </h2>
-
-                                {/* Actions — right (visible on hover) */}
-                                <div className="admin-acc-actions-hover">
-                                    <button
-                                        className="admin-btn-icon-hover admin-btn-icon-hover--danger"
-                                        title="Delete Section"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            if (window.confirm(`Are you sure you want to permanently delete the "${section.title}" section? This cannot be undone.`)) {
-                                                handleChange('_deletedSections', [...(formData._deletedSections || []), section.id]);
-                                            }
-                                        }}
-                                    >
-                                        <Trash2 size={15} />
-                                    </button>
-                                </div>
                             </header>
 
                             {isExpanded && (

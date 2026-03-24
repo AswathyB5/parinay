@@ -54,17 +54,19 @@
 /* ─── INNER PAGE HERO ───────────────────────────────────────────────────────── */
 .pw-page-hero {
     position: relative;
-    padding: 200px 0 100px;
+    padding: 90px 0 60px;
     background: var(--primary-color);
     text-align: center;
     color: var(--secondary-color);
-    overflow: visible; /* Changed from hidden to avoid clipping issues with fixed child in some browsers */
-    clip-path: inset(0); /* This creates the window effect for the fixed image */
+    overflow: visible;
+    /* Changed from hidden to avoid clipping issues with fixed child in some browsers */
+    clip-path: inset(0);
+    /* This creates the window effect for the fixed image */
     z-index: 10;
 }
 
 .pw-page-banner+.pw-page-hero {
-    padding: 80px 0 100px;
+    padding: 50px 0 60px;
 }
 
 .pw-page-hero--light {
@@ -73,11 +75,13 @@
 }
 
 .pw-page-hero__bg {
-    position: fixed; /* Fix it to the viewport */
+    position: fixed;
+    /* Fix it to the viewport */
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* Fill the whole viewport */
+    height: 100vh;
+    /* Fill the whole viewport */
     object-fit: cover;
     opacity: 0.15;
     z-index: 0;
@@ -562,5 +566,470 @@
 
     .pw-page-hero__title {
         font-size: 3.5rem;
+    }
+}
+
+/*  WEDDLIN-STYLE STORY LIST  */
+.wsl-section {
+    padding: 0;
+    background: #f0ede6;
+}
+
+.wsl-item {
+    position: relative;
+    width: 100%;
+    height: 580px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.wsl-item__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+}
+
+.wsl-item__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(0.72);
+}
+
+.wsl-item:hover .wsl-item__thumb {
+    transform: scale(1.04);
+}
+
+.wsl-item__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.wsl-item__play-btn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.wsl-play-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(197, 160, 89, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.4rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+    padding-left: 5px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.wsl-item:hover .wsl-play-icon {
+    transform: scale(1.12);
+    background: var(--accent-color);
+}
+
+.wsl-item__box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    max-width: 42%;
+    background: var(--primary-color);
+    padding: 48px 44px;
+    color: var(--secondary-color);
+    z-index: 5;
+    transition: box-shadow 0.4s ease;
+}
+
+.wsl-item:hover .wsl-item__box {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.wsl-item--right .wsl-item__box {
+    right: 60px;
+}
+
+.wsl-item--left .wsl-item__box {
+    left: 60px;
+}
+
+.wsl-item__badge {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent-color);
+    border: 1px solid rgba(197, 160, 89, 0.5);
+    padding: 5px 14px;
+    margin-bottom: 18px;
+}
+
+.wsl-item__title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--secondary-color);
+}
+
+.wsl-item__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.wsl-item__meta-item {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(253, 251, 247, 0.65);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wsl-item__meta-item i {
+    color: var(--accent-color);
+}
+
+.wsl-item__desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(253, 251, 247, 0.75);
+    margin-bottom: 28px;
+}
+
+.wsl-item__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(253, 251, 247, 0.4);
+    color: var(--secondary-color);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 13px 26px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
+
+.wsl-item__cta:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+@media (max-width: 900px) {
+    .wsl-item {
+        height: auto;
+        min-height: 0;
+        flex-direction: column;
+    }
+
+    .wsl-item__media {
+        position: relative;
+        height: 340px;
+        width: 100%;
+    }
+
+    .wsl-item__box,
+    .wsl-item--right .wsl-item__box,
+    .wsl-item--left .wsl-item__box {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 40px 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .wsl-item__media {
+        height: 240px;
+    }
+
+    .wsl-item__title {
+        font-size: 1.5rem;
+    }
+
+    .wsl-item__box {
+        padding: 30px 20px;
+    }
+}
+
+/*  WEDDLIN STORY LIST  SPACED CARD LOOK  */
+.wsl-section {
+    padding: 60px 0 80px;
+    background: #f0ede6;
+}
+
+.wsl-item {
+    position: relative;
+    width: calc(100% - 100px);
+    max-width: 1280px;
+    margin: 0 auto 40px;
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.wsl-item:last-child {
+    margin-bottom: 0;
+}
+
+.wsl-item__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+}
+
+.wsl-item__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(0.72);
+}
+
+.wsl-item:hover .wsl-item__thumb {
+    transform: scale(1.04);
+}
+
+.wsl-item__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.wsl-item__play-btn {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+}
+
+.wsl-play-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(197, 160, 89, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.4rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+    padding-left: 5px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.wsl-item:hover .wsl-play-icon {
+    transform: scale(1.12);
+    background: var(--accent-color);
+}
+
+.wsl-item__box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    max-width: 42%;
+    background: var(--primary-color);
+    padding: 44px 40px;
+    color: var(--secondary-color);
+    z-index: 5;
+    transition: box-shadow 0.4s ease;
+}
+
+.wsl-item:hover .wsl-item__box {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.wsl-item--right .wsl-item__box {
+    right: 50px;
+}
+
+.wsl-item--left .wsl-item__box {
+    left: 50px;
+}
+
+.wsl-item__badge {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent-color);
+    border: 1px solid rgba(197, 160, 89, 0.5);
+    padding: 5px 14px;
+    margin-bottom: 18px;
+}
+
+.wsl-item__title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--secondary-color);
+}
+
+.wsl-item__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.wsl-item__meta-item {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(253, 251, 247, 0.65);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wsl-item__meta-item i {
+    color: var(--accent-color);
+}
+
+.wsl-item__desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(253, 251, 247, 0.75);
+    margin-bottom: 26px;
+}
+
+.wsl-item__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(253, 251, 247, 0.4);
+    color: var(--secondary-color);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.35s ease;
+}
+
+.wsl-item__cta:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+    .wsl-item {
+        width: calc(100% - 60px);
+        height: 440px;
+    }
+
+    .wsl-item__box {
+        max-width: 50%;
+        padding: 36px 30px;
+    }
+}
+
+@media (max-width: 900px) {
+    .wsl-item {
+        width: calc(100% - 40px);
+        height: auto;
+        flex-direction: column;
+    }
+
+    .wsl-item__media {
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+
+    .wsl-item__box,
+    .wsl-item--right .wsl-item__box,
+    .wsl-item--left .wsl-item__box {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        width: 100%;
+        max-width: 100%;
+        padding: 36px 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .wsl-section {
+        padding: 40px 0 60px;
+    }
+
+    .wsl-item {
+        width: calc(100% - 24px);
+        margin-bottom: 24px;
+    }
+
+    .wsl-item__media {
+        height: 220px;
+    }
+
+    .wsl-item__title {
+        font-size: 1.4rem;
+    }
+
+    .wsl-item__box {
+        padding: 28px 18px;
     }
 }

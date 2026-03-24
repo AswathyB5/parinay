@@ -5,7 +5,16 @@ import { ContentContext } from '../context/ContentContext';
 const Services = () => {
     const { content } = useContext(ContentContext);
     const home = content.home;
+    const services = content.services;
     const testimonials = home.testimonials || [];
+
+    // Build the 4 service entries from content.services
+    const serviceItems = [
+        { number: '01', label: services.service1Label, title: services.service1Heading, desc: services.service1Desc, image: services.service1Image },
+        { number: '02', label: services.service2Label, title: services.service2Heading, desc: services.service2Desc, image: services.service2Image },
+        { number: '03', label: services.service3Label, title: services.service3Heading, desc: services.service3Desc, image: services.service3Image },
+        { number: '04', label: services.service4Label, title: services.service4Heading, desc: services.service4Desc, image: services.service4Image },
+    ];
 
     // --- Testimonial Carousel Logic ---
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -54,40 +63,11 @@ const Services = () => {
             <section className="services-listing-premium" style={{ backgroundColor: '#FDFBF7', padding: '160px 0', overflow: 'hidden' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '120px' }}>
-                        <span className="section-label" style={{ letterSpacing: '0.3em' }}>OUR SPECIALIZATIONS</span>
-                        <h2 className="intro-heading" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', marginTop: '20px' }}>The Art of Celebration</h2>
+                        <span className="section-label" style={{ letterSpacing: '0.3em' }}>{services.servicesListLabel || 'OUR SPECIALIZATIONS'}</span>
+                        <h2 className="intro-heading" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', marginTop: '20px' }}>{services.servicesListHeading || 'The Art of Celebration'}</h2>
                     </div>
 
-                    {[
-                        {
-                            number: '01',
-                            title: 'Full Planning',
-                            subtitle: 'FLAWLESS EXECUTION',
-                            desc: 'From initial concept to your final dance, we manage every single detail of your celebration, leaving you free to enjoy the journey of becoming one.',
-                            image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80'
-                        },
-                        {
-                            number: '02',
-                            title: 'Design & Styling',
-                            subtitle: 'VISUAL STORYTELLING',
-                            desc: 'We create a cohesive visual narrative for your wedding, including custom mood boards, floral direction, ambient lighting, and bespoke decor elements.',
-                            image: 'https://static.showit.co/800/YNqzxslHRcyKhjuN9mJPfg/119763/elegant-tablescape-portugal-destination-wedding.jpg'
-                        },
-                        {
-                            number: '03',
-                            title: 'Destination',
-                            subtitle: 'SCOUTING & LOGISTICS',
-                            desc: 'We help you find the perfect backdrop for your love story, from hidden coastal gems to world-renowned luxury manor houses and estates.',
-                            image: 'https://assets.zeezest.com/blogs/PROD_goa%20wedding%20venues_1698773064171.jpg'
-                        },
-                        {
-                            number: '04',
-                            title: 'Hospitality',
-                            subtitle: 'GUEST EXPERIENCE',
-                            desc: 'Comprehensive management of your loved ones travel, accommodation, and curated welcome experiences, ensuring they feel as valued as you do.',
-                            image: 'https://images.squarespace-cdn.com/content/v1/65f07a6bb920a639725145b7/1727446736382-BZ6LLFXT3559SS2G8NFR/7D6C6468.jpg'
-                        }
-                    ].map((s, idx) => (
+                    {serviceItems.map((s, idx) => (
                         <div key={idx} className="reveal" style={{
                             display: 'flex',
                             flexDirection: idx % 2 === 0 ? 'row' : 'row-reverse',
@@ -141,7 +121,7 @@ const Services = () => {
                                     fontWeight: '700',
                                     display: 'block',
                                     marginBottom: '20px'
-                                }}>{s.subtitle}</span>
+                                }}>{s.label}</span>
 
                                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
                                     <span style={{
@@ -183,8 +163,8 @@ const Services = () => {
             {/* INTRO TEXT */}
             <section className="intro-section reveal">
                 <div className="container">
-                    <span className="section-label">How We Work</span>
-                    <h2 className="intro-heading">A Structured, Calm Planning Process</h2>
+                    <span className="section-label">{services.processLabel || 'How We Work'}</span>
+                    <h2 className="intro-heading">{services.processHeading || 'A Structured, Calm Planning Process'}</h2>
                 </div>
             </section>
 
@@ -192,32 +172,25 @@ const Services = () => {
             <section className="process-section reveal">
                 <div className="container">
                     <div className="process-grid">
-                        {/* Process 1 */}
                         <div className="process-card reveal">
                             <span className="process-number">01</span>
-                            <h3 className="process-title">Understanding Your Vision</h3>
-                            <p className="process-desc">We begin by listening - understanding your priorities, preferences and expectations</p>
+                            <h3 className="process-title">{services.process1Title || 'Understanding Your Vision'}</h3>
+                            <p className="process-desc">{services.process1Desc}</p>
                         </div>
-
-                        {/* Process 2 */}
                         <div className="process-card reveal">
                             <span className="process-number">02</span>
-                            <h3 className="process-title">Planning & Designing</h3>
-                            <p className="process-desc">We create timelines and custom designs aligned with your vision</p>
+                            <h3 className="process-title">{services.process2Title || 'Planning & Designing'}</h3>
+                            <p className="process-desc">{services.process2Desc}</p>
                         </div>
-
-                        {/* Process 3 */}
                         <div className="process-card reveal">
                             <span className="process-number">03</span>
-                            <h3 className="process-title">Coordination & Execution</h3>
-                            <p className="process-desc">Our team manages every detail on ground, ensuring the celebration flows smoothly</p>
+                            <h3 className="process-title">{services.process3Title || 'Coordination & Execution'}</h3>
+                            <p className="process-desc">{services.process3Desc}</p>
                         </div>
-
-                        {/* Process 4 */}
                         <div className="process-card reveal">
                             <span className="process-number">04</span>
-                            <h3 className="process-title">You Celebrate, We Manage</h3>
-                            <p className="process-desc">You stay present with your loved ones while we handle everything behind the scenes.</p>
+                            <h3 className="process-title">{services.process4Title || 'You Celebrate, We Manage'}</h3>
+                            <p className="process-desc">{services.process4Desc}</p>
                         </div>
                     </div>
                 </div>
@@ -247,7 +220,7 @@ const Services = () => {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        backgroundImage: "linear-gradient(rgba(18, 53, 36, 0.6), rgba(18, 53, 36, 0.6)), url('https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg')",
+                        backgroundImage: `linear-gradient(rgba(18, 53, 36, 0.6), rgba(18, 53, 36, 0.6)), url('${services.ctaImage || 'https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg'}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         pointerEvents: 'none'
@@ -256,13 +229,13 @@ const Services = () => {
 
                 <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                     <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
-                        Let’s Begin Planning Your Wedding
+                        {services.ctaHeading || "Let's Begin Planning Your Wedding"}
                     </h2>
                     <p style={{ maxWidth: '700px', margin: '0 auto 40px', fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.9)' }}>
-                        If you’re looking for a wedding planning partner who combines experience, creativity and reliability, we’d love to connect.
+                        {services.ctaDesc || "If you’re looking for a wedding planning partner who combines experience, creativity and reliability, we’d love to connect."}
                     </p>
-                    <Link to="/contact" className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '15px 40px' }}>
-                        Book a Wedding Consultation
+                    <Link to={services.ctaBtnUrl || "/contact"} className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '15px 40px' }}>
+                        {services.ctaBtnText || "Book a Wedding Consultation"}
                     </Link>
                 </div>
             </section>
