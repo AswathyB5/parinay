@@ -115,8 +115,20 @@ app.post('/api/content', async (req, res) => {
             return res.status(400).json({ success: false, error: 'Invalid payload.' });
         }
 
+        // 1. Save to MongoDB
         const doc = new Content({ data: payload });
         await doc.save();
+
+        // 2. Save to Local JSON (for Vercel/Production Fallback)
+        try {
+            const contentPath = path.join(__dirname, 'src', 'data', 'site-content.json');
+            const dataDir = path.dirname(contentPath);
+            if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+            fs.writeFileSync(contentPath, JSON.stringify(payload, null, 2));
+            console.log(`[Local Sync] Updated src/data/site-content.json`);
+        } catch (fileErr) {
+            console.warn('[Local Sync Error] Could not write site-content.json:', fileErr.message);
+        }
 
         console.log(`[Content Saved] _id=${doc._id} at ${new Date().toISOString()}`);
         res.json({ success: true, message: 'Content saved successfully.', data: payload });

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import fallbackData from '../data/site-content.json';
 
 export const ContentContext = createContext();
 
@@ -272,7 +273,12 @@ const loadFromDB = async () => {
         if (res.ok) return await res.json();
         return null;
     } catch (err) {
-        console.error('[loadFromDB] Connection failed:', err);
+        // Suppress console error on Vercel/Production where localhost is expected to fail
+        if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+            console.warn('[Content] Backend unreachable, falling back to local JSON.');
+        } else {
+            console.error('[loadFromDB] Connection failed:', err);
+        }
         return null;
     }
 };
@@ -344,10 +350,7 @@ export const ContentProvider = ({ children }) => {
                 const merged = Object.keys(initialContent).reduce((acc, section) => {
                     const codeSection = initialContent[section];
                     const dbSection = saved[section] || {};
-
-                    // Start from code defaults, overlay DB scalar values
                     const mergedSection = { ...codeSection, ...dbSection };
-
                     // For every array field, do the smart merge
                     Object.keys(codeSection).forEach(key => {
                         if (Array.isArray(codeSection[key])) {
@@ -360,10 +363,15 @@ export const ContentProvider = ({ children }) => {
                 }, {});
 
                 setContent(merged);
+                setIsLoaded(true);
             } else {
-                saveToDB(initialContent);
+                // FALLBACK FOR VERCEL
+                if (fallbackData && Object.keys(fallbackData).length > 0) {
+                    // Mix fallback with initial just in case
+                    setContent(prev => ({ ...prev, ...fallbackData }));
+                }
+                setIsLoaded(true);
             }
-            setIsLoaded(true);
         });
     }, []);
 
