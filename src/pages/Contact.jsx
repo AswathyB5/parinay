@@ -107,6 +107,11 @@ const Contact = () => {
                                         </div>
                                     </div>
 
+                                    <div className="pw-form__field" style={{ marginTop: '20px' }}>
+                                        <label className="pw-form__label">Current Address</label>
+                                        <input type="text" className="pw-form__input" placeholder="Your current city or full address" />
+                                    </div>
+
                                     <div className="pw-form__grid" style={{ marginTop: '20px' }}>
                                         <div className="pw-form__field">
                                             <label className="pw-form__label">Phone Number</label>

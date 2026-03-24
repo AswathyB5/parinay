@@ -484,6 +484,10 @@ const Home = () => {
                                     <input type="text" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
                                 </div>
                                 <div className="pw-form__field">
+                                    <label className="pw-form__label">Your Current Address</label>
+                                    <input type="text" className="pw-form__input" placeholder="Your current city and state" required />
+                                </div>
+                                <div className="pw-form__field">
                                     <label className="pw-form__label">Approx. Guest Count</label>
                                     <input type="number" className="pw-form__input" placeholder="Number of guests" required />
                                 </div>
