@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useCallback } from 'react';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, API } from '../context/ContentContext';
 import {
     Save, Plus, Eye, LogOut, Image, Film, Type,
     Home, Info, Briefcase, BookOpen, Newspaper, Mail,
@@ -358,7 +358,7 @@ const AdminDashboard = () => {
         const uploadData = new FormData();
         uploadData.append('file', file);
         try {
-            const response = await fetch('http://localhost:5000/api/upload', {
+            const response = await fetch(`${API}/api/upload`, {
                 method: 'POST',
                 body: uploadData,
             });
@@ -379,7 +379,7 @@ const AdminDashboard = () => {
         const uploadData = new FormData();
         uploadData.append('file', file);
         try {
-            const response = await fetch('http://localhost:5000/api/upload', {
+            const response = await fetch(`${API}/api/upload`, {
                 method: 'POST',
                 body: uploadData,
             });
@@ -416,7 +416,21 @@ const AdminDashboard = () => {
 
     const handleSave = async () => {
         setIsSaving(true);
-        const res = await updateSection(activeTab, formData);
+        
+        // --- CLEAN DATA FOR PRODUCTION --- 
+        // We strip the absolute localhost URLs so that assets resolve correctly on Vercel
+        const cleanData = (obj) => {
+            if (!obj) return obj;
+            try {
+                const str = JSON.stringify(obj);
+                // Matches the backend API base (e.g. localhost:5000)
+                const cleaned = str.replace(new RegExp(`${API}/uploads`, 'g'), '/uploads');
+                return JSON.parse(cleaned);
+            } catch { return obj; }
+        };
+        const finalData = cleanData(formData);
+
+        const res = await updateSection(activeTab, finalData);
         setIsSaving(false);
         if (res.success) {
             showToast(`${SECTION_LABELS[activeTab]} updated successfully!`);

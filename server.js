@@ -77,8 +77,8 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
         }
         const protocol = req.protocol;
         const host     = req.get('host');
-        const fileUrl  = `${protocol}://${host}/uploads/${req.file.filename}`;
-        console.log(`[Upload] ${req.file.filename} (${(req.file.size / 1024).toFixed(1)} KB)`);
+        const fileUrl  = `/uploads/${req.file.filename}`;
+        console.log(`[Upload] Saving: ${req.file.filename} (${(req.file.size / 1024).toFixed(1)} KB)`);
         res.json({ success: true, url: fileUrl, filename: req.file.filename });
     } catch (err) {
         console.error('[Upload Error]', err.message);

@@ -264,7 +264,7 @@ const initialContent = {
     }
 };
 
-const API = 'http://localhost:5000';
+export const API = 'http://localhost:5000';
 
 const loadFromDB = async () => {
     try {
