@@ -73,6 +73,11 @@ const Contact = () => {
                                 <p><a href={`tel:+${contact.phone?.replace(/\D/g, '')}`}>{contact.phone}</a></p>
                             </div>
                             <div className="pw-contact__block">
+                                <span className="pw-label">{contact.addressLabel}</span>
+                                <h3>{contact.addressHeading}</h3>
+                                <p style={{ whiteSpace: 'pre-line' }}>{contact.address}</p>
+                            </div>
+                            <div className="pw-contact__block">
                                 <span className="pw-label">Stay Connected</span>
                                 <h3>Follow Us</h3>
                                 <div style={{ display: 'flex', gap: '20px', marginTop: '15px' }}>
