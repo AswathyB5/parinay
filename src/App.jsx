@@ -8,6 +8,7 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Stories from './pages/Stories';
 import Journals from './pages/Journals';
+import JournalDetail from './pages/JournalDetail';
 import AdminDashboard from './admin/AdminDashboard';
 import './App.css';
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/themed-weddings" element={<Stories sectionKey="storiesThemed" />} />
           <Route path="/traditional-weddings" element={<Stories sectionKey="storiesTraditional" />} />
           <Route path="/journals" element={<Journals />} />
+          <Route path="/journals/:id" element={<JournalDetail />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>

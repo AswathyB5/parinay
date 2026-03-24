@@ -41,9 +41,9 @@ const Journals = () => {
             {/* BLOG GRID */}
             <section className="pw-journal reveal" style={{ padding: '100px 0' }}>
                 <div className="pw-container">
-                    <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '100px' }}>
                         <span className="pw-label">{journals.sectionLabel}</span>
-                        <h2 className="pw-section-header__title" style={{ fontSize: '3rem' }}>
+                        <h2 className="pw-section-header__title" style={{ fontSize: '4.5rem' }}>
                             {journals.sectionTitle.split(' ').map((word, i, arr) => (
                                 i === arr.length - 1 ? <em key={i}>{word}</em> : `${word} `
                             ))}
@@ -52,14 +52,22 @@ const Journals = () => {
 
                     <div className="pw-journal__grid">
                         {journals.journalsList.map((item) => (
-                            <Link key={item.id} to="#" className="pw-journal__card" style={{ textDecoration: 'none' }}>
+                            <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
                                     <img src={item.image} alt={item.title} className="pw-journal__img" />
                                 </div>
                                 <span className="pw-journal__meta">{item.date}</span>
                                 <h3 className="pw-journal__title">{item.title}</h3>
                                 <p className="pw-journal__excerpt">{item.excerpt}</p>
-                                <span style={{ fontSize: '0.8rem', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: '600' }}>Read Entry</span>
+                                <span style={{ 
+                                    display: 'inline-block',
+                                    fontSize: '0.75rem', 
+                                    color: 'var(--accent-color)', 
+                                    textTransform: 'uppercase', 
+                                    letterSpacing: '0.15em', 
+                                    fontWeight: '700',
+                                    marginTop: '15px' 
+                                }}>Read Entry —</span>
                             </Link>
                         ))}
                     </div>

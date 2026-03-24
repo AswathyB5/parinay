@@ -481,9 +481,10 @@ const AdminDashboard = () => {
             && !key.toLowerCase().includes('instagram')
             && !key.toLowerCase().includes('facebook')
             && !key.toLowerCase().includes('pinterest');
-        const isLongText = typeof value === 'string' && value.length > 60
+        const isLongText = (typeof value === 'string' && value.length > 60
             && !value.startsWith('http')
-            && !value.startsWith('/');
+            && !value.startsWith('/'))
+            || key === 'content' || key === 'desc';
 
         return (
             <div className="admin-form-group" key={key}>

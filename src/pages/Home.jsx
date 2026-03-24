@@ -394,14 +394,22 @@ const Home = () => {
  
                     <div className="pw-journal__grid">
                         {content.journals.journalsList.slice(0, 3).map((item) => (
-                            <Link key={item.id} to="/journals" className="pw-journal__card" style={{ textDecoration: 'none' }}>
+                            <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
                                     <img src={item.image} alt={item.title} className="pw-journal__img" />
                                 </div>
                                 <span className="pw-journal__meta">{item.date}</span>
                                 <h3 className="pw-journal__title">{item.title}</h3>
                                 <p className="pw-journal__excerpt">{item.excerpt}</p>
-                                <span style={{ fontSize: '0.8rem', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.15em', fontWeight: '600' }}>Read Entry</span>
+                                <span style={{ 
+                                    display: 'inline-block',
+                                    fontSize: '0.75rem', 
+                                    color: 'var(--accent-color)', 
+                                    textTransform: 'uppercase', 
+                                    letterSpacing: '0.15em', 
+                                    fontWeight: '700',
+                                    marginTop: '15px' 
+                                }}>Read Entry —</span>
                             </Link>
                         ))}
                     </div>
