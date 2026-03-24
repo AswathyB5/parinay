@@ -240,7 +240,7 @@ const initialContent = {
         guideChecklist1: "Top 10 Luxury Venue Insights",
         guideChecklist2: "Seasonal Weather Pattern Guide",
         guideChecklist3: "Comprehensive Budget Allocation Template",
-        guideImage: "https://images.unsplash.com/photo-1596700868482-108bb6b38c35?auto=format&fit=crop&w=800&q=80",
+        guideImage: "/uploads/upload_1774345251045_4601.jpg",
         guideYear: "The 2026",
         guidePlannerLabel: "Planner",
         guideFreeText: "Free Download",
