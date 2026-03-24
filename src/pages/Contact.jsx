@@ -169,27 +169,24 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* MAP SECTION */}
-            <section className="pw-map-section reveal" style={{ background: '#FDFBF7' }}>
-                <div className="pw-container">
-                    <div className="pw-map-wrapper" style={{
-                        borderRadius: '12px',
-                        overflow: 'hidden',
-                        height: '500px',
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                        margin: '0 0 150px'
-                    }}>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125745.71762391054!2d76.2203099901501!3d9.970597855017122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d514ab741c5%3A0x2ad13b5a02cfa70!2sKochi%2C%20Kerala!5e0!3m2!1sen!2sin!4v1711280000000!5m2!1sen!2sin"
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0 }}
-                            allowFullScreen=""
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            title="Parinay Weddings Studio Location"
-                        ></iframe>
-                    </div>
+            {/* MAP SECTION (Full-Width) */}
+            <section className="pw-map-section reveal" style={{ background: '#FDFBF7', padding: '0 0 100px' }}>
+                <div className="pw-map-wrapper" style={{
+                    width: '100%',
+                    height: '380px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+                    overflow: 'hidden'
+                }}>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125745.71762391054!2d76.2203099901501!3d9.970597855017122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d514ab741c5%3A0x2ad13b5a02cfa70!2sKochi%2C%20Kerala!5e0!3m2!1sen!2sin!4v1711280000000!5m2!1sen!2sin"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Parinay Weddings Studio Location"
+                    ></iframe>
                 </div>
             </section>
 
