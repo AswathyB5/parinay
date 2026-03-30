@@ -139,12 +139,12 @@ const Services = () => {
                                         {/* Content Body */}
                                         <div style={{ padding: '40px 30px', flexGrow: 1, backgroundColor: '#fff' }}>
                                             <h3 style={{ 
-                                                fontSize: '1.15rem', 
+                                                fontSize: '1.25rem', 
                                                 color: 'var(--primary-color)',
                                                 marginBottom: '15px',
                                                 fontFamily: 'Playfair Display, serif',
                                                 fontWeight: '600',
-                                                letterSpacing: '0',
+                                                letterSpacing: '0.01em',
                                                 lineHeight: '1.2'
                                             }}>
                                                 {item.title}
