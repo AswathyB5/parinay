@@ -1043,3 +1043,22 @@
         padding: 28px 18px;
     }
 }
+
+/* ─── NEW COMPREHENSIVE CARDS ─────────────────── */
+.comprehensive-grid > div {
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform;
+}
+
+.comprehensive-grid > div:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.08) !important;
+}
+
+.comprehensive-grid > div:hover .service-card-img {
+    transform: scale(1.1) rotate(1deg);
+}
+
+.service-card-img {
+    transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+}

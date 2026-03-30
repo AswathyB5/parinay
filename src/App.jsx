@@ -18,12 +18,13 @@ import './App.css';
 function App() {
   const location = useLocation();
   const isAdminRoute = location.pathname === '/admin';
-  const isProjectDetail = location.pathname.startsWith('/projects/');
+  const isProjectDetailPage = 
+    location.pathname.startsWith('/projects/');
 
   return (
     <div className="app-container">
       <ScrollToTop />
-      {!isAdminRoute && !isProjectDetail && <Header />}
+      {!isAdminRoute && !isProjectDetailPage && <Header />}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />

@@ -676,7 +676,7 @@ h2 i {
 /* SERVICES PAGE SPECIFIC */
 .services-hero {
     background-color: var(--primary-color);
-    padding: 140px 0 100px;
+    padding: 140px 0 60px;
     text-align: center;
     color: var(--accent-color);
 }

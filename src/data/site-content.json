@@ -150,12 +150,30 @@
     "youtubeBtnUrl": "https://youtu.be/s4dWp9_nNYk?si=j7y64Xv-zfr3Llu0",
     "youtubeEmbedUrl": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS",
     "youtubeVideos": [
-      { "id": 1, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-      { "id": 2, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-      { "id": 3, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-      { "id": 4, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-      { "id": 5, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-      { "id": 6, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" }
+      {
+        "id": 1,
+        "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+      },
+      {
+        "id": 2,
+        "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+      },
+      {
+        "id": 3,
+        "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+      },
+      {
+        "id": 4,
+        "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+      },
+      {
+        "id": 5,
+        "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+      },
+      {
+        "id": 6,
+        "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS"
+      }
     ],
     "formLabel": "Get In Touch",
     "formHeading": "Schedule a Personalised Consultation",
@@ -266,7 +284,7 @@
     "inquireBtnUrl": "/contact",
     "comprehensiveHeading": "COMPLETE WEDDING PLANNING",
     "comprehensiveIntro1": "At Parinay Weddings, we offer end-to-end wedding planning and design services, ensuring that every celebration is planned with precision, creativity, and care.",
-    "comprehensiveIntro2": "From the first conversation to the final farewell, our team manages every aspect of the wedding journey — allowing couples and their families to fully immerse themselves in the joy of the celebration.",
+    "comprehensiveIntro2": "From the first conversation to the final farewell, our team manages every aspect of the wedding journey allowing couples and their families to fully immerse themselves in the joy of the celebration.",
     "comprehensiveList": [
       {
         "title": "Wedding Planning & Strategy",
@@ -278,7 +296,7 @@
       },
       {
         "title": "Wedding Design & Creative Direction",
-        "desc": "Our luxury wedding planning focus on bespoke theme conceptualisation, refined event styling, and elegant venue layouts that reflect your personality. Every detail — from colour palettes to spatial design — is curated to create a cohesive and visually stunning celebration that is distinctly yours."
+        "desc": "Our luxury wedding planning focus on bespoke theme conceptualisation, refined event styling, and elegant venue layouts that reflect your personality. Every detail from colour palettes to spatial design is curated to create a cohesive and visually stunning celebration that is distinctly yours."
       },
       {
         "title": "Vendor Sourcing & Management",
@@ -302,7 +320,7 @@
       },
       {
         "title": "Wedding Day Coordination",
-        "desc": "On your wedding day, our team ensures that everything unfolds exactly as planned. As an experienced wedding planner in South India, we manage timelines, guest flow, ritual coordination, and all on-ground operations. We proactively handle any challenges, allowing you and your family to remain fully present in every moment."
+        "desc": "On your wedding day, our team ensures that everything unfolds exactly as planned. As an experienced wedding planner in South India, we manage timelines, guest flow, ritual coordination, and all on ground operations. We proactively handle any challenges, allowing you and your family to remain fully present in every moment."
       }
     ]
   },

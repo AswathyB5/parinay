@@ -36,12 +36,14 @@ const Gallery = () => {
         setSelectedProject({ ...project, related });
         setIsLightboxOpen(true);
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('lightbox-open');
     };
 
     const closeLightbox = () => {
         setIsLightboxOpen(false);
         setSelectedProject(null);
         document.body.style.overflow = 'auto';
+        document.body.classList.remove('lightbox-open');
     };
 
     // --- Scroll Reveal Logic ---

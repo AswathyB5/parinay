@@ -73,106 +73,102 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* NEW PREMIUM SERVICES LISTING (Matching Home Transition Style) */}
-            <section className="services-listing-premium" style={{ backgroundColor: '#FDFBF7', padding: '160px 0', overflow: 'hidden' }}>
-                <div className="container">
-                    <div style={{ textAlign: 'center', marginBottom: '120px' }}>
-                        <span className="section-label" style={{ letterSpacing: '0.3em' }}>{services.servicesListLabel || 'OUR SPECIALIZATIONS'}</span>
-                        <h2 className="intro-heading" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', marginTop: '20px' }}>{services.servicesListHeading || 'The Art of Celebration'}</h2>
-                    </div>
-
-                    {serviceItems.map((s, idx) => (
-                        <div key={idx} className="reveal" style={{
-                            display: 'flex',
-                            flexDirection: idx % 2 === 0 ? 'row' : 'row-reverse',
-                            alignItems: 'center',
-                            gap: '100px',
-                            marginBottom: '180px',
-                            position: 'relative'
-                        }}>
-                            {/* IMAGE CONTAINER with Floating Effect */}
-                            <div style={{ flex: '1.2', position: 'relative' }}>
-                                <div style={{
-                                    width: '100%',
-                                    height: '600px',
-                                    overflow: 'hidden',
-                                    position: 'relative'
-                                }}>
-                                    <img
-                                        src={s.image}
-                                        alt={s.title}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                        }}
-                                    />
-                                </div>
-                                {/* Floating Accent Square */}
-                                <div style={{
-                                    position: 'absolute',
-                                    top: '40px',
-                                    left: idx % 2 === 0 ? '-40px' : '40px',
-                                    width: '100%',
-                                    height: '100%',
-                                    backgroundColor: 'var(--primary-color)',
-                                    border: '6px solid var(--accent-color)',
-                                    zIndex: -1
-                                }}></div>
-                            </div>
-
-                            {/* TEXT CONTAINER with Overlap Potential */}
-                            <div style={{
-                                flex: '1',
-                                textAlign: 'left',
-                                paddingLeft: idx % 2 === 0 ? '0' : '40px',
-                                paddingRight: idx % 2 === 0 ? '40px' : '0'
-                            }}>
-                                <span style={{
-                                    fontSize: '0.8rem',
-                                    color: 'var(--accent-color)',
-                                    letterSpacing: '0.3em',
-                                    fontWeight: '700',
-                                    display: 'block',
-                                    marginBottom: '20px'
-                                }}>{s.label}</span>
-
-                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-                                    <span style={{
-                                        fontFamily: 'Playfair Display, serif',
-                                        fontSize: '4rem',
-                                        color: 'var(--primary-color)',
-                                        opacity: '0.1',
-                                        lineHeight: '1'
-                                    }}>{s.number}</span>
-                                    <h3 style={{
-                                        fontSize: '3.5rem',
-                                        margin: '0 0 30px',
-                                        color: 'var(--primary-color)',
-                                        fontFamily: 'Playfair Display, serif',
-                                        lineHeight: '1'
-                                    }}>{s.title}</h3>
-                                </div>
-
-                                <p style={{
-                                    fontSize: '1.2rem',
-                                    lineHeight: '2',
-                                    color: '#555',
-                                    maxWidth: '500px',
-                                    fontWeight: '300'
-                                }}>{s.desc}</p>
-
-                                <div style={{
-                                    width: '60px',
-                                    height: '2px',
-                                    backgroundColor: 'var(--accent-color)',
-                                    marginTop: '40px'
-                                }}></div>
-                            </div>
+            {/* COMPREHENSIVE SERVICES LISTING (Redesigned with Images) */}
+            {services.comprehensiveList && (
+                <section className="comprehensive-services reveal" style={{ padding: '100px 0 60px', background: '#FDFBF7' }}>
+                    <div className="container">
+                        <div style={{ maxWidth: '900px', margin: '0 auto 100px', textAlign: 'center' }}>
+                            <span className="section-label" style={{ letterSpacing: '0.4em', display: 'block', marginBottom: '20px' }}>END-TO-END CURATION</span>
+                            <h2 style={{ 
+                                fontFamily: 'Playfair Display, serif', 
+                                fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', 
+                                color: 'var(--primary-color)',
+                                marginBottom: '40px',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em'
+                            }}>{services.comprehensiveHeading}</h2>
+                            <p style={{ fontSize: '1.25rem', lineHeight: '1.9', color: '#1d3528', marginBottom: '30px', fontWeight: '400', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
+                                {services.comprehensiveIntro1}
+                            </p>
+                            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#555', fontWeight: '400', maxWidth: '700px', margin: '0 auto' }}>
+                                {services.comprehensiveIntro2}
+                            </p>
                         </div>
-                    ))}
-                </div>
-            </section>
+
+                        <div className="comprehensive-grid" style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'repeat(3, 1fr)', 
+                            gap: '60px 40px',
+                            marginTop: '60px'
+                        }}>
+                            {services.comprehensiveList.map((item, idx) => {
+                                const placeholderImages = [
+                                    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800", // Strategy
+                                    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=800", // Venue
+                                    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800", // Design
+                                    "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&q=80&w=800", // Vendor
+                                    "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=80&w=800", // Guest
+                                    "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800", // Event Production
+                                    "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800", // Entertainment
+                                    "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80", // Styling
+                                    "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80"  // Day Coordination
+                                ];
+                                const imgUrl = placeholderImages[idx] || placeholderImages[0];
+                                
+                                return (
+                                    <div key={idx} className="reveal delay-1" style={{ 
+                                        position: 'relative',
+                                        backgroundColor: '#fff',
+                                        padding: '0',
+                                        boxShadow: '0 20px 40px rgba(0,0,0,0.03)',
+                                        transition: 'all 0.5s ease',
+                                        overflow: 'hidden',
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}>
+                                        {/* Image Header */}
+                                        <div style={{ height: '320px', overflow: 'hidden', position: 'relative' }}>
+                                            <img 
+                                                src={imgUrl} 
+                                                alt={item.title} 
+                                                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }}
+                                                className="service-card-img"
+                                            />
+                                        </div>
+
+                                        {/* Content Body */}
+                                        <div style={{ padding: '40px 30px', flexGrow: 1, backgroundColor: '#fff' }}>
+                                            <h3 style={{ 
+                                                fontSize: '1.4rem', 
+                                                color: 'var(--primary-color)',
+                                                marginBottom: '15px',
+                                                fontFamily: 'Playfair Display, serif',
+                                                fontWeight: '600',
+                                                letterSpacing: '0.02em',
+                                                lineHeight: '1.3'
+                                            }}>
+                                                {item.title}
+                                            </h3>
+                                            <div style={{ 
+                                                width: '35px', 
+                                                height: '2px', 
+                                                backgroundColor: 'var(--accent-color)',
+                                                marginBottom: '20px'
+                                            }}></div>
+                                            <p style={{ 
+                                                fontSize: '0.98rem', 
+                                                lineHeight: '1.8', 
+                                                color: '#555',
+                                                fontWeight: '300'
+                                            }}>{item.desc}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </section>
+            )}
 
             {/* INTRO TEXT */}
             <section className="intro-section reveal">
@@ -210,81 +206,7 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* COMPREHENSIVE SERVICES LISTING */}
-            {services.comprehensiveList && (
-                <section className="comprehensive-services reveal" style={{ padding: '120px 0', background: '#fff' }}>
-                    <div className="container">
-                        <div style={{ maxWidth: '900px', margin: '0 auto 80px', textAlign: 'center' }}>
-                            <h2 style={{ 
-                                fontFamily: 'Playfair Display, serif', 
-                                fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
-                                color: 'var(--primary-color)',
-                                marginBottom: '40px'
-                            }}>{services.comprehensiveHeading}</h2>
-                            <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#1d3528', marginBottom: '25px', fontWeight: '400' }}>
-                                {services.comprehensiveIntro1}
-                            </p>
-                            <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#1d3528', fontWeight: '400' }}>
-                                {services.comprehensiveIntro2}
-                            </p>
-                        </div>
 
-                        <div className="comprehensive-grid" style={{ 
-                            display: 'grid', 
-                            gridTemplateColumns: 'repeat(3, 1fr)', 
-                            gap: '80px 80px',
-                            marginTop: '100px'
-                        }}>
-                            {services.comprehensiveList.map((item, idx) => (
-                                <div key={idx} className="reveal" style={{ 
-                                    position: 'relative', 
-                                    paddingTop: '30px', 
-                                    paddingLeft: '10px' 
-                                }}>
-                                    <span style={{ 
-                                        position: 'absolute',
-                                        top: '-10px',
-                                        left: '-55px',
-                                        width: '80px',
-                                        textAlign: 'center',
-                                        fontSize: '4.8rem',
-                                        fontFamily: 'Playfair Display, serif',
-                                        color: 'var(--accent-color)',
-                                        opacity: '0.22',
-                                        lineHeight: '1',
-                                        zIndex: 0,
-                                        fontWeight: '700'
-                                    }}>{idx + 1}</span>
-                                    <div style={{ position: 'relative', zIndex: 1 }}>
-                                        <h3 style={{ 
-                                            fontSize: '1.5rem', 
-                                            color: '#123524',
-                                            marginBottom: '15px',
-                                            fontFamily: 'Playfair Display, serif',
-                                            fontWeight: '600'
-                                        }}>
-                                            {item.title}
-                                        </h3>
-                                        <div style={{ 
-                                            width: '40px', 
-                                            height: '2px', 
-                                            backgroundColor: 'var(--accent-color)',
-                                            marginBottom: '20px'
-                                        }}></div>
-                                        <p style={{ 
-                                            fontSize: '1.05rem', 
-                                            lineHeight: '1.8', 
-                                            color: '#444',
-                                            fontWeight: '400',
-                                            maxWidth: '90% '
-                                        }}>{item.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
 
 
             {/* CTA SECTION */}
