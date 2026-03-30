@@ -62,10 +62,10 @@ h2 {
     padding: 0 25px;
 }
 
-/* Expansive Header & Footer Containers */
-.main-header .container,
+.main-header nav,
 .main-footer .container {
-    max-width: 95%;
+    max-width: 100%;
+    padding: 0 40px;
 }
 
 @media (max-width: 768px) {
@@ -114,7 +114,7 @@ section {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 20000; /* Above Lightbox */
     background: transparent;
     transition: var(--transition-smooth);
     padding: 20px 0;
@@ -1493,7 +1493,75 @@ section {
     border: none;
 }
 
-/* ---- New Split Layout ---- */
+/* ---- New 6-Video Grid Layout ---- */
+.youtube-videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Stable 3-Video Trio Layout (1 Top, 2 Bottom) */
+.youtube-featured-side {
+    width: 100%;
+}
+
+.youtube-trio-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.youtube-trio-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.youtube-trio-stack .youtube-card {
+    position: relative;
+    box-shadow: 0 15px 45px rgba(29, 53, 40, 0.12);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.youtube-trio-stack .youtube-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    z-index: 10;
+    box-shadow: 0 30px 70px rgba(29, 53, 40, 0.2);
+}
+
+.youtube-section-header {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 60px;
+}
+
+.youtube-section-header .editorial-label {
+    display: block;
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.youtube-section-header .editorial-label::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--accent-color);
+    margin: 15px auto 0;
+}
+
+.youtube-section-header h2 em {
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+
+/* ---- New Split Layout (Keep for Legacy/Alt) ---- */
 .youtube-split-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1577,6 +1645,24 @@ section {
 
     .youtube-text-content h2 {
         font-size: 2.5rem;
+    }
+
+    .youtube-videos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .youtube-trio-bottom {
+        grid-template-columns: 1fr;
+    }
+
+    .youtube-trio-stack {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 650px) {
+    .youtube-videos-grid {
+        grid-template-columns: 1fr;
     }
 }
 

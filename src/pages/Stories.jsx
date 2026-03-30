@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { ContentContext } from '../context/ContentContext';
+import './Gallery.css';
 
 const Stories = ({ sectionKey = "storiesDestination" }) => {
     const { content } = useContext(ContentContext);
-    const stories = content[sectionKey] || content.storiesDestination;
-    const home = content.home;
+
+    // Safety guards for data access
+    const stories = (content && content[sectionKey]) || (content && content.storiesDestination) || { storiesList: [] };
+    const home = (content && content.home) || { testimonials: [] };
     const testimonials = home.testimonials || [];
 
     // --- Testimonial Carousel Logic ---
@@ -48,12 +52,12 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
 
             {/* WEDDLIN-STYLE STORY LIST */}
             <section className="wsl-section">
-                {stories.storiesList.map((item, index) => {
+                {stories.storiesList && stories.storiesList.map((item, index) => {
                     const isEven = index % 2 === 0;
 
                     return (
                         <div
-                            key={item.id}
+                            key={item.id || index}
                             className={`wsl-item reveal ${isEven ? 'wsl-item--right' : 'wsl-item--left'}`}
                             style={{ transitionDelay: `${index * 0.07}s` }}
                         >
@@ -94,11 +98,28 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                     )}
                                 </div>
                                 <p className="wsl-item__desc">{item.desc}</p>
+                                <Link 
+                                    to={`/projects/${item.id || item.title?.toLowerCase().replace(/\s+/g, '-')}`}
+                                    className="wsl-item__cta" 
+                                >
+                                    VIEW PROJECT <i className="fas fa-arrow-right" style={{ marginLeft: '10px', fontSize: '0.8rem' }}></i>
+                                </Link>
                             </div>
                         </div>
                     );
                 })}
             </section>
+
+            <div className="pw-stories__explore reveal" style={{ textAlign: 'center', padding: '60px 0 100px' }}>
+                <a 
+                    href="https://instagram.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="pw-btn pw-btn--gold"
+                >
+                    EXPLORE MORE COLLECTIONS <i className="fab fa-instagram" style={{ marginLeft: '10px', fontSize: '0.9rem' }}></i>
+                </a>
+            </div>
 
             {/* CINEMATIC CTA BAND */}
             <section className="pw-page-hero">

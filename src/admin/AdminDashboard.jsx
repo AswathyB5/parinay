@@ -67,6 +67,7 @@ const FIELD_GROUPS = {
         testimonialLabel: 'Client Testimonials',
         transitionHeading: 'Call to Action Section',
         youtubeLabel: 'YouTube / Video Section',
+        youtubeVideos: 'YouTube Videos Grid',
         formLabel: 'Consultation Form Section',
         journalNote: 'Journal Preview Section'
     },
@@ -147,7 +148,8 @@ const GROUP_DESCRIPTIONS = {
     'Portfolio Glimpse': 'The image grid showing a sample of past weddings with a "View All" button.',
     'Client Testimonials': 'Rotating quotes from couples. Each item has text, author name, location and photo.',
     'Call to Action Section': 'The full-screen video band with the "Work With Us" prompt and button.',
-    'YouTube / Video Section': 'The cinematic film embed section — label, heading, body paragraphs, button and YouTube embed URL.',
+    'YouTube / Video Section': 'Cinematic film section — label, heading, body paragraphs and watch more button.',
+    'YouTube Videos Grid': 'Manage the 6 YouTube videos shown in the grid. Each item needs a YouTube Embed URL.',
     'Consultation Form Section': 'The label, heading, sub-text and button for the enquiry form on the homepage.',
     'Journal Preview Section': 'Auto-pulls the latest 3 posts from the Journal / Blog page.',
     /* About */
@@ -206,7 +208,8 @@ const FIELD_HINTS = {
     stat3Label:  'Use \\n to split into two lines.',
     stat4Label:  'Use \\n to split into two lines.',
     introSubText: 'The smaller italic sentence shown beneath the main introduction heading.',
-    youtubeEmbedUrl: 'Paste the YouTube Embed URL — Share → Embed (e.g. https://www.youtube.com/embed/xxxxx).',
+    youtubeEmbedUrl: 'Legacy field (no longer used in grid). Use YouTube Videos Grid below.',
+    'url': 'Paste the YouTube Embed URL — Share → Embed (e.g. https://www.youtube.com/embed/xxxxx).',
     youtubeBtnUrl: 'Full URL of the YouTube channel or video (opens in a new tab).',
     transitionVideoUrl: 'The full-screen background video for the "Work With Us" CTA band (MP4).',
     transitionBtnUrl: 'Page the CTA band button links to.',

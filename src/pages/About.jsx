@@ -143,28 +143,6 @@ const About = () => {
             </div>
 
 
-            {/* TEAM SECTION */}
-            <section className="about-team-new reveal">
-                <div className="container">
-                    <span className="section-label">{about.teamLabel}</span>
-                    <h2 style={{ marginBottom: '20px' }}>{about.teamHeading}</h2>
-                    <p style={{ maxWidth: '800px', margin: '0 auto 60px', fontSize: '1.2rem', color: '#666', lineHeight: '1.8' }}>
-                        {about.teamDesc}
-                    </p>
-                    <div className="team-grid-new">
-                        {about.teamMembers.map((member) => (
-                            <div key={member.id} className="team-card-new">
-                                <div className="team-img-wrap-new">
-                                    <img src={member.image} alt={member.name} />
-                                </div>
-                                <h3>{member.name}</h3>
-                                <span>{member.role}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
             {/* CTA SECTION */}
             <section className="about-cta-section" style={{ background: 'none', padding: '160px 0' }}>
                 <div className="cta-video-bg-wrapper" style={{

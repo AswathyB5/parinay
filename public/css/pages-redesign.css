@@ -100,12 +100,21 @@
     font-weight: 300;
     line-height: 1.1;
     margin-bottom: 24px;
+    color: var(--accent-color);
     letter-spacing: -0.01em;
 }
 
 .pw-page-hero__title em {
     font-style: italic;
     color: var(--accent-color);
+}
+
+/* Force beige titles on all green-background hero sections */
+.about-hero-new h1,
+.services-hero h1,
+.pw-page-banner__title,
+.pw-page-hero__title {
+    color: var(--accent-color) !important;
 }
 
 .pw-page-hero__subtitle {
@@ -963,6 +972,7 @@
     padding: 12px 24px;
     cursor: pointer;
     transition: all 0.35s ease;
+    text-decoration: none;
 }
 
 .wsl-item__cta:hover {

@@ -1,0 +1,217 @@
+/* ─── FLOATING BADGE ─────────────────────────────────────────────────────── */
+.floating-quote-badge {
+    position: fixed;
+    right: 0;
+    top: 30%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: right bottom;
+    background: var(--accent-color);
+    color: #fff;
+    padding: 11px 22px;
+    cursor: pointer;
+    z-index: 9999;
+    border: 1px solid var(--accent-color);
+    /* border-right: none; unnecessary since right: 0 */
+    border-radius: 12px 12px 0 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+    white-space: nowrap;
+}
+
+.floating-quote-badge:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.badge-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge-icon {
+    font-size: 0.85rem;
+}
+
+/* ─── MODAL OVERLAY ──────────────────────────────────────────────────────── */
+.quote-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 35, 26, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeInModal 0.4s ease;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ─── MODAL CARD ─────────────────────────────────────────────────────────── */
+.quote-modal-card {
+    background: var(--secondary-color);
+    width: 100%;
+    max-width: 800px;
+    padding: 55px 60px;
+    position: relative;
+    border-radius: 2px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+    animation: slideUpModal 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes slideUpModal {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.quote-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.quote-modal-close:hover {
+    transform: rotate(90deg);
+    color: var(--accent-color);
+}
+
+.quote-modal-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.quote-modal-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.quote-modal-header p {
+    font-size: 0.9rem;
+    color: #666;
+    letter-spacing: 0.05em;
+}
+
+/* ─── MODAL FORM ─────────────────────────────────────────────────────────── */
+.quote-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-color);
+}
+
+.form-group input, 
+.form-group textarea {
+    padding: 10px 14px;
+    border: 1.5px solid rgba(29, 53, 40, 0.1);
+    background: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 5px 15px rgba(197,160,89,0.1);
+}
+
+.quote-submit-btn {
+    margin-top: 10px;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 18px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    border-radius: 2px;
+}
+
+.quote-submit-btn:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+@media (max-width: 600px) {
+    .form-group-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .quote-modal-card {
+        padding: 50px 25px;
+    }
+
+    .quote-modal-header h2 {
+        font-size: 2.2rem;
+    }
+
+    .floating-quote-badge {
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+        transform: none;
+        border-radius: 50px;
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .badge-text {
+        display: none;
+    }
+
+    .badge-content {
+        justify-content: center;
+    }
+
+    .badge-icon {
+        font-size: 1.5rem;
+    }
+}

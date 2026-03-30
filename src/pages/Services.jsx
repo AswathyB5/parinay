@@ -210,6 +210,82 @@ const Services = () => {
                 </div>
             </section>
 
+            {/* COMPREHENSIVE SERVICES LISTING */}
+            {services.comprehensiveList && (
+                <section className="comprehensive-services reveal" style={{ padding: '120px 0', background: '#fff' }}>
+                    <div className="container">
+                        <div style={{ maxWidth: '900px', margin: '0 auto 80px', textAlign: 'center' }}>
+                            <h2 style={{ 
+                                fontFamily: 'Playfair Display, serif', 
+                                fontSize: 'clamp(2.5rem, 5vw, 4rem)', 
+                                color: 'var(--primary-color)',
+                                marginBottom: '40px'
+                            }}>{services.comprehensiveHeading}</h2>
+                            <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#1d3528', marginBottom: '25px', fontWeight: '400' }}>
+                                {services.comprehensiveIntro1}
+                            </p>
+                            <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#1d3528', fontWeight: '400' }}>
+                                {services.comprehensiveIntro2}
+                            </p>
+                        </div>
+
+                        <div className="comprehensive-grid" style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'repeat(3, 1fr)', 
+                            gap: '80px 80px',
+                            marginTop: '100px'
+                        }}>
+                            {services.comprehensiveList.map((item, idx) => (
+                                <div key={idx} className="reveal" style={{ 
+                                    position: 'relative', 
+                                    paddingTop: '30px', 
+                                    paddingLeft: '10px' 
+                                }}>
+                                    <span style={{ 
+                                        position: 'absolute',
+                                        top: '-10px',
+                                        left: '-55px',
+                                        width: '80px',
+                                        textAlign: 'center',
+                                        fontSize: '4.8rem',
+                                        fontFamily: 'Playfair Display, serif',
+                                        color: 'var(--accent-color)',
+                                        opacity: '0.22',
+                                        lineHeight: '1',
+                                        zIndex: 0,
+                                        fontWeight: '700'
+                                    }}>{idx + 1}</span>
+                                    <div style={{ position: 'relative', zIndex: 1 }}>
+                                        <h3 style={{ 
+                                            fontSize: '1.5rem', 
+                                            color: '#123524',
+                                            marginBottom: '15px',
+                                            fontFamily: 'Playfair Display, serif',
+                                            fontWeight: '600'
+                                        }}>
+                                            {item.title}
+                                        </h3>
+                                        <div style={{ 
+                                            width: '40px', 
+                                            height: '2px', 
+                                            backgroundColor: 'var(--accent-color)',
+                                            marginBottom: '20px'
+                                        }}></div>
+                                        <p style={{ 
+                                            fontSize: '1.05rem', 
+                                            lineHeight: '1.8', 
+                                            color: '#444',
+                                            fontWeight: '400',
+                                            maxWidth: '90% '
+                                        }}>{item.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
 
             {/* CTA SECTION */}
             <section className="about-cta-section services-cta" style={{

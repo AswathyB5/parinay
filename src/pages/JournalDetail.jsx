@@ -52,7 +52,7 @@ const JournalDetail = () => {
             {/* ═══ SECTION: PAGE BANNER ═══ */}
             <section className="about-hero-new" style={{ padding: '160px 0 140px' }}>
                 <div className="pw-container reveal" style={{ position: 'relative' }}>
-                    <h1 style={{ fontSize: '3.5rem', lineHeight: '1.2', marginBottom: '0', textAlign: 'center' }}>{post.title}</h1>
+                    <h1 style={{ fontSize: '2.8rem', lineHeight: '1.2', marginBottom: '0', textAlign: 'center', color: 'var(--accent-color)' }}>{post.title}</h1>
                     
                     <div style={{ 
                         position: 'absolute',
@@ -140,7 +140,7 @@ const JournalDetail = () => {
                         <span className="pw-label pw-label--light">READY TO START?</span>
                         <h2 style={{ 
                             fontFamily: "'Cormorant Garamond', serif", 
-                            fontSize: '3.5rem', 
+                            fontSize: '2.8rem', 
                             margin: '30px 0 50px',
                             fontWeight: '300'
                         }}>
@@ -156,7 +156,7 @@ const JournalDetail = () => {
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '100px' }}>
                          <span className="pw-label">CONTINUE READING</span>
-                         <h2 className="pw-section-header__title" style={{ fontSize: '4.5rem' }}>
+                         <h2 className="pw-section-header__title" style={{ fontSize: '3.2rem' }}>
                              More <em>Stories</em>
                          </h2>
                     </div>

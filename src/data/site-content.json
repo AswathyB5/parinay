@@ -149,6 +149,14 @@
     "youtubeBtnText": "WATCH MORE FILMS",
     "youtubeBtnUrl": "https://youtu.be/s4dWp9_nNYk?si=j7y64Xv-zfr3Llu0",
     "youtubeEmbedUrl": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS",
+    "youtubeVideos": [
+      { "id": 1, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
+      { "id": 2, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
+      { "id": 3, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
+      { "id": 4, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
+      { "id": 5, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
+      { "id": 6, "url": "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" }
+    ],
     "formLabel": "Get In Touch",
     "formHeading": "Schedule a Personalised Consultation",
     "formSubtext": "Fill in your details below and our team will get in touch to schedule a personalised consultation within 24 hours.",
@@ -255,7 +263,48 @@
     "service2List": "Design Refinement & Integration\nVendor Sourcing for Remaining Categories\nLogistical Fine-Tuning\nComprehensive Month-of Handover",
     "service3List": "Final Walkthrough & Rehearsal Management\nMaster Itinerary Creation\nOn-Site Day-Of Execution\nVendor Point of Contact",
     "inquireBtnText": "Inquire",
-    "inquireBtnUrl": "/contact"
+    "inquireBtnUrl": "/contact",
+    "comprehensiveHeading": "COMPLETE WEDDING PLANNING",
+    "comprehensiveIntro1": "At Parinay Weddings, we offer end-to-end wedding planning and design services, ensuring that every celebration is planned with precision, creativity, and care.",
+    "comprehensiveIntro2": "From the first conversation to the final farewell, our team manages every aspect of the wedding journey — allowing couples and their families to fully immerse themselves in the joy of the celebration.",
+    "comprehensiveList": [
+      {
+        "title": "Wedding Planning & Strategy",
+        "desc": "We begin every celebration with a deep understanding of your vision, traditions, and expectations. Our team develops a structured planning strategy that includes detailed consultations, budget planning, timelines, and event flow mapping. Every decision is thoughtfully guided to ensure clarity, efficiency, and a stress-free planning journey."
+      },
+      {
+        "title": "Destination & Venue Management",
+        "desc": "From luxury resorts to heritage venues, we curate exceptional venues that perfectly complement your wedding vision. We handle venue sourcing, bookings, room blocking, and permits with precision. Our expertise as destination wedding planners in South India makes destination weddings smooth and worry-free for couples worldwide."
+      },
+      {
+        "title": "Wedding Design & Creative Direction",
+        "desc": "Our luxury wedding planning focus on bespoke theme conceptualisation, refined event styling, and elegant venue layouts that reflect your personality. Every detail — from colour palettes to spatial design — is curated to create a cohesive and visually stunning celebration that is distinctly yours."
+      },
+      {
+        "title": "Vendor Sourcing & Management",
+        "desc": "The right vendors bring your wedding vision to life. As a leading luxury wedding planner in India, we collaborate with top professionals across catering, beauty, photography, and cultural services. We manage everything to ensure quality and consistency."
+      },
+      {
+        "title": "Guest Hospitality & Wedding Logistics",
+        "desc": "Indian weddings are defined by their warmth and hospitality, and we ensure every guest feels cared for. Our wedding planning services in Kerala include guest list management, RSVP tracking, welcome desks, concierge services, and seamless transportation logistics."
+      },
+      {
+        "title": "Event Production",
+        "desc": "Our expertise in luxury wedding production brings each celebration to life with precision and scale. From stage construction and advanced sound and lighting to visual production and special effects, every technical element is executed flawlessly. We integrate modern production techniques to enhance the overall experience."
+      },
+      {
+        "title": "Entertainment",
+        "desc": "We curate engaging experiences that elevate every celebration. As an end-to-end destination wedding planner in India, we organise live bands, DJs, celebrity performances, and cultural shows. Each moment is designed to leave a lasting impression."
+      },
+      {
+        "title": "Bridal & Groom Styling",
+        "desc": "From personalised styling consultations and trousseau planning to shopping assistance, hair, and makeup coordination, every detail is handled with care. As part of our luxury wedding planning services, we align your look with the overall wedding aesthetic."
+      },
+      {
+        "title": "Wedding Day Coordination",
+        "desc": "On your wedding day, our team ensures that everything unfolds exactly as planned. As an experienced wedding planner in South India, we manage timelines, guest flow, ritual coordination, and all on-ground operations. We proactively handle any challenges, allowing you and your family to remain fully present in every moment."
+      }
+    ]
   },
   "contact": {
     "pageBannerTitle": "Contact",

@@ -57,7 +57,12 @@ const Header = () => {
 
                 <ul className="nav-links nav-links--right">
                     <li className="nav-dropdown">
-                        <a href="#" className={location.pathname.startsWith('/stories') ? 'active' : ''} onClick={(e) => e.preventDefault()}>{nav4Label}</a>
+                        <Link 
+                            to={nav4Url} 
+                            className={location.pathname.startsWith('/stories') ? 'active' : ''}
+                        >
+                            {nav4Label}
+                        </Link>
                         <ul className="nav-dropdown-menu">
                             <li><Link to={nav4Sub1Url}>{nav4Sub1Label}</Link></li>
                             <li><Link to={nav4Sub2Url}>{nav4Sub2Label}</Link></li>
@@ -74,7 +79,7 @@ const Header = () => {
                     <li><Link to={nav2Url}>{nav2Label}</Link></li>
                     <li><Link to={nav3Url}>{nav3Label}</Link></li>
                     <li>
-                        <a href="#" onClick={(e) => e.preventDefault()} style={{ opacity: 0.6 }}>{nav4Label}</a>
+                        <Link to={nav4Url}>{nav4Label}</Link>
                         <ul className="mobile-sub-menu" style={{ listStyle: 'none', paddingLeft: '1rem', marginTop: '0.5rem' }}>
                             <li><Link to={nav4Sub1Url}>- {nav4Sub1Label}</Link></li>
                             <li><Link to={nav4Sub2Url}>- {nav4Sub2Label}</Link></li>

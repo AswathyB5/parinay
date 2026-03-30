@@ -1,7 +1,19 @@
 /* Dropdown Navigation */
 .nav-dropdown {
     position: relative;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.nav-dropdown > a {
+    position: relative;
+    z-index: 5;
+    display: block;
+    height: 100%;
+}
+
+.nav-dropdown > a:hover {
+    color: var(--accent-color) !important;
 }
 
 .nav-dropdown-menu {

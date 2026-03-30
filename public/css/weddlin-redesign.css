@@ -355,12 +355,12 @@ h2 i {
     background-color: var(--primary-color);
     padding: 140px 0 100px;
     text-align: center;
-    color: var(--secondary-color);
+    color: var(--accent-color);
 }
 
 .about-hero-new h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(2.5rem, 4.5vw, 3.8rem);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin: 0;
@@ -567,7 +567,7 @@ h2 i {
     background-color: #FFFFFF;
     padding-bottom: 35px;
     transition: var(--weddlin-transition);
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    border: 2px solid rgba(0, 0, 0, 0.06);
 }
 
 .team-card-new:hover {
@@ -683,7 +683,7 @@ h2 i {
 
 .services-hero h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(2.5rem, 4.5vw, 3.8rem);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 20px;
