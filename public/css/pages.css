@@ -816,6 +816,16 @@ header.main-header .mobile-menu-btn span {
     z-index: 2;
 }
 
+.process-quote {
+    display: block;
+    text-align: center;
+    color: var(--primary-color);
+    font-style: italic;
+    margin-top: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+}
+
 .process-icon {
     font-size: 2.5rem;
     color: var(--accent-color);

@@ -89,6 +89,7 @@ const FIELD_GROUPS = {
         service3Label: 'Service 3: Destination',
         service4Label: 'Service 4: Hospitality',
         processLabel: 'Our Process Section',
+        processItems: 'Our Process Section',
         ctaHeading: 'Call to Action'
     },
     contact: {
@@ -167,7 +168,7 @@ const GROUP_DESCRIPTIONS = {
     'Service 2: Design & Styling': 'Label, image, heading and description for the Design & Styling service.',
     'Service 3: Destination': 'Label, image, heading and description for the Destination service.',
     'Service 4: Hospitality': 'Label, image, heading and description for the Hospitality service.',
-    'Our Process Section': 'The four-step "How We Work" cards — label, heading, title and description for each step.',
+    'Our Process Section': 'The "How We Work" process steps. Each item has a title and a description. You can add up to 11 steps.',
     /* Contact */
     'Cinematic Band': 'The full-screen image shown at the bottom of the Contact page behind the heading.',
     'Band Copy': 'The large title, italic emphasis word and subtitle overlaid on the cinematic band image.',
@@ -223,15 +224,8 @@ const FIELD_HINTS = {
     servicesListLabel: 'Small uppercase label shown above the main services heading (e.g. OUR SPECIALIZATIONS).',
     servicesListHeading: 'Large heading above the alternating service entries (e.g. The Art of Celebration).',
     processLabel: 'Small uppercase label above the process section heading.',
-    processHeading: 'Main heading of the How We Work process section.',
-    process1Title: 'Heading of the first process step.',
-    process1Desc: 'Short description for the first process step.',
-    process2Title: 'Heading of the second process step.',
-    process2Desc: 'Short description for the second process step.',
-    process3Title: 'Heading of the third process step.',
-    process3Desc: 'Short description for the third process step.',
-    process4Title: 'Heading of the fourth process step.',
-    process4Desc: 'Short description for the fourth process step.',
+    processHeading: 'Main heading of the "Our Planning Process" section.',
+    processItems: 'Manage the steps of your planning process. Each item needs a title and a clear description.',
     ctaDesc: 'Short paragraph shown below the CTA heading in the background image section at the bottom of the page.',
     ctaImage: 'Background image for the Call to Action section (Services page). Recommended: 1920×1200 px landscape.',
     /* About */

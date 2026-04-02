@@ -182,26 +182,21 @@ const Services = () => {
             <section className="process-section reveal">
                 <div className="container">
                     <div className="process-grid">
-                        <div className="process-card reveal">
-                            <span className="process-number">01</span>
-                            <h3 className="process-title">{services.process1Title || 'Understanding Your Vision'}</h3>
-                            <p className="process-desc">{services.process1Desc}</p>
-                        </div>
-                        <div className="process-card reveal">
-                            <span className="process-number">02</span>
-                            <h3 className="process-title">{services.process2Title || 'Planning & Designing'}</h3>
-                            <p className="process-desc">{services.process2Desc}</p>
-                        </div>
-                        <div className="process-card reveal">
-                            <span className="process-number">03</span>
-                            <h3 className="process-title">{services.process3Title || 'Coordination & Execution'}</h3>
-                            <p className="process-desc">{services.process3Desc}</p>
-                        </div>
-                        <div className="process-card reveal">
-                            <span className="process-number">04</span>
-                            <h3 className="process-title">{services.process4Title || 'You Celebrate, We Manage'}</h3>
-                            <p className="process-desc">{services.process4Desc}</p>
-                        </div>
+                        {services.processItems && services.processItems.map((item, idx) => (
+                            <div key={idx} className="process-card reveal">
+                                <span className="process-number">{(idx + 1).toString().padStart(2, '0')}</span>
+                                <h3 className="process-title">{item.title}</h3>
+                                <p className="process-desc">
+                                    {item.desc.split('\n').map((line, i) => (
+                                        i === 0 ? line : (
+                                            <span key={i} className="process-quote">
+                                                {line}
+                                            </span>
+                                        )
+                                    ))}
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

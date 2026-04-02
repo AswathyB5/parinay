@@ -142,16 +142,54 @@ const initialContent = {
         service4Heading: "Hospitality",
         service4Desc: "Comprehensive management of your loved ones travel, accommodation, and curated welcome experiences, ensuring they feel as valued as you do.",
         service4Image: "https://images.squarespace-cdn.com/content/v1/65f07a6bb920a639725145b7/1727446736382-BZ6LLFXT3559SS2G8NFR/7D6C6468.jpg",
-        processLabel: "How We Work",
-        processHeading: "A Structured, Calm Planning Process",
-        process1Title: "Understanding Your Vision",
-        process1Desc: "We begin with an in-depth consultation to understand your love story, priorities, and the feeling you want your wedding to evoke.",
-        process2Title: "Planning & Designing",
-        process2Desc: "We craft a complete wedding plan — timeline, budget, vendor curation, and design direction — tailored entirely to you.",
-        process3Title: "Coordination & Execution",
-        process3Desc: "We manage all vendor communication, bookings, contracts, and logistics so nothing falls through the cracks.",
-        process4Title: "You Celebrate, We Manage",
-        process4Desc: "On your wedding day, we handle every detail behind the scenes so you can be fully present in every moment.",
+        processLabel: "Our Planning Process",
+        processHeading: "A Refined Journey from Vision to Celebration",
+        processItems: [
+            {
+                title: "Understanding Your Vision",
+                desc: "Every celebration begins with a meaningful conversation. We take the time to understand your story, preferences, and cultural nuances - shaping a clear direction.\n\"This is where your vision begins to take form.\""
+            },
+            {
+                title: "Destination & Venue Selection",
+                desc: "The setting defines the experience. We curate exceptional destinations and venues that align with your aesthetic, guest profile, and scale, managing everything from shortlisting to confirmations.\n\"An unforgettable celebration begins with the perfect setting.\""
+            },
+            {
+                title: "Budget Planning & Wedding Roadmap",
+                desc: "Clarity is essential to a seamless experience. We develop a structured budget, detailed timelines, and a comprehensive planning roadmap, ensuring every element is aligned from the very beginning.\n\"Every detail, thoughtfully planned.\""
+            },
+            {
+                title: "Wedding Concept Development",
+                desc: "This is where your wedding transforms into a story. We craft a unique concept that reflects your personality, traditions, and vision, setting the creative foundation for the entire celebration.\n\"A wedding designed with meaning, not just aesthetics.\""
+            },
+            {
+                title: "Design Visualisation & 3D Rendering",
+                desc: "Before execution, we bring your wedding to life through detailed design visualisations and 3D renders. This allows you to experience the look and feel of your celebration in advance.\n\"See your wedding before it comes to life.\""
+            },
+            {
+                title: "Design, Décor & Styling Execution",
+                desc: "With a clear vision in place, we curate every design element — from décor and florals to spatial layouts and styling. Each detail is carefully composed to create a cohesive and timeless aesthetic.\n\"Where design meets craftsmanship.\""
+            },
+            {
+                title: "Vendor Curation & Management",
+                desc: "We bring together a team of exceptional professionals across hospitality, photography, beauty, and entertainment. As a trusted luxury wedding planner in India, we ensure every partner aligns with your vision and standards.\n\"Excellence, delivered by the finest.\""
+            },
+            {
+                title: "Guest Hospitality & Logistics",
+                desc: "A destination wedding is as much about your guests as it is about you. From travel and accommodation to personalised hospitality and logistics, we ensure every guest experience comfort and care.\n\"Effortless hospitality, thoughtfully delivered.\""
+            },
+            {
+                title: "Production & Final Planning",
+                desc: "As the celebration approaches, every element is aligned — from production and technical setups to final schedules. Precision and attention to detail ensure a flawless transition into execution.\n\"Every detail, perfectly in place.\""
+            },
+            {
+                title: "Wedding Day Execution",
+                desc: "On the day of your wedding, our team orchestrates every moment with quiet precision. Timelines, rituals, and experiences unfold seamlessly. You remain present.\n\"We manage everything else.\""
+            },
+            {
+                title: "Post-Wedding Closure",
+                desc: "Even after the celebrations conclude, we oversee final settlements, deliverables, and wrap-ups. Every detail is completed with the same care and attention as the wedding itself.\n\"A graceful conclusion to a beautifully planned journey.\""
+            }
+        ],
         ctaHeading: "Let's Begin Planning Your Wedding",
         ctaImage: "https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg",
         ctaDesc: "If you're looking for a wedding planning partner who combines experience, creativity and reliability, we'd love to connect.",
