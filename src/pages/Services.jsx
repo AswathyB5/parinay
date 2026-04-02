@@ -238,7 +238,7 @@ const Services = () => {
                     <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
                         {services.ctaHeading || "Let's Begin Planning Your Wedding"}
                     </h2>
-                    <p style={{ maxWidth: '700px', margin: '0 auto 40px', fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.9)' }}>
+                    <p style={{ maxWidth: '700px', margin: '0 auto 40px', fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.9)', whiteSpace: 'pre-line' }}>
                         {services.ctaDesc || "If you’re looking for a wedding planning partner who combines experience, creativity and reliability, we’d love to connect."}
                     </p>
                     <Link to={services.ctaBtnUrl || "/contact"} className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '15px 40px' }}>

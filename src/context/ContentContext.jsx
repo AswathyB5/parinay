@@ -190,9 +190,9 @@ const initialContent = {
                 desc: "Even after the celebrations conclude, we oversee final settlements, deliverables, and wrap-ups. Every detail is completed with the same care and attention as the wedding itself.\n\"A graceful conclusion to a beautifully planned journey.\""
             }
         ],
-        ctaHeading: "Let's Begin Planning Your Wedding",
+        ctaHeading: "Begin Your Journey",
         ctaImage: "https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg",
-        ctaDesc: "If you're looking for a wedding planning partner who combines experience, creativity and reliability, we'd love to connect.",
+        ctaDesc: "At Parinay Weddings, we believe luxury lies not just in how a wedding looks, but in how effortlessly it is experienced.\n\nLet us craft a celebration that is timeless, personal, and truly unforgettable.",
         ctaBtnText: "Book a Wedding Consultation",
         ctaBtnUrl: "/contact",
         comprehensiveHeading: "COMPLETE WEDDING PLANNING",
