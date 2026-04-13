@@ -291,5 +291,3 @@ mongoose
         console.error('[MongoDB] Connection failed:');
         console.error(err);
     });
-
-export default app;
