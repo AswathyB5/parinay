@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, renderText, resolveMediaURL, API } from '../context/ContentContext';
 
 const Contact = () => {
     const { content } = useContext(ContentContext);
@@ -30,27 +30,63 @@ const Contact = () => {
         };
     }, [content]);
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerText;
         submitBtn.innerText = 'Sending...';
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            alert('Thank you for your inquiry. Our team will get back to you shortly.');
-            e.target.reset();
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
+        const formEl = e.target;
+        const payload = {
+            type: 'contact',
+            name: formEl.fullName?.value || '',
+            email: formEl.email?.value || '',
+            address: formEl.address?.value || '',
+            phone: formEl.phone?.value || '',
+            weddingDate: formEl.weddingDate?.value || '',
+            weddingLocation: formEl.weddingLocation?.value || '',
+            guestCount: formEl.guestCount?.value || '',
+            serviceRequired: formEl.serviceRequired?.value || '',
+            message: formEl.message?.value || '',
+        };
+
+        try {
+            const url = `${API}/api/inquiries`;
+            console.log('[Form Submission] Target URL:', url);
+            console.log('[Form Submission] Sending payload:', payload);
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            console.log('[Form Submission] Response status:', res.status);
+            const data = await res.json();
+            console.log('[Form Submission] Response data:', data);
+
+            if (data.success) {
+                alert('Thank you for your inquiry. Our team will get back to you shortly.');
+                formEl.reset();
+            } else {
+                alert(`Something went wrong: ${data.error || 'Unknown error'}`);
+            }
+        } catch (err) {
+            console.error('[Form Submission] FETCH ERROR:', err);
+            alert(`Could not reach the server. \n\nTechnical Error: ${err.message}\n\nPlease check if the backend is running on port 5000.`);
+        }
+
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
     };
+
+    const { trackWhatsAppClick } = useContext(ContentContext);
 
     return (
         <div className="pw-page">
             {/* HEADER BANNER */}
             <section className="about-hero-new">
                 <div className="container reveal">
-                    <h1>{contact.pageBannerTitle || "Get in Touch"}</h1>
+                    <h1>{renderText(contact.pageBannerTitle || "Get in Touch")}</h1>
                 </div>
             </section>
 
@@ -63,19 +99,19 @@ const Contact = () => {
                         {/* LEFT: INFO */}
                         <div className="pw-contact__info">
                             <div className="pw-contact__block">
-                                <span className="pw-label">{contact.emailLabel}</span>
-                                <h3>{contact.emailHeading}</h3>
-                                <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+                                <span className="pw-label">{renderText(contact.emailLabel)}</span>
+                                <h3>{renderText(contact.emailHeading)}</h3>
+                                <p><a href={`mailto:${contact.email}`}>{renderText(contact.email)}</a></p>
                             </div>
                             <div className="pw-contact__block">
-                                <span className="pw-label">{contact.phoneLabel}</span>
-                                <h3>{contact.phoneHeading}</h3>
-                                <p><a href={`tel:+${contact.phone?.replace(/\D/g, '')}`}>{contact.phone}</a></p>
+                                <span className="pw-label">{renderText(contact.phoneLabel)}</span>
+                                <h3>{renderText(contact.phoneHeading)}</h3>
+                                <p><a href={`tel:+${contact.phone?.replace(/\D/g, '')}`}>{renderText(contact.phone)}</a></p>
                             </div>
                             <div className="pw-contact__block">
-                                <span className="pw-label">{contact.addressLabel}</span>
-                                <h3>{contact.addressHeading}</h3>
-                                <p style={{ whiteSpace: 'pre-line' }}>{contact.address}</p>
+                                <span className="pw-label">{renderText(contact.addressLabel)}</span>
+                                <h3>{renderText(contact.addressHeading)}</h3>
+                                <p>{renderText(contact.address)}</p>
                             </div>
                             <div className="pw-contact__block">
                                 <span className="pw-label">Stay Connected</span>
@@ -88,7 +124,7 @@ const Contact = () => {
                                 </div>
                             </div>
 
-                            <a href={`https://wa.me/${contact.whatsappNumber}`} className="pw-contact__whatsapp" target="_blank" rel="noreferrer">
+                            <a href={`https://wa.me/${contact.whatsappNumber}`} className="pw-contact__whatsapp" target="_blank" rel="noreferrer" onClick={trackWhatsAppClick}>
                                 <div>
                                     <h3>{contact.whatsappText}</h3>
                                     <p>{contact.whatsappReply}</p>
@@ -104,38 +140,38 @@ const Contact = () => {
                                     <div className="pw-form__grid">
                                         <div className="pw-form__field">
                                             <label className="pw-form__label">Your Name</label>
-                                            <input type="text" className="pw-form__input" placeholder="Enter your full name" required />
+                                            <input type="text" name="fullName" className="pw-form__input" placeholder="Enter your full name" required />
                                         </div>
                                         <div className="pw-form__field">
                                             <label className="pw-form__label">Email Address</label>
-                                            <input type="email" className="pw-form__input" placeholder="your@email.com" required />
+                                            <input type="email" name="email" className="pw-form__input" placeholder="your@email.com" required />
                                         </div>
                                     </div>
 
                                     <div className="pw-form__field" style={{ marginTop: '20px' }}>
                                         <label className="pw-form__label">Current Address</label>
-                                        <input type="text" className="pw-form__input" placeholder="Your current city or full address" />
+                                        <input type="text" name="address" className="pw-form__input" placeholder="Your current city or full address" />
                                     </div>
 
                                     <div className="pw-form__grid" style={{ marginTop: '20px' }}>
                                         <div className="pw-form__field">
                                             <label className="pw-form__label">Phone Number</label>
-                                            <input type="tel" className="pw-form__input" placeholder="+91 00000 00000" />
+                                            <input type="tel" name="phone" className="pw-form__input" placeholder="+91 00000 00000" />
                                         </div>
                                         <div className="pw-form__field">
                                             <label className="pw-form__label">Wedding Date</label>
-                                            <input type="date" className="pw-form__input" />
+                                            <input type="date" name="weddingDate" className="pw-form__input" />
                                         </div>
                                     </div>
 
                                     <div className="pw-form__field" style={{ marginTop: '20px' }}>
                                         <label className="pw-form__label">Wedding Location</label>
-                                        <input type="text" className="pw-form__input" placeholder="e.g. Kumarakom, Goa, Jaipur" />
+                                        <input type="text" name="weddingLocation" className="pw-form__input" placeholder="e.g. Kumarakom, Goa, Jaipur" />
                                     </div>
 
                                     <div className="pw-form__field" style={{ marginTop: '20px' }}>
                                         <label className="pw-form__label">Approx. Guest Count</label>
-                                        <select className="pw-form__input">
+                                        <select name="guestCount" className="pw-form__input">
                                             <option>Under 100</option>
                                             <option>100 - 300</option>
                                             <option>300 - 500</option>
@@ -145,7 +181,7 @@ const Contact = () => {
 
                                     <div className="pw-form__field" style={{ marginTop: '20px' }}>
                                         <label className="pw-form__label">Service Required</label>
-                                        <select className="pw-form__input">
+                                        <select name="serviceRequired" className="pw-form__input">
                                             <option>Full Planning</option>
                                             <option>Partial Planning</option>
                                             <option>Day-of Coordination</option>
@@ -155,12 +191,12 @@ const Contact = () => {
 
                                     <div className="pw-form__field" style={{ marginTop: '20px' }}>
                                         <label className="pw-form__label">Expectations & Vision</label>
-                                        <textarea className="pw-form__input" rows="4" placeholder="Tell us about the celebration you have in mind and what you expect from us..."></textarea>
+                                        <textarea name="message" className="pw-form__input" rows="4" placeholder="Tell us about the celebration you have in mind and what you expect from us..."></textarea>
                                     </div>
 
                                     <div style={{ marginTop: '40px' }}>
                                         <button type="submit" className="pw-btn pw-btn--dark" style={{ width: '100%', padding: '24px' }}>
-                                            {contact.formBtnText}
+                                            {renderText(contact.formBtnText)}
                                         </button>
                                     </div>
                                 </form>
@@ -210,7 +246,7 @@ const Contact = () => {
                     </div>
 
                     <div className="pw-faq-list">
-                        {contact.faqsList?.map((faq, idx) => (
+                        {contact.faqsList?.filter(faq => faq.question && faq.question.trim()).map((faq, idx) => (
                             <div key={idx} className={`pw-faq-item ${activeFaq === idx ? 'active' : ''}`} style={{ 
                                 marginBottom: '20px', 
                                 borderBottom: '1px solid rgba(29, 53, 40, 0.1)',
@@ -234,7 +270,7 @@ const Contact = () => {
                                         transition: 'opacity 0.3s'
                                     }}
                                 >
-                                    <span>{faq.question}</span>
+                                    <span>{renderText(faq.question)}</span>
                                     <span style={{ 
                                         fontSize: '1.8rem', 
                                         fontFamily: "'Outfit', sans-serif",
@@ -256,7 +292,7 @@ const Contact = () => {
                                         fontSize: '1.1rem',
                                         fontWeight: '300'
                                     }}>
-                                        {faq.answer}
+                                        {renderText(faq.answer)}
                                     </p>
                                 </div>
                             </div>

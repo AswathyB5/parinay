@@ -1,0 +1,58 @@
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import { ContentContext, API } from '../context/ContentContext';
+import {
+    Save, Plus, Eye, LogOut, Image, Film, Type,
+    Home, Info, Briefcase, BookOpen, Newspaper, Mail,
+    Menu, X, Check, AlertCircle, LayoutGrid,
+    Layout, AlignLeft
+} from 'lucide-react';
+import './Admin.css';
+
+/* ── Section Icon Map ──────────────────────────── */
+const SECTION_ICONS = {
+    home: <Home size={17} />,
+    about: <Info size={17} />,
+    services: <Briefcase size={17} />,
+    storiesDestination: <BookOpen size={17} />,
+    storiesThemed: <BookOpen size={17} />,
+    storiesTraditional: <BookOpen size={17} />,
+    journals: <Newspaper size={17} />,
+    contact: <Mail size={17} />,
+    header: <Layout size={17} />,
+    footer: <AlignLeft size={17} />,
+};
+
+const SECTION_LABELS = {
+    home: 'Main Homepage',
+    about: 'About Us Page',
+    services: 'Our Services',
+    storiesDestination: 'Destination Weddings',
+    storiesThemed: 'Themed Weddings',
+    storiesTraditional: 'Traditional Weddings',
+    journals: 'Journal / Blog',
+    contact: 'Contact Page',
+    header: 'Site Header & Nav',
+    footer: 'Site Footer',
+};
+
+const SIDEBAR_GROUPS = [
+    {
+        title: 'Site Settings',
+        tabs: ['header', 'footer']
+    },
+    {
+        title: 'Main Site Pages',
+        tabs: ['home', 'about', 'services', 'contact']
+    },
+    {
+        title: 'Wedding Stories',
+        tabs: ['storiesDestination', 'storiesThemed', 'storiesTraditional']
+    },
+    {
+        title: 'Editorial Content',
+        tabs: ['journals']
+    }
+];
+
+/* ── Field Grouping Map ────────────────────────── */
+// This allows us to inject headers between fields for complex pages like Home

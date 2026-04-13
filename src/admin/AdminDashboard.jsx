@@ -4,15 +4,42 @@ import {
     Save, Plus, Eye, LogOut, Image, Film, Type,
     Home, Info, Briefcase, BookOpen, Newspaper, Mail,
     Menu, X, Check, AlertCircle, LayoutGrid,
-    Layout, AlignLeft
+    Layout, AlignLeft, MessageSquare, Trash2, Clock,
+    Phone, MapPin, Calendar, User, ArrowRight
 } from 'lucide-react';
 import './Admin.css';
 
-/* ── Section Icon Map ──────────────────────────── */
+/* ── UTILS ── */
+const isVideoUrl = (url) => {
+    if (!url || typeof url !== 'string') return false;
+    const extensions = ['.mp4', '.webm', '.ogg', '.mov', '.m4v', '.quicktime'];
+    const lower = url.toLowerCase();
+    return extensions.some(ext => lower.includes(ext)) || lower.includes('video');
+};
+
+const getYoutubeEmbedUrl_local = (url) => {
+    if (!url || typeof url !== 'string') return "";
+    let id = "";
+    if (url.includes('v=')) {
+        id = url.split('v=')[1].split('&')[0];
+    } else if (url.includes('youtu.be/')) {
+        id = url.split('youtu.be/')[1].split('?')[0];
+    } else if (url.includes('embed/')) {
+        return url;
+    } else {
+        return url;
+    }
+    return `https://www.youtube.com/embed/${id}`;
+};
+
+/* ══════════════════════════════════════════════════
+   SECTION CONFIGURATION — ICONS & LABELS
+══════════════════════════════════════════════════ */
 const SECTION_ICONS = {
     home: <Home size={17} />,
     about: <Info size={17} />,
     services: <Briefcase size={17} />,
+    weddingStories: <Image size={17} />,
     storiesDestination: <BookOpen size={17} />,
     storiesThemed: <BookOpen size={17} />,
     storiesTraditional: <BookOpen size={17} />,
@@ -20,12 +47,14 @@ const SECTION_ICONS = {
     contact: <Mail size={17} />,
     header: <Layout size={17} />,
     footer: <AlignLeft size={17} />,
+    inquiries: <MessageSquare size={17} />,
 };
 
 const SECTION_LABELS = {
     home: 'Main Homepage',
     about: 'About Us Page',
     services: 'Our Services',
+    weddingStories: 'Wedding Stories Page',
     storiesDestination: 'Destination Weddings',
     storiesThemed: 'Themed Weddings',
     storiesTraditional: 'Traditional Weddings',
@@ -33,241 +62,427 @@ const SECTION_LABELS = {
     contact: 'Contact Page',
     header: 'Site Header & Nav',
     footer: 'Site Footer',
+    inquiries: 'Customer Inquiries',
 };
 
 const SIDEBAR_GROUPS = [
-    {
-        title: 'Site Settings',
-        tabs: ['header', 'footer']
-    },
-    {
-        title: 'Main Site Pages',
-        tabs: ['home', 'about', 'services', 'contact']
-    },
-    {
-        title: 'Wedding Stories',
-        tabs: ['storiesDestination', 'storiesThemed', 'storiesTraditional']
-    },
-    {
-        title: 'Editorial Content',
-        tabs: ['journals']
-    }
+    { title: 'Global Branding', tabs: ['header', 'footer'] },
+    { title: 'Page Content', tabs: ['home', 'about', 'services', 'contact'] },
+    { title: 'Galleries & Stories', tabs: ['weddingStories', 'storiesDestination', 'storiesThemed', 'storiesTraditional'] },
+    { title: 'Editorial', tabs: ['journals'] },
+    { title: 'Customer Leads', tabs: ['inquiries'] }
 ];
 
-/* ── Field Grouping Map ────────────────────────── */
-// This allows us to inject headers between fields for complex pages like Home
+/* ══════════════════════════════════════════════════
+   LINKED SECTIONS — Disabled. Each page now has fully
+   independent content management. No shared content.
+══════════════════════════════════════════════════ */
+const LINKED_SECTIONS = {};
+
+/* ══════════════════════════════════════════════════
+   FIELD GROUPS — Maps the first field key to its group header.
+   Every subsequent key goes into the same group until the next
+   mapped key is encountered.  EVERY field in initialContent
+   must be reachable via one of these groups.
+══════════════════════════════════════════════════ */
 const FIELD_GROUPS = {
+    /* ── HOME PAGE ─────────────────────────────────── */
     home: {
-        heroTagline: 'Hero Section',
-        introHeading: 'Introduction Text',
-        stat1Label: 'Statistics Counter',
-        servicesLabel: 'Services Preview',
-        destinationLabel: 'Destination Weddings Feature',
-        portfolioLabel: 'Portfolio Glimpse',
-        testimonialLabel: 'Client Testimonials',
-        transitionHeading: 'Call to Action Section',
-        youtubeLabel: 'YouTube / Video Section',
-        youtubeVideos: 'YouTube Videos Grid',
-        formLabel: 'Consultation Form Section',
-        journalNote: 'Journal Preview Section'
+        heroTagline:        'Hero Section',
+        introHeading:       'Introduction Text',
+        stat1Label:         'Statistics Counter',
+        servicesLabel:      'Services Preview',
+        destinationLabel:   'Destination Weddings Feature',
+        portfolioLabel:     'Portfolio Glimpse',
+        testimonialLabel:   'Client Testimonials',
+        transitionHeading:  'Cinematic CTA Band',
+        youtubeLabel:       'YouTube / Video Section',
+        youtubeEmbedUrl:    'Featured YouTube Video',
+        youtubeVideos:      'YouTube Videos Grid',
+        formLabel:          'Consultation Form Section',
+        journalNote:        'Journal Preview Note'
     },
+    /* ── ABOUT PAGE ────────────────────────────────── */
     about: {
-        pageBannerTitle: 'Page Header',
-        introLabel: 'Split Intro Section',
-        heroImage: 'Upper Right Image',
-        value1Title: 'Core Values Grid',
-        differentiatorLabel: 'Company Philosophy',
-        teamLabel: 'Team Section Header',
-        teamMembers: 'Team Member Management',
-        ctaHeading: 'Call to Action'
+        pageBannerTitle:      'Page Header',
+
+        introLabel:           'Split Intro Section',
+
+        value1Title:          'Core Values Grid',
+        philosophyQuote:      'Our Philosophy',
+        differentiatorLabel:  'The Parinay Difference',
+        teamLabel:            'Team Section',
+        stat1Label:           'About Stats Band',
+        ctaHeading:           'About CTA Band'
     },
+    /* ── SERVICES PAGE ─────────────────────────────── */
     services: {
-        pageBannerTitle: 'Page Header',
-        servicesListLabel: 'Services Listing Intro',
-        service1Label: 'Service 1: Full Planning',
-        service2Label: 'Service 2: Design & Styling',
-        service3Label: 'Service 3: Destination',
-        service4Label: 'Service 4: Hospitality',
-        processLabel: 'Our Process Section',
-        processItems: 'Our Process Section',
-        ctaHeading: 'Call to Action'
+        pageBannerTitle:        'Page Header',
+        comprehensiveHeading:   'Comprehensive Services',
+        comprehensiveList:      'Detailed Services Grid',
+        processLabel:           'The Planning Process',
+        processItems:           'Process Steps',
+        ctaHeading:             'Closing CTA Band',
     },
+    /* ── CONTACT PAGE ──────────────────────────────── */
     contact: {
-        pageBannerTitle: 'Page Header',
-        heroImage: 'Cinematic Band',
-        heroTitle: 'Band Copy',
-        emailLabel: 'Inquiry Methods',
-        whatsappNumber: 'Social & Chat'
+        pageBannerTitle:  'Page Header',
+        emailLabel:       'Email Inquiry',
+        phoneLabel:       'Phone Inquiry',
+        addressLabel:     'Office Address',
+        whatsappNumber:   'WhatsApp & Social',
+        formBtnText:      'Inquiry Form Settings',
+        faqsList:         'Frequently Asked Questions'
     },
+    /* ── WEDDING STORIES (GALLERY) PAGE ──────────── */
+    weddingStories: {
+        pageBannerTitle:     'Page Header',
+        storiesList:         'Wedding Stories Gallery',
+        instagramBtnText:    'Instagram CTA',
+        instagramUrl:        'Instagram CTA',
+        instagramBtnIcon:    'Instagram CTA'
+    },
+    /* ── DESTINATION WEDDINGS ──────────────────────── */
     storiesDestination: {
-        pageBannerTitle: 'Page Header',
-        storiesList: 'Wedding Stories List',
-        heroImage: 'Section Banner',
-        heroTitle: 'Banner Copy'
+        pageBannerTitle:     'Page Header',
+        storiesList:         'Destination Stories List',
+        heroImage:           'Cinematic CTA Banner',
+        heroTitle:           'CTA Banner Copy',
+        testimonialQuote:    'Featured Testimonial'
     },
+    /* ── THEMED WEDDINGS ───────────────────────────── */
     storiesThemed: {
-        pageBannerTitle: 'Page Header',
-        storiesList: 'Wedding Stories List',
-        heroImage: 'Section Banner',
-        heroTitle: 'Banner Copy'
+        pageBannerTitle:     'Page Header',
+        storiesList:         'Themed Stories List',
+        heroImage:           'Cinematic CTA Banner',
+        heroTitle:           'CTA Banner Copy',
+        testimonialQuote:    'Featured Testimonial'
     },
+    /* ── TRADITIONAL WEDDINGS ──────────────────────── */
     storiesTraditional: {
-        pageBannerTitle: 'Page Header',
-        storiesList: 'Wedding Stories List',
-        heroImage: 'Section Banner',
-        heroTitle: 'Banner Copy'
+        pageBannerTitle:     'Page Header',
+        storiesList:         'Traditional Stories List',
+        heroImage:           'Cinematic CTA Banner',
+        heroTitle:           'CTA Banner Copy',
+        testimonialQuote:    'Featured Testimonial'
     },
+    /* ── JOURNAL / BLOG ────────────────────────────── */
     journals: {
-        pageBannerTitle: 'Page Header',
-        sectionLabel: 'Content Settings',
-        journalsList: 'Blog Posts List',
-        guideLabel: 'Downloadable Guide Section'
+        pageBannerTitle:     'Page Header',
+        sectionLabel:        'Blog Feed Header',
+        sectionTitle:        'Blog Feed Header',
+        journalsList:        'Blog Posts List',
+        guideLabel:          'Downloadable Guide',
+        guideTitle:          'Downloadable Guide',
+        guideDesc:           'Downloadable Guide',
+        guideChecks:         'Downloadable Guide',
+        guideRequestBtnText: 'Downloadable Guide',
+        guideImage:          'Downloadable Guide',
+        guideYear:           'Downloadable Guide',
+        guidePlannerLabel:   'Downloadable Guide',
+        guideFreeText:       'Downloadable Guide',
+        readEntryText:       'Post Detail Labels',
+        relatedSectionLabel: 'Post Detail Labels',
+        relatedSectionTitle: 'Post Detail Labels',
+        ctaLabel:            'Post Detail CTA',
+        ctaTitle:            'Post Detail CTA',
+        ctaBtnText:          'Post Detail CTA'
     },
+    /* ── HEADER / NAVIGATION ───────────────────────── */
     header: {
-        logoText: 'Logo & Branding',
-        nav1Label: 'Primary Navigation',
-        nav4Sub1Label: 'Wedding Stories Dropdown',
-        nav6Label: 'CTA / Contact Link'
+        logoText:       'Logo & Branding',
+        nav1Label:      'Navigation Menu',
+        nav6Label:      'CTA / Contact Link'
     },
+    /* ── FOOTER ────────────────────────────────────── */
     footer: {
-        logoText: 'Footer Branding',
-        tagline: 'Tagline & Description',
-        instagramUrl: 'Social Media Links',
-        email: 'Contact Details',
-        ctaTagline: 'Footer CTA',
-        copyrightName: 'Copyright'
+        logoText:       'Footer Branding',
+        tagline:        'Tagline & Description',
+        instagramUrl:   'Social Media Links',
+        email:          'Contact Details',
+        ctaTagline:     'Footer CTA',
+        copyrightName:  'Copyright'
     }
 };
 
+/* ══════════════════════════════════════════════════
+   GROUP DESCRIPTIONS — Contextual help for each accordion section
+══════════════════════════════════════════════════ */
 const GROUP_DESCRIPTIONS = {
     /* Home */
-    'Hero Section': 'The very first thing visitors see — video background, tagline and call-to-action button.',
-    'Introduction Text': 'The brand introduction paragraph and italic sub-text shown below the hero.',
-    'Statistics Counter': 'Four credential badges shown as an animated strip (e.g. "8+ Years of Experience").',
-    'Services Preview': 'The four service cards shown on the homepage with image, title and description.',
-    'Destination Weddings Feature': 'The two-column section showcasing destination wedding expertise with images and text.',
-    'Portfolio Glimpse': 'The image grid showing a sample of past weddings with a "View All" button.',
-    'Client Testimonials': 'Rotating quotes from couples. Each item has text, author name, location and photo.',
-    'Call to Action Section': 'The full-screen video band with the "Work With Us" prompt and button.',
-    'YouTube / Video Section': 'Cinematic film section — label, heading, body paragraphs and watch more button.',
-    'YouTube Videos Grid': 'Manage the 6 YouTube videos shown in the grid. Each item needs a YouTube Embed URL.',
-    'Consultation Form Section': 'The label, heading, sub-text and button for the enquiry form on the homepage.',
-    'Journal Preview Section': 'Auto-pulls the latest 3 posts from the Journal / Blog page.',
+    'Hero Section':                'The first thing visitors see — hero video background, tagline text and "Get Started" button.',
+    'Introduction Text':           'The brand introduction heading and italic sub-text shown below the hero.',
+    'Statistics Counter':          'Four credential badges shown as an animated green strip (e.g. "8+ Years of Experience").',
+    'Services Preview':            'Four service cards with images, titles and descriptions shown on the homepage.',
+    'Destination Weddings Feature':'Two-column destination weddings section with text and images.',
+    'Portfolio Glimpse':           'The horizontally scrolling portfolio grid of past wedding images.',
+    'Client Testimonials':         'Rotating quotes from couples — text, author name, location and photo.',
+    'Cinematic CTA Band':          'Full-screen looping video with the "Work With Us" heading and button.',
+    'YouTube / Video Section':     'Editorial section — label, heading, body paragraphs and "Watch More Films" button.',
+    'YouTube Videos Grid':         'The 6 YouTube embed videos shown in a grid layout.',
+    'Consultation Form Section':   'Label, heading, sub-text and button text for the lead form.',
+    'Journal Preview Note':        'Auto-pulls the latest 3 posts from the Journal page.',
     /* About */
-    'Page Header': 'The large decorative title shown in the dark banner at the top of the page.',
-    'Split Intro Section': 'The small label and large split heading shown just below the hero banner.',
-    'Upper Right Image': 'The portrait photo shown in the right column of the split intro section.',
-    'Core Values Grid': 'The three value cards (Passion, Commitment, Team Work) shown in the light sand-colored section.',
-    'Company Philosophy': 'The label, heading, body text and left-side image for the "Parinay Difference" block.',
-    'Team Section Header': 'The label, main heading, and introduction paragraph for the "Meet the Experts" team section.',
-    'Team Member Management': 'Add, edit, or remove the individual professional profile cards in the team grid.',
-    'Call to Action': 'The CTA heading, button text, button link and background video for the closing band.',
+    'Page Header':                 'The large title shown in the dark banner at the top of the page.',
+
+    'Split Intro Section':         'Label and large heading shown in the split layout intro area.',
+    'Intro Image':                 'The image shown to the right of the split intro heading.',
+    'Core Values Grid':            'Three value cards (Passion, Commitment, Team Work) with title and description.',
+    'Our Philosophy':              'Your mission statement/promise quote section with author attribution.',
+    'The Parinay Difference':      'Full content block with label, heading, multi-paragraph text and image.',
+    'Team Section':                'Team heading, description and member cards with images and roles.',
+    'About Stats Band':            'Four stats credentials on the About page (may differ from home stats).',
+    'About CTA Band':              'Closing full-screen band with heading, button and background video.',
     /* Services */
-    'Services Listing Intro': 'The section label and heading shown above the four alternating service entries.',
-    'Service 1: Full Planning': 'Label, image, heading and description for the Full Planning service.',
-    'Service 2: Design & Styling': 'Label, image, heading and description for the Design & Styling service.',
-    'Service 3: Destination': 'Label, image, heading and description for the Destination service.',
-    'Service 4: Hospitality': 'Label, image, heading and description for the Hospitality service.',
-    'Our Process Section': 'The "How We Work" process steps. Each item has a title and a description. You can add up to 11 steps.',
+    'Comprehensive Services':      'The top-level heading and intro text for the comprehensive services section.',
+    'Detailed Services Grid':      'The 9-item services grid. Each item needs an Image, Title and Description.',
+    'The Planning Process':        'Label and heading for the process roadmap section.',
+    'Process Steps':               'The 11-step planning process roadmap. Each needs a title and description.',
+    'Closing CTA Band':            'Background image CTA at the bottom of the Services page.',
+    'Inquiry Button':              'The text and URL for the inquiry button on the Services page.',
     /* Contact */
-    'Cinematic Band': 'The full-screen image shown at the bottom of the Contact page behind the heading.',
-    'Band Copy': 'The large title, italic emphasis word and subtitle overlaid on the cinematic band image.',
-    'Inquiry Methods': 'Email, phone and full address blocks displayed on the Contact page.',
-    'Social & Chat': 'WhatsApp number, reply indicator, and social profile URLs (Instagram, Facebook, Pinterest).',
+    'Email Inquiry':               'Email label, heading and address for the contact info block.',
+    'Phone Inquiry':               'Phone label, heading and number for the contact info block.',
+    'Office Address':              'Address label, heading and full address for the contact info block.',
+    'WhatsApp & Social':           'WhatsApp number, auto-reply text and social media URLs.',
+    'Inquiry Form Settings':       'Button text for the contact inquiry form.',
+    'Frequently Asked Questions':  'FAQ items at the bottom of the contact page.',
+    /* Wedding Stories Page */
+    'Page Subtitle':               'A short description shown below the page banner title.',
+    'Wedding Stories Gallery':     'Dedicated gallery items for the Wedding Stories page. Each item has a category badge, title, date, location, description, main image, video, gallery images, and more. These are independent from the Destination/Themed/Traditional subpages.',
+    'Instagram CTA Button':        'The text, URL and icon for the call-to-action button at the bottom of the gallery.',
     /* Stories */
-    'Wedding Stories List': 'Each story card — title, description, video file (MP4), date, location and category badge.',
-    'Section Banner': 'The cinematic full-screen image band shown below the story list.',
-    'Banner Copy': 'The heading and subtitle text overlaid on the banner image.',
-    'Featured Testimonial': 'A highlighted couple quote, author name, location and photo shown beneath the banner.',
+    'Cinematic CTA Banner':        'The full-screen hero image shown in the cinematic CTA band at the bottom of the stories page.',
+    'CTA Banner Copy':             'Heading and subtitle text overlaid on the cinematic CTA banner image.',
+    'Featured Testimonial':        'A highlighted couple quote with name, location and photo shown at the bottom of the page.',
+    'Destination Stories List':    'Story cards for destination weddings — each card includes badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
+    'Themed Stories List':         'Story cards for themed weddings — each card includes badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
+    'Traditional Stories List':    'Story cards for traditional weddings — each card includes badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
     /* Journals */
-    'Content Settings': 'Section label and main section heading for the journal listing page.',
-    'Blog Posts List': 'Individual journal posts — title, date, excerpt and cover image.',
-    'Downloadable Guide Section': 'The guide offer block — label, title, description, three checklist items, cover image and button text.',
+    'Blog Feed Header':            'The section label and title for the journal listing page.',
+    'Blog Posts List':             'Journal posts — title, date, excerpt, author, image and content.',
+    'Downloadable Guide':          'Lead magnet section with cover image, checklist items and CTA button.',
+    'Post Detail Labels':          'Button and section labels used on the journal detail and listing pages.',
+    'Post Detail CTA':             'The call-to-action band at the bottom of each journal entry.',
     /* Header / Footer */
-    'Logo & Branding': 'The logo text shown in the top navigation bar.',
-    'Primary Navigation': 'Main nav links (Home, About, Services, Journals…).',
-    'Wedding Stories Dropdown': 'The three sub-links inside the "Wedding Stories" dropdown menu.',
-    'CTA / Contact Link': 'The highlighted Contact link on the right side of the navigation bar.',
-    'Footer Branding': 'Logo text and sub-label at the very top of the footer.',
-    'Tagline & Description': 'Short brand description shown below the footer logo.',
-    'Social Media Links': 'Instagram, Facebook, Pinterest and YouTube profile URLs.',
-    'Contact Details': 'Email, phone and address shown in the footer Connect column.',
-    'Footer CTA': 'Italic tagline and consultation button in the footer.',
-    'Copyright': 'Copyright name shown in the footer bottom bar.',
+    'Logo & Branding':             'Settings for your site logo image, sizing, and fallback text.',
+    'Navigation Menu':             'Manage all main navigation links (Home, About, Services, Wedding Stories) and the items within the stories dropdown menu.',
+    'CTA / Contact Link':          'The highlighted Contact link on the right side of the navigation.',
+    'Footer Branding':             'Logo text and sub-label at the top of the footer.',
+    'Tagline & Description':       'Short brand tagline shown below the footer logo.',
+    'Social Media Links':          'Instagram, Facebook, Pinterest and YouTube URLs.',
+    'Contact Details':             'Email, phone and address shown in the footer.',
+    'Footer CTA':                  'Italic tagline and consultation button in the footer.',
+    'Copyright':                   'The copyright name and year in the footer bottom bar.',
 };
 
+/* ══════════════════════════════════════════════════
+   FIELD HINTS — Contextual hints shown below field inputs
+══════════════════════════════════════════════════ */
 const FIELD_HINTS = {
-    /* General */
-    heroTagline: 'Use \\n for a line break (e.g. "Thoughtfully Planned.\\nBeautifully Executed.").',
-    heroBtnText: 'Label on the hero call-to-action button.',
-    heroBtnUrl: 'Page the hero button links to.',
-    heroVideo1:  'Primary looping background video (MP4). Upload or paste a /uploads/ path.',
-    heroVideo2:  'Fallback / secondary hero video (MP4).',
-    heroImages:  'Floating image slideshow alongside the hero text. Recommended: 1000×1400 px portrait.',
-    stat1Label:  'Use \\n to split into two lines (e.g. "8+ Years of\\nExperience").',
-    stat2Label:  'Use \\n to split into two lines.',
-    stat3Label:  'Use \\n to split into two lines.',
-    stat4Label:  'Use \\n to split into two lines.',
-    introSubText: 'The smaller italic sentence shown beneath the main introduction heading.',
-    youtubeEmbedUrl: 'Legacy field (no longer used in grid). Use YouTube Videos Grid below.',
-    'url': 'Paste the YouTube Embed URL — Share → Embed (e.g. https://www.youtube.com/embed/xxxxx).',
-    youtubeBtnUrl: 'Full URL of the YouTube channel or video (opens in a new tab).',
-    transitionVideoUrl: 'The full-screen background video for the "Work With Us" CTA band (MP4).',
-    transitionBtnUrl: 'Page the CTA band button links to.',
-    whatsappNumber: 'Country code + number, no spaces or "+" (e.g. 919876543210 for India).',
-    pageBannerTitle: 'The large decorative title in the dark banner at the top of the page.',
-    /* Home services preview */
-    servicesHeading: 'Use \\n to split into two lines — the second line renders in italics.',
-    servicesIntroText: 'The short intro sentence shown above the four home service cards.',
-    servicesFooterText: 'Closing italic line shown below the four service cards. Use \\n for line breaks.',
-    /* Services listing */
-    servicesListLabel: 'Small uppercase label shown above the main services heading (e.g. OUR SPECIALIZATIONS).',
-    servicesListHeading: 'Large heading above the alternating service entries (e.g. The Art of Celebration).',
-    processLabel: 'Small uppercase label above the process section heading.',
-    processHeading: 'Main heading of the "Our Planning Process" section.',
-    processItems: 'Manage the steps of your planning process. Each item needs a title and a clear description.',
-    ctaDesc: 'Short paragraph shown below the CTA heading in the background image section at the bottom of the page.',
-    ctaImage: 'Background image for the Call to Action section (Services page). Recommended: 1920×1200 px landscape.',
-    /* About */
-    introLabel: 'Small uppercase label above the intro heading (e.g., ABOUT PARINAY).',
-    introHeading: 'The primary headline for the split section. Use \\n for a line break.',
-    value1Title: 'Title for the first value card.',
-    value1Desc: 'Detailed description for the first value card.',
-    value2Title: 'Title for the second value card.',
-    value2Desc: 'Detailed description for the second value card.',
-    value3Title: 'Title for the third value card.',
-    value3Desc: 'Detailed description for the third value card.',
-    teamHeading: 'The main title for the team section (e.g., Meet Our Professional Team).',
-    teamDesc: 'A short overview paragraph introducing your team of specialists.',
-    ctaVideoUrl: 'Background video for the About page CTA band (MP4). Upload or paste a /uploads/ path.',
-    differentiatorText: 'Separate paragraphs with a blank line (press Enter twice). Each paragraph renders on its own line.',
-    /* Contact */
-    heroTitle: 'Main heading shown in the cinematic band at the bottom of the Contact page.',
-    heroTitleEm: 'Italic emphasis word shown on a second line below the hero title.',
-    heroSubtitle: 'Subtitle paragraph shown beneath the hero heading.',
-    address: 'Use \\n for a line break (e.g. "Cochin, Kerala\\nBy Appointment Only").',
-    /* Stories */
-    storiesList: 'Add, edit or remove story cards shown on this page.',
-    video:    'Upload a wedding video (MP4) or paste an existing /uploads/ path. It autoplays muted on scroll.',
-    badge:    'Short category label on the card (e.g. Destination, Themed, Traditional).',
-    date:     'Wedding month & year shown on the card (e.g. February 2025).',
-    location: 'Venue city / region shown on the card (e.g. Kumarakom, Kerala).',
-    desc:     'One or two sentence summary shown in the story card overlay box.',
-    /* Journals */
-    sectionTitle: 'Main heading of the journal listing section (last word renders in accent colour).',
-    journalsList: 'Add, edit or remove journal / blog posts.',
-    excerpt:  'A single sentence that summarises the post — shown on each listing card.',
-    guideYear: 'Year label on the guide cover badge (e.g. The 2026).',
-    guidePlannerLabel: 'Second line of the cover badge (e.g. Planner).',
-    guideFreeText: 'Small text beneath the cover badge (e.g. Free Download).',
-    guideRequestBtnText: 'Label on the guide request button.',
-    guideChecklist1: 'First bullet point in the guide checklist.',
-    guideChecklist2: 'Second bullet point in the guide checklist.',
-    guideChecklist3: 'Third bullet point in the guide checklist.',
-    journalNote: 'Note: The journal preview on the homepage automatically shows the latest 3 entries from this list. Edit posts here, not on the homepage.',
+    /* ── Home Fields ────────────────────────── */
+    heroTagline:        'Use \\n for line breaks and ###text### for bold.',
+    heroBtnText:        'Label on the hero call-to-action button.',
+    heroBtnUrl:         'Page the hero button links to.',
+    heroVideo1:         'Primary looping background video (MP4). Upload or paste a /uploads/ path.',
+    heroVideo2:         'Secondary / fallback hero video (MP4).',
+    heroImages:         'Floating images alongside the hero text. Recommended: 1000×1400 px portrait.',
+    introHeading:       'Main brand introduction heading.',
+    introSubText:       'The italic sentence beneath the introduction heading.',
+    stat1Label:         'Use \\n to split into two lines (e.g. "8+ Years of\\nExperience").',
+    stat2Label:         'Use \\n to split into two lines.',
+    stat3Label:         'Use \\n to split into two lines.',
+    stat4Label:         'Use \\n to split into two lines.',
+    servicesLabel:      'Small uppercase label above the services heading (e.g. "What We Handle").',
+    servicesHeading:    'Use \\n to split into two lines — the second line renders in italics.',
+    servicesIntroText:  'Intro sentence shown above the four home service cards.',
+    service1Image:      'Image for "Venue sourcing & coordination" card.',
+    service1Title:      'Title for the first service card.',
+    service1Desc:       'Description for the first service card.',
+    service2Image:      'Image for "Wedding design, decor & aesthetics" card.',
+    service2Title:      'Title for the second service card.',
+    service2Desc:       'Description for the second service card.',
+    service3Image:      'Image for "Guest management" card.',
+    service3Title:      'Title for the third service card.',
+    service3Desc:       'Description for the third service card.',
+    service4Image:      'Image for "On-ground execution" card.',
+    service4Title:      'Title for the fourth service card.',
+    service4Desc:       'Description for the fourth service card.',
+    servicesFooterText: 'Closing italic line below the four service cards. Use \\n for line breaks.',
+    destinationLabel:   'Small label for the destination weddings section.',
+    destinationHeading: 'Section heading — text after a comma renders in italics.',
+    destinationBody1:   'First paragraph about destination weddings.',
+    destinationBody2:   'Second paragraph about destination weddings.',
+    destinationBody3:   'Third paragraph — shown in italicised emphasis.',
+    destinationBtnText: 'Text on the "Explore Destination Weddings" button.',
+    destinationBtnUrl:  'Page the destination button links to.',
+    destinationImage1:  'Primary destination wedding image (larger, left).',
+    destinationImage2:  'Secondary destination image (overlapping, right).',
+    portfolioLabel:     'Small label above the portfolio heading.',
+    portfolioHeading:   'The portfolio section heading.',
+    portfolioItems:     'Images for the horizontally scrolling portfolio. Each needs image, title and location.',
+    portfolioViewAllText: 'Label on the "View our weddings" button.',
+    portfolioViewAllUrl:  'Page the portfolio button links to.',
+    testimonialLabel:   'Small label above the testimonials section.',
+    testimonials:       'Client testimonials — text, author, location and photo.',
+    transitionHeading:  'The large heading in the video CTA band.',
+    transitionVideoUrl: 'Background video for the CTA band (MP4).',
+    transitionBtnText:  'Button label in the CTA band.',
+    transitionBtnUrl:   'Page the CTA band button links to.',
+    youtubeLabel:       'Small uppercase label for the YouTube section.',
+    youtubeHeading:     'Use \\n for a line break — last line renders in italics.',
+    youtubeText1:       'First body paragraph for the YouTube section.',
+    youtubeText2:       'Second body paragraph for the YouTube section.',
+    youtubeBtnText:     'Label on the "Watch More Films" button.',
+    youtubeBtnUrl:      'Full URL of the YouTube channel (opens in a new tab).',
+    youtubeEmbedUrl:    'The main featured YouTube video. Paste the YouTube Embed URL (e.g. https://www.youtube.com/embed/xxxxx).',
+    youtubeVideos:      'The 6 YouTube embed videos. Each needs a YouTube Embed URL.',
+    formLabel:          'Small label above the consultation form.',
+    formHeading:        'Main heading for the consultation form.',
+    formSubtext:        'Sub-text shown below the form heading.',
+    formBtnText:        'Label on the form submit button.',
+    journalNote:        'Auto-pulls the latest 3 posts from the Journal page. No editing needed.',
+    /* ── Wedding Stories Page Fields ─────────── */
+    pageBannerSubtitle: 'Subtitle text shown below the page banner heading on the gallery page.',
+    ctaBtnText:         'Label on the CTA button.',
+    ctaBtnUrl:          'Page or URL the CTA button links to.',
+    ctaBtnIcon:         'Font Awesome icon class for the CTA button (e.g. "fab fa-instagram").',
+    /* ── About Fields ───────────────────────── */
+    pageBannerTitle:    'The large decorative title in the dark banner at the top of the page.',
+
+    introLabel:         'Small uppercase label above the intro heading (e.g. "ABOUT PARINAY").',
+    // introHeading:       'The primary headline. Use \\n for a line break.',
+    introImage:         'Image shown to the right of the split intro layout.',
+    value1Title:        'Title for the first value card.',
+    value1Desc:         'Description for the first value card.',
+    value2Title:        'Title for the second value card.',
+    value2Desc:         'Description for the second value card.',
+    value3Title:        'Title for the third value card.',
+    value3Desc:         'Description for the third value card.',
+    philosophyQuote:    'A strong mission statement or "Promise" quote.',
+    philosophyAuthor:   'The label/author for the philosophy quote.',
+    philosophySubtitle: 'Small decorative subtitle for the philosophy section.',
+    differentiatorLabel: 'Small uppercase label for The Parinay Difference section.',
+    differentiatorHeading: 'Heading for the differentiator block.',
+    differentiatorText: 'Multi-paragraph text. Press Enter twice between paragraphs.',
+    differentiatorImage: 'Image for the differentiator block.',
+    teamLabel:          'Small label above the team section.',
+    teamHeading:        'Main heading for the team section.',
+    teamSubtext:        'Short description for the team section.',
+    teamMembers:        'Team member cards — name, role and image.',
+    ctaHeading:         'Heading for the CTA band.',
+    ctaVideoUrl:        'Background video for the About CTA band (MP4).',
+    /* ── Services Fields ────────────────────── */
+    comprehensiveHeading: 'Large uppercase heading for Comprehensive Services.',
+    comprehensiveIntro1: 'Italic primary intro text below the heading.',
+    comprehensiveIntro2: 'Secondary intro paragraph.',
+    comprehensiveList:  'Grid of detailed services. Each item has an Image, Title and Description.',
+    processLabel:       'Small uppercase label above the process heading.',
+    processHeading:     'Main heading for "Our Planning Process".',
+    processItems:       'Planning process steps. Each needs a title and description.',
+    ctaImage:           'Background image for the CTA band. Recommended: 1920×1200 landscape.',
+    ctaDesc:            'Short paragraph below the CTA heading.',
+    /* ── Contact Fields ─────────────────────── */
+    emailLabel:         'Small label above "Email Us" (e.g. "General Inquiries").',
+    emailHeading:       'Heading for the email block.',
+    email:              'Email address shown on the contact page.',
+    phoneLabel:         'Small label above "Call Us".',
+    phoneHeading:       'Heading for the phone block.',
+    phone:              'Phone number displayed on the contact page.',
+    addressLabel:       'Small label above "Office Address".',
+    addressHeading:     'Heading for the address block.',
+    address:            'Use \\n for line breaks (e.g. "Cochin, Kerala\\nBy Appointment Only").',
+    whatsappNumber:     'Country code + number, no spaces or "+" (e.g. 919876543210).',
+    whatsappText:       'Text shown on the WhatsApp chat button.',
+    whatsappReply:      'Auto-reply time indicator (e.g. "Typically replies within 1 hour").',
+    instagramUrl:       'Full Instagram profile URL.',
+    facebookUrl:        'Full Facebook profile URL.',
+    pinterestUrl:       'Full Pinterest profile URL.',
+    // formBtnText:        'Label on the contact form submit button.',
+    faqsList:           'FAQ items — each needs a question and answer.',
+    /* ── Stories Fields ──────────────────────── */
+    galleryImages:      'Lightbox gallery images — paste one image URL per line. If empty, the main image is shown.',
+    storiesList:        'All story cards for this page. Supports ###text### for bold and _text_ for italics in overview/description fields.',
+    heroTitle:           'Heading overlaid on the cinematic CTA banner.',
+    heroSubtitle:        'Subtitle overlaid on the CTA banner (below the heading).',
+    testimonialQuote:   'A single powerful client quote to feature.',
+    testimonialAuthor:  'Name of the couple for the featured testimonial.',
+    testimonialLocation:'Wedding location for the featured testimonial.',
+    testimonialImage:   'Photo of the couple (vertical recommended).',
+    video:              'Upload a video (MP4) or paste an /uploads/ path. Autoplays muted on the story card.',
+    badge:              'Badge label shown on the story card (e.g. "Destination", "Themed", "Traditional").',
+    date:               'Date of the wedding (e.g. "February 2025").',
+    desc:               'Short one-line description shown on the story listing card.',
+    result:             'Project result text — shown on individual project page under "PROJECT RESULT". Supports ###text### for bold and _text_ for italics.',
+    category:           'Short category label (Featured / Destination / Themed / Traditional).',
+    heroImage:          'Full-screen decorative banner image for the cinematic CTA band at the bottom of the page.',
+    heroQuote:          'A prominent quote or mission statement for the page theme.',
+    /* ── Journals Fields ────────────────────── */
+    sectionLabel:       'Small label above the journal section heading.',
+    sectionTitle:       'Main heading (last word renders in accent color).',
+    journalsList:       'Journal posts — title, date, excerpt, image and content.',
+    excerpt:            'Single sentence summary shown on each listing card.',
+    content:            'Full article content (supports ###text### for bold and _text_ for italics).',
+    guideLabel:         'Small label for the downloadable guide section.',
+    guideTitle:         'Heading for the guide section.',
+    guideDesc:          'Description text for the guide.',
+    guideChecklist1:    'First checklist bullet point.',
+    guideChecklist2:    'Second checklist bullet point.',
+    guideChecklist3:    'Third checklist bullet point.',
+    guideImage:         'Cover image for the downloadable guide.',
+    guideYear:          'Year label on the guide cover (e.g. "The 2026").',
+    guidePlannerLabel:  'Second line on the guide cover (e.g. "Planner").',
+    guideFreeText:      'Small text under the cover badge (e.g. "Free Download").',
+    guideRequestBtnText:'Label on the guide request button.',
+    author:             'Name of the author (e.g. "By Sarah Thomas"). Defaults to "By Parinay" if empty.',
+    readEntryText:      'Label for the link to full post (e.g. "Read Entry —").',
+    relatedSectionLabel:'Label for the related posts section (e.g. "CONTINUE READING").',
+    relatedSectionTitle:'Title for the related posts section (e.g. "More Stories").',
+    ctaLabel:           'Label above the CTA heading.',
+    ctaTitle:           'CTA heading at post bottom. Use ###text### for bold and _text_ for italics.',
+    ctaBtnText:         'Label on the contact button in the CTA band.',
+    /* ── Header Fields ──────────────────────── */
+    logoText:           'Logo text (shown if no image is uploaded).',
+    logoImage:          'Upload a custom logo image. Recommended: PNG with transparency, around 300x80px.',
+    logoWidth:          'Custom width for the logo (e.g. "180px", "50%", or "auto"). default is 150px.',
+    logoHeight:         'Custom height for the logo (e.g. "50px" or "auto"). default is auto.',
+    nav1Label:          'Label for the first nav link.',
+    nav1Url:            'URL for the first nav link.',
+    nav2Label:          'Label for the second nav link.',
+    nav2Url:            'URL for the second nav link.',
+    nav3Label:          'Label for the third nav link.',
+    nav3Url:            'URL for the third nav link.',
+    nav4Label:          'Label for the Wedding Stories nav link.',
+    nav4Url:            'URL for the Wedding Stories nav link.',
+    nav4Sub1Label:      'Label for the first dropdown sub-link.',
+    nav4Sub1Url:        'URL for the first dropdown sub-link.',
+    nav4Sub2Label:      'Label for the second dropdown sub-link.',
+    nav4Sub2Url:        'URL for the second dropdown sub-link.',
+    nav4Sub3Label:      'Label for the third dropdown sub-link.',
+    nav4Sub3Url:        'URL for the third dropdown sub-link.',
+    nav5Label:          'Label for the Journals nav link.',
+    nav5Url:            'URL for the Journals nav link.',
+    nav6Label:          'Label for the Contact nav link.',
+    nav6Url:            'URL for the Contact nav link.',
+    /* ── Footer Fields ──────────────────────── */
+    logoImage_ftr:      'Upload a custom logo image for the footer.',
+    logoWidth_ftr:      'Custom width for the footer logo (default is 120px).',
+    logoHeight_ftr:     'Custom height for the footer logo (default is auto).',
+    logoSub:            'Sub-label beneath the footer logo (e.g. "WEDDINGS").',
+    tagline:            'Brand description shown below the footer logo.',
+    youtubeUrl:         'Full YouTube channel URL.',
+    whatsappNumber_ftr: 'WhatsApp number for the floating chat button.',
+    ctaTagline:         'Italic tagline above the footer CTA button.',
+    ctaBtnText_ftr:     'Label on the footer consultation button.',
+    ctaBtnUrl_ftr:      'Page the footer CTA links to.',
+    copyrightName:      'Name shown in the copyright line.',
+    /* ── Shared URL field ────────────────────── */
+    'url':              'Paste the YouTube Embed URL (Share → Embed, e.g. https://www.youtube.com/embed/xxxxx).',
 };
 
-/* ── Toast Component ───────────────────────────── */
+/* ══════════════════════════════════════════════════
+   TOAST COMPONENT
+══════════════════════════════════════════════════ */
 const Toast = ({ message, type = 'success', onDone }) => {
     useEffect(() => {
         const t = setTimeout(onDone, 3000);
@@ -282,7 +497,9 @@ const Toast = ({ message, type = 'success', onDone }) => {
     );
 };
 
-/* ── Media Preview ─────────────────────────────── */
+/* ══════════════════════════════════════════════════
+   MEDIA PREVIEW COMPONENT
+══════════════════════════════════════════════════ */
 const MediaPreview = ({ value, isVideo }) => {
     if (!value) {
         return (
@@ -305,18 +522,27 @@ const MediaPreview = ({ value, isVideo }) => {
     );
 };
 
-/* ── Main Dashboard ────────────────────────────── */
+/* ══════════════════════════════════════════════════
+   MAIN ADMIN DASHBOARD COMPONENT
+══════════════════════════════════════════════════ */
 const AdminDashboard = () => {
-    const { content, updateSection, isLoaded } = useContext(ContentContext);
+    const { content, updateSection, updateMultipleSections, isLoaded } = useContext(ContentContext);
 
     const [activeTab, setActiveTab] = useState('header');
     const [formData, setFormData] = useState(null);
+    const [linkedData, setLinkedData] = useState({});  // { 'home__portfolioItems': [...], ... }
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [toast, setToast] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [expandedSections, setExpandedSections] = useState({});
 
-    /* Toggle section expansion */
+    /* Inquiry state */
+    const [inquiries, setInquiries] = useState([]);
+    const [inquiriesLoading, setInquiriesLoading] = useState(false);
+    const [inquiryFilter, setInquiryFilter] = useState('all');
+    const [expandedInquiry, setExpandedInquiry] = useState(null);
+
+    /* Toggle accordion section */
     const toggleSection = (sectionId) => {
         setExpandedSections(prev => ({
             ...prev,
@@ -324,14 +550,113 @@ const AdminDashboard = () => {
         }));
     };
 
-    /* Sync formData when tab changes or content loads */
+    /* Sync formData + linkedData when tab changes or content loads */
     useEffect(() => {
         if (content && content[activeTab]) {
-            setFormData(JSON.parse(JSON.stringify(content[activeTab])));
+            let sectionData = JSON.parse(JSON.stringify(content[activeTab]));
+
+            // Prune legacy fields that are no longer used on the live site
+            if (activeTab === 'services') {
+                const legacyKeys = [
+                    'service1Label', 'service1Heading', 'service1Desc', 'service1Image', 'service1List',
+                    'service2Label', 'service2Heading', 'service2Desc', 'service2Image', 'service2List',
+                    'service3Label', 'service3Heading', 'service3Desc', 'service3Image', 'service3List',
+                    'service4Label', 'service4Heading', 'service4Desc', 'service4Image',
+                    'process1Title', 'process1Desc', 'process2Title', 'process2Desc', 
+                    'process3Title', 'process3Desc', 'process4Title', 'process4Desc',
+                    'servicesListLabel', 'servicesListHeading',
+                    'inquireBtnText', 'inquireBtnUrl'
+                ];
+                legacyKeys.forEach(key => delete sectionData[key]);
+            }
+
+            if (activeTab === 'contact') {
+                const legacyKeys = ['heroImage', 'heroTitle', 'heroTitleEm', 'heroSubtitle', 'youtubeUrl', 'footerImage'];
+                legacyKeys.forEach(key => delete sectionData[key]);
+            }
+
+            setFormData(sectionData);
+            setExpandedSections({});
+
+            // Load linked sections data
+            const links = LINKED_SECTIONS[activeTab];
+            if (links && links.length > 0) {
+                const ld = {};
+                links.forEach(link => {
+                    const key = `${link.sourceSection}__${link.arrayKey}`;
+                    const src = content[link.sourceSection];
+                    if (src && Array.isArray(src[link.arrayKey])) {
+                        ld[key] = JSON.parse(JSON.stringify(src[link.arrayKey]));
+                    }
+                });
+                setLinkedData(ld);
+            } else {
+                setLinkedData({});
+            }
         }
     }, [activeTab, content]);
 
-    /* ── Handlers ────────────────────────────────── */
+    /* Fetch inquiries when Inquiries tab is active (with auto-refresh) */
+    useEffect(() => {
+        let interval;
+        if (activeTab === 'inquiries') {
+            fetchInquiries();
+            // Polling: Auto-refresh data every 30 seconds
+            interval = setInterval(() => {
+                // background fetch (don't show loading ring to avoid flicker)
+                fetchInquiries(false);
+            }, 30000);
+        }
+        return () => clearInterval(interval);
+    }, [activeTab]);
+
+    const fetchInquiries = async (showLoading = true) => {
+        if (showLoading) setInquiriesLoading(true);
+        try {
+            const res = await fetch(`${API}/api/inquiries`);
+            const data = await res.json();
+            if (data.success) {
+                setInquiries(data.data || []);
+            }
+        } catch (err) {
+            console.error('[Fetch Inquiries]', err);
+        }
+        setInquiriesLoading(false);
+    };
+
+    const updateInquiryStatus = async (id, status) => {
+        try {
+            const res = await fetch(`${API}/api/inquiries/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setInquiries(prev => prev.map(inq => inq._id === id ? { ...inq, status } : inq));
+                showToast(`Inquiry marked as ${status}`);
+            }
+        } catch {
+            showToast('Failed to update status', 'error');
+        }
+    };
+
+    const deleteInquiry = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this inquiry?')) return;
+        try {
+            const res = await fetch(`${API}/api/inquiries/${id}`, { method: 'DELETE' });
+            const data = await res.json();
+            if (data.success) {
+                setInquiries(prev => prev.filter(inq => inq._id !== id));
+                showToast('Inquiry deleted');
+                if (expandedInquiry === id) setExpandedInquiry(null);
+            }
+        } catch {
+            showToast('Failed to delete inquiry', 'error');
+        }
+    };
+
+    /* ── Handlers ──────────────────────────────── */
     const handleTabSwitch = (tab) => {
         setActiveTab(tab);
         setSidebarOpen(false);
@@ -394,17 +719,51 @@ const AdminDashboard = () => {
     const addArrayItem = (arrayName) => {
         setFormData(prev => {
             const existing = prev[arrayName] || [];
-            const template = existing[0] || {};
-            const blank = Object.keys(template).reduce((acc, k) => {
-                if (k !== 'id') acc[k] = '';
-                return acc;
-            }, {});
+            
+            // Predefined templates for common arrays to ensure fields are rendered empty/with defaults
+            const templates = {
+                storiesList: { 
+                    title: '', date: '', location: '', 
+                    ...(activeTab === 'weddingStories' ? { category: '' } : { badge: 
+                        activeTab === 'storiesDestination' ? 'Destination' : 
+                        activeTab === 'storiesThemed' ? 'Themed' : 
+                        activeTab === 'storiesTraditional' ? 'Traditional' : '' 
+                    }),
+                    video: '', overview: '', galleryImages: '', result: '', image: '', desc: '' 
+                },
+                journalsList:      { title: '', author: '', date: '', excerpt: '', image: '', content: '' },
+                portfolioItems:    { title: '', date: '', location: '', overview: '', video: '', galleryImages: '', result: '', image: '', loc: '' },
+                testimonials:      { text: '', author: '', location: '', image: '' },
+                teamMembers:       { name: '', role: '', image: '' },
+                processItems:      { title: '', desc: '' },
+                comprehensiveList: { title: '', image: '', desc: '' },
+                faqsList:          { question: '', answer: '' },
+                heroImages:        { image: '', alt: '' },
+                youtubeVideos:     { url: '' },
+                guideChecks:       { text: '' }
+            };
+
+            // 1. Try to use a predefined template first
+            let blank = templates[arrayName];
+
+            // 2. If no template, use the keys from an existing item but reset all values
+            if (!blank && existing[0]) {
+                blank = Object.keys(existing[0]).reduce((acc, k) => {
+                    if (k !== 'id') acc[k] = '';
+                    return acc;
+                }, {});
+            }
+
+            // 3. Last fallback
+            if (!blank) blank = {};
+            
             return { ...prev, [arrayName]: [...existing, { ...blank, id: Date.now() }] };
         });
     };
 
     const removeArrayItem = (index, arrayName) => {
         setFormData(prev => {
+            if (!prev[arrayName] || !Array.isArray(prev[arrayName])) return prev;
             const newArr = [...prev[arrayName]];
             newArr.splice(index, 1);
             return { ...prev, [arrayName]: newArr };
@@ -413,21 +772,48 @@ const AdminDashboard = () => {
 
     const handleSave = async () => {
         setIsSaving(true);
-        
-        // --- CLEAN DATA FOR PRODUCTION --- 
-        // We strip the absolute localhost URLs so that assets resolve correctly on Vercel
+
+        // Clean localhost URLs for production
         const cleanData = (obj) => {
             if (!obj) return obj;
             try {
                 const str = JSON.stringify(obj);
-                // Matches the backend API base (e.g. localhost:5000)
                 const cleaned = str.replace(new RegExp(`${API}/uploads`, 'g'), '/uploads');
                 return JSON.parse(cleaned);
             } catch { return obj; }
         };
-        const finalData = cleanData(formData);
+        
+        const allUpdates = {};
+        
+        // 1. Prepare main section update
+        allUpdates[activeTab] = cleanData(formData);
 
-        const res = await updateSection(activeTab, finalData);
+        // 2. Prepare linked sections updates
+        const links = LINKED_SECTIONS[activeTab];
+        if (links && links.length > 0) {
+            links.forEach(link => {
+                const key = `${link.sourceSection}__${link.arrayKey}`;
+                if (linkedData[key]) {
+                    // Start with current source section data from context
+                    const sourceData = content[link.sourceSection]
+                        ? JSON.parse(JSON.stringify(content[link.sourceSection]))
+                        : {};
+                    
+                    // Update the specific array key
+                    sourceData[link.arrayKey] = cleanData(linkedData[key]);
+                    
+                    // Add to batch (merge if already present in allUpdates)
+                    allUpdates[link.sourceSection] = {
+                        ...(allUpdates[link.sourceSection] || {}),
+                        ...sourceData
+                    };
+                }
+            });
+        }
+
+        // 3. Save all in one batch
+        const res = await updateMultipleSections(allUpdates);
+
         setIsSaving(false);
         if (res.success) {
             showToast(`${SECTION_LABELS[activeTab]} updated successfully!`);
@@ -440,72 +826,287 @@ const AdminDashboard = () => {
         setToast({ message, type });
     }, []);
 
-    const renderField = (key, value, onChange, onFileUpload) => {
-        // Skip technical metadata and fields starting with underscore (like _id, __v, _hiddenSections)
+    /* ── Single Field Renderer ─────────────────── */
+    const renderField = (key, value, onChange, onFileUpload, parentKey = null, itemContext = null) => {
+        // Skip technical metadata
         if (key === 'id' || key.startsWith('_')) return null;
- 
-        // Skip legacy ghost fields for About section that don't follow the underscore pattern
-        if (activeTab === 'about' && [
-            'heroQuote', 'teamSubtext', 'stat1Label', 'stat2Label', 'stat3Label', 'stat4Label',
-            'philosophyAuthor', 'philosophySubtitle', 'philosophyQuote'
-        ].includes(key)) return null;
 
-        // Skip legacy ghost fields for Services section
-        if (activeTab === 'services' && [
-            'service1List', 'service2List', 'service3List', 'inquireBtnText', 'inquireBtnUrl'
-        ].includes(key)) return null;
+        /** 1. FIELD DETECTION & LABELING **/
+        const isMedia = !['logoText', 'logoSub', 'logoWidth', 'logoHeight'].includes(key) && (key.toLowerCase().includes('image') || key.toLowerCase().includes('video') || key.toLowerCase().includes('thumb') || key.toLowerCase().includes('logo'));
+        const isVideoField = key.toLowerCase().includes('video') || isVideoUrl(value);
+        const isInternalUrl = (key.toLowerCase().endsWith('btnurl') || key.toLowerCase() === 'herobtnurl' || key.toLowerCase().endsWith('viewallurl') || (key.toLowerCase().includes('nav') && key.toLowerCase().endsWith('url')))
+            && !key.toLowerCase().includes('youtube')
+            && !key.toLowerCase().includes('instagram')
+            && !key.toLowerCase().includes('facebook')
+            && !key.toLowerCase().includes('pinterest');
+        const isLongText = (typeof value === 'string' && (value.length > 50 || value.includes('\n') || value.includes('\\n')))
+            || key.toLowerCase().includes('heading')
+            || key.toLowerCase().includes('tagline')
+            || key.toLowerCase().includes('text')
+            || key.toLowerCase().includes('desc')
+            || key.toLowerCase().includes('quote')
+            || key.toLowerCase().includes('label')
+            || ['content', 'answer', 'overview', 'result', 'galleryImages'].includes(key);
 
-        // Skip image field in stories list (clutter, since we use video now)
-        if (['storiesDestination', 'storiesThemed', 'storiesTraditional'].includes(activeTab) && key === 'image') return null;
+        let label = key.replace(/([A-Z])/g, ' $1').replace(/([0-9]+)/g, ' $1').trim();
+        if (key === 'location') label = 'Place';
+        if (key === 'image') label = 'Main Image';
+        if (key === 'badge') label = 'Category Badge';
+        if (key === 'date') label = 'Wedding Date';
+        if (key === 'desc') label = 'Short Description';
+        if (key === 'result') label = 'Project Result';
+        if (key === 'overview') label = 'Detailed Overview';
 
-        // Special case: just info, no input
+        /** 2. SPECIAL FIELD BLOCKS **/
+
+        // Info-only field (journalNote)
         if (key === 'journalNote') {
             return (
                 <div className="admin-form-group" key={key}>
                     <p className="admin-field-hint" style={{ fontSize: '0.9rem', color: 'var(--admin-text)' }}>
                         <AlertCircle size={14} style={{ marginRight: '8px' }} />
-                        {FIELD_HINTS[key]}
+                        {FIELD_HINTS[key] || 'This section is auto-generated.'}
                     </p>
                 </div>
-            )
+            );
         }
 
-        const isMedia = key.toLowerCase().includes('image') || key.toLowerCase().includes('video');
-        const isVideo = key.toLowerCase().includes('video');
-        const isUrl = key.toLowerCase().includes('url');
-        const isInternalUrl = (key.toLowerCase().endsWith('btnurl') || key.toLowerCase() === 'herobtnurl' || key.toLowerCase().endsWith('viewallurl'))
-            && !key.toLowerCase().includes('youtube')
-            && !key.toLowerCase().includes('instagram')
-            && !key.toLowerCase().includes('facebook')
-            && !key.toLowerCase().includes('pinterest');
-        const isLongText = (typeof value === 'string' && value.length > 60
-            && !value.startsWith('http')
-            && !value.startsWith('/'))
-            || key === 'content' || key === 'desc';
+        // --- MULTI-MEDIA GALLERY (Newline separated) ---
+        if (key === 'galleryImages') {
+            const urls = (value || '').split('\n').map(u => u.trim()).filter(u => u.length > 0);
+            
+            // Helpful fallback for UI - if gallery is empty, show the primary 'image' if it exists
+            const displayUrls = urls.length > 0 ? urls : (itemContext?.image ? [itemContext.image] : []);
+            const isUsingFallback = urls.length === 0 && displayUrls.length > 0;
+
+            const removeUrl = (idx) => {
+                const newUrls = [...urls];
+                newUrls.splice(idx, 1);
+                onChange(newUrls.join('\n'));
+            }
+
+            const handleGalleryUpload = async (e) => {
+                const files = e.target.files;
+                if (!files || files.length === 0) return;
+
+                showToast(`Uploading ${files.length} items...`);
+                
+                const newUploadedUrls = [];
+                for (let i = 0; i < files.length; i++) {
+                    const uploadData = new FormData();
+                    uploadData.append('file', files[i]);
+                    try {
+                        const response = await fetch(`${API}/api/upload`, { method: 'POST', body: uploadData });
+                        const data = await response.json();
+                        if (data.success && data.url) {
+                            newUploadedUrls.push(data.url);
+                        }
+                    } catch (err) {
+                        console.error("Upload failed for file", i, err);
+                    }
+                }
+
+                if (newUploadedUrls.length > 0) {
+                    onChange([...urls, ...newUploadedUrls].join('\n'));
+                    showToast(`Successfully uploaded ${newUploadedUrls.length} items!`);
+                } else {
+                    showToast('Upload failed — try again.', 'error');
+                }
+                e.target.value = ''; // Reset input
+            }
+
+            return (
+                <div className="admin-form-group" key={key} style={{ gridColumn: 'span 2' }}>
+                    <label className="admin-label">
+                        Portfolio Gallery (Newline Sorted URLs)
+                        {isUsingFallback && <span style={{ marginLeft: '10px', fontSize: '0.7rem', color: 'var(--admin-gold)', fontWeight: 'normal' }}>(Showing primary image fallback)</span>}
+                    </label>
+                    <div className="admin-gallery-grid">
+                        {displayUrls.length === 0 ? (
+                            <div className="admin-gallery-empty" style={{ gridColumn: 'span 4' }}>
+                                <LayoutGrid size={32} style={{ opacity: 0.2, marginBottom: '0.5rem' }} />
+                                <p>No gallery items yet.</p>
+                                <p style={{ fontSize: '0.75rem' }}>Click the button below to upload media.</p>
+                            </div>
+                        ) : (
+                            displayUrls.map((url, i) => (
+                                <div key={i} className={`admin-gallery-thumb ${isUsingFallback ? 'is-fallback' : ''}`}>
+                                    {isVideoUrl(url) ? (
+                                        <video src={url.startsWith('/uploads') ? `${API}${url}` : url} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ) : (
+                                        <img src={url.startsWith('/uploads') ? `${API}${url}` : url} alt="" />
+                                    )}
+                                    {!isUsingFallback && (
+                                        <button 
+                                            type="button"
+                                            onClick={() => removeUrl(i)} 
+                                            className="admin-gallery-remove"
+                                            title="Remove item"
+                                        >
+                                            <X size={14} />
+                                        </button>
+                                    )}
+                                    {isUsingFallback && <div className="fallback-badge">Fallback</div>}
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <div className="admin-gallery-controls">
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <label className="admin-btn admin-btn--outline" style={{ cursor: 'pointer', margin: 0 }}>
+                                <Plus size={15} /> Choose Files
+                                <input 
+                                    type="file" 
+                                    multiple 
+                                    hidden 
+                                    onChange={handleGalleryUpload} 
+                                    accept="image/*,video/*" 
+                                />
+                            </label>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--admin-muted)' }}>
+                                You can select multiple images or videos to upload at once.
+                            </span>
+                        </div>
+                        
+                        <p className="admin-field-hint" style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
+                            <AlertCircle size={12} style={{ marginRight: '4px' }} />
+                            Manual URL Edit (Advanced)
+                        </p>
+                        <textarea
+                            value={value || ''}
+                            onChange={(e) => onChange(e.target.value)}
+                            className="admin-input textarea"
+                            placeholder="One media URL per line..."
+                            style={{ minHeight: '80px', height: '80px', fontSize: '0.8rem', opacity: 0.7 }}
+                        />
+                    </div>
+                </div>
+            );
+        }
+
+        // --- MULTI-PARAGRAPH FIELDS (Split into chunks for easier editing) ---
+        const isMultiPara = ['overview', 'result', 'content', 'desc', 'differentiatorText', 'introSubText', 'teamSubtext', 'philosophyQuote'].includes(key);
+        if (isMultiPara && typeof value === 'string') {
+            const paragraphs = (value || '').split(/\n\n|\\n\\n/);
+            
+            return (
+                <div key={key} className="admin-form-group" style={{ gridColumn: 'span 2' }}>
+                    <label className="admin-label">{label}</label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        {paragraphs.map((p, idx) => (
+                            <div key={idx} style={{ position: 'relative' }}>
+                                <textarea
+                                    value={p}
+                                    onChange={(e) => {
+                                        const newParas = [...paragraphs];
+                                        newParas[idx] = e.target.value;
+                                        onChange(newParas.join('\n\n'));
+                                    }}
+                                    className="admin-input textarea"
+                                    placeholder={idx === 0 ? "Start typing..." : "Next paragraph..."}
+                                    style={{ minHeight: idx === 0 ? '120px' : '80px' }}
+                                />
+                                {paragraphs.length > 1 && (
+                                    <button 
+                                        type="button" 
+                                        onClick={() => {
+                                            if (window.confirm('Delete this paragraph?')) {
+                                                const newParas = paragraphs.filter((_, i) => i !== idx);
+                                                onChange(newParas.join('\n\n'));
+                                            }
+                                        }}
+                                        className="admin-array-item__remove"
+                                        style={{ top: '10px', right: '10px' }}
+                                    >
+                                        <Trash2 size={14} />
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                        <button 
+                            type="button" 
+                            className="admin-btn admin-btn--sm"
+                            style={{ 
+                                background: 'rgba(197, 160, 89, 0.1)', 
+                                border: '1px dashed var(--admin-gold)',
+                                color: 'var(--admin-gold)',
+                                width: 'fit-content'
+                            }}
+                            onClick={() => onChange(value + '\n\n')}
+                        >
+                            <Plus size={14} /> Add Another Paragraph
+                        </button>
+                    </div>
+                    {FIELD_HINTS[key] && <p className="admin-field-hint">{FIELD_HINTS[key]}</p>}
+                </div>
+            );
+        }
+
 
         return (
             <div className="admin-form-group" key={key}>
-                <label>
-                    {isVideo ? <Film size={12} /> : isMedia ? <Image size={12} /> : <Type size={12} />}
-                    {key.replace(/([A-Z])/g, ' $1').trim()}
-                </label>
+                <label className="admin-label">{label}</label>
                 {isMedia ? (
                     <>
-                        <MediaPreview value={value} isVideo={isVideo} />
+                        <div className="admin-media-preview" style={{ position: 'relative' }}>
+                            <span className="admin-media-preview__badge">{isVideoField ? 'Video' : 'Image'}</span>
+                            {value ? (
+                                <>
+                                    {isVideoField ? (
+                                        <video src={value.startsWith('/uploads') ? `${API}${value}` : value} controls />
+                                    ) : (
+                                        <img src={value.startsWith('/uploads') ? `${API}${value}` : value} alt="" />
+                                    )}
+                                    <button
+                                        type="button"
+                                        onClick={() => onChange('')}
+                                        title="Remove media"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '8px',
+                                            right: '8px',
+                                            background: 'rgba(220, 38, 38, 0.9)',
+                                            color: '#fff',
+                                            border: 'none',
+                                            borderRadius: '50%',
+                                            width: '28px',
+                                            height: '28px',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            zIndex: 2,
+                                            transition: 'background 0.2s'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.background = 'rgba(185, 28, 28, 1)'}
+                                        onMouseLeave={(e) => e.target.style.background = 'rgba(220, 38, 38, 0.9)'}
+                                    >
+                                        <X size={14} />
+                                    </button>
+                                </>
+                            ) : (
+                                <div className="admin-media-preview__empty">
+                                    <Plus size={24} style={{ opacity: 0.3 }} />
+                                    <span>No media selected</span>
+                                </div>
+                            )}
+                        </div>
                         <input
                             type="file"
-                            accept={isVideo ? 'video/*' : 'image/*'}
                             onChange={onFileUpload}
                             className="admin-input"
+                            accept="image/*,video/*"
                         />
-                        <input
-                            type="text"
-                            value={value || ''}
-                            onChange={(e) => onChange(e.target.value)}
-                            className="admin-input"
-                            placeholder="…or paste a URL directly"
-                            style={{ marginTop: '6px' }}
-                        />
+                        {key !== 'logoImage' && (
+                            <input
+                                type="text"
+                                value={value || ''}
+                                onChange={(e) => onChange(e.target.value)}
+                                className="admin-input"
+                                placeholder="…or paste a URL directly"
+                                style={{ marginTop: '6px' }}
+                            />
+                        )}
                     </>
                 ) : isInternalUrl ? (
                     <select
@@ -518,6 +1119,9 @@ const AdminDashboard = () => {
                         <option value="/about">About Us</option>
                         <option value="/services">Services</option>
                         <option value="/stories">Wedding Stories</option>
+                        <option value="/destination-weddings">Destination Weddings</option>
+                        <option value="/themed-weddings">Themed Weddings</option>
+                        <option value="/traditional-weddings">Traditional Weddings</option>
                         <option value="/journals">Journals</option>
                         <option value="/contact">Contact</option>
                     </select>
@@ -527,6 +1131,43 @@ const AdminDashboard = () => {
                         onChange={(e) => onChange(e.target.value)}
                         className="admin-input textarea"
                     />
+                ) : (typeof value === 'string' && (value.includes('youtube.com') || value.includes('youtu.be')) ) ? (
+                    <>
+                        {value && (
+                            <div className="admin-media-preview" style={{ marginBottom: '10px' }}>
+                                <iframe
+                                    width="100%"
+                                    height="180"
+                                    src={getYoutubeEmbedUrl_local(value)}
+                                    title="YouTube Preview"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    style={{ borderRadius: '2px' }}
+                                ></iframe>
+                            </div>
+                        )}
+                        <input
+                            type="text"
+                            value={value || ''}
+                            onChange={(e) => onChange(e.target.value)}
+                            className="admin-input"
+                            placeholder="Paste YouTube URL here..."
+                        />
+                    </>
+                ) : key === 'category' || key === 'badge' ? (
+                    <select
+                        value={value || ''}
+                        onChange={(e) => onChange(e.target.value)}
+                        className="admin-input"
+                        style={{ appearance: 'auto' }}
+                    >
+                        <option value="">Select {key === 'badge' ? 'Badge' : 'Category'}</option>
+                        <option value="Featured">Featured</option>
+                        <option value="Destination">Destination</option>
+                        <option value="Themed">Themed</option>
+                        <option value="Traditional">Traditional</option>
+                    </select>
                 ) : (
                     <input
                         type="text"
@@ -534,7 +1175,7 @@ const AdminDashboard = () => {
                         onChange={(e) => onChange(e.target.value)}
                         className="admin-input"
                     />
-                )}
+                ) }
                 {FIELD_HINTS[key] && (
                     <p className="admin-field-hint">
                         <AlertCircle size={10} style={{ marginRight: '4px' }} />
@@ -545,29 +1186,50 @@ const AdminDashboard = () => {
         );
     };
 
-    /* ── Form Renderer ───────────────────────────── */
+    /* ── Form Renderer (groups fields into accordion sections) ── */
     const renderForm = () => {
         if (!formData) return null;
 
         const groupHeaders = FIELD_GROUPS[activeTab] || {};
         const sectionsData = [];
-        let currentGroup = null;
+        const sectionsMap = {};
 
-        // Group fields based on FIELD_GROUPS mapping
+        // Build grouped sections from formData keys
         Object.keys(formData).forEach((key) => {
+            if (key === '_id' || key === '__v' || key === 'createdAt' || key === 'updatedAt') return;
+
             const header = groupHeaders[key];
+            
             if (header) {
-                currentGroup = {
-                    id: `${activeTab}-${key}`,
-                    title: header,
-                    description: GROUP_DESCRIPTIONS[header],
-                    fields: []
-                };
-                sectionsData.push(currentGroup);
+                // If this header title already exists in our map, add field to it
+                if (sectionsMap[header]) {
+                    sectionsMap[header].fields.push(key);
+                } else {
+                    // Start a new group
+                    const newGroup = {
+                        id: `${activeTab}-${key}`,
+                        title: header,
+                        description: GROUP_DESCRIPTIONS[header],
+                        fields: [key]
+                    };
+                    sectionsMap[header] = newGroup;
+                    sectionsData.push(newGroup);
+                }
+            } else {
+                // If no header, it belongs to the current "open" group
+                const currentGroup = sectionsData[sectionsData.length - 1];
+                if (currentGroup) {
+                    currentGroup.fields.push(key);
+                }
             }
-            if (currentGroup) {
-                currentGroup.fields.push(key);
-            }
+        });
+
+        // Sort sections to match the canonical order defined in FIELD_GROUPS
+        const groupTitleOrder = [...new Set(Object.values(groupHeaders))];
+        sectionsData.sort((a, b) => {
+            const aIdx = groupTitleOrder.indexOf(a.title);
+            const bIdx = groupTitleOrder.indexOf(b.title);
+            return (aIdx === -1 ? Infinity : aIdx) - (bIdx === -1 ? Infinity : bIdx);
         });
 
         return (
@@ -578,9 +1240,7 @@ const AdminDashboard = () => {
                     return (
                         <div key={section.id} className={`admin-accordion__item ${isExpanded ? 'is-expanded' : ''}`}>
                             {/* Header row */}
-                            <header
-                                className="admin-accordion__header"
-                            >
+                            <header className="admin-accordion__header">
                                 <div className="admin-acc-header-left">
                                     <button
                                         className={`admin-acc-edit-btn ${isExpanded ? 'is-active' : ''}`}
@@ -598,6 +1258,20 @@ const AdminDashboard = () => {
                                 <h2 className="admin-accordion__title">
                                     {section.title}
                                 </h2>
+
+                                {/* Field count badge */}
+                                <span style={{
+                                    fontSize: '0.7rem',
+                                    fontWeight: '600',
+                                    color: 'var(--admin-muted)',
+                                    background: 'rgba(29, 53, 40, 0.06)',
+                                    padding: '3px 10px',
+                                    borderRadius: '2px',
+                                    letterSpacing: '0.1em',
+                                    whiteSpace: 'nowrap'
+                                }}>
+                                    {section.fields.length} {section.fields.length === 1 ? 'field' : 'fields'}
+                                </span>
                             </header>
 
                             {isExpanded && (
@@ -616,6 +1290,12 @@ const AdminDashboard = () => {
                                                         <h3 style={{ marginBottom: '1.5rem', textTransform: 'capitalize', color: 'var(--admin-green)' }}>
                                                             {fieldKey.replace(/([A-Z])/g, ' $1').trim()}
                                                         </h3>
+                                                        {FIELD_HINTS[fieldKey] && (
+                                                            <p className="admin-field-hint" style={{ marginTop: '-1rem', marginBottom: '1.5rem' }}>
+                                                                <AlertCircle size={10} style={{ marginRight: '4px' }} />
+                                                                {FIELD_HINTS[fieldKey]}
+                                                            </p>
+                                                        )}
 
                                                         {val.length === 0 && (
                                                             <div className="admin-empty" style={{ margin: '1rem 0' }}>
@@ -628,25 +1308,55 @@ const AdminDashboard = () => {
                                                             <div key={item.id || index} className="admin-array-item">
                                                                 <span className="admin-array-item__index">#{index + 1}</span>
                                                                 <button
+                                                                    type="button"
                                                                     className="admin-array-item__remove"
                                                                     onClick={(e) => {
+                                                                        e.preventDefault();
                                                                         e.stopPropagation();
-                                                                        removeArrayItem(index, fieldKey);
+                                                                        if (window.confirm(`Are you sure you want to delete this ${fieldKey.replace(/s$/, '').replace(/List$/, '')} item?`)) {
+                                                                            removeArrayItem(index, fieldKey);
+                                                                        }
                                                                     }}
                                                                     title="Remove this item"
                                                                 >
-                                                                    <X size={16} />
+                                                                    <X size={16} style={{ pointerEvents: 'none' }} />
                                                                 </button>
 
                                                                 <div style={{ marginTop: '1.5rem' }}>
-                                                                    {Object.keys(item).map((itemKey) =>
-                                                                        renderField(
-                                                                            itemKey,
-                                                                            item[itemKey],
-                                                                            (newVal) => handleArrayChange(index, fieldKey, itemKey, newVal),
-                                                                            (e) => handleArrayFileUpload(e, index, fieldKey, itemKey)
+                                                                    {Object.keys(item)
+                                                                        .filter(k => {
+                                                                            if (fieldKey === 'portfolioItems') {
+                                                                                // Home page portfolio uses only these fields
+                                                                                return ['title', 'location', 'image'].includes(k);
+                                                                            }
+                                                                            if (fieldKey === 'storiesList') {
+                                                                                if (activeTab === 'weddingStories') {
+                                                                                    return ['category', 'title', 'location', 'image', 'galleryImages', 'overview'].includes(k);
+                                                                                }
+                                                                                
+                                                                                let excluded = [];
+                                                                                if (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed') excluded = ['image', 'desc'];
+                                                                                
+                                                                                return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result']
+                                                                                    .filter(f => !excluded.includes(f))
+                                                                                    .includes(k);
+                                                                            }
+                                                                            if (fieldKey === 'journalsList') {
+                                                                                return k !== 'id' && k !== 'loc';
+                                                                            }
+                                                                            return true;
+                                                                        })
+                                                                        .map((itemKey) =>
+                                                                            renderField(
+                                                                                itemKey,
+                                                                                item[itemKey],
+                                                                                (newVal) => handleArrayChange(index, fieldKey, itemKey, newVal),
+                                                                                (e) => handleArrayFileUpload(e, index, fieldKey, itemKey),
+                                                                                fieldKey,
+                                                                                item
+                                                                            )
                                                                         )
-                                                                    )}
+                                                                    }
                                                                 </div>
                                                             </div>
                                                         ))}
@@ -660,7 +1370,7 @@ const AdminDashboard = () => {
                                                             }}
                                                         >
                                                             <Plus size={15} />
-                                                            Add New {fieldKey.replace(/s$/, '').replace(/List$/, '')}
+                                                            Add New {fieldKey.replace(/s$/, '').replace(/List$/, '').replace(/([A-Z])/g, ' $1').trim()}
                                                         </button>
                                                     </div>
                                                 );
@@ -683,7 +1393,650 @@ const AdminDashboard = () => {
         );
     };
 
-    /* ── Stats (derived from content) ────────────── */
+    /* ── Linked Sections Renderer ───────────────── */
+    const renderLinkedSections = () => {
+        const links = LINKED_SECTIONS[activeTab];
+        if (!links || links.length === 0) return null;
+
+        // Handlers for linked array data
+        const handleLinkedArrayChange = (linkedKey, index, field, value) => {
+            setLinkedData(prev => {
+                const arr = [...(prev[linkedKey] || [])];
+                arr[index] = { ...arr[index], [field]: value };
+                return { ...prev, [linkedKey]: arr };
+            });
+        };
+
+        const handleLinkedArrayFileUpload = async (e, linkedKey, index, field) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const uploadData = new FormData();
+            uploadData.append('file', file);
+            try {
+                const response = await fetch(`${API}/api/upload`, { method: 'POST', body: uploadData });
+                const data = await response.json();
+                if (data.success && data.url) {
+                    handleLinkedArrayChange(linkedKey, index, field, data.url);
+                } else {
+                    showToast('Upload failed — try again.', 'error');
+                }
+            } catch {
+                showToast('Could not reach the upload server.', 'error');
+            }
+        };
+
+        const addLinkedArrayItem = (linkedKey) => {
+            setLinkedData(prev => {
+                const existing = prev[linkedKey] || [];
+                const template = existing[0] || {};
+                const blank = Object.keys(template).reduce((acc, k) => {
+                    if (k !== 'id') acc[k] = '';
+                    return acc;
+                }, {});
+                return { ...prev, [linkedKey]: [...existing, { ...blank, id: Date.now() }] };
+            });
+        };
+
+        const removeLinkedArrayItem = (linkedKey, index) => {
+            setLinkedData(prev => {
+                const arr = [...(prev[linkedKey] || [])];
+                arr.splice(index, 1);
+                return { ...prev, [linkedKey]: arr };
+            });
+        };
+
+        return (
+            <>
+                <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '2px solid var(--admin-border)' }}>
+                    <h3 style={{
+                        fontFamily: 'var(--hero-font)',
+                        fontSize: '1.3rem',
+                        color: 'var(--admin-green)',
+                        marginBottom: '0.5rem'
+                    }}>
+                        Shared Content Sections
+                    </h3>
+                    <p style={{
+                        fontSize: '0.82rem',
+                        color: 'var(--admin-muted)',
+                        marginBottom: '2rem',
+                        lineHeight: '1.5'
+                    }}>
+                        These sections are shared with other pages. Editing here will update both this page and the source page.
+                    </p>
+                </div>
+                <div className="admin-accordion">
+                    {links.map((link) => {
+                        const linkedKey = `${link.sourceSection}__${link.arrayKey}`;
+                        const sectionId = `linked-${linkedKey}`;
+                        const isExpanded = expandedSections[sectionId];
+                        const items = linkedData[linkedKey] || [];
+
+                        return (
+                            <div key={sectionId} className={`admin-accordion__item ${isExpanded ? 'is-expanded' : ''}`}
+                                style={{ borderLeftColor: 'var(--admin-gold)' }}>
+                                <header className="admin-accordion__header">
+                                    <div className="admin-acc-header-left">
+                                        <button
+                                            className={`admin-acc-edit-btn ${isExpanded ? 'is-active' : ''}`}
+                                            onClick={(e) => { e.stopPropagation(); toggleSection(sectionId); }}
+                                            title={isExpanded ? 'Close section' : 'Edit section'}
+                                        >
+                                            {isExpanded ? 'Close' : 'Edit'}
+                                        </button>
+                                    </div>
+                                    <h2 className="admin-accordion__title">
+                                        {link.title}
+                                    </h2>
+                                    <span style={{
+                                        fontSize: '0.65rem',
+                                        fontWeight: '600',
+                                        color: '#fff',
+                                        background: 'var(--admin-gold)',
+                                        padding: '3px 8px',
+                                        borderRadius: '2px',
+                                        letterSpacing: '0.1em',
+                                        whiteSpace: 'nowrap',
+                                        marginRight: '8px'
+                                    }}>
+                                        SHARED
+                                    </span>
+                                    <span style={{
+                                        fontSize: '0.7rem',
+                                        fontWeight: '600',
+                                        color: 'var(--admin-muted)',
+                                        background: 'rgba(29, 53, 40, 0.06)',
+                                        padding: '3px 10px',
+                                        borderRadius: '2px',
+                                        letterSpacing: '0.1em',
+                                        whiteSpace: 'nowrap'
+                                    }}>
+                                        {items.length} {items.length === 1 ? 'item' : 'items'}
+                                    </span>
+                                </header>
+
+                                {isExpanded && (
+                                    <div className="admin-accordion__content">
+                                        {link.description && (
+                                            <p className="admin-section__desc" style={{ marginTop: '0', marginBottom: '1.5rem' }}>
+                                                {link.description}
+                                            </p>
+                                        )}
+                                        <p style={{
+                                            fontSize: '0.75rem', color: 'var(--admin-gold)', marginBottom: '1.5rem',
+                                            display: 'flex', alignItems: 'center', gap: '6px', fontStyle: 'italic'
+                                        }}>
+                                            <AlertCircle size={12} />
+                                            Also editable from: {SECTION_LABELS[link.sourceSection] || link.sourceSection}
+                                        </p>
+
+                                        {items.length === 0 && (
+                                            <div className="admin-empty" style={{ margin: '1rem 0' }}>
+                                                <div className="admin-empty__icon"><LayoutGrid size={24} /></div>
+                                                <p>No items yet. Click "Add New" to get started.</p>
+                                            </div>
+                                        )}
+
+                                        {items.map((item, index) => (
+                                            <div key={item.id || index} className="admin-array-item">
+                                                <span className="admin-array-item__index">#{index + 1}</span>
+                                                <button
+                                                    type="button"
+                                                    className="admin-array-item__remove"
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        if (window.confirm("Are you sure you want to remove this shared item?")) {
+                                                            removeLinkedArrayItem(linkedKey, index);
+                                                        }
+                                                    }}
+                                                    title="Remove this item"
+                                                >
+                                                    <X size={16} style={{ pointerEvents: 'none' }} />
+                                                </button>
+                                                <div style={{ marginTop: '1.5rem' }}>
+                                                    {Object.keys(item)
+                                                        .filter(k => {
+                                                            if (link.arrayKey === 'portfolioItems') {
+                                                                return ['title', 'location', 'image'].includes(k);
+                                                            }
+                                                            if (link.arrayKey === 'storiesList') {
+                                                                const excluded = (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed') ? ['image', 'desc'] : [];
+                                                                return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result']
+                                                                    .filter(f => !excluded.includes(f))
+                                                                    .includes(k);
+                                                            }
+                                                            return k !== 'id' && k !== 'loc';
+                                                        })
+                                                        .map((itemKey) =>
+                                                            renderField(
+                                                                itemKey,
+                                                                item[itemKey],
+                                                                (newVal) => handleLinkedArrayChange(linkedKey, index, itemKey, newVal),
+                                                                (e) => handleLinkedArrayFileUpload(e, linkedKey, index, itemKey)
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                        ))}
+
+                                        <button
+                                            className="admin-btn admin-btn--outline"
+                                            style={{ marginTop: '0.5rem' }}
+                                            onClick={(e) => { e.stopPropagation(); addLinkedArrayItem(linkedKey); }}
+                                        >
+                                            <Plus size={15} />
+                                            Add New Item
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            </>
+        );
+    };
+
+    /* ── Inquiries Panel Renderer ─────────────────── */
+    const renderInquiriesPanel = () => {
+        const TYPE_CONFIG = {
+            contact: { label: 'Contact Form', color: '#1d3528', bg: 'rgba(29, 53, 40, 0.08)', icon: <Mail size={14} /> },
+            quote: { label: 'Quote Request', color: '#C5A059', bg: 'rgba(197, 160, 89, 0.12)', icon: <Calendar size={14} /> },
+            whatsapp: { label: 'WhatsApp', color: '#25D366', bg: 'rgba(37, 211, 102, 0.1)', icon: <Phone size={14} /> },
+        };
+
+        const STATUS_CONFIG = {
+            new: { label: 'New', color: '#dc2626', bg: 'rgba(220, 38, 38, 0.08)' },
+            read: { label: 'Read', color: '#2563eb', bg: 'rgba(37, 99, 235, 0.08)' },
+            replied: { label: 'Replied', color: '#16a34a', bg: 'rgba(22, 163, 74, 0.08)' },
+            archived: { label: 'Archived', color: '#6b7280', bg: 'rgba(107, 114, 128, 0.08)' },
+        };
+
+        const filtered = inquiryFilter === 'all'
+            ? inquiries
+            : inquiries.filter(inq => inq.type === inquiryFilter || inq.status === inquiryFilter);
+
+        const newCount = inquiries.filter(i => i.status === 'new').length;
+        const contactCount = inquiries.filter(i => i.type === 'contact').length;
+        const quoteCount = inquiries.filter(i => i.type === 'quote').length;
+        const whatsappCount = inquiries.filter(i => i.type === 'whatsapp').length;
+
+        const formatDate = (dateStr) => {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) +
+                ' at ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        };
+
+        if (inquiriesLoading) {
+            return (
+                <div className="admin-loading">
+                    <div className="admin-loading__ring" />
+                    <span>Loading inquiries…</span>
+                </div>
+            );
+        }
+
+        return (
+            <div>
+                {/* Summary Cards */}
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(4, 1fr)',
+                    gap: '1rem',
+                    marginBottom: '2rem'
+                }}>
+                    {[
+                        { label: 'New Inquiries', value: newCount, color: '#dc2626', icon: <AlertCircle size={22} /> },
+                        { label: 'Contact Forms', value: contactCount, color: '#1d3528', icon: <Mail size={22} /> },
+                        { label: 'Quote Requests', value: quoteCount, color: '#C5A059', icon: <Calendar size={22} /> },
+                        { label: 'WhatsApp Clicks', value: whatsappCount, color: '#25D366', icon: <Phone size={22} /> },
+                    ].map((card, i) => (
+                        <div key={i} style={{
+                            background: '#fff',
+                            border: '1px solid var(--admin-border)',
+                            borderBottom: `3px solid ${card.color}`,
+                            padding: '1.4rem 1.6rem',
+                            borderRadius: '2px',
+                            boxShadow: 'var(--admin-shadow)',
+                        }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
+                                <span style={{ color: card.color, opacity: 0.6 }}>{card.icon}</span>
+                            </div>
+                            <div style={{ fontSize: '2rem', fontFamily: 'var(--hero-font)', color: card.color, fontWeight: 400 }}>
+                                {card.value}
+                            </div>
+                            <div style={{ fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginTop: '0.3rem' }}>
+                                {card.label}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Filter Bar */}
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '1.5rem',
+                    flexWrap: 'wrap'
+                }}>
+                    {[
+                        { key: 'all', label: 'All' },
+                        { key: 'contact', label: 'Contact' },
+                        { key: 'quote', label: 'Quotes' },
+                        { key: 'whatsapp', label: 'WhatsApp' },
+                        { key: 'new', label: 'New Only' },
+                    ].map(f => (
+                        <button
+                            key={f.key}
+                            onClick={() => setInquiryFilter(f.key)}
+                            style={{
+                                padding: '0.5rem 1.2rem',
+                                border: `1.5px solid ${inquiryFilter === f.key ? 'var(--admin-green)' : 'var(--admin-border)'}`,
+                                background: inquiryFilter === f.key ? 'var(--admin-green)' : 'transparent',
+                                color: inquiryFilter === f.key ? 'var(--admin-cream)' : 'var(--admin-muted)',
+                                fontFamily: 'var(--body-font)',
+                                fontSize: '0.75rem',
+                                fontWeight: 600,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                cursor: 'pointer',
+                                borderRadius: '2px',
+                                transition: 'all 0.25s ease',
+                            }}
+                        >
+                            {f.label}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={fetchInquiries}
+                        style={{
+                            marginLeft: 'auto',
+                            padding: '0.5rem 1.2rem',
+                            border: '1.5px solid var(--admin-border)',
+                            background: 'transparent',
+                            color: 'var(--admin-muted)',
+                            fontFamily: 'var(--body-font)',
+                            fontSize: '0.75rem',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                            cursor: 'pointer',
+                            borderRadius: '2px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                        }}
+                    >
+                        <Clock size={13} /> Refresh
+                    </button>
+                </div>
+
+                {/* Empty State */}
+                {filtered.length === 0 && (
+                    <div style={{
+                        textAlign: 'center',
+                        padding: '4rem 2rem',
+                        background: '#fff',
+                        border: '1px solid var(--admin-border)',
+                        borderRadius: '2px',
+                    }}>
+                        <MessageSquare size={48} style={{ opacity: 0.15, marginBottom: '1rem' }} />
+                        <p style={{ color: 'var(--admin-muted)', fontSize: '0.95rem' }}>
+                            {inquiryFilter === 'all' ? 'No customer inquiries yet.' : `No ${inquiryFilter} inquiries found.`}
+                        </p>
+                        <p style={{ color: 'var(--admin-muted)', fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7 }}>
+                            Inquiries from the contact form, quote widget, and WhatsApp will appear here.
+                        </p>
+                    </div>
+                )}
+
+                {/* Inquiry List */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                    {filtered.map((inq) => {
+                        const typeConf = TYPE_CONFIG[inq.type] || TYPE_CONFIG.contact;
+                        const statusConf = STATUS_CONFIG[inq.status] || STATUS_CONFIG.new;
+                        const isExpanded = expandedInquiry === inq._id;
+
+                        return (
+                            <div key={inq._id} style={{
+                                background: '#fff',
+                                border: `1px solid ${isExpanded ? 'var(--admin-green)' : 'var(--admin-border)'}`,
+                                borderLeft: `3px solid ${typeConf.color}`,
+                                borderRadius: '2px',
+                                boxShadow: isExpanded ? 'var(--admin-shadow-lg)' : 'var(--admin-shadow)',
+                                transition: 'all 0.25s ease',
+                                overflow: 'hidden',
+                            }}>
+                                {/* Header row */}
+                                <div
+                                    onClick={() => {
+                                        setExpandedInquiry(isExpanded ? null : inq._id);
+                                        if (inq.status === 'new') updateInquiryStatus(inq._id, 'read');
+                                    }}
+                                    style={{
+                                        padding: '1.2rem 1.5rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '1rem',
+                                        cursor: 'pointer',
+                                        transition: 'background 0.2s',
+                                    }}
+                                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--admin-cream-dark)'}
+                                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                                >
+                                    {/* Type badge */}
+                                    <span style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '5px',
+                                        padding: '4px 10px',
+                                        background: typeConf.bg,
+                                        color: typeConf.color,
+                                        fontSize: '0.68rem',
+                                        fontWeight: 700,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        borderRadius: '2px',
+                                        flexShrink: 0,
+                                    }}>
+                                        {typeConf.icon} {typeConf.label}
+                                    </span>
+
+                                    {/* Name + email */}
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                        <div style={{
+                                            fontFamily: 'var(--hero-font)',
+                                            fontSize: '1.05rem',
+                                            color: 'var(--admin-green)',
+                                            fontWeight: inq.status === 'new' ? 600 : 400,
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                        }}>
+                                            {inq.name || 'Anonymous'}
+                                        </div>
+                                        {inq.email && (
+                                            <div style={{ fontSize: '0.78rem', color: 'var(--admin-muted)', marginTop: '2px' }}>
+                                                {inq.email}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Status */}
+                                    <span style={{
+                                        padding: '3px 10px',
+                                        background: statusConf.bg,
+                                        color: statusConf.color,
+                                        fontSize: '0.65rem',
+                                        fontWeight: 700,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        borderRadius: '2px',
+                                        flexShrink: 0,
+                                    }}>
+                                        {statusConf.label}
+                                    </span>
+
+                                    {/* Date */}
+                                    <span style={{
+                                        fontSize: '0.72rem',
+                                        color: 'var(--admin-muted)',
+                                        whiteSpace: 'nowrap',
+                                        flexShrink: 0,
+                                    }}>
+                                        {formatDate(inq.createdAt)}
+                                    </span>
+
+                                    <ArrowRight size={16} style={{
+                                        color: 'var(--admin-muted)',
+                                        transform: isExpanded ? 'rotate(90deg)' : 'none',
+                                        transition: 'transform 0.3s ease',
+                                        flexShrink: 0,
+                                    }} />
+                                </div>
+
+                                {/* Expanded details */}
+                                {isExpanded && (
+                                    <div style={{
+                                        padding: '0 1.5rem 1.5rem',
+                                        borderTop: '1px solid var(--admin-border)',
+                                        animation: 'slideDown 0.3s ease-out forwards',
+                                    }}>
+                                        <div style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: 'repeat(2, 1fr)',
+                                            gap: '1.2rem',
+                                            padding: '1.5rem 0',
+                                        }}>
+                                            {inq.name && inq.type !== 'whatsapp' && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <User size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Name</div>
+                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.name}</div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.email && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <Mail size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Email</div>
+                                                        <a href={`mailto:${inq.email}`} style={{ fontSize: '0.92rem', color: 'var(--admin-green)', textDecoration: 'none' }}>{inq.email}</a>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.phone && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <Phone size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Phone</div>
+                                                        <a href={`tel:${inq.phone}`} style={{ fontSize: '0.92rem', color: 'var(--admin-green)', textDecoration: 'none' }}>{inq.phone}</a>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.address && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <MapPin size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Address</div>
+                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.address}</div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.weddingDate && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <Calendar size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Wedding Date</div>
+                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.weddingDate}</div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.weddingLocation && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <MapPin size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Wedding Location</div>
+                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.weddingLocation}</div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.guestCount && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <User size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Guest Count</div>
+                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.guestCount}</div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {inq.serviceRequired && (
+                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                                    <Briefcase size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
+                                                    <div>
+                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Service Required</div>
+                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.serviceRequired}</div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Message */}
+                                        {inq.message && (
+                                            <div style={{
+                                                background: 'var(--admin-cream)',
+                                                border: '1px solid var(--admin-border)',
+                                                borderLeft: '3px solid var(--admin-gold)',
+                                                padding: '1.2rem 1.5rem',
+                                                borderRadius: '2px',
+                                                marginBottom: '1.2rem',
+                                            }}>
+                                                <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '8px' }}>
+                                                    Message / Vision
+                                                </div>
+                                                <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>
+                                                    {inq.message}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Actions */}
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.6rem',
+                                            flexWrap: 'wrap',
+                                            paddingTop: '0.5rem',
+                                            borderTop: '1px solid var(--admin-border)',
+                                        }}>
+                                            <span style={{ fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginRight: '0.5rem' }}>
+                                                Set Status:
+                                            </span>
+                                            {['new', 'read', 'replied', 'archived'].map(s => (
+                                                <button
+                                                    key={s}
+                                                    onClick={(e) => { e.stopPropagation(); updateInquiryStatus(inq._id, s); }}
+                                                    style={{
+                                                        padding: '4px 12px',
+                                                        border: `1.5px solid ${inq.status === s ? STATUS_CONFIG[s].color : 'var(--admin-border)'}`,
+                                                        background: inq.status === s ? STATUS_CONFIG[s].bg : 'transparent',
+                                                        color: inq.status === s ? STATUS_CONFIG[s].color : 'var(--admin-muted)',
+                                                        fontFamily: 'var(--body-font)',
+                                                        fontSize: '0.68rem',
+                                                        fontWeight: 600,
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.08em',
+                                                        cursor: 'pointer',
+                                                        borderRadius: '2px',
+                                                        transition: 'all 0.2s',
+                                                    }}
+                                                >
+                                                    {STATUS_CONFIG[s].label}
+                                                </button>
+                                            ))}
+
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); deleteInquiry(inq._id); }}
+                                                style={{
+                                                    marginLeft: 'auto',
+                                                    padding: '4px 12px',
+                                                    border: '1.5px solid rgba(220, 38, 38, 0.3)',
+                                                    background: 'transparent',
+                                                    color: '#dc2626',
+                                                    fontFamily: 'var(--body-font)',
+                                                    fontSize: '0.68rem',
+                                                    fontWeight: 600,
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.08em',
+                                                    cursor: 'pointer',
+                                                    borderRadius: '2px',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '5px',
+                                                    transition: 'all 0.2s',
+                                                }}
+                                                onMouseEnter={(e) => { e.currentTarget.style.background = '#dc2626'; e.currentTarget.style.color = '#fff'; }}
+                                                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#dc2626'; }}
+                                            >
+                                                <Trash2 size={12} /> Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    };
+
+    /* ── Stats (derived from content) ──────────── */
     const totalSections = content ? Object.keys(content).length : 0;
     const totalArrayItems = content
         ? Object.values(content).reduce((total, section) => {
@@ -693,7 +2046,7 @@ const AdminDashboard = () => {
         }, 0)
         : 0;
 
-    /* ── Render ──────────────────────────────────── */
+    /* ── Render ────────────────────────────────── */
     return (
         <div className="admin-dashboard">
 
@@ -770,14 +2123,16 @@ const AdminDashboard = () => {
                         >
                             <Eye size={14} /> Preview
                         </button>
-                        <button
-                            className="admin-btn admin-btn--primary admin-btn--sm"
-                            onClick={handleSave}
-                            disabled={isSaving || !isLoaded}
-                        >
-                            <Save size={14} />
-                            {isSaving ? 'Saving…' : 'Save Changes'}
-                        </button>
+                        {activeTab !== 'inquiries' && (
+                            <button
+                                className="admin-btn admin-btn--primary admin-btn--sm"
+                                onClick={handleSave}
+                                disabled={isSaving || !isLoaded}
+                            >
+                                <Save size={14} />
+                                {isSaving ? 'Saving…' : 'Save Changes'}
+                            </button>
+                        )}
                     </div>
                 </header>
 
@@ -818,20 +2173,29 @@ const AdminDashboard = () => {
                     <div className="admin-page__header">
                         <div>
                             <h1 className="admin-page__title">
-                                Editing &nbsp;<em>{SECTION_LABELS[activeTab] || activeTab}</em>
+                                {activeTab === 'inquiries' ? (
+                                    <>Customer&nbsp;<em>Inquiries</em></>
+                                ) : (
+                                    <>Editing&nbsp;<em>{SECTION_LABELS[activeTab] || activeTab}</em></>
+                                )}
                             </h1>
                             <p className="admin-page__subtitle">
-                                Make your changes below and click "Save Changes" when you're done.
+                                {activeTab === 'inquiries'
+                                    ? 'View and manage all customer inquiries from the contact form, quote requests, and WhatsApp.'
+                                    : 'Make your changes below and click "Save Changes" when you\'re done.'
+                                }
                             </p>
                         </div>
-                        <button
-                            className="admin-btn admin-btn--primary"
-                            onClick={handleSave}
-                            disabled={isSaving || !isLoaded}
-                        >
-                            <Save size={15} />
-                            {isSaving ? 'Saving…' : 'Save Changes'}
-                        </button>
+                        {activeTab !== 'inquiries' && (
+                            <button
+                                className="admin-btn admin-btn--primary"
+                                onClick={handleSave}
+                                disabled={isSaving || !isLoaded}
+                            >
+                                <Save size={15} />
+                                {isSaving ? 'Saving…' : 'Save Changes'}
+                            </button>
+                        )}
                     </div>
 
                     {/* Form */}
@@ -842,7 +2206,12 @@ const AdminDashboard = () => {
                         </div>
                     ) : (
                         <div style={{ maxWidth: '880px' }}>
-                            {renderForm()}
+                            {activeTab === 'inquiries' ? renderInquiriesPanel() : (
+                                <>
+                                    {renderForm()}
+                                    {renderLinkedSections()}
+                                </>
+                            )}
                         </div>
                     )}
                 </main>

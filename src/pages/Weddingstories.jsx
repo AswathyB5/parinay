@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -8,31 +8,37 @@ const Gallery = () => {
     const [selectedProject, setSelectedProject] = React.useState(null);
     const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
 
-    // Defensive checks for content loading
-    const home = content?.home || {};
-    const portfolioImages = home.portfolioItems || [];
-    const storiesDest = content?.storiesDestination || {};
-    const storiesTheme = content?.storiesThemed || {};
-    const storiesTrad = content?.storiesTraditional || {};
+    // Wedding Stories page-level content
+    const ws = content?.weddingStories || {};
+    const pageTitle = ws.pageBannerTitle || "Wedding Stories";
+    const ctaBtnText = ws.instagramBtnText || "EXPLORE MORE COLLECTIONS";
+    const ctaBtnUrl = ws.instagramUrl || "https://instagram.com";
+    const ctaBtnIcon = ws.instagramBtnIcon || "fab fa-instagram";
 
-    const destinationImages = (storiesDest.storiesList || []).map(s => ({ ...s, category: 'Destination' }));
-    const themedImages = (storiesTheme.storiesList || []).map(s => ({ ...s, category: 'Themed' }));
-    const traditionalImages = (storiesTrad.storiesList || []).map(s => ({ ...s, category: 'Traditional' }));
-
-    const allGalleryItems = [
-        ...portfolioImages.map(img => ({ ...img, category: 'Featured' })),
-        ...destinationImages,
-        ...themedImages,
-        ...traditionalImages
-    ].filter(item => item.image);
+    const allGalleryItems = (ws.storiesList || []).map(item => {
+        const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");
+        const displayDesc = item.overview ? item.overview.split('.')[0] + '.' : item.desc;
+        return { ...item, displayImage, displayDesc };
+    }).filter(item => item.displayImage);
 
     const openLightbox = (project) => {
-        // Generate 12 related images for the story as requested
-        const related = project.imageList || Array.from({ length: 12 }, (_, i) => ({
-            id: i,
-            url: project.image,
-            alt: `${project.title} - Highlight ${i + 1}`
-        }));
+        // Parse galleryImages (newline-separated URLs) into image objects
+        let related = [];
+        if (project.galleryImages && typeof project.galleryImages === 'string' && project.galleryImages.trim()) {
+            related = project.galleryImages
+                .split(/\\n|\n/)
+                .map(url => url.trim())
+                .filter(url => url.length > 0)
+                .map((url, i) => ({
+                    id: i,
+                    url: url,
+                    alt: `${project.title} - Photo ${i + 1}`
+                }));
+        }
+        // Fallback: if no gallery images set, use the displayImage
+        if (related.length === 0) {
+            related = [{ id: 0, url: project.displayImage, alt: project.title || 'Wedding Photo' }];
+        }
         setSelectedProject({ ...project, related });
         setIsLightboxOpen(true);
         document.body.style.overflow = 'hidden';
@@ -65,14 +71,14 @@ const Gallery = () => {
         <div className="gallery-page">
             <section className="about-hero-new">
                 <div className="container">
-                    <h1 className="gallery-reveal">Wedding Stories</h1>
+                    <h1 className="gallery-reveal">{pageTitle}</h1>
                 </div>
             </section>
 
             <section className="gallery-section" style={{ paddingTop: '40px' }}>
                 <div className="container">
                     <div className="gallery-grid">
-                        {allGalleryItems.map((item, idx) => (
+                        {allGalleryItems.filter(item => item.title && item.title.trim()).map((item, idx) => (
                             <div 
                                 key={`${item.id}-${idx}`} 
                                 className="gallery-item gallery-reveal"
@@ -80,7 +86,11 @@ const Gallery = () => {
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="gallery-img-wrap">
-                                    <img src={item.image} alt={item.title || 'Wedding Gallery'} loading="lazy" />
+                                    {isVideoUrl(item.displayImage) ? (
+                                        <video src={resolveMediaURL(item.displayImage)} autoPlay muted loop playsInline />
+                                    ) : (
+                                        <img src={resolveMediaURL(item.displayImage)} alt={item.title || 'Wedding Gallery'} loading="lazy" />
+                                    )}
                                     <div className="gallery-overlay">
                                         <div className="gallery-info">
                                             <span className="gallery-cat">{item.category}</span>
@@ -106,12 +116,16 @@ const Gallery = () => {
                         <div className="pd-lightbox__header">
                             <span className="pd-label">{selectedProject.category} Story</span>
                             <h2>{selectedProject.title}</h2>
-                            <p>{selectedProject.desc}</p>
+                            <p>{renderText(selectedProject.displayDesc)}</p>
                         </div>
                         <div className="pd-lightbox__grid">
                             {selectedProject.related.map((img, i) => (
                                 <div key={i} className="pd-lightbox__item">
-                                    <img src={img.url} alt={img.alt} />
+                                    {isVideoUrl(img.url) ? (
+                                        <video src={resolveMediaURL(img.url)} controls width="100%" />
+                                    ) : (
+                                        <img src={resolveMediaURL(img.url)} alt={img.alt} />
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -122,12 +136,12 @@ const Gallery = () => {
             {/* CALL TO ACTION BUTTON */}
             <div className="pw-stories__footer-cta gallery-reveal" style={{ textAlign: 'center', padding: '80px 0 140px' }}>
                 <a 
-                    href="https://instagram.com" 
+                    href={ctaBtnUrl} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="pw-btn pw-btn--gold"
                 >
-                    EXPLORE MORE COLLECTIONS <i className="fab fa-instagram" style={{ marginLeft: '10px', fontSize: '0.9rem' }}></i>
+                    {ctaBtnText} <i className={ctaBtnIcon} style={{ marginLeft: '10px', fontSize: '0.9rem' }}></i>
                 </a>
             </div>
         </div>
@@ -135,3 +149,4 @@ const Gallery = () => {
 };
 
 export default Gallery;
+

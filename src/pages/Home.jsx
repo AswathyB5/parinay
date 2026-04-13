@@ -1,15 +1,30 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, isVideoUrl, resolveMediaURL, renderText, API } from '../context/ContentContext';
 
 const Home = () => {
     const { content } = useContext(ContentContext);
     const home = content.home;
+
+    const getYoutubeEmbedUrl = (url) => {
+        if (!url || typeof url !== 'string') return "";
+        let id = "";
+        if (url.includes('v=')) {
+            id = url.split('v=')[1].split('&')[0];
+        } else if (url.includes('youtu.be/')) {
+            id = url.split('youtu.be/')[1].split('?')[0];
+        } else if (url.includes('embed/')) {
+            return url;
+        } else {
+            return url;
+        }
+        return `https://www.youtube.com/embed/${id}`;
+    };
     // --- Hero Video Crossfade Logic ---
     const [currentVid, setCurrentVid] = useState(0);
     const heroVideos = [
-        home.heroVideo1 || '/Untitled design.mp4',
-        home.heroVideo2 || '/12874721_1920_1080_30fps.mp4',
+        resolveMediaURL(home.heroVideo1 || '/Untitled design.mp4'),
+        resolveMediaURL(home.heroVideo2 || '/12874721_1920_1080_30fps.mp4'),
     ];
 
     // --- Hero Floating Image Slideshow Logic ---
@@ -70,19 +85,50 @@ const Home = () => {
     }, [portfolioItems.length]);
 
     // --- Lead Form Logic ---
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         const submitBtn = e.target.querySelector('.btn-submit');
         const originalText = submitBtn.innerText;
         submitBtn.innerText = 'Sending...';
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            alert('Thank you for contacting Parinay Weddings. Our team will review your requirements and get in touch within 24 hours via WhatsApp and Email.');
-            e.target.reset();
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
+        const formEl = e.target;
+        const payload = {
+            type: 'contact',
+            name: formEl.fullName?.value || '',
+            email: formEl.email?.value || '',
+            phone: formEl.phone?.value || '',
+            weddingLocation: formEl.weddingLocation?.value || '',
+            address: formEl.address?.value || '',
+            guestCount: formEl.guestCount?.value || '',
+            weddingDate: formEl.weddingDate?.value || '',
+            message: formEl.message?.value || '',
+        };
+
+        try {
+            console.log('[Home Form] Sending payload:', payload);
+            const res = await fetch(`${API}/api/inquiries`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            console.log('[Home Form] Response status:', res.status);
+            const data = await res.json();
+            console.log('[Home Form] Response data:', data);
+
+            if (data.success) {
+                alert('Thank you for contacting Parinay Weddings. Our team will review your requirements and get in touch within 24 hours via WhatsApp and Email.');
+                formEl.reset();
+            } else {
+                alert(`Something went wrong: ${data.error || 'Unknown error'}`);
+            }
+        } catch (err) {
+            console.error('[Home Form] FETCH ERROR:', err);
+            alert(`Could not reach the server. \n\nTechnical Error: ${err.message}`);
+        }
+
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
     };
 
     // --- Scroll Reveal Logic ---
@@ -132,7 +178,9 @@ const Home = () => {
 
                 <div className="pw-hero__content">
                     <span className="pw-hero__eyebrow"></span>
-                    <p className="pw-hero__tagline">{home.heroTagline}</p>
+                    <p className="pw-hero__tagline">
+                        {renderText(home.heroTagline)}
+                    </p>
                     <div className="pw-hero__ctas">
                         <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
                             {home.heroBtnText || "Get Started"}
@@ -142,12 +190,21 @@ const Home = () => {
 
                 <div className="pw-hero__floating-img reveal">
                     {heroImages.map((img, index) => (
-                        <img
-                            key={index}
-                            src={img.image}
-                            alt={img.alt || `Wedding Celebration ${index + 1}`}
-                            className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
-                        />
+                        isVideoUrl(img.image) ? (
+                            <video
+                                key={index}
+                                src={resolveMediaURL(img.image)}
+                                autoPlay muted loop playsInline
+                                className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
+                            />
+                        ) : (
+                            <img
+                                key={index}
+                                src={resolveMediaURL(img.image)}
+                                alt={img.alt || `Wedding Celebration ${index + 1}`}
+                                className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
+                            />
+                        )
                     ))}
                 </div>
             </section>
@@ -158,10 +215,10 @@ const Home = () => {
                     <div className="pw-intro__content reveal" style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto' }}>
 
                         <h2 className="pw-intro__heading">
-                            {home.introHeading}
+                            {renderText(home.introHeading)}
                         </h2><br />
                         <p className="pw-intro__text" style={{ fontSize: '1.4rem', marginTop: '30px' }}>
-                            <em>{home.introSubText}</em>
+                            <em>{renderText(home.introSubText)}</em>
                         </p>
                     </div>
                 </div><br />
@@ -172,25 +229,25 @@ const Home = () => {
                         <div className="pw-stats__item">
                             <span className="pw-stats__icon">✦</span>
                             <span className="pw-stats__label">
-                                {home.stat1Label?.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)}
+                                {renderText(home.stat1Label)}
                             </span>
                         </div>
                         <div className="pw-stats__item">
                             <span className="pw-stats__icon">✦</span>
                             <span className="pw-stats__label">
-                                {home.stat2Label?.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)}
+                                {renderText(home.stat2Label)}
                             </span>
                         </div>
                         <div className="pw-stats__item">
                             <span className="pw-stats__icon">✦</span>
                             <span className="pw-stats__label">
-                                {home.stat3Label?.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)}
+                                {renderText(home.stat3Label)}
                             </span>
                         </div>
                         <div className="pw-stats__item">
                             <span className="pw-stats__icon">✦</span>
                             <span className="pw-stats__label">
-                                {home.stat4Label?.split('\n').map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)}
+                                {renderText(home.stat4Label)}
                             </span>
                         </div>
                     </div>
@@ -203,12 +260,12 @@ const Home = () => {
             <section className="about-team-new reveal" style={{ backgroundColor: '#fff' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                        <span className="section-label">{home.servicesLabel}</span>
+                        <span className="section-label">{renderText(home.servicesLabel)}</span>
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '20px' }}>
-                            {home.servicesHeading?.split('\n')[0]} <em>{home.servicesHeading?.split('\n')[1]}</em>
+                            {(home.servicesHeading || '').split(/\\n|\n/)[0]} <em>{(home.servicesHeading || '').split(/\\n|\n/)[1] || ''}</em>
                         </h2>
                         <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem', color: '#666', lineHeight: '1.8' }}>
-                            {home.servicesIntroText}
+                            {renderText(home.servicesIntroText)}
                         </p>
                     </div>
 
@@ -221,11 +278,18 @@ const Home = () => {
                         ].map((s, idx) => (
                             <div className="team-card-new" key={idx}>
                                 <div className="team-img-wrap-new">
-                                    <img src={s.image} alt={s.title} />
+                                    {isVideoUrl(s.image) ? (
+                                        <video src={resolveMediaURL(s.image)} autoPlay muted loop playsInline />
+                                    ) : (
+                                        <img src={resolveMediaURL(s.image)} alt={s.title} />
+                                    )}
                                 </div>
                                 <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '8px', fontFamily: 'Playfair Display, serif' }}>
                                     {s.title}
                                 </h3>
+                                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: '1.6' }}>
+                                    {s.desc}
+                                </p>
                             </div>
                         ))}
                     </div>
@@ -242,15 +306,24 @@ const Home = () => {
                     }}>
                         <p style={{
                             fontSize: '1.8rem',
-                            fontStyle: 'italic',
                             color: '#1d3528',
                             fontFamily: 'Playfair Display, serif',
-                            lineHeight: '1.4',
+                            lineHeight: '1.1',
                             textAlign: 'center',
-                            margin: '0 auto'
+                            margin: '0'
                         }}>
-                            {home.servicesFooterText?.split('\n')[0]} <br />
-                            <em>{home.servicesFooterText?.split('\n')[1]}</em>
+                            {(home.servicesFooterText || '').split(/\\n|\n/)[0]}
+                        </p>
+                        <p style={{
+                            fontSize: '1.8rem',
+                            fontStyle: 'italic',
+                            color: 'var(--accent-color)',
+                            fontFamily: 'Playfair Display, serif',
+                            lineHeight: '1.1',
+                            textAlign: 'center',
+                            margin: '-5px 0 0'
+                        }}>
+                            {(home.servicesFooterText || '').split(/\\n|\n/)[1]}
                         </p>
                     </div>
                 </div>
@@ -261,33 +334,41 @@ const Home = () => {
                 <div className="pw-container pw-container--wide">
                     <div className="pw-destination__grid">
                         <div className="pw-destination__content reveal">
-                            <span className="pw-label pw-label--light">{home.destinationLabel}</span>
+                            <span className="pw-label pw-label--light">{renderText(home.destinationLabel)}</span>
                             <h2 className="pw-destination__heading">
-                                {home.destinationHeading.split(',')[0]}<br />
-                                <em>{home.destinationHeading.includes(',') ? home.destinationHeading.split(',')[1].trim() : ''}</em>
+                                {(home.destinationHeading || '').split(',')[0]}<br />
+                                <em>{(home.destinationHeading || '').includes(',') ? (home.destinationHeading || '').split(',')[1].trim() : ''}</em>
                             </h2>
                             <div className="pw-destination__divider"></div>
-                            <p className="pw-destination__text">{home.destinationBody1}</p>
-                            <p className="pw-destination__text">{home.destinationBody2}</p>
-                            <p className="pw-destination__text" style={{ fontStyle: 'italic', color: '#1d3528', fontWeight: '500' }}>
-                                {home.destinationBody3}
+                            <p className="pw-destination__text">{renderText(home.destinationBody1)}</p>
+                            <p className="pw-destination__text">{renderText(home.destinationBody2)}</p>
+                            <p className="pw-destination__text" style={{ fontStyle: 'italic', color: '#a1a1a1ff', fontWeight: '400' }}>
+                                {renderText(home.destinationBody3)}
                             </p>
-                            <Link to={home.destinationBtnUrl || '/contact'} className="pw-btn pw-btn--dark" style={{ marginTop: '40px' }}>
-                                {home.destinationBtnText}
+                            <Link to={home.destinationBtnUrl || '/contact'} className="pw-btn pw-btn--gold" style={{ marginTop: '40px' }}>
+                                {renderText(home.destinationBtnText)}
                             </Link>
                         </div>
 
                         <div className="pw-destination__images reveal">
-                            <img
-                                src={home.destinationImage1}
-                                alt="Kerala Destination Wedding"
-                                className="pw-destination__img-main"
-                            />
-                            <img
-                                src={home.destinationImage2}
-                                alt="Sunset Wedding"
-                                className="pw-destination__img-sub"
-                            />
+                            {isVideoUrl(home.destinationImage1) ? (
+                                <video src={resolveMediaURL(home.destinationImage1)} autoPlay muted loop playsInline className="pw-destination__img-main" />
+                            ) : (
+                                <img
+                                    src={resolveMediaURL(home.destinationImage1)}
+                                    alt="Kerala Destination Wedding"
+                                    className="pw-destination__img-main"
+                                />
+                            )}
+                            {isVideoUrl(home.destinationImage2) ? (
+                                <video src={resolveMediaURL(home.destinationImage2)} autoPlay muted loop playsInline className="pw-destination__img-sub" />
+                            ) : (
+                                <img
+                                    src={resolveMediaURL(home.destinationImage2)}
+                                    alt="Sunset Wedding"
+                                    className="pw-destination__img-sub"
+                                />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -298,10 +379,10 @@ const Home = () => {
                 <div className="pw-container">
                     <div className="pw-portfolio__header reveal">
                         <div className="pw-portfolio__header-left">
-                            <span className="pw-label">{home.portfolioLabel}</span>
+                            <span className="pw-label">{renderText(home.portfolioLabel)}</span>
                             <h2 className="pw-portfolio__title">
-                                {home.portfolioHeading.split(' - ')[0]}<br />
-                                <em>{home.portfolioHeading.split(' - ')[1]}</em>
+                                {(home.portfolioHeading || '').split(' - ')[0]}<br />
+                                <em>{(home.portfolioHeading || '').split(' - ')[1] || ''}</em>
                             </h2>
                         </div>
                     </div>
@@ -371,17 +452,24 @@ const Home = () => {
                         className="pw-services__grid reveal"
                         style={{ height: '700px', paddingLeft: '80px', paddingRight: '80px' }}
                     >
-                        {portfolioItems.map((item, idx) => (
-                            <div className="pw-services__card" key={idx}>
-                                <img src={item.image} alt={item.title} className="pw-services__card-img" />
-                                <div className="pw-services__card-overlay">
-                                    <div className="pw-services__card-body">
-                                        <h3 className="pw-services__card-title">{item.title}</h3>
-                                        <p className="pw-services__card-desc">{item.loc}</p>
+                        {portfolioItems.map((item, idx) => {
+                            const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");
+                            return (
+                                <div className="pw-services__card" key={idx}>
+                                    {isVideoUrl(displayImage) ? (
+                                        <video src={resolveMediaURL(displayImage)} autoPlay muted loop playsInline className="pw-services__card-img" />
+                                    ) : (
+                                        <img src={resolveMediaURL(displayImage)} alt={item.title} className="pw-services__card-img" />
+                                    )}
+                                    <div className="pw-services__card-overlay">
+                                        <div className="pw-services__card-body">
+                                            <h3 className="pw-services__card-title">{item.title}</h3>
+                                            <p className="pw-services__card-desc">{item.location || item.loc}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -398,50 +486,69 @@ const Home = () => {
                     <div className="youtube-split-layout" style={{ marginBottom: '80px' }}>
                         {/* Left: Editorial Text Content */}
                         <div className="youtube-text-content">
-                            <span className="editorial-label">{home.youtubeLabel}</span>
+                            <span className="editorial-label">{renderText(home.youtubeLabel)}</span>
                             <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3.8rem)', margin: '20px 0 35px', lineHeight: '1.1' }}>
-                                {home.youtubeHeading.split('\n').map((line, i) => (
+                                {(home.youtubeHeading || '').split(/\\n|\n/).map((line, i, arr) => (
                                     <React.Fragment key={i}>
-                                        {i === home.youtubeHeading.split('\n').length - 1 ? <em>{line}</em> : line}
-                                        {i < home.youtubeHeading.split('\n').length - 1 && <br />}
+                                        {i === arr.length - 1 ? <em>{line}</em> : line}
+                                        {i < arr.length - 1 && <br />}
                                     </React.Fragment>
                                 ))}
                             </h2>
-                            <p style={{ marginBottom: '25px' }}>{home.youtubeText1}</p>
-                            <p style={{ marginBottom: '35px' }}>{home.youtubeText2}</p>
+                            <p style={{ marginBottom: '25px' }}>{renderText(home.youtubeText1)}</p>
+                            <p style={{ marginBottom: '35px' }}>{renderText(home.youtubeText2)}</p>
 
                             <a href={home.youtubeBtnUrl} target="_blank" rel="noopener noreferrer"
                                 className="btn btn-outline youtube-cta-btn">
-                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> {home.youtubeBtnText}
+                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> {renderText(home.youtubeBtnText)}
                             </a>
                         </div>
 
                         {/* Right: Stable Top/Bottom Trio Layout */}
                         <div className="youtube-featured-side">
                             <div className="youtube-trio-stack">
-                                {(home.youtubeVideos || []).slice(0, 1).map((vid, i) => (
-                                    <div className="youtube-card featured-top" key={vid.id || i}>
-                                        <div className="video-thumbnail-wrapper">
-                                            <div className="video-frame">
+                                {/* Featured Top Video */}
+                                <div className="youtube-card featured-top">
+                                    <div className="video-thumbnail-wrapper">
+                                        <div className="video-frame">
+                                            {home.youtubeEmbedUrl ? (
                                                 <iframe width="560" height="315"
-                                                    src={vid.url}
+                                                    src={getYoutubeEmbedUrl(home.youtubeEmbedUrl)}
                                                     title="Featured Video"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                     referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                                            </div>
+                                            ) : (
+                                                (home.youtubeVideos || []).slice(0, 1).map((vid, i) => (
+                                                    <React.Fragment key={vid.id || i}>
+                                                        {isVideoUrl(vid.url) ? (
+                                                            <video src={vid.url} controls width="100%" height="100%" />
+                                                        ) : (
+                                                            <iframe width="560" height="315"
+                                                                src={getYoutubeEmbedUrl(vid.url)}
+                                                                title="Featured Video"
+                                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                                referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                                        )}
+                                                    </React.Fragment>
+                                                ))
+                                            )}
                                         </div>
                                     </div>
-                                ))}
+                                </div>
                                 <div className="youtube-trio-bottom">
                                     {(home.youtubeVideos || []).slice(1, 3).map((vid, idx) => (
                                         <div className="youtube-card" key={vid.id || idx}>
                                             <div className="video-thumbnail-wrapper">
                                                 <div className="video-frame">
-                                                    <iframe width="560" height="315"
-                                                        src={vid.url}
-                                                        title={`Sub Video ${idx + 2}`}
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                        referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                                    {isVideoUrl(vid.url) ? (
+                                                        <video src={vid.url} controls width="100%" height="100%" />
+                                                    ) : (
+                                                        <iframe width="560" height="315"
+                                                            src={getYoutubeEmbedUrl(vid.url)}
+                                                            title={`Sub Video ${idx + 2}`}
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                            referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
@@ -457,11 +564,15 @@ const Home = () => {
                             <div className="youtube-card" key={vid.id || idx}>
                                 <div className="video-thumbnail-wrapper">
                                     <div className="video-frame">
-                                        <iframe width="560" height="315"
-                                            src={vid.url}
-                                            title={`YouTube video player ${idx + 4}`}
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                        {isVideoUrl(vid.url) ? (
+                                            <video src={vid.url} controls width="100%" height="100%" />
+                                        ) : (
+                                            <iframe width="560" height="315"
+                                                src={getYoutubeEmbedUrl(vid.url)}
+                                                title={`YouTube video player ${idx + 4}`}
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -475,13 +586,13 @@ const Home = () => {
             <section className="pw-testimonials">
                 <div className="pw-container">
                     <div className="pw-testimonials__inner">
-                        <span className="pw-label pw-label--gold">{home.testimonialLabel || 'Testimonials'}</span>
+                        <span className="pw-label pw-label--gold">{renderText(home.testimonialLabel || 'Testimonials')}</span>
 
 
                         <div className="pw-testimonials__quote-wrap">
                             <div className="pw-testimonials__quote-mark">"</div>
                             <p className="pw-testimonials__quote" key={currentTestimonial}>
-                                {testimonials[currentTestimonial]?.text}
+                                {renderText(testimonials[currentTestimonial]?.text)}
                             </p>
                         </div>
 
@@ -489,14 +600,18 @@ const Home = () => {
                             <div className="pw-testimonials__author-line"></div>
                             <div className="pw-testimonials__author-flex">
                                 <div className="pw-testimonials__author-img">
-                                    <img
-                                        src={testimonials[currentTestimonial]?.image}
-                                        alt={testimonials[currentTestimonial]?.author}
-                                    />
+                                    {isVideoUrl(testimonials[currentTestimonial]?.image) ? (
+                                        <video src={resolveMediaURL(testimonials[currentTestimonial]?.image)} autoPlay muted loop playsInline />
+                                    ) : (
+                                        <img
+                                            src={resolveMediaURL(testimonials[currentTestimonial]?.image)}
+                                            alt={testimonials[currentTestimonial]?.author}
+                                        />
+                                    )}
                                 </div>
                                 <div className="pw-testimonials__author-info">
-                                    <strong>{testimonials[currentTestimonial]?.author}</strong>
-                                    <span>{testimonials[currentTestimonial]?.location}</span>
+                                    <strong>{renderText(testimonials[currentTestimonial]?.author)}</strong>
+                                    <span>{renderText(testimonials[currentTestimonial]?.location)}</span>
                                 </div>
                             </div>
                         </div>
@@ -519,9 +634,9 @@ const Home = () => {
             <section className="pw-journal reveal" style={{ padding: '120px 0', background: '#fff' }}>
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                        <span className="pw-label">{content.journals.sectionLabel}</span>
+                        <span className="pw-label">{renderText(content.journals.sectionLabel)}</span>
                         <h2 className="pw-section-header__title" style={{ fontSize: '3.5rem' }}>
-                            {content.journals.sectionTitle.split(' ').map((word, i, arr) => (
+                            {(content.journals.sectionTitle || "").split(' ').map((word, i, arr) => (
                                 i === arr.length - 1 ? <em key={i} style={{ fontStyle: 'italic', color: 'var(--accent-color)' }}>{word}</em> : `${word} `
                             ))}
                         </h2>
@@ -531,11 +646,15 @@ const Home = () => {
                         {content.journals.journalsList.slice(0, 3).map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    <img src={item.image} alt={item.title} className="pw-journal__img" />
+                                    {isVideoUrl(item.image) ? (
+                                        <video src={resolveMediaURL(item.image)} autoPlay muted loop playsInline className="pw-journal__img" />
+                                    ) : (
+                                        <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
+                                    )}
                                 </div>
-                                <span className="pw-journal__meta">{item.date}</span>
-                                <h3 className="pw-journal__title">{item.title}</h3>
-                                <p className="pw-journal__excerpt">{item.excerpt}</p>
+                                <span className="pw-journal__meta">{renderText(item.date)}</span>
+                                <h3 className="pw-journal__title">{renderText(item.title)}</h3>
+                                <p className="pw-journal__excerpt">{renderText(item.excerpt)}</p>
                                 <span style={{
                                     display: 'inline-block',
                                     fontSize: '0.75rem',
@@ -567,19 +686,26 @@ const Home = () => {
                         className="pw-transition__video"
                         preload="auto"
                     >
-                        <source src={home.transitionVideoUrl} type="video/mp4" />
+                        <source src={resolveMediaURL(home.transitionVideoUrl)} type="video/mp4" />
                     </video>
                     <div className="pw-transition__overlay"></div>
                 </div>
 
                 <div className="pw-container reveal">
-                    <h2 className="pw-transition__heading">
-                        {home.transitionHeading.split(' ').slice(0, -2).join(' ')} <br />
-                        <em>{home.transitionHeading.split(' ').slice(-2).join(' ')}</em>
+                    <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4.5vw, 4rem)', marginBottom: '50px', lineHeight: '1.1', color: 'var(--secondary-color)' }}>
+                        {(home.transitionHeading || '').split(/\\n|\n/).length > 1
+                            ? (home.transitionHeading || '').split(/\\n|\n/).map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)
+                            : (
+                                <>
+                                    {(home.transitionHeading || '').split(' ').slice(0, -2).join(' ')} <br />
+                                    <em>{(home.transitionHeading || '').split(' ').slice(-2).join(' ')}</em>
+                                </>
+                            )
+                        }
                     </h2>
                     <div className="pw-transition__cta" style={{ marginTop: '40px' }}>
                         <Link to={home.transitionBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
-                            {home.transitionBtnText || "Work With Us"}
+                            {renderText(home.transitionBtnText || "Work With Us")}
                         </Link>
                     </div>
                 </div>
@@ -604,35 +730,35 @@ const Home = () => {
                             <div className="pw-form__grid">
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Full Name</label>
-                                    <input type="text" className="pw-form__input" placeholder="Your full name" required />
+                                    <input type="text" name="fullName" className="pw-form__input" placeholder="Your full name" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Email Address</label>
-                                    <input type="email" className="pw-form__input" placeholder="your@email.com" required />
+                                    <input type="email" name="email" className="pw-form__input" placeholder="your@email.com" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Phone Number</label>
-                                    <input type="tel" className="pw-form__input" placeholder="+91 00000 00000" required />
+                                    <input type="tel" name="phone" className="pw-form__input" placeholder="+91 00000 00000" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Wedding Location</label>
-                                    <input type="text" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
+                                    <input type="text" name="weddingLocation" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Your Current Address</label>
-                                    <input type="text" className="pw-form__input" placeholder="Your current city and state" required />
+                                    <input type="text" name="address" className="pw-form__input" placeholder="Your current city and state" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Approx. Guest Count</label>
-                                    <input type="number" className="pw-form__input" placeholder="Number of guests" required />
+                                    <input type="number" name="guestCount" className="pw-form__input" placeholder="Number of guests" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Wedding Date</label>
-                                    <input type="date" className="pw-form__input" required />
+                                    <input type="date" name="weddingDate" className="pw-form__input" required />
                                 </div>
                                 <div className="pw-form__field" style={{ gridColumn: 'span 2' }}>
                                     <label className="pw-form__label">Your Expectations</label>
-                                    <textarea className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
+                                    <textarea name="message" className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
                                 </div>
                             </div>
                             <button type="submit" className="pw-btn pw-btn--dark btn-submit" style={{ marginTop: '50px', width: '100%' }}>

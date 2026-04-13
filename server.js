@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import multer from 'multer';
 import Content from './models/Content.js';
+import Inquiry from './models/Inquiry.js';
 
 dotenv.config();
 
@@ -15,12 +16,27 @@ const __dirname  = path.dirname(__filename);
 
 const app = express();
 
-/* ── CORS ──────────────────────────────────────── */
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000', 'http://localhost:4173'],
+    origin: true, // Allow all origins in development
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 }));
+
+// Request Logger
+app.use((req, _res, next) => {
+    console.log(`[${new Date().toLocaleTimeString()}] ${req.method} ${req.url}`);
+    next();
+});
+
+/* ── Health Check ──────────────────────────────── */
+app.get('/api/health', (req, res) => {
+    res.json({ 
+        status: 'UP', 
+        db: mongoose.connection.readyState === 1 ? 'CONNECTED' : 'DISCONNECTED',
+        time: new Date().toISOString()
+    });
+});
 
 /* ── Body Parsing ──────────────────────────────── */
 app.use(express.json({ limit: '500mb' }));
@@ -153,6 +169,101 @@ app.delete('/api/upload/:filename', (req, res) => {
         res.json({ success: true, message: 'File deleted.' });
     });
 });
+
+/* ── Submit Inquiry (Contact / Quote / WhatsApp) ── */
+app.post('/api/inquiries', async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database not connected.' });
+    }
+    try {
+        const { type, name, email, phone, address, weddingDate, weddingLocation, guestCount, serviceRequired, message } = req.body;
+        if (!type) {
+            return res.status(400).json({ success: false, error: 'Inquiry type is required.' });
+        }
+        const inquiry = new Inquiry({
+            type, name, email, phone, address, weddingDate, weddingLocation,
+            guestCount, serviceRequired, message
+        });
+        await inquiry.save();
+        console.log(`[Inquiry] New ${type} inquiry from ${name || 'Unknown'} (${email || 'No email'})`);
+        res.json({ success: true, message: 'Inquiry submitted successfully.', data: inquiry });
+    } catch (err) {
+        console.error('[POST /api/inquiries] SAVE ERROR:', err);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+/* ── Get All Inquiries ─────────────────────────── */
+app.get('/api/inquiries', async (_req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database not connected.' });
+    }
+    try {
+        const inquiries = await Inquiry.find().sort({ createdAt: -1 }).lean();
+        res.json({ success: true, data: inquiries });
+    } catch (err) {
+        console.error('[GET /api/inquiries]', err.message);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+/* ── Update Inquiry Status ─────────────────────── */
+app.put('/api/inquiries/:id', async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database not connected.' });
+    }
+    try {
+        const { status } = req.body;
+        const inquiry = await Inquiry.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+        if (!inquiry) {
+            return res.status(404).json({ success: false, error: 'Inquiry not found.' });
+        }
+        res.json({ success: true, data: inquiry });
+    } catch (err) {
+        console.error('[PUT /api/inquiries]', err.message);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+/* ── Delete Inquiry ────────────────────────────── */
+app.delete('/api/inquiries/:id', async (req, res) => {
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(503).json({ error: 'Database not connected.' });
+    }
+    try {
+        const inquiry = await Inquiry.findByIdAndDelete(req.params.id);
+        if (!inquiry) {
+            return res.status(404).json({ success: false, error: 'Inquiry not found.' });
+        }
+        console.log(`[Inquiry Deleted] ${req.params.id}`);
+        res.json({ success: true, message: 'Inquiry deleted.' });
+    } catch (err) {
+        console.error('[DELETE /api/inquiries]', err.message);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+/* ── Catch-all for API 404s ── */
+app.use('/api/*', (req, res) => {
+    console.warn(`[404] ${req.method} ${req.originalUrl}`);
+    res.status(404).json({ success: false, error: `Route ${req.originalUrl} not found on this server.` });
+});
+
+/* ── Serve Frontend in Production ──────────────── */
+const distPath = path.join(__dirname, 'dist');
+if (fs.existsSync(distPath)) {
+    console.log(`[Static] Serving frontend from ${distPath}`);
+    app.use(express.static(distPath));
+    app.get('*', (req, res) => {
+        // Skip API routes already handled
+        if (req.path.startsWith('/api')) return;
+        res.sendFile(path.join(distPath, 'index.html'));
+    });
+}
 
 /* ── Global Error Handler ──────────────────────── */
 app.use((err, _req, res, _next) => {

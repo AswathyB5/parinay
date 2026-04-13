@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
 import './ProjectDetail.css';
 
 const ProjectDetail = () => {
@@ -12,16 +12,16 @@ const ProjectDetail = () => {
         if (!content) return null;
 
         const home = content.home || {};
-        const portfolioItems = home.portfolioItems || [];
         const storiesDest = content.storiesDestination || {};
         const storiesTheme = content.storiesThemed || {};
         const storiesTrad = content.storiesTraditional || {};
+        const storiesGallery = content.weddingStories || {};
 
         const allItems = [
+            ...(storiesGallery.storiesList || []).map(item => ({ ...item, category: item.category || 'Featured' })),
             ...(storiesDest.storiesList || []).map(item => ({ ...item, category: 'Destination' })),
             ...(storiesTheme.storiesList || []).map(item => ({ ...item, category: 'Themed' })),
-            ...(storiesTrad.storiesList || []).map(item => ({ ...item, category: 'Traditional' })),
-            ...portfolioItems.map(item => ({ ...item, category: 'Featured' }))
+            ...(storiesTrad.storiesList || []).map(item => ({ ...item, category: 'Traditional' }))
         ];
 
         // Find by ID or find by slugified title if ID is not available
@@ -56,12 +56,23 @@ const ProjectDetail = () => {
         );
     }
 
-    // Mock images if not present - Limiting to One Row for Minimal Editorial Feel
-    const projectImages = (project.imageList || Array.from({ length: 2 }, (_, i) => ({
-        id: i,
-        url: project.image,
-        alt: project.title
-    }))).slice(0, 2);
+    const displayImage = project.image || (project.galleryImages ? project.galleryImages.split('\n')[0].trim() : "");
+
+    // Parse gallery images from newline-separated string
+    const projectImages = useMemo(() => {
+        if (!project.galleryImages) {
+            return [{ url: displayImage, alt: project.title }];
+        }
+        return project.galleryImages
+            .split(/\\n|\n/)
+            .map(u => u.trim())
+            .filter(u => u.length > 0)
+            .map((url, i) => ({
+                id: i,
+                url: url,
+                alt: `${project.title} - Image ${i + 1}`
+            }));
+    }, [project.galleryImages, project.image, project.title]);
 
     return (
         <div className="project-detail-page">
@@ -99,7 +110,12 @@ const ProjectDetail = () => {
 
                     {/* CINEMATIC MOMENT / VIDEO - Moved Up */}
                     <div className="pd-moment-wrap--inline reveal">
-                        <div className="pd-moment__wrap">
+                        <div className="pd-moment__wrap" style={{ 
+                            backgroundImage: project.video ? `url(${resolveMediaURL(displayImage)})` : 'none',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundColor: '#1a1a1a'
+                        }}>
                             {project.video ? (
                                 project.video.includes('youtube.com') || project.video.includes('youtu.be') ? (
                                     <iframe 
@@ -112,19 +128,19 @@ const ProjectDetail = () => {
                                     ></iframe>
                                 ) : (
                                     <video 
-                                        src={project.video} 
+                                        src={resolveMediaURL(project.video)} 
                                         autoPlay 
                                         muted 
                                         loop 
                                         controls
                                         playsInline
-                                        poster={project.image} 
+                                        poster={resolveMediaURL(displayImage)} 
                                         className="pd-moment__video"
                                     ></video>
                                 )
                             ) : (
                                 <>
-                                    <img src={project.image} alt="Featured Moment" className="pd-moment__img" />
+                                    <img src={resolveMediaURL(displayImage)} alt="Featured Moment" className="pd-moment__img" />
                                     <div className="pd-moment__overlay"></div>
                                     <div className="pd-moment__content">
                                         <div className="pd-play-icon">
@@ -141,39 +157,50 @@ const ProjectDetail = () => {
                     <div className="pd-description reveal" style={{ marginTop: '100px' }}>
                         <h3 className="pd-sub-title">PROJECT OVERVIEW</h3>
                         <div className="pd-text-wrap">
-                            <p className="pd-body">
-                                {project.desc || "A breathtaking celebration of love and tradition. We focused on the candid emotional exchanges that define the essence of a wedding."}
-                                {" "}This project was a meticulous exploration of heritage and modern luxury. Every element, from the choice of floral aesthetics to the choreographed moments of the ceremony, was planned with absolute directorial clarity.
-                            </p>
-                            <p className="pd-body">
-                                Beyond the mere documentation of events, we sought to capture the "soul" of the union. Our approach was editorial yet deeply cinematic, weaving together the intimate details that make your legacy unique. We prioritized the quiet, unscripted glances that often go unnoticed but define the true spirit of the day.
-                            </p>
-                            <p className="pd-body">
-                                From the morning preparations in the mist-filled hills to the grand evening reception under the canopy of stars, we ensured that every hue, every glance, and every ritual was preserved in its most authentic form. The result is a visual narrative that doesn't just show a wedding, but makes you feel the profound emotion of the journey.
-                            </p>
+                            {project.overview ? (
+                                project.overview.split('\n\n').map((para, i) => (
+                                    <p key={i} className="pd-body">{renderText(para)}</p>
+                                ))
+                            ) : (
+                                <>
+                                    <p className="pd-body">
+                                        {project.desc || "A breathtaking celebration of love and tradition. We focused on the candid emotional exchanges that define the essence of a wedding."}
+                                        {" "}This project was a meticulous exploration of heritage and modern luxury. Every element, from the choice of floral aesthetics to the choreographed moments of the ceremony, was planned with absolute directorial clarity.
+                                    </p>
+                                    <p className="pd-body">
+                                        Beyond the mere documentation of events, we sought to capture the "soul" of the union. Our approach was editorial yet deeply cinematic, weaving together the intimate details that make your legacy unique. We prioritized the quiet, unscripted glances that often go unnoticed but define the true spirit of the day.
+                                    </p>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
 
                 {/* PROJECT GALLERY */}
-                <div className="container container--wide pd-gallery-wrap">
-                    <div className="pd-gallery__grid">
-                        {projectImages.map((img, idx) => (
-                            <div key={idx} className={`pd-gallery__item reveal delay-${idx % 3}`}>
-                                <img src={img.url} alt={img.alt} loading="lazy" />
-                            </div>
-                        ))}
+                {projectImages.length > 0 && (
+                    <div className="container container--wide pd-gallery-wrap">
+                        <div className="pd-gallery__grid">
+                            {projectImages.map((img, idx) => (
+                                <div key={idx} className={`pd-gallery__item reveal delay-${idx % 3}`}>
+                                    {isVideoUrl(img.url) ? (
+                                        <video src={resolveMediaURL(img.url)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ) : (
+                                        <img src={resolveMediaURL(img.url)} alt={img.alt} loading="lazy" />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* PROJECT RESULT */}
                 <div className="container pd-result reveal" style={{ marginTop: '120px' }}>
                     <div className="pd-result__inner">
                         <h3 className="pd-sub-title">PROJECT RESULT</h3>
                         <div className="pd-text-wrap">
-                            <p className="pd-body">
-                                The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision. Beyond the aesthetics, we delivered a stress-free experience that allowed the family to fully immerse themselves in the joy of the union. A timeless legacy preserved in every frame and every moment of the day.
-                            </p>
+                                <p className="pd-body">
+                                    {renderText(project.result || "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision. Beyond the aesthetics, we delivered a stress-free experience that allowed the family to fully immerse themselves in the joy of the union. A timeless legacy preserved in every frame and every moment of the day.")}
+                                </p>
                         </div>
                     </div>
                 </div>

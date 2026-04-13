@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, renderText, resolveMediaURL } from '../context/ContentContext';
 
 const Journals = () => {
     const { content } = useContext(ContentContext);
@@ -34,7 +34,7 @@ const Journals = () => {
             {/* HERO SECTION */}
             <section className="about-hero-new">
                 <div className="container reveal">
-                    <h1>{journals.pageBannerTitle || "Our Journal"}</h1>
+                    <h1>{renderText(journals.pageBannerTitle || "Our Journal")}</h1>
                 </div>
             </section>
 
@@ -44,21 +44,19 @@ const Journals = () => {
                     <div style={{ textAlign: 'center', marginBottom: '100px' }}>
                         <span className="pw-label">{journals.sectionLabel}</span>
                         <h2 className="pw-section-header__title" style={{ fontSize: '4.5rem' }}>
-                            {journals.sectionTitle.split(' ').map((word, i, arr) => (
-                                i === arr.length - 1 ? <em key={i}>{word}</em> : `${word} `
-                            ))}
+                            {renderText(journals.sectionTitle)}
                         </h2>
                     </div>
 
                     <div className="pw-journal__grid">
-                        {journals.journalsList.map((item) => (
+                        {journals.journalsList?.filter(item => item.title && item.title.trim()).map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    <img src={item.image} alt={item.title} className="pw-journal__img" />
+                                    <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
                                 </div>
-                                <span className="pw-journal__meta">{item.date}</span>
-                                <h3 className="pw-journal__title">{item.title}</h3>
-                                <p className="pw-journal__excerpt">{item.excerpt}</p>
+                                <span className="pw-journal__meta">{renderText(item.date)}</span>
+                                <h3 className="pw-journal__title">{renderText(item.title)}</h3>
+                                <p className="pw-journal__excerpt">{renderText(item.excerpt)}</p>
                                 <span style={{ 
                                     display: 'inline-block',
                                     fontSize: '0.75rem', 
@@ -67,7 +65,7 @@ const Journals = () => {
                                     letterSpacing: '0.15em', 
                                     fontWeight: '700',
                                     marginTop: '15px' 
-                                }}>Read Entry —</span>
+                                }}>{renderText(journals.readEntryText || "Read Entry —")}</span>
                             </Link>
                         ))}
                     </div>
@@ -88,19 +86,22 @@ const Journals = () => {
                             <p className="pw-destination__text">{journals.guideDesc}</p>
 
                             <ul style={{ listStyle: 'none', padding: '0', marginTop: '30px', color: 'rgba(253, 251, 247, 0.8)', fontSize: '0.95rem' }}>
-                                <li style={{ marginBottom: '15px' }}><i className="fas fa-check" style={{ color: 'var(--accent-color)', marginRight: '12px' }}></i> {journals.guideChecklist1}</li>
-                                <li style={{ marginBottom: '15px' }}><i className="fas fa-check" style={{ color: 'var(--accent-color)', marginRight: '12px' }}></i> {journals.guideChecklist2}</li>
-                                <li style={{ marginBottom: '15px' }}><i className="fas fa-check" style={{ color: 'var(--accent-color)', marginRight: '12px' }}></i> {journals.guideChecklist3}</li>
+                                {journals.guideChecks?.map((item, idx) => (
+                                    <li key={item.id || idx} style={{ marginBottom: '15px' }}>
+                                        <i className="fas fa-check" style={{ color: 'var(--accent-color)', marginRight: '12px' }}></i> 
+                                        {renderText(item.text)}
+                                    </li>
+                                ))}
                             </ul>
 
                             <Link to="/contact" className="pw-btn pw-btn--ghost" style={{ marginTop: '20px' }}>{journals.guideRequestBtnText || 'Request Copy'}</Link>
                         </div>
 
                         <div className="pw-destination__images" style={{ order: '1', height: '600px' }}>
-                            <img src={journals.guideImage} className="pw-destination__img-main" style={{ width: '90%', height: '520px', left: '0', right: 'auto' }} alt="Guide Book" />
+                            <img src={resolveMediaURL(journals.guideImage)} className="pw-destination__img-main" style={{ width: '90%', height: '520px', left: '0', right: 'auto' }} alt="Guide Book" />
                             <div style={{ position: 'absolute', bottom: '0', right: '0', background: 'var(--secondary-color)', padding: '40px', width: '300px', textAlign: 'center' }}>
-                                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '2rem', color: 'var(--primary-color)', margin: '0 0 10px' }}>{journals.guideYear}<br /><em>{journals.guidePlannerLabel}</em></h3>
-                                <p style={{ fontSize: '0.8rem', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.2em', margin: '0' }}>{journals.guideFreeText}</p>
+                                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '2rem', color: 'var(--primary-color)', margin: '0 0 10px' }}>{renderText(journals.guideYear)}<br /><em>{renderText(journals.guidePlannerLabel)}</em></h3>
+                                <p style={{ fontSize: '0.8rem', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.2em', margin: '0' }}>{renderText(journals.guideFreeText)}</p>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, renderText, resolveMediaURL } from '../context/ContentContext';
 import { Calendar, User, Facebook, Twitter, Instagram } from 'lucide-react';
 
 const JournalDetail = () => {
@@ -90,13 +90,13 @@ const JournalDetail = () => {
                     }}>
                         {/* Intro Paragraph First */}
                         <div style={{ marginBottom: '40px' }}>
-                            {introPara}
+                            {renderText(introPara)}
                         </div>
 
                         {/* Featured Image */}
                         <div style={{ marginBottom: '60px', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}>
                             <img 
-                                src={post.image} 
+                                src={resolveMediaURL(post.image)} 
                                 alt={post.title} 
                                 style={{ 
                                     width: '100%', 
@@ -123,7 +123,7 @@ const JournalDetail = () => {
                                     </h3>
                                 )
                             }
-                            return <p key={idx} style={{ marginBottom: '30px' }}>{para}</p>
+                            return <p key={idx} style={{ marginBottom: '30px' }}>{renderText(para)}</p>
                         })}
                     </div>
 
@@ -137,16 +137,16 @@ const JournalDetail = () => {
                         borderRadius: '2px',
                         boxShadow: '0 30px 60px rgba(0,0,0,0.1)'
                     }}>
-                        <span className="pw-label pw-label--light">READY TO START?</span>
+                        <span className="pw-label pw-label--light">{renderText(journals.ctaLabel || "READY TO START?")}</span>
                         <h2 style={{ 
                             fontFamily: "'Cormorant Garamond', serif", 
                             fontSize: '2.8rem', 
                             margin: '30px 0 50px',
                             fontWeight: '300'
                         }}>
-                            Let us craft your <em>Unique Narrative</em>
+                            {renderText(journals.ctaTitle || "Let us craft your _Unique Narrative_")}
                         </h2>
-                        <Link to="/contact" className="pw-btn pw-btn--gold">Get in Touch — Start Planning</Link>
+                        <Link to="/contact" className="pw-btn pw-btn--gold">{renderText(journals.ctaBtnText || "Get in Touch — Start Planning")}</Link>
                     </div>
                 </div>
             </section>
@@ -155,9 +155,9 @@ const JournalDetail = () => {
             <section className="pw-more-reading" style={{ padding: '150px 0', background: '#f0ede6' }}>
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '100px' }}>
-                         <span className="pw-label">CONTINUE READING</span>
+                         <span className="pw-label">{renderText(journals.relatedSectionLabel || "CONTINUE READING")}</span>
                          <h2 className="pw-section-header__title" style={{ fontSize: '3.2rem' }}>
-                             More <em>Stories</em>
+                             {renderText(journals.relatedSectionTitle || "More Stories")}
                          </h2>
                     </div>
 
@@ -165,13 +165,13 @@ const JournalDetail = () => {
                         {journals.journalsList.filter(p => p.id !== parseInt(id)).slice(0, 3).map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    <img src={item.image} alt={item.title} className="pw-journal__img" />
+                                    <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
                                 </div>
                                 <div style={{ padding: '0 10px' }}>
                                     <span className="pw-journal__meta">{item.date} — Journal</span>
                                     <h3 className="pw-journal__title" style={{ fontSize: '1.8rem' }}>{item.title}</h3>
                                     <p className="pw-journal__excerpt" style={{ marginBottom: '25px' }}>{item.excerpt}</p>
-                                    <span className="pw-link-arrow" style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--accent-color)' }}>Explore Entry —</span>
+                                    <span className="pw-link-arrow" style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--accent-color)' }}>{renderText(journals.readEntryText || "Explore Entry —")}</span>
                                 </div>
                             </Link>
                         ))}

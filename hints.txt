@@ -1,0 +1,250 @@
+﻿const FIELD_HINTS = {
+    /* â”€â”€ Home Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    heroTagline:        'Use \\n for line breaks (e.g. "Thoughtfully Planned.\\nBeautifully Executed.").',
+    heroBtnText:        'Label on the hero call-to-action button.',
+    heroBtnUrl:         'Page the hero button links to.',
+    heroVideo1:         'Primary looping background video (MP4). Upload or paste a /uploads/ path.',
+    heroVideo2:         'Secondary / fallback hero video (MP4).',
+    heroImages:         'Floating images alongside the hero text. Recommended: 1000Ã—1400 px portrait.',
+    introHeading:       'Main brand introduction heading.',
+    introSubText:       'The italic sentence beneath the introduction heading.',
+    stat1Label:         'Use \\n to split into two lines (e.g. "8+ Years of\\nExperience").',
+    stat2Label:         'Use \\n to split into two lines.',
+    stat3Label:         'Use \\n to split into two lines.',
+    stat4Label:         'Use \\n to split into two lines.',
+    servicesLabel:      'Small uppercase label above the services heading (e.g. "What We Handle").',
+    servicesHeading:    'Use \\n to split into two lines â€” the second line renders in italics.',
+    servicesIntroText:  'Intro sentence shown above the four home service cards.',
+    service1Image:      'Image for "Venue sourcing & coordination" card.',
+    service1Title:      'Title for the first service card.',
+    service1Desc:       'Description for the first service card.',
+    service2Image:      'Image for "Wedding design, decor & aesthetics" card.',
+    service2Title:      'Title for the second service card.',
+    service2Desc:       'Description for the second service card.',
+    service3Image:      'Image for "Guest management" card.',
+    service3Title:      'Title for the third service card.',
+    service3Desc:       'Description for the third service card.',
+    service4Image:      'Image for "On-ground execution" card.',
+    service4Title:      'Title for the fourth service card.',
+    service4Desc:       'Description for the fourth service card.',
+    servicesFooterText: 'Closing italic line below the four service cards. Use \\n for line breaks.',
+    destinationLabel:   'Small label for the destination weddings section.',
+    destinationHeading: 'Section heading â€” text after a comma renders in italics.',
+    destinationBody1:   'First paragraph about destination weddings.',
+    destinationBody2:   'Second paragraph about destination weddings.',
+    destinationBody3:   'Third paragraph â€” shown in italicised emphasis.',
+    destinationBtnText: 'Text on the "Explore Destination Weddings" button.',
+    destinationBtnUrl:  'Page the destination button links to.',
+    destinationImage1:  'Primary destination wedding image (larger, left).',
+    destinationImage2:  'Secondary destination image (overlapping, right).',
+    portfolioLabel:     'Small label above the portfolio heading.',
+    portfolioHeading:   'The portfolio section heading.',
+    portfolioItems:     'Images for the horizontally scrolling portfolio. Each needs image, title and location.',
+    portfolioViewAllText: 'Label on the "View our weddings" button.',
+    portfolioViewAllUrl:  'Page the portfolio button links to.',
+    testimonialLabel:   'Small label above the testimonials section.',
+    testimonials:       'Client testimonials â€” text, author, location and photo.',
+    transitionHeading:  'The large heading in the video CTA band.',
+    transitionVideoUrl: 'Background video for the CTA band (MP4).',
+    transitionBtnText:  'Button label in the CTA band.',
+    transitionBtnUrl:   'Page the CTA band button links to.',
+    youtubeLabel:       'Small uppercase label for the YouTube section.',
+    youtubeHeading:     'Use \\n for a line break â€” last line renders in italics.',
+    youtubeText1:       'First body paragraph for the YouTube section.',
+    youtubeText2:       'Second body paragraph for the YouTube section.',
+    youtubeBtnText:     'Label on the "Watch More Films" button.',
+    youtubeBtnUrl:      'Full URL of the YouTube channel (opens in a new tab).',
+    youtubeEmbedUrl:    'The main featured YouTube video. Paste the YouTube Embed URL (e.g. https://www.youtube.com/embed/xxxxx).',
+    youtubeVideos:      'The 6 YouTube embed videos. Each needs a YouTube Embed URL.',
+    formLabel:          'Small label above the consultation form.',
+    formHeading:        'Main heading for the consultation form.',
+    formSubtext:        'Sub-text shown below the form heading.',
+    formBtnText:        'Label on the form submit button.',
+    journalNote:        'Auto-pulls the latest 3 posts from the Journal page. No editing needed.',
+    /* â”€â”€ Wedding Stories Page Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    pageBannerSubtitle: 'Subtitle text shown below the page banner heading on the gallery page.',
+    ctaBtnText:         'Label on the CTA button.',
+    ctaBtnUrl:          'Page or URL the CTA button links to.',
+    ctaBtnIcon:         'Font Awesome icon class for the CTA button (e.g. "fab fa-instagram").',
+    /* â”€â”€ About Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    pageBannerTitle:    'The large decorative title in the dark banner at the top of the page.',
+
+    introLabel:         'Small uppercase label above the intro heading (e.g. "ABOUT PARINAY").',
+    // introHeading:       'The primary headline. Use \\n for a line break.',
+    introImage:         'Image shown to the right of the split intro layout.',
+    value1Title:        'Title for the first value card.',
+    value1Desc:         'Description for the first value card.',
+    value2Title:        'Title for the second value card.',
+    value2Desc:         'Description for the second value card.',
+    value3Title:        'Title for the third value card.',
+    value3Desc:         'Description for the third value card.',
+    philosophyQuote:    'A strong mission statement or "Promise" quote.',
+    philosophyAuthor:   'The label/author for the philosophy quote.',
+    philosophySubtitle: 'Small decorative subtitle for the philosophy section.',
+    differentiatorLabel: 'Small uppercase label for The Parinay Difference section.',
+    differentiatorHeading: 'Heading for the differentiator block.',
+    differentiatorText: 'Multi-paragraph text. Press Enter twice between paragraphs.',
+    differentiatorImage: 'Image for the differentiator block.',
+    teamLabel:          'Small label above the team section.',
+    teamHeading:        'Main heading for the team section.',
+    teamSubtext:        'Short description for the team section.',
+    teamMembers:        'Team member cards â€” name, role and image.',
+    ctaHeading:         'Heading for the CTA band.',
+    // ctaBtnText:         'Label on the CTA button.',
+    // ctaBtnUrl:          'Page the CTA button links to.',
+    ctaVideoUrl:        'Background video for the About CTA band (MP4).',
+    /* â”€â”€ Services Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    comprehensiveHeading: 'Large uppercase heading for Comprehensive Services.',
+    comprehensiveIntro1: 'Italic primary intro text below the heading.',
+    comprehensiveIntro2: 'Secondary intro paragraph.',
+    comprehensiveList:  'Grid of detailed services. Each item has an Image, Title and Description.',
+    processLabel:       'Small uppercase label above the process heading.',
+    processHeading:     'Main heading for "Our Planning Process".',
+    processItems:       'Planning process steps. Each needs a title and description.',
+    ctaImage:           'Background image for the CTA band. Recommended: 1920Ã—1200 landscape.',
+    ctaDesc:            'Short paragraph below the CTA heading.',
+    /* â”€â”€ Contact Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    emailLabel:         'Small label above "Email Us" (e.g. "General Inquiries").',
+    emailHeading:       'Heading for the email block.',
+    email:              'Email address shown on the contact page.',
+    phoneLabel:         'Small label above "Call Us".',
+    phoneHeading:       'Heading for the phone block.',
+    phone:              'Phone number displayed on the contact page.',
+    addressLabel:       'Small label above "Office Address".',
+    addressHeading:     'Heading for the address block.',
+    address:            'Use \\n for line breaks (e.g. "Cochin, Kerala\\nBy Appointment Only").',
+    whatsappNumber:     'Country code + number, no spaces or "+" (e.g. 919876543210).',
+    whatsappText:       'Text shown on the WhatsApp chat button.',
+    whatsappReply:      'Auto-reply time indicator (e.g. "Typically replies within 1 hour").',
+    instagramUrl:       'Full Instagram profile URL.',
+    facebookUrl:        'Full Facebook profile URL.',
+    pinterestUrl:       'Full Pinterest profile URL.',
+    // formBtnText:        'Label on the contact form submit button.',
+    faqsList:           'FAQ items â€” each needs a question and answer.',
+    /* â”€â”€ Stories Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    galleryImages:      'Lightbox gallery images â€” paste one image URL per line. If empty, the main image is shown.',
+    storiesList:        'All story cards for this page. Each card has: badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
+    heroTitle:           'Heading overlaid on the cinematic CTA banner.',
+    heroSubtitle:        'Subtitle overlaid on the CTA banner (below the heading).',
+    testimonialQuote:   'A single powerful client quote to feature.',
+    testimonialAuthor:  'Name of the couple for the featured testimonial.',
+    testimonialLocation:'Wedding location for the featured testimonial.',
+    testimonialImage:   'Photo of the couple (vertical recommended).',
+    video:              'Upload a video (MP4) or paste an /uploads/ path. Autoplays muted on the story card.',
+    badge:              'Badge label shown on the story card (e.g. "Destination", "Themed", "Traditional").',
+    date:               'Date of the wedding (e.g. "February 2025").',
+    desc:               'Short one-line description shown on the story listing card.',
+    result:             'Project result text â€” shown on the individual project detail page under "PROJECT RESULT".',
+    category:           'Short category label (Featured / Destination / Themed / Traditional).',
+    heroImage:          'Full-screen decorative banner image for the cinematic CTA band at the bottom of the page.',
+    heroQuote:          'A prominent quote or mission statement for the page theme.',
+    /* â”€â”€ Journals Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    sectionLabel:       'Small label above the journal section heading.',
+    sectionTitle:       'Main heading (last word renders in accent color).',
+    journalsList:       'Journal posts â€” title, date, excerpt, image and content.',
+    excerpt:            'Single sentence summary shown on each listing card.',
+    content:            'Full article content (supports markdown formatting).',
+    guideLabel:         'Small label for the downloadable guide section.',
+    guideTitle:         'Heading for the guide section.',
+    guideDesc:          'Description text for the guide.',
+    guideChecklist1:    'First checklist bullet point.',
+    guideChecklist2:    'Second checklist bullet point.',
+    guideChecklist3:    'Third checklist bullet point.',
+    guideImage:         'Cover image for the downloadable guide.',
+    guideYear:          'Year label on the guide cover (e.g. "The 2026").',
+    guidePlannerLabel:  'Second line on the guide cover (e.g. "Planner").',
+    guideFreeText:      'Small text under the cover badge (e.g. "Free Download").',
+    guideRequestBtnText:'Label on the guide request button.',
+    /* â”€â”€ Header Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    logoText:           'Logo text (shown if no image is uploaded).',
+    logoImage:          'Upload a custom logo image. Recommended: PNG with transparency, around 300x80px.',
+    logoWidth:          'Custom width for the logo (e.g. "180px", "50%", or "auto"). default is 150px.',
+    logoHeight:         'Custom height for the logo (e.g. "50px" or "auto"). default is auto.',
+    nav1Label:          'Label for the first nav link.',
+    nav1Url:            'URL for the first nav link.',
+    nav2Label:          'Label for the second nav link.',
+    nav2Url:            'URL for the second nav link.',
+    nav3Label:          'Label for the third nav link.',
+    nav3Url:            'URL for the third nav link.',
+    nav4Label:          'Label for the Wedding Stories nav link.',
+    nav4Url:            'URL for the Wedding Stories nav link.',
+    nav4Sub1Label:      'Label for the first dropdown sub-link.',
+    nav4Sub1Url:        'URL for the first dropdown sub-link.',
+    nav4Sub2Label:      'Label for the second dropdown sub-link.',
+    nav4Sub2Url:        'URL for the second dropdown sub-link.',
+    nav4Sub3Label:      'Label for the third dropdown sub-link.',
+    nav4Sub3Url:        'URL for the third dropdown sub-link.',
+    nav5Label:          'Label for the Journals nav link.',
+    nav5Url:            'URL for the Journals nav link.',
+    nav6Label:          'Label for the Contact nav link.',
+    nav6Url:            'URL for the Contact nav link.',
+    /* â”€â”€ Footer Fields â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    logoImage_ftr:      'Upload a custom logo image for the footer.',
+    logoWidth_ftr:      'Custom width for the footer logo (default is 120px).',
+    logoHeight_ftr:     'Custom height for the footer logo (default is auto).',
+    logoSub:            'Sub-label beneath the footer logo (e.g. "WEDDINGS").',
+    tagline:            'Brand description shown below the footer logo.',
+    youtubeUrl:         'Full YouTube channel URL.',
+    whatsappNumber_ftr: 'WhatsApp number for the floating chat button.',
+    ctaTagline:         'Italic tagline above the footer CTA button.',
+    ctaBtnText_ftr:     'Label on the footer consultation button.',
+    ctaBtnUrl_ftr:      'Page the footer CTA links to.',
+    copyrightName:      'Name shown in the copyright line.',
+    /* â”€â”€ Shared URL field â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    'url':              'Paste the YouTube Embed URL (Share â†’ Embed, e.g. https://www.youtube.com/embed/xxxxx).',
+};
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   TOAST COMPONENT
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+const Toast = ({ message, type = 'success', onDone }) => {
+    useEffect(() => {
+        const t = setTimeout(onDone, 3000);
+        return () => clearTimeout(t);
+    }, [onDone]);
+
+    return (
+        <div className={`admin-toast ${type === 'error' ? 'is-error' : ''}`}>
+            {type === 'success' ? <Check size={16} /> : <AlertCircle size={16} />}
+            <span>{message}</span>
+        </div>
+    );
+};
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MEDIA PREVIEW COMPONENT
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+const MediaPreview = ({ value, isVideo }) => {
+    if (!value) {
+        return (
+            <div className="admin-media-preview">
+                <div className="admin-media-preview__empty">
+                    {isVideo ? <Film size={24} /> : <Image size={24} />}
+                    <span>No {isVideo ? 'video' : 'image'} selected</span>
+                </div>
+            </div>
+        );
+    }
+    return (
+        <div className="admin-media-preview">
+            <span className="admin-media-preview__badge">{isVideo ? 'â–¶ Video' : 'ðŸ–¼ Image'}</span>
+            {isVideo
+                ? <video src={value} muted controls />
+                : <img src={value} alt="preview" />
+            }
+        </div>
+    );
+};
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MAIN ADMIN DASHBOARD COMPONENT
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+const AdminDashboard = () => {
+    const { content, updateSection, updateMultipleSections, isLoaded } = useContext(ContentContext);
+
+    const [activeTab, setActiveTab] = useState('header');
+    const [formData, setFormData] = useState(null);
+    const [linkedData, setLinkedData] = useState({});  // { 'home__portfolioItems': [...], ... }
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [toast, setToast] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);

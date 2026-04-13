@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, resolveMediaURL, renderText } from '../context/ContentContext';
 
 const Footer = () => {
-    const { content } = useContext(ContentContext);
+    const { content, trackWhatsAppClick } = useContext(ContentContext);
 
     // Provide robust fallbacks 
     const f = content?.footer || {};
     const logoText        = f.logoText       || 'PARINAY';
     const logoSub         = f.logoSub        || 'WEDDINGS';
+    const logoImage       = f.logoImage      || '';
+    const logoWidth       = f.logoWidth      || '120px';
+    const logoHeight      = f.logoHeight     || 'auto';
     const tagline         = f.tagline        || 'Bespoke destination wedding planners based in Kerala, India. Planning meaningful celebrations for over 8 years.';
     const instagramUrl    = f.instagramUrl   || '#';
     const facebookUrl     = f.facebookUrl    || '#';
@@ -45,8 +48,18 @@ const Footer = () => {
             <footer className="main-footer">
                 <div className="container footer-grid">
                     <div className="footer-info">
-                        <Link to="/" className="footer-logo">{logoText}<span>{logoSub}</span></Link>
-                        <p style={{ whiteSpace: 'pre-line' }}>{tagline}</p>
+                        <Link to="/" className="footer-logo">
+                            {logoImage ? (
+                                <img 
+                                    src={resolveMediaURL(logoImage)} 
+                                    alt={logoText} 
+                                    style={{ width: logoWidth, height: logoHeight, objectFit: 'contain', display: 'block' }} 
+                                />
+                            ) : (
+                                <>{logoText}<span>{logoSub}</span></>
+                            )}
+                        </Link>
+                        <p>{renderText(tagline)}</p>
                         <div className="social-icons">
                             <a href={instagramUrl} target="_blank" rel="noreferrer"><i className="fab fa-instagram"></i></a>
                             <a href={facebookUrl} target="_blank" rel="noreferrer"><i className="fab fa-facebook-f"></i></a>
@@ -70,10 +83,10 @@ const Footer = () => {
                         <h4>Connect With Us</h4>
                         <p><i className="fas fa-envelope"></i> {email}</p>
                         <p><i className="fas fa-phone-alt"></i> {phone}</p>
-                        <p style={{ whiteSpace: 'pre-line' }}><i className="fas fa-map-marker-alt"></i> {address}</p>
+                        <p><i className="fas fa-map-marker-alt"></i> {renderText(address)}</p>
 
                         <div className="footer-cta" style={{ marginTop: '45px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '25px' }}>
-                            <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.25rem', fontStyle: 'italic', marginBottom: '22px', opacity: '1', color: 'var(--secondary-color)' }}>{ctaTagline}</p>
+                            <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.25rem', fontStyle: 'italic', marginBottom: '22px', opacity: '1', color: 'var(--secondary-color)' }}>{renderText(ctaTagline)}</p>
                             <Link to={ctaBtnUrl} className="pw-btn pw-btn--gold" style={{ padding: '12px 28px', fontSize: '0.78rem' }}>{ctaBtnText}</Link>
                         </div>
                     </div>
@@ -85,7 +98,7 @@ const Footer = () => {
 
             {/* WhatsApp Floating Button */}
             <a href={`https://wa.me/${whatsappNumber}?text=I'm%20interested%20in%20wedding%20consultation`} className="whatsapp-btn"
-                target="_blank" rel="noreferrer">
+                target="_blank" rel="noreferrer" onClick={trackWhatsAppClick}>
                 <i className="fab fa-whatsapp"></i>
                 <span>Chat with us</span>
             </a>

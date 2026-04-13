@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, resolveMediaURL } from '../context/ContentContext';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
-    const { content } = useContext(ContentContext);
+    const { content, API } = useContext(ContentContext);
 
     // Fall back to defaults if context hasn't loaded yet
     const h = content?.header || {};
     const logoText      = h.logoText      || 'PARINAY';
+    const logoImage     = h.logoImage     || '';
+    const logoWidth     = h.logoWidth     || '150px';
+    const logoHeight    = h.logoHeight    || 'auto';
     const nav1Label     = h.nav1Label     || 'Home';
     const nav1Url       = h.nav1Url       || '/';
     const nav2Label     = h.nav2Label     || 'About';
@@ -42,6 +45,8 @@ const Header = () => {
 
     const isScrolled = scrolled || location.pathname !== '/';
 
+    const fullLogoPath = resolveMediaURL(logoImage);
+
     return (
         <header className={`main-header ${isScrolled ? 'scrolled' : ''}`}>
             <nav className="container">
@@ -52,7 +57,17 @@ const Header = () => {
                 </ul>
 
                 <div className="logo">
-                    <Link to="/">{logoText}</Link>
+                    <Link to="/">
+                        {logoImage ? (
+                            <img 
+                                src={fullLogoPath} 
+                                alt={logoText} 
+                                style={{ width: logoWidth, height: logoHeight, objectFit: 'contain' }} 
+                            />
+                        ) : (
+                            logoText
+                        )}
+                    </Link>
                 </div>
 
                 <ul className="nav-links nav-links--right">

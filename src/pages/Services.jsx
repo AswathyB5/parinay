@@ -1,20 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, isVideoUrl, renderText, resolveMediaURL, API } from '../context/ContentContext';
 
 const Services = () => {
     const { content } = useContext(ContentContext);
     const home = content.home;
     const services = content.services;
     const testimonials = home.testimonials || [];
-
-    // Build the 4 service entries from content.services
-    const serviceItems = [
-        { number: '01', label: services.service1Label, title: services.service1Heading, desc: services.service1Desc, image: services.service1Image },
-        { number: '02', label: services.service2Label, title: services.service2Heading, desc: services.service2Desc, image: services.service2Image },
-        { number: '03', label: services.service3Label, title: services.service3Heading, desc: services.service3Desc, image: services.service3Image },
-        { number: '04', label: services.service4Label, title: services.service4Heading, desc: services.service4Desc, image: services.service4Image },
-    ];
 
     // --- Testimonial Carousel Logic ---
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -49,19 +41,44 @@ const Services = () => {
             revealElements.forEach(el => observer.unobserve(el));
         };
     }, [content]);
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
         const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerText;
         submitBtn.innerText = 'Sending...';
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            alert('Thank you for your inquiry. Our team will get back to you shortly.');
-            e.target.reset();
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
+        const formEl = e.target;
+        const payload = {
+            type: 'contact',
+            name: formEl.fullName?.value || '',
+            email: formEl.email?.value || '',
+            phone: formEl.phone?.value || '',
+            weddingLocation: formEl.weddingLocation?.value || '',
+            guestCount: formEl.guestCount?.value || '',
+            weddingDate: formEl.weddingDate?.value || '',
+            message: formEl.message?.value || '',
+        };
+
+        try {
+            const res = await fetch(`${API}/api/inquiries`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+            const data = await res.json();
+            if (data.success) {
+                alert('Thank you for your inquiry. Our team will get back to you shortly.');
+                formEl.reset();
+            } else {
+                alert('Something went wrong. Please try again.');
+            }
+        } catch {
+            alert('Could not reach the server. Please try again later.');
+        }
+
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
     };
 
     return (
@@ -69,7 +86,7 @@ const Services = () => {
             {/* HERO SECTION */}
             <section className="services-hero">
                 <div className="container reveal">
-                    <h1>SERVICES</h1>
+                    <h1>{renderText(services.pageBannerTitle || "SERVICES")}</h1>
                 </div>
             </section>
 
@@ -78,21 +95,21 @@ const Services = () => {
                 <section className="comprehensive-services reveal" style={{ padding: '100px 0 60px', background: '#FDFBF7' }}>
                     <div className="container">
                         <div style={{ maxWidth: '900px', margin: '0 auto 100px', textAlign: 'center' }}>
-                            <span className="section-label" style={{ letterSpacing: '0.4em', display: 'block', marginBottom: '20px' }}>END-TO-END CURATION</span>
-                            <h2 style={{ 
-                                fontFamily: 'Playfair Display, serif', 
-                                fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', 
-                                color: 'var(--primary-color)',
-                                marginBottom: '40px',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em'
-                            }}>{services.comprehensiveHeading}</h2>
-                            <p style={{ fontSize: '1.25rem', lineHeight: '1.9', color: '#1d3528', marginBottom: '30px', fontWeight: '400', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
-                                {services.comprehensiveIntro1}
-                            </p>
-                            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#555', fontWeight: '400', maxWidth: '700px', margin: '0 auto' }}>
-                                {services.comprehensiveIntro2}
-                            </p>
+                                <span className="section-label" style={{ letterSpacing: '0.4em', display: 'block', marginBottom: '20px' }}>{renderText('END-TO-END CURATION')}</span>
+                                <h2 style={{ 
+                                     fontFamily: 'Playfair Display, serif', 
+                                     fontSize: 'clamp(2.5rem, 4.5vw, 3.8rem)', 
+                                     color: 'var(--primary-color)',
+                                     marginBottom: '40px',
+                                     textTransform: 'uppercase',
+                                     letterSpacing: '0.05em'
+                                 }}>{renderText(services.comprehensiveHeading)}</h2>
+                                <p style={{ fontSize: '1.25rem', lineHeight: '1.9', color: '#1d3528', marginBottom: '30px', fontWeight: '400', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
+                                    {renderText(services.comprehensiveIntro1)}
+                                </p>
+                                <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#555', fontWeight: '400', maxWidth: '700px', margin: '0 auto' }}>
+                                    {renderText(services.comprehensiveIntro2)}
+                                </p>
                         </div>
 
                         <div className="comprehensive-grid" style={{ 
@@ -113,7 +130,7 @@ const Services = () => {
                                     "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80", // Styling
                                     "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80"  // Day Coordination
                                 ];
-                                const imgUrl = placeholderImages[idx] || placeholderImages[0];
+                                const imgUrl = item.image || placeholderImages[idx] || placeholderImages[0];
                                 
                                 return (
                                     <div key={idx} className="reveal delay-1" style={{ 
@@ -128,12 +145,16 @@ const Services = () => {
                                     }}>
                                         {/* Image Header */}
                                         <div style={{ height: '320px', overflow: 'hidden', position: 'relative' }}>
-                                            <img 
-                                                src={imgUrl} 
-                                                alt={item.title} 
-                                                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }}
-                                                className="service-card-img"
-                                            />
+                                            {isVideoUrl(imgUrl) ? (
+                                                <video src={resolveMediaURL(imgUrl)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                            ) : (
+                                                <img 
+                                                    src={resolveMediaURL(imgUrl)} 
+                                                    alt={item.title} 
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }}
+                                                    className="service-card-img"
+                                                />
+                                            )}
                                         </div>
 
                                         {/* Content Body */}
@@ -147,7 +168,7 @@ const Services = () => {
                                                 letterSpacing: '0.01em',
                                                 lineHeight: '1.2'
                                             }}>
-                                                {item.title}
+                                                {renderText(item.title)}
                                             </h3>
                                             <div style={{ 
                                                 width: '35px', 
@@ -160,7 +181,7 @@ const Services = () => {
                                                 lineHeight: '1.8', 
                                                 color: '#555',
                                                 fontWeight: '300'
-                                            }}>{item.desc}</p>
+                                            }}>{renderText(item.desc)}</p>
                                         </div>
                                     </div>
                                 );
@@ -173,8 +194,8 @@ const Services = () => {
             {/* INTRO TEXT */}
             <section className="intro-section reveal">
                 <div className="container">
-                    <span className="section-label">{services.processLabel || 'How We Work'}</span>
-                    <h2 className="intro-heading">{services.processHeading || 'A Structured, Calm Planning Process'}</h2>
+                    <span className="section-label">{renderText(services.processLabel || 'How We Work')}</span>
+                    <h2 className="intro-heading">{renderText(services.processHeading || 'A Structured, Calm Planning Process')}</h2>
                 </div>
             </section>
 
@@ -185,15 +206,9 @@ const Services = () => {
                         {services.processItems && services.processItems.map((item, idx) => (
                             <div key={idx} className="process-card reveal">
                                 <span className="process-number">{(idx + 1).toString().padStart(2, '0')}</span>
-                                <h3 className="process-title">{item.title}</h3>
+                                <h3 className="process-title">{renderText(item.title)}</h3>
                                 <p className="process-desc">
-                                    {item.desc.split('\n').map((line, i) => (
-                                        i === 0 ? line : (
-                                            <span key={i} className="process-quote">
-                                                {line}
-                                            </span>
-                                        )
-                                    ))}
+                                    {renderText(item.desc)}
                                 </p>
                             </div>
                         ))}
@@ -210,7 +225,6 @@ const Services = () => {
                 overflow: 'hidden',
                 zIndex: 1
             }}>
-                {/* Fixed Background Context via Clip-Path */}
                 <div style={{
                     position: 'absolute',
                     top: 0,
@@ -227,22 +241,33 @@ const Services = () => {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        backgroundImage: `linear-gradient(rgba(18, 53, 36, 0.6), rgba(18, 53, 36, 0.6)), url('${services.ctaImage || 'https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg'}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                         pointerEvents: 'none'
-                    }}></div>
+                    }}>
+                        {isVideoUrl(services.ctaImage) ? (
+                            <video src={resolveMediaURL(services.ctaImage)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        ) : (
+                            <div style={{ 
+                                width: '100%', 
+                                height: '100%', 
+                                backgroundImage: `linear-gradient(rgba(18, 53, 36, 0.6), rgba(18, 53, 36, 0.6)), url('${resolveMediaURL(services.ctaImage) || 'https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg'}')`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center'
+                            }}></div>
+                        )}
+                    </div>
                 </div>
 
                 <div className="container" style={{ position: 'relative', zIndex: 2 }}>
                     <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
-                        {services.ctaHeading || "Let's Begin Planning Your Wedding"}
+                        {renderText(services.ctaHeading || "Let's Begin Planning Your Wedding")}
                     </h2>
                     <p style={{ maxWidth: '700px', margin: '0 auto 40px', fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.9)', whiteSpace: 'pre-line' }}>
-                        {services.ctaDesc || "If you’re looking for a wedding planning partner who combines experience, creativity and reliability, we’d love to connect."}
+                        {renderText(services.ctaDesc || "If you’re looking for a wedding planning partner who combines experience, creativity and reliability, we’d love to connect.")}
                     </p>
                     <Link to={services.ctaBtnUrl || "/contact"} className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '15px 40px' }}>
-                        {services.ctaBtnText || "Book a Wedding Consultation"}
+                        {renderText(services.ctaBtnText || "Book a Wedding Consultation")}
                     </Link>
                 </div>
             </section>
@@ -258,7 +283,7 @@ const Services = () => {
                         <div className="pw-testimonials__quote-wrap">
                             <div className="pw-testimonials__quote-mark">"</div>
                             <p className="pw-testimonials__quote" key={currentTestimonial}>
-                                {testimonials[currentTestimonial]?.text}
+                                {renderText(testimonials[currentTestimonial]?.text)}
                             </p>
                         </div>
 
@@ -266,14 +291,18 @@ const Services = () => {
                             <div className="pw-testimonials__author-line"></div>
                             <div className="pw-testimonials__author-flex">
                                 <div className="pw-testimonials__author-img">
-                                    <img
-                                        src={testimonials[currentTestimonial]?.image}
-                                        alt={testimonials[currentTestimonial]?.author}
-                                    />
+                                    {isVideoUrl(testimonials[currentTestimonial]?.image) ? (
+                                        <video src={resolveMediaURL(testimonials[currentTestimonial]?.image)} autoPlay muted loop playsInline />
+                                    ) : (
+                                        <img
+                                            src={resolveMediaURL(testimonials[currentTestimonial]?.image)}
+                                            alt={testimonials[currentTestimonial]?.author}
+                                        />
+                                    )}
                                 </div>
                                 <div className="pw-testimonials__author-info">
-                                    <strong>{testimonials[currentTestimonial]?.author}</strong>
-                                    <span>{testimonials[currentTestimonial]?.location}</span>
+                                    <strong>{renderText(testimonials[currentTestimonial]?.author)}</strong>
+                                    <span>{renderText(testimonials[currentTestimonial]?.location)}</span>
                                 </div>
                             </div>
                         </div>
@@ -299,45 +328,44 @@ const Services = () => {
                         <div className="pw-form-wrap__left">
                             <span className="pw-label">{home.formLabel}</span>
                             <h2 className="pw-form-wrap__title">
-                                {home.formHeading?.split(' ').slice(0, 1).join(' ')} <br />
-                                <em>{home.formHeading?.split(' ').slice(1).join(' ')}</em>
+                                {renderText(home.formHeading)}
                             </h2>
-                            <p className="pw-form-wrap__sub">{home.formSubtext}</p>
+                            <p className="pw-form-wrap__sub">{renderText(home.formSubtext)}</p>
                         </div>
 
                         <form className="pw-form" onSubmit={handleFormSubmit}>
                             <div className="pw-form__grid">
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Full Name</label>
-                                    <input type="text" className="pw-form__input" placeholder="Your full name" required />
+                                    <input type="text" name="fullName" className="pw-form__input" placeholder="Your full name" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Email Address</label>
-                                    <input type="email" className="pw-form__input" placeholder="your@email.com" required />
+                                    <input type="email" name="email" className="pw-form__input" placeholder="your@email.com" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Phone Number</label>
-                                    <input type="tel" className="pw-form__input" placeholder="+91 00000 00000" required />
+                                    <input type="tel" name="phone" className="pw-form__input" placeholder="+91 00000 00000" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Wedding Location</label>
-                                    <input type="text" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
+                                    <input type="text" name="weddingLocation" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Approx. Guest Count</label>
-                                    <input type="number" className="pw-form__input" placeholder="Number of guests" required />
+                                    <input type="number" name="guestCount" className="pw-form__input" placeholder="Number of guests" required />
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Wedding Date</label>
-                                    <input type="date" className="pw-form__input" required />
+                                    <input type="date" name="weddingDate" className="pw-form__input" required />
                                 </div>
                                 <div className="pw-form__field" style={{ gridColumn: 'span 2' }}>
                                     <label className="pw-form__label">Your Expectations</label>
-                                    <textarea className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
+                                    <textarea name="message" className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
                                 </div>
                             </div>
                             <button type="submit" className="pw-btn pw-btn--dark btn-submit" style={{ marginTop: '50px', width: '100%' }}>
-                                {home.formBtnText}
+                                {renderText(home.formBtnText)}
                             </button>
                         </form>
                     </div>

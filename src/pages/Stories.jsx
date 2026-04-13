@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext } from '../context/ContentContext';
+import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
 import './Gallery.css';
 
 const Stories = ({ sectionKey = "storiesDestination" }) => {
@@ -52,8 +52,10 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
 
             {/* WEDDLIN-STYLE STORY LIST */}
             <section className="wsl-section">
-                {stories.storiesList && stories.storiesList.map((item, index) => {
+                {stories.storiesList && stories.storiesList.filter(item => item.title && item.title.trim()).map((item, index) => {
                     const isEven = index % 2 === 0;
+                    const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");
+                    const displayDesc = item.overview ? item.overview.split('.')[0] + '.' : item.desc;
 
                     return (
                         <div
@@ -66,7 +68,17 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                 {item.video ? (
                                     <video
                                         className="wsl-item__thumb"
-                                        src={item.video}
+                                        src={resolveMediaURL(item.video)}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        poster={resolveMediaURL(displayImage)}
+                                    />
+                                ) : isVideoUrl(displayImage) ? (
+                                    <video
+                                        className="wsl-item__thumb"
+                                        src={resolveMediaURL(displayImage)}
                                         autoPlay
                                         muted
                                         loop
@@ -74,7 +86,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                     />
                                 ) : (
                                     <img
-                                        src={item.image}
+                                        src={resolveMediaURL(displayImage)}
                                         alt={item.title}
                                         className="wsl-item__thumb"
                                     />
@@ -97,7 +109,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                         </span>
                                     )}
                                 </div>
-                                <p className="wsl-item__desc">{item.desc}</p>
+                                <p className="wsl-item__desc">{renderText(displayDesc)}</p>
                                 <Link 
                                     to={`/projects/${item.id || item.title?.toLowerCase().replace(/\s+/g, '-')}`}
                                     className="wsl-item__cta" 
@@ -112,18 +124,18 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
 
             <div className="pw-stories__explore reveal" style={{ textAlign: 'center', padding: '60px 0 100px' }}>
                 <a 
-                    href="https://instagram.com" 
+                    href={content.weddingStories?.ctaBtnUrl || "https://instagram.com"} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="pw-btn pw-btn--gold"
                 >
-                    EXPLORE MORE COLLECTIONS <i className="fab fa-instagram" style={{ marginLeft: '10px', fontSize: '0.9rem' }}></i>
+                    {content.weddingStories?.ctaBtnText || "EXPLORE MORE COLLECTIONS"} <i className={content.weddingStories?.ctaBtnIcon || "fab fa-instagram"} style={{ marginLeft: '10px', fontSize: '0.9rem' }}></i>
                 </a>
             </div>
 
             {/* CINEMATIC CTA BAND */}
             <section className="pw-page-hero">
-                <img src={stories.heroImage} alt="Background" className="pw-page-hero__bg" />
+                <img src={resolveMediaURL(stories.heroImage)} alt="Background" className="pw-page-hero__bg" />
                 <div className="pw-container pw-page-hero__content reveal">
                     <h1 className="pw-page-hero__title">
                         {(stories.heroTitle || "").split(' ').map((word, i, arr) => (
@@ -134,45 +146,73 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                 </div>
             </section>
 
-            {/* TESTIMONIALS CAROUSEL (Global from Home) */}
+            {/* TESTIMONIALS SECTION */}
             <section className="pw-testimonials reveal">
                 <div className="pw-container">
                     <div className="pw-testimonials__inner">
-                        <span className="pw-label pw-label--gold">{home.testimonialLabel || 'Testimonials'}</span>
+                        <span className="pw-label pw-label--gold">{stories.testimonialLabel || home.testimonialLabel || 'Testimonial'}</span>
 
-                        <div className="pw-testimonials__quote-wrap">
-                            <div className="pw-testimonials__quote-mark">"</div>
-                            <p className="pw-testimonials__quote" key={currentTestimonial} style={{ fontSize: '1.8rem' }}>
-                                {testimonials[currentTestimonial]?.text}
-                            </p>
-                        </div>
-
-                        <div className="pw-testimonials__author">
-                            <div className="pw-testimonials__author-line"></div>
-                            <div className="pw-testimonials__author-flex">
-                                <div className="pw-testimonials__author-img">
-                                    <img 
-                                        src={testimonials[currentTestimonial]?.image} 
-                                        alt={testimonials[currentTestimonial]?.author} 
-                                    />
+                        {stories.testimonialQuote ? (
+                            <div className="pw-testimonials__featured">
+                                <div className="pw-testimonials__quote-wrap">
+                                    <div className="pw-testimonials__quote-mark">"</div>
+                                    <p className="pw-testimonials__quote" style={{ fontSize: '1.8rem' }}>
+                                        {stories.testimonialQuote}
+                                    </p>
                                 </div>
-                                <div className="pw-testimonials__author-info">
-                                    <strong>{testimonials[currentTestimonial]?.author}</strong>
-                                    <span>{testimonials[currentTestimonial]?.location}</span>
+                                <div className="pw-testimonials__author">
+                                    <div className="pw-testimonials__author-line"></div>
+                                    <div className="pw-testimonials__author-flex">
+                                        <div className="pw-testimonials__author-img">
+                                            <img 
+                                                src={resolveMediaURL(stories.testimonialImage) || "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80"} 
+                                                alt={stories.testimonialAuthor} 
+                                            />
+                                        </div>
+                                        <div className="pw-testimonials__author-info">
+                                            <strong>{stories.testimonialAuthor}</strong>
+                                            <span>{stories.testimonialLocation}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ) : (
+                            <>
+                                <div className="pw-testimonials__quote-wrap">
+                                    <div className="pw-testimonials__quote-mark">"</div>
+                                    <p className="pw-testimonials__quote" key={currentTestimonial} style={{ fontSize: '1.8rem' }}>
+                                        {testimonials[currentTestimonial]?.text}
+                                    </p>
+                                </div>
 
-                        <div className="pw-testimonials__dots">
-                            {testimonials.map((_, i) => (
-                                <button
-                                    key={i}
-                                    className={`pw-testimonials__dot ${currentTestimonial === i ? 'is-active' : ''}`}
-                                    onClick={() => setCurrentTestimonial(i)}
-                                    aria-label={`Testimonial ${i + 1}`}
-                                />
-                            ))}
-                        </div>
+                                <div className="pw-testimonials__author">
+                                    <div className="pw-testimonials__author-line"></div>
+                                    <div className="pw-testimonials__author-flex">
+                                        <div className="pw-testimonials__author-img">
+                                            <img 
+                                                src={testimonials[currentTestimonial]?.image} 
+                                                alt={testimonials[currentTestimonial]?.author} 
+                                            />
+                                        </div>
+                                        <div className="pw-testimonials__author-info">
+                                            <strong>{testimonials[currentTestimonial]?.author}</strong>
+                                            <span>{testimonials[currentTestimonial]?.location}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="pw-testimonials__dots">
+                                    {testimonials.map((_, i) => (
+                                        <button
+                                            key={i}
+                                            className={`pw-testimonials__dot ${currentTestimonial === i ? 'is-active' : ''}`}
+                                            onClick={() => setCurrentTestimonial(i)}
+                                            aria-label={`Testimonial ${i + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </section>
