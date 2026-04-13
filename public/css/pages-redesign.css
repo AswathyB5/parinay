@@ -560,6 +560,61 @@
         direction: ltr;
         gap: 40px;
     }
+
+    .pw-page-banner {
+        padding: 120px 0 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* About Us Sections */
+    .about-values-new, 
+    .about-philosophy-new, 
+    .about-team-grid,
+    .pw-form-section {
+        padding: 60px 0 !important;
+    }
+
+    .about-intro-split {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .about-founder-new {
+        flex-direction: column;
+    }
+
+    .founder-image, .founder-content {
+        width: 100% !important;
+    }
+
+    .pw-stats__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .pw-form-wrap {
+        flex-direction: column;
+        padding: 40px 25px;
+    }
+
+    .pw-form-wrap__left {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .pw-form__grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pw-form__field {
+        grid-column: span 1 !important;
+    }
+
+    .pw-map-wrapper {
+        height: 350px !important;
+    }
 }
 
 @media (max-width: 600px) {
@@ -573,8 +628,13 @@
         grid-template-columns: 1fr;
     }
 
-    .pw-page-hero__title {
-        font-size: 3.5rem;
+    .pw-page-hero__title,
+    .about-hero-new h1 {
+        font-size: 2.8rem !important;
+    }
+    
+    .pw-stats__grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1062,3 +1122,135 @@
 .service-card-img {
     transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
+/* -- About Page Refinements -- */
+.about-philosophy-new {
+    padding: 120px 0;
+    text-align: center;
+    background-color: #fff;
+}
+
+.philosophy-quote-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.philosophy-text {
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-family: 'Playfair Display', serif;
+    line-height: 1.4;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.philosophy-author {
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    display: block;
+}
+
+.about-team-grid {
+    padding: 140px 0;
+    background-color: #FDFBF7;
+}
+
+.team-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.team-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--primary-color);
+    marginTop: 20px;
+}
+
+.team-subtext {
+    maxWidth: 600px;
+    margin: 30px auto 0;
+    color: #555;
+    line-height: 1.8;
+}
+
+.team-members-flex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+.about-team-card {
+    textAlign: center;
+}
+
+.about-team-img-wrap {
+    height: 400px;
+    overflow: hidden;
+    marginBottom: 25px;
+    position: relative;
+}
+
+.about-team-img-wrap img,
+.about-team-img-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    marginBottom: 8px;
+}
+
+.member-role {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+}
+
+
+/* -- Contact Page Refinements -- */
+.pw-contact__social {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.pw-contact__social a {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.pw-contact__social a:hover {
+    color: var(--accent-color);
+}
+
+.pw-map-section {
+    background: #FDFBF7;
+}
+
+.pw-map-wrapper {
+    border-radius: 12px;
+    overflow: hidden;
+    height: 500px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    margin: 0 0 100px;
+}
+
+.pw-map-iframe {
+    border: 0;
+    filter: grayscale(100%);
+    transition: filter 0.6s ease;
+}
+
+.pw-map-iframe:hover {
+    filter: grayscale(0%);
+}
+

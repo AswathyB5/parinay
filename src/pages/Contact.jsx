@@ -116,11 +116,11 @@ const Contact = () => {
                             <div className="pw-contact__block">
                                 <span className="pw-label">Stay Connected</span>
                                 <h3>Follow Us</h3>
-                                <div style={{ display: 'flex', gap: '20px', marginTop: '15px' }}>
-                                    <a href={contact.instagramUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-instagram"></i></a>
-                                    <a href={contact.facebookUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-facebook-f"></i></a>
-                                    <a href={contact.pinterestUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-pinterest-p"></i></a>
-                                    <a href={contact.youtubeUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--primary-color)', fontSize: '1.2rem' }}><i className="fab fa-youtube"></i></a>
+                                <div className="pw-contact__social">
+                                    <a href={contact.instagramUrl} target="_blank" rel="noreferrer"><i className="fab fa-instagram"></i></a>
+                                    <a href={contact.facebookUrl} target="_blank" rel="noreferrer"><i className="fab fa-facebook-f"></i></a>
+                                    <a href={contact.pinterestUrl} target="_blank" rel="noreferrer"><i className="fab fa-pinterest-p"></i></a>
+                                    <a href={contact.youtubeUrl} target="_blank" rel="noreferrer"><i className="fab fa-youtube"></i></a>
                                 </div>
                             </div>
 
@@ -208,26 +208,14 @@ const Contact = () => {
             </section>
 
             {/* MAP SECTION */}
-            <section className="pw-map-section reveal" style={{ background: '#FDFBF7' }}>
-                <div className="pw-container" style={{ maxWidth: '1400px' }}>
-                    <div className="pw-map-wrapper" style={{
-                        borderRadius: '12px',
-                        overflow: 'hidden',
-                        height: '500px',
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                        margin: '0 0 100px'
-                    }}>
+            <section className="pw-map-section reveal">
+                <div className="pw-container pw-container--wide">
+                    <div className="pw-map-wrapper">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126296.38229506161!2d76.86339199341846!3d8.5241390977464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05bbb805bbbbbb%3A0xef4657ed7f5022cc!2sThiruvananthapuram%2C%20Kerala!5e0!3m2!1sen!2sin!4v1711280000000!5m2!1sen!2sin"
                             width="100%"
                             height="100%"
-                            style={{ 
-                                border: 0, 
-                                filter: 'grayscale(100%)', 
-                                transition: 'filter 0.6s ease',
-                            }} 
-                            onMouseEnter={(e) => e.target.style.filter = 'grayscale(0%)'}
-                            onMouseLeave={(e) => e.target.style.filter = 'grayscale(100%)'}
+                            className="pw-map-iframe"
                             allowFullScreen=""
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"

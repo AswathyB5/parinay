@@ -48,7 +48,7 @@ export const renderText = (text) => {
         }
 
         const isQuoted = trimLine.startsWith('"') && trimLine.endsWith('"');
-        const parts = line.split(/(_[^_]+_|###[^#]+###)/g);
+        const parts = line.split(/(_[^_]+_|###[^#]+###|\[\[[^\]]+\]\])/g);
         
         const processedLine = parts.map((part, j) => {
             if (part.startsWith('_') && part.endsWith('_')) {
@@ -56,6 +56,9 @@ export const renderText = (text) => {
             }
             if (part.startsWith('###') && part.endsWith('###')) {
                 return <strong key={j} style={{ fontWeight: '700' }}>{part.slice(3, -3)}</strong>;
+            }
+            if (part.startsWith('[[') && part.endsWith(']]')) {
+                return <em key={j} style={{ fontStyle: 'italic', color: '#C5A059' }}>{part.slice(2, -2)}</em>;
             }
             return part;
         });
@@ -85,8 +88,10 @@ const initialContent = {
         heroTagline: "Thoughtfully Planned.\nBeautifully Executed.",
         heroBtnText: "Get Started",
         heroBtnUrl: "/contact",
-        heroVideo1: "/Untitled design.mp4",
-        heroVideo2: "/12874721_1920_1080_30fps.mp4",
+        heroVideos: [
+            { id: 1, video: "/Untitled design.mp4" },
+            { id: 2, video: "/12874721_1920_1080_30fps.mp4" }
+        ],
         heroImages: [
             { id: 1, image: "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg", alt: "Wedding Celebration 1" },
             { id: 2, image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", alt: "Wedding Celebration 2" },
@@ -102,18 +107,12 @@ const initialContent = {
         servicesLabel: "What We Handle",
         servicesHeading: "Anything & Everything Your Wedding Needs\nSeamlessly Managed",
         servicesIntroText: "We take complete ownership of your wedding planning journey, including:",
-        service1Image: "https://i.pinimg.com/736x/dd/3b/f1/dd3bf1a9b863e7fac61532e7f7e52bfc.jpg",
-        service1Title: "Venue sourcing & coordination",
-        service1Desc: "Finding the perfect backdrop for your story",
-        service2Image: "https://i.pinimg.com/474x/fd/61/84/fd61841efb1466054aab3424f076cb98.jpg",
-        service2Title: "Wedding design, decor & aesthetics",
-        service2Desc: "Crafting a visual experience that reflects you",
-        service3Image: "https://i.pinimg.com/736x/ce/f9/2c/cef92c351444a9eaf9623098cd44d70f.jpg",
-        service3Title: "Guest management",
-        service3Desc: "Seamless hospitality and logistics",
-        service4Image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
-        service4Title: "On-ground execution",
-        service4Desc: "Flawless management on your special day",
+        homeServices: [
+            { id: 1, image: "https://i.pinimg.com/736x/dd/3b/f1/dd3bf1a9b863e7fac61532e7f7e52bfc.jpg", title: "Venue sourcing & coordination", desc: "Finding the perfect backdrop for your story" },
+            { id: 2, image: "https://i.pinimg.com/474x/fd/61/84/fd61841efb1466054aab3424f076cb98.jpg", title: "Wedding design, decor & aesthetics", desc: "Crafting a visual experience that reflects you" },
+            { id: 3, image: "https://i.pinimg.com/736x/ce/f9/2c/cef92c351444a9eaf9623098cd44d70f.jpg", title: "Guest management", desc: "Seamless hospitality and logistics" },
+            { id: 4, image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80", title: "On-ground execution", desc: "Flawless management on your special day" }
+        ],
         servicesFooterText: "You enjoy the moments. \nWe handle everything behind the scenes.",
         destinationLabel: "Destination Weddings",
         destinationHeading: "Destination Weddings, Thoughtfully Planned",
@@ -125,7 +124,7 @@ const initialContent = {
         destinationImage1: "https://media.istockphoto.com/id/1173488478/photo/the-most-beautiful-day-of-their-lives.jpg?s=612x612&w=0&k=20&c=xoAbApCFRMxSScg-CZBlCSDHd-0Yhaybh9FpbV7V38Q=",
         destinationImage2: "https://media.istockphoto.com/id/1397574789/photo/together-we-make-the-world-better.jpg?s=612x612&w=0&k=20&c=hZGF9CCheaK-b31DY6hv7TlDB91duMd-dlHYKs604S0=",
         portfolioLabel: "A Glimpse Into Our Work",
-        portfolioHeading: "Each wedding we plan reflects the couple behind it - their love, their story, their style, their culture.",
+        portfolioHeading: "Each wedding we plan reflects the couple behind it\n[[their love, their story, their style, their culture, their family.]]",
         portfolioItems: [
             { id: 1, title: "Tropical Paradise", date: "January 2024", location: "Kerala", overview: "A tropical paradise wedding in the heart of Kerala. We focused on the candid emotional exchanges that define the essence of a wedding.", video: "", galleryImages: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80", result: "A flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80" },
             { id: 2, title: "Backwater Magic", date: "November 2023", location: "Kumarakom", overview: "Magical backwater wedding in Kumarakom. This project was a meticulous exploration of heritage and modern luxury.", video: "", galleryImages: "", result: "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg" },
@@ -495,9 +494,9 @@ const initialContent = {
     },
     weddingStories: {
         pageBannerTitle: "Wedding Stories",
-        instagramBtnText: "EXPLORE MORE COLLECTIONS",
-        instagramUrl: "https://instagram.com",
-        instagramBtnIcon: "fab fa-instagram",
+        ctaBtnText: "EXPLORE MORE COLLECTIONS",
+        ctaBtnUrl: "https://instagram.com",
+        ctaBtnIcon: "fab fa-instagram",
         storiesList: [
             { id: 1001, title: "Tropical Paradise", date: "January 2024", location: "Kerala", overview: "A tropical paradise wedding in the heart of Kerala. We focused on the candid emotional exchanges that define the essence of a wedding.", video: "", galleryImages: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80", result: "A flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80", category: "Featured" },
             { id: 1002, title: "Backwater Magic", date: "November 2023", location: "Kumarakom", overview: "Magical backwater wedding in Kumarakom. This project was a meticulous exploration of heritage and modern luxury.", video: "", galleryImages: "", result: "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg", category: "Destination" },
@@ -690,6 +689,40 @@ export const ContentProvider = ({ children }) => {
                             'inquireBtnText', 'inquireBtnUrl'
                         ];
                         forbidden.forEach(k => delete mergedSection[k]);
+                    }
+
+                    // --- MIGRATION FOR HOME SECTION ---
+                    if (section === 'home') {
+                        // 1. Migrate services
+                        if (!dbSection.homeServices && (dbSection.service1Title || dbSection.service1Image)) {
+                            mergedSection.homeServices = [];
+                            for (let i = 1; i <= 4; i++) {
+                                if (dbSection[`service${i}Title`] || dbSection[`service${i}Image`]) {
+                                    mergedSection.homeServices.push({
+                                        id: 2000 + i,
+                                        title: dbSection[`service${i}Title`] || '',
+                                        image: dbSection[`service${i}Image`] || '',
+                                        desc: dbSection[`service${i}Desc`] || ''
+                                    });
+                                }
+                            }
+                        }
+                        // 2. Migrate hero videos
+                        if (!dbSection.heroVideos && (dbSection.heroVideo1 || dbSection.heroVideo2)) {
+                            mergedSection.heroVideos = [];
+                            if (dbSection.heroVideo1) mergedSection.heroVideos.push({ id: 3001, video: dbSection.heroVideo1 });
+                            if (dbSection.heroVideo2) mergedSection.heroVideos.push({ id: 3002, video: dbSection.heroVideo2 });
+                        }
+
+                        // Prune legacy keys
+                        const legacyHomeKeys = [
+                            'service1Image', 'service1Title', 'service1Desc',
+                            'service2Image', 'service2Title', 'service2Desc',
+                            'service3Image', 'service3Title', 'service3Desc',
+                            'service4Image', 'service4Title', 'service4Desc',
+                            'heroVideo1', 'heroVideo2'
+                        ];
+                        legacyHomeKeys.forEach(k => delete mergedSection[k]);
                     }
 
                     // For every array field, do the smart merge

@@ -22,10 +22,12 @@ const Home = () => {
     };
     // --- Hero Video Crossfade Logic ---
     const [currentVid, setCurrentVid] = useState(0);
-    const heroVideos = [
-        resolveMediaURL(home.heroVideo1 || '/Untitled design.mp4'),
-        resolveMediaURL(home.heroVideo2 || '/12874721_1920_1080_30fps.mp4'),
-    ];
+    const heroVideos = (home.heroVideos && home.heroVideos.length > 0)
+        ? home.heroVideos.map(v => resolveMediaURL(v.video))
+        : [
+            resolveMediaURL(home.heroVideo1 || '/Untitled design.mp4'),
+            resolveMediaURL(home.heroVideo2 || '/12874721_1920_1080_30fps.mp4'),
+        ];
 
     // --- Hero Floating Image Slideshow Logic ---
     const [currentHeroImg, setCurrentHeroImg] = useState(0);
@@ -270,12 +272,15 @@ const Home = () => {
                     </div>
 
                     <div className="team-grid-new">
-                        {[
-                            { image: home.service1Image, title: home.service1Title, desc: home.service1Desc },
-                            { image: home.service2Image, title: home.service2Title, desc: home.service2Desc },
-                            { image: home.service3Image, title: home.service3Title, desc: home.service3Desc },
-                            { image: home.service4Image, title: home.service4Title, desc: home.service4Desc }
-                        ].map((s, idx) => (
+                        {(home.homeServices && home.homeServices.length > 0
+                            ? home.homeServices
+                            : [
+                                { image: home.service1Image, title: home.service1Title, desc: home.service1Desc },
+                                { image: home.service2Image, title: home.service2Title, desc: home.service2Desc },
+                                { image: home.service3Image, title: home.service3Title, desc: home.service3Desc },
+                                { image: home.service4Image, title: home.service4Title, desc: home.service4Desc }
+                            ].filter(s => s.title || s.image)
+                        ).map((s, idx) => (
                             <div className="team-card-new" key={idx}>
                                 <div className="team-img-wrap-new">
                                     {isVideoUrl(s.image) ? (
@@ -381,8 +386,7 @@ const Home = () => {
                         <div className="pw-portfolio__header-left">
                             <span className="pw-label">{renderText(home.portfolioLabel)}</span>
                             <h2 className="pw-portfolio__title">
-                                {(home.portfolioHeading || '').split(' - ')[0]}<br />
-                                <em>{(home.portfolioHeading || '').split(' - ')[1] || ''}</em>
+                                {renderText(home.portfolioHeading)}
                             </h2>
                         </div>
                     </div>

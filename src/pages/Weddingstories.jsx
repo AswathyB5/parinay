@@ -11,9 +11,9 @@ const Gallery = () => {
     // Wedding Stories page-level content
     const ws = content?.weddingStories || {};
     const pageTitle = ws.pageBannerTitle || "Wedding Stories";
-    const ctaBtnText = ws.instagramBtnText || "EXPLORE MORE COLLECTIONS";
-    const ctaBtnUrl = ws.instagramUrl || "https://instagram.com";
-    const ctaBtnIcon = ws.instagramBtnIcon || "fab fa-instagram";
+    const ctaBtnText = ws.ctaBtnText || ws.instagramBtnText || "EXPLORE MORE COLLECTIONS";
+    const ctaBtnUrl = ws.ctaBtnUrl || ws.instagramUrl || "https://instagram.com";
+    const ctaBtnIcon = ws.ctaBtnIcon || ws.instagramBtnIcon || "fab fa-instagram";
 
     const allGalleryItems = (ws.storiesList || []).map(item => {
         const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");

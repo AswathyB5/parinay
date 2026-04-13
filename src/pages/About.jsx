@@ -122,28 +122,14 @@ const About = () => {
 
             {/* PHILOSOPHY SECTION */}
             {about.philosophyQuote && (
-                <section className="about-philosophy-new reveal" style={{ padding: '120px 0', textAlign: 'center', backgroundColor: '#fff' }}>
+                <section className="about-philosophy-new reveal">
                     <div className="container">
                         <span className="section-label" style={{ marginBottom: '30px', display: 'block' }}>{about.philosophySubtitle || "THE PROMISE"}</span>
-                        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-                            <h2 style={{ 
-                                fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', 
-                                fontFamily: 'Playfair Display, serif',
-                                lineHeight: '1.4',
-                                fontStyle: 'italic',
-                                fontWeight: '400',
-                                color: 'var(--primary-color)',
-                                marginBottom: '40px'
-                            }}>
+                        <div className="philosophy-quote-wrap">
+                            <h2 className="philosophy-text">
                                 "{about.philosophyQuote}"
                             </h2>
-                            <span style={{ 
-                                fontSize: '0.9rem', 
-                                letterSpacing: '0.3em', 
-                                textTransform: 'uppercase', 
-                                color: '#555',
-                                display: 'block'
-                            }}>
+                            <span className="philosophy-author">
                                 — {about.philosophyAuthor || "The Parinay Promise"}
                             </span>
                         </div>
@@ -172,34 +158,30 @@ const About = () => {
             </section>
 
             {/* TEAM SECTION */}
-            <section className="about-team-grid reveal" style={{ padding: '140px 0', backgroundColor: '#FDFBF7' }}>
+            <section className="about-team-grid reveal">
                 <div className="container">
-                    <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+                    <div className="team-header">
                         <span className="section-label">{about.teamLabel || "MEET THE EXPERTS"}</span>
-                        <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', color: 'var(--primary-color)', marginTop: '20px' }}>
+                        <h2 className="team-title">
                             {about.teamHeading || "Our Professional Team"}
                         </h2>
-                        <p style={{ maxWidth: '600px', margin: '30px auto 0', color: '#555', lineHeight: '1.8' }}>
+                        <p className="team-subtext">
                             {renderText(about.teamSubtext)}
                         </p>
                     </div>
 
-                    <div className="team-members-flex" style={{ 
-                        display: 'grid', 
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-                        gap: '40px' 
-                    }}>
+                    <div className="team-members-flex">
                         {about.teamMembers?.filter(m => m.name && m.name.trim()).map((member, idx) => (
-                            <div key={member.id || idx} className="about-team-card reveal" style={{ transitionDelay: `${idx * 0.1}s`, textAlign: 'center' }}>
-                                <div className="about-team-img-wrap" style={{ height: '400px', overflow: 'hidden', marginBottom: '25px', position: 'relative' }}>
+                            <div key={member.id || idx} className="about-team-card reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
+                                <div className="about-team-img-wrap">
                                     {isVideoUrl(member.image) ? (
-                                        <video src={resolveMediaURL(member.image)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <video src={resolveMediaURL(member.image)} autoPlay muted loop playsInline />
                                     ) : (
-                                        <img src={resolveMediaURL(member.image)} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <img src={resolveMediaURL(member.image)} alt={member.name} />
                                     )}
                                 </div>
-                                <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.4rem', color: 'var(--primary-color)', marginBottom: '8px' }}>{renderText(member.name)}</h3>
-                                <p style={{ fontSize: '0.8rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888' }}>{renderText(member.role)}</p>
+                                <h3 className="member-name">{renderText(member.name)}</h3>
+                                <p className="member-role">{renderText(member.role)}</p>
                             </div>
                         ))}
                     </div>

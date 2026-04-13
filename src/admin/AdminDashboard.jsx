@@ -89,9 +89,11 @@ const FIELD_GROUPS = {
     /* ── HOME PAGE ─────────────────────────────────── */
     home: {
         heroTagline:        'Hero Section',
+        heroVideos:         'Hero Background Videos',
         introHeading:       'Introduction Text',
         stat1Label:         'Statistics Counter',
         servicesLabel:      'Services Preview',
+        homeServices:       'Services Cards',
         destinationLabel:   'Destination Weddings Feature',
         portfolioLabel:     'Portfolio Glimpse',
         testimonialLabel:   'Client Testimonials',
@@ -138,9 +140,9 @@ const FIELD_GROUPS = {
     weddingStories: {
         pageBannerTitle:     'Page Header',
         storiesList:         'Wedding Stories Gallery',
-        instagramBtnText:    'Instagram CTA',
-        instagramUrl:        'Instagram CTA',
-        instagramBtnIcon:    'Instagram CTA'
+        ctaBtnText:          'Instagram CTA Button',
+        ctaBtnUrl:           'Instagram CTA Button',
+        ctaBtnIcon:          'Instagram CTA Button'
     },
     /* ── DESTINATION WEDDINGS ──────────────────────── */
     storiesDestination: {
@@ -255,9 +257,9 @@ const GROUP_DESCRIPTIONS = {
     'Cinematic CTA Banner':        'The full-screen hero image shown in the cinematic CTA band at the bottom of the stories page.',
     'CTA Banner Copy':             'Heading and subtitle text overlaid on the cinematic CTA banner image.',
     'Featured Testimonial':        'A highlighted couple quote with name, location and photo shown at the bottom of the page.',
-    'Destination Stories List':    'Story cards for destination weddings — each card includes badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
-    'Themed Stories List':         'Story cards for themed weddings — each card includes badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
-    'Traditional Stories List':    'Story cards for traditional weddings — each card includes badge, title, date, location, description, overview, main image, video, gallery images, and project result.',
+    'Destination Stories List':    'Story cards for destination weddings — each card includes badge, title, date, location, overview, video, gallery images, and project result.',
+    'Themed Stories List':         'Story cards for themed weddings — each card includes badge, title, date, location, overview, video, gallery images, and project result.',
+    'Traditional Stories List':    'Story cards for traditional weddings — each card includes badge, title, date, location, overview, video, gallery images, and project result.',
     /* Journals */
     'Blog Feed Header':            'The section label and title for the journal listing page.',
     'Blog Posts List':             'Journal posts — title, date, excerpt, author, image and content.',
@@ -281,11 +283,10 @@ const GROUP_DESCRIPTIONS = {
 ══════════════════════════════════════════════════ */
 const FIELD_HINTS = {
     /* ── Home Fields ────────────────────────── */
-    heroTagline:        'Use \\n for line breaks and ###text### for bold.',
+    heroTagline:        'Use \\n for line breaks, ###text### for bold, and [[text]] for gold/italic highlights.',
     heroBtnText:        'Label on the hero call-to-action button.',
     heroBtnUrl:         'Page the hero button links to.',
-    heroVideo1:         'Primary looping background video (MP4). Upload or paste a /uploads/ path.',
-    heroVideo2:         'Secondary / fallback hero video (MP4).',
+    heroVideos:         'Looping background videos (MP4). Add as many as you like.',
     heroImages:         'Floating images alongside the hero text. Recommended: 1000×1400 px portrait.',
     introHeading:       'Main brand introduction heading.',
     introSubText:       'The italic sentence beneath the introduction heading.',
@@ -295,20 +296,9 @@ const FIELD_HINTS = {
     stat4Label:         'Use \\n to split into two lines.',
     servicesLabel:      'Small uppercase label above the services heading (e.g. "What We Handle").',
     servicesHeading:    'Use \\n to split into two lines — the second line renders in italics.',
-    servicesIntroText:  'Intro sentence shown above the four home service cards.',
-    service1Image:      'Image for "Venue sourcing & coordination" card.',
-    service1Title:      'Title for the first service card.',
-    service1Desc:       'Description for the first service card.',
-    service2Image:      'Image for "Wedding design, decor & aesthetics" card.',
-    service2Title:      'Title for the second service card.',
-    service2Desc:       'Description for the second service card.',
-    service3Image:      'Image for "Guest management" card.',
-    service3Title:      'Title for the third service card.',
-    service3Desc:       'Description for the third service card.',
-    service4Image:      'Image for "On-ground execution" card.',
-    service4Title:      'Title for the fourth service card.',
-    service4Desc:       'Description for the fourth service card.',
-    servicesFooterText: 'Closing italic line below the four service cards. Use \\n for line breaks.',
+    servicesIntroText:  'Intro sentence shown above the service cards.',
+    homeServices:       'Service cards shown on the homepage. Each needs an Image, Title and Short Description.',
+    servicesFooterText: 'Closing italic line below the service cards. Use \\n for line breaks.',
     destinationLabel:   'Small label for the destination weddings section.',
     destinationHeading: 'Section heading — text after a comma renders in italics.',
     destinationBody1:   'First paragraph about destination weddings.',
@@ -541,6 +531,7 @@ const AdminDashboard = () => {
     const [inquiriesLoading, setInquiriesLoading] = useState(false);
     const [inquiryFilter, setInquiryFilter] = useState('all');
     const [expandedInquiry, setExpandedInquiry] = useState(null);
+    const newInquiryCount = inquiries.filter(i => i.status === 'new').length;
 
     /* Toggle accordion section */
     const toggleSection = (sectionId) => {
@@ -556,6 +547,17 @@ const AdminDashboard = () => {
             let sectionData = JSON.parse(JSON.stringify(content[activeTab]));
 
             // Prune legacy fields that are no longer used on the live site
+            if (activeTab === 'home') {
+                const legacyHomeKeys = [
+                    'service1Image', 'service1Title', 'service1Desc',
+                    'service2Image', 'service2Title', 'service2Desc',
+                    'service3Image', 'service3Title', 'service3Desc',
+                    'service4Image', 'service4Title', 'service4Desc',
+                    'heroVideo1', 'heroVideo2'
+                ];
+                legacyHomeKeys.forEach(k => delete sectionData[k]);
+            }
+
             if (activeTab === 'services') {
                 const legacyKeys = [
                     'service1Label', 'service1Heading', 'service1Desc', 'service1Image', 'service1List',
@@ -597,20 +599,9 @@ const AdminDashboard = () => {
     }, [activeTab, content]);
 
     /* Fetch inquiries when Inquiries tab is active (with auto-refresh) */
-    useEffect(() => {
-        let interval;
-        if (activeTab === 'inquiries') {
-            fetchInquiries();
-            // Polling: Auto-refresh data every 30 seconds
-            interval = setInterval(() => {
-                // background fetch (don't show loading ring to avoid flicker)
-                fetchInquiries(false);
-            }, 30000);
-        }
-        return () => clearInterval(interval);
-    }, [activeTab]);
+    /* Fetch inquiries for notification badge and Inquiries panel */
 
-    const fetchInquiries = async (showLoading = true) => {
+    const fetchInquiries = useCallback(async (showLoading = true) => {
         if (showLoading) setInquiriesLoading(true);
         try {
             const res = await fetch(`${API}/api/inquiries`);
@@ -622,7 +613,19 @@ const AdminDashboard = () => {
             console.error('[Fetch Inquiries]', err);
         }
         setInquiriesLoading(false);
-    };
+    }, []);
+
+    /* Inquiries polling & loading */
+    useEffect(() => {
+        fetchInquiries(activeTab === 'inquiries');
+    }, [activeTab, fetchInquiries]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            fetchInquiries(false);
+        }, 20000); // Poll every 20s for better responsiveness
+        return () => clearInterval(interval);
+    }, [fetchInquiries]);
 
     const updateInquiryStatus = async (id, status) => {
         try {
@@ -739,6 +742,8 @@ const AdminDashboard = () => {
                 comprehensiveList: { title: '', image: '', desc: '' },
                 faqsList:          { question: '', answer: '' },
                 heroImages:        { image: '', alt: '' },
+                heroVideos:        { video: '' },
+                homeServices:      { title: '', image: '', desc: '' },
                 youtubeVideos:     { url: '' },
                 guideChecks:       { text: '' }
             };
@@ -838,7 +843,8 @@ const AdminDashboard = () => {
             && !key.toLowerCase().includes('youtube')
             && !key.toLowerCase().includes('instagram')
             && !key.toLowerCase().includes('facebook')
-            && !key.toLowerCase().includes('pinterest');
+            && !key.toLowerCase().includes('pinterest')
+            && activeTab !== 'weddingStories';
         const isLongText = (typeof value === 'string' && (value.length > 50 || value.includes('\n') || value.includes('\\n')))
             || key.toLowerCase().includes('heading')
             || key.toLowerCase().includes('tagline')
@@ -1239,8 +1245,10 @@ const AdminDashboard = () => {
 
                     return (
                         <div key={section.id} className={`admin-accordion__item ${isExpanded ? 'is-expanded' : ''}`}>
-                            {/* Header row */}
-                            <header className="admin-accordion__header">
+                            <header 
+                                className="admin-accordion__header"
+                                onClick={() => toggleSection(section.id)}
+                            >
                                 <div className="admin-acc-header-left">
                                     <button
                                         className={`admin-acc-edit-btn ${isExpanded ? 'is-active' : ''}`}
@@ -1248,28 +1256,16 @@ const AdminDashboard = () => {
                                             e.stopPropagation();
                                             toggleSection(section.id);
                                         }}
-                                        title={isExpanded ? 'Close section' : 'Edit section'}
                                     >
-                                        {isExpanded ? 'Close' : 'Edit'}
+                                        {isExpanded ? <X size={14} /> : <Plus size={14} />}
                                     </button>
                                 </div>
 
-                                {/* Section title */}
                                 <h2 className="admin-accordion__title">
                                     {section.title}
                                 </h2>
 
-                                {/* Field count badge */}
-                                <span style={{
-                                    fontSize: '0.7rem',
-                                    fontWeight: '600',
-                                    color: 'var(--admin-muted)',
-                                    background: 'rgba(29, 53, 40, 0.06)',
-                                    padding: '3px 10px',
-                                    borderRadius: '2px',
-                                    letterSpacing: '0.1em',
-                                    whiteSpace: 'nowrap'
-                                }}>
+                                <span className="admin-field-count">
                                     {section.fields.length} {section.fields.length === 1 ? 'field' : 'fields'}
                                 </span>
                             </header>
@@ -1277,7 +1273,7 @@ const AdminDashboard = () => {
                             {isExpanded && (
                                 <div className="admin-accordion__content">
                                     {section.description && (
-                                        <p className="admin-section__desc" style={{ marginTop: '0', marginBottom: '1.5rem' }}>
+                                        <p className="admin-section__desc">
                                             {section.description}
                                         </p>
                                     )}
@@ -1286,91 +1282,82 @@ const AdminDashboard = () => {
                                             const val = formData[fieldKey];
                                             if (Array.isArray(val)) {
                                                 return (
-                                                    <div key={fieldKey} className="admin-array-section" style={{ marginTop: '1rem', marginBottom: '2rem' }}>
-                                                        <h3 style={{ marginBottom: '1.5rem', textTransform: 'capitalize', color: 'var(--admin-green)' }}>
+                                                    <div key={fieldKey} className="admin-array-section">
+                                                        <h3 className="admin-array-title">
                                                             {fieldKey.replace(/([A-Z])/g, ' $1').trim()}
                                                         </h3>
                                                         {FIELD_HINTS[fieldKey] && (
-                                                            <p className="admin-field-hint" style={{ marginTop: '-1rem', marginBottom: '1.5rem' }}>
+                                                            <p className="admin-field-hint admin-field-hint--above">
                                                                 <AlertCircle size={10} style={{ marginRight: '4px' }} />
                                                                 {FIELD_HINTS[fieldKey]}
                                                             </p>
                                                         )}
 
-                                                        {val.length === 0 && (
-                                                            <div className="admin-empty" style={{ margin: '1rem 0' }}>
-                                                                <div className="admin-empty__icon"><LayoutGrid size={24} /></div>
-                                                                <p>No items yet. Click "Add New" to get started.</p>
-                                                            </div>
-                                                        )}
-
-                                                        {val.map((item, index) => (
-                                                            <div key={item.id || index} className="admin-array-item">
-                                                                <span className="admin-array-item__index">#{index + 1}</span>
-                                                                <button
-                                                                    type="button"
-                                                                    className="admin-array-item__remove"
-                                                                    onClick={(e) => {
-                                                                        e.preventDefault();
-                                                                        e.stopPropagation();
-                                                                        if (window.confirm(`Are you sure you want to delete this ${fieldKey.replace(/s$/, '').replace(/List$/, '')} item?`)) {
-                                                                            removeArrayItem(index, fieldKey);
-                                                                        }
-                                                                    }}
-                                                                    title="Remove this item"
-                                                                >
-                                                                    <X size={16} style={{ pointerEvents: 'none' }} />
-                                                                </button>
-
-                                                                <div style={{ marginTop: '1.5rem' }}>
-                                                                    {Object.keys(item)
-                                                                        .filter(k => {
-                                                                            if (fieldKey === 'portfolioItems') {
-                                                                                // Home page portfolio uses only these fields
-                                                                                return ['title', 'location', 'image'].includes(k);
-                                                                            }
-                                                                            if (fieldKey === 'storiesList') {
-                                                                                if (activeTab === 'weddingStories') {
-                                                                                    return ['category', 'title', 'location', 'image', 'galleryImages', 'overview'].includes(k);
-                                                                                }
-                                                                                
-                                                                                let excluded = [];
-                                                                                if (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed') excluded = ['image', 'desc'];
-                                                                                
-                                                                                return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result']
-                                                                                    .filter(f => !excluded.includes(f))
-                                                                                    .includes(k);
-                                                                            }
-                                                                            if (fieldKey === 'journalsList') {
-                                                                                return k !== 'id' && k !== 'loc';
-                                                                            }
-                                                                            return true;
-                                                                        })
-                                                                        .map((itemKey) =>
-                                                                            renderField(
-                                                                                itemKey,
-                                                                                item[itemKey],
-                                                                                (newVal) => handleArrayChange(index, fieldKey, itemKey, newVal),
-                                                                                (e) => handleArrayFileUpload(e, index, fieldKey, itemKey),
-                                                                                fieldKey,
-                                                                                item
-                                                                            )
-                                                                        )
-                                                                    }
+                                                        <div className="admin-array-items">
+                                                            {val.length === 0 && (
+                                                                <div className="admin-empty admin-empty--sm">
+                                                                    <p>No items added yet.</p>
                                                                 </div>
-                                                            </div>
-                                                        ))}
+                                                            )}
+
+                                                            {val.map((item, index) => (
+                                                                <div key={item.id || index} className="admin-array-item">
+                                                                    <div className="admin-array-item__header">
+                                                                        <span className="admin-array-item__index">Item #{index + 1}</span>
+                                                                        <button
+                                                                            type="button"
+                                                                            className="admin-array-item__remove"
+                                                                            onClick={(e) => {
+                                                                                e.preventDefault();
+                                                                                e.stopPropagation();
+                                                                                if (window.confirm(`Are you sure you want to delete this ${fieldKey.replace(/s$/, '').replace(/List$/, '')} item?`)) {
+                                                                                    removeArrayItem(index, fieldKey);
+                                                                                }
+                                                                            }}
+                                                                        >
+                                                                            <Trash2 size={14} />
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <div className="admin-array-item__fields">
+                                                                        {Object.keys(item)
+                                                                            .filter(k => {
+                                                                                if (fieldKey === 'portfolioItems') return ['title', 'location', 'image'].includes(k);
+                                                                                if (fieldKey === 'storiesList') {
+                                                                                    if (activeTab === 'weddingStories') return ['category', 'title', 'location', 'image', 'galleryImages', 'overview'].includes(k);
+                                                                                    let excluded = [];
+                                                                                    if (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed' || activeTab === 'storiesDestination') excluded = ['image', 'desc'];
+                                                                                    return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result'].filter(f => !excluded.includes(f)).includes(k);
+                                                                                }
+                                                                                if (fieldKey === 'journalsList') return k !== 'id' && k !== 'loc';
+                                                                                return k !== 'id' && k !== '_id' && k !== '__v';
+                                                                            })
+                                                                            .map((itemKey) =>
+                                                                                renderField(
+                                                                                    itemKey,
+                                                                                    item[itemKey],
+                                                                                    (newVal) => handleArrayChange(index, fieldKey, itemKey, newVal),
+                                                                                    (e) => handleArrayFileUpload(e, index, fieldKey, itemKey),
+                                                                                    fieldKey,
+                                                                                    item
+                                                                                )
+                                                                            )
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
 
                                                         <button
-                                                            className="admin-btn admin-btn--outline"
-                                                            style={{ marginTop: '0.5rem' }}
+                                                            className="admin-btn admin-btn--ghost admin-btn--sm"
+                                                            style={{ marginTop: '1rem' }}
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
                                                                 addArrayItem(fieldKey);
                                                             }}
                                                         >
-                                                            <Plus size={15} />
-                                                            Add New {fieldKey.replace(/s$/, '').replace(/List$/, '').replace(/([A-Z])/g, ' $1').trim()}
+                                                            <Plus size={14} style={{ marginRight: '6px' }} />
+                                                            Add {fieldKey.replace(/s$/, '').replace(/List$/, '').replace(/([A-Z])/g, ' $1').trim()}
                                                         </button>
                                                     </div>
                                                 );
@@ -1561,7 +1548,7 @@ const AdminDashboard = () => {
                                                                 return ['title', 'location', 'image'].includes(k);
                                                             }
                                                             if (link.arrayKey === 'storiesList') {
-                                                                const excluded = (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed') ? ['image', 'desc'] : [];
+                                                                const excluded = (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed' || activeTab === 'storiesDestination') ? ['image', 'desc'] : [];
                                                                 return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result']
                                                                     .filter(f => !excluded.includes(f))
                                                                     .includes(k);
@@ -1602,15 +1589,15 @@ const AdminDashboard = () => {
     /* ── Inquiries Panel Renderer ─────────────────── */
     const renderInquiriesPanel = () => {
         const TYPE_CONFIG = {
-            contact: { label: 'Contact Form', color: '#1d3528', bg: 'rgba(29, 53, 40, 0.08)', icon: <Mail size={14} /> },
-            quote: { label: 'Quote Request', color: '#C5A059', bg: 'rgba(197, 160, 89, 0.12)', icon: <Calendar size={14} /> },
-            whatsapp: { label: 'WhatsApp', color: '#25D366', bg: 'rgba(37, 211, 102, 0.1)', icon: <Phone size={14} /> },
+            contact:  { label: 'Contact Form',  color: '#1d3528', bg: 'rgba(29, 53, 40, 0.08)',  icon: <Mail size={14} /> },
+            quote:    { label: 'Quote Request', color: '#C5A059', bg: 'rgba(197, 160, 89, 0.12)', icon: <Calendar size={14} /> },
+            whatsapp: { label: 'WhatsApp',      color: '#25D366', bg: 'rgba(37, 211, 102, 0.1)',   icon: <Phone size={14} /> },
         };
 
         const STATUS_CONFIG = {
-            new: { label: 'New', color: '#dc2626', bg: 'rgba(220, 38, 38, 0.08)' },
-            read: { label: 'Read', color: '#2563eb', bg: 'rgba(37, 99, 235, 0.08)' },
-            replied: { label: 'Replied', color: '#16a34a', bg: 'rgba(22, 163, 74, 0.08)' },
+            new:      { label: 'New',      color: '#dc2626', bg: 'rgba(220, 38, 38, 0.08)' },
+            read:     { label: 'Read',     color: '#2563eb', bg: 'rgba(37, 99, 235, 0.08)' },
+            replied:  { label: 'Replied',  color: '#16a34a', bg: 'rgba(22, 163, 74, 0.08)' },
             archived: { label: 'Archived', color: '#6b7280', bg: 'rgba(107, 114, 128, 0.08)' },
         };
 
@@ -1618,15 +1605,15 @@ const AdminDashboard = () => {
             ? inquiries
             : inquiries.filter(inq => inq.type === inquiryFilter || inq.status === inquiryFilter);
 
-        const newCount = inquiries.filter(i => i.status === 'new').length;
-        const contactCount = inquiries.filter(i => i.type === 'contact').length;
-        const quoteCount = inquiries.filter(i => i.type === 'quote').length;
+        const newCount      = inquiries.filter(i => i.status === 'new').length;
+        const contactCount  = inquiries.filter(i => i.type === 'contact').length;
+        const quoteCount    = inquiries.filter(i => i.type === 'quote').length;
         const whatsappCount = inquiries.filter(i => i.type === 'whatsapp').length;
 
         const formatDate = (dateStr) => {
             const d = new Date(dateStr);
             return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) +
-                ' at ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+                   ' at ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
         };
 
         if (inquiriesLoading) {
@@ -1639,73 +1626,36 @@ const AdminDashboard = () => {
         }
 
         return (
-            <div>
+            <div className="admin-inquiries-container">
                 {/* Summary Cards */}
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(4, 1fr)',
-                    gap: '1rem',
-                    marginBottom: '2rem'
-                }}>
+                <div className="admin-stats-bar" style={{ marginBottom: '2.5rem' }}>
                     {[
-                        { label: 'New Inquiries', value: newCount, color: '#dc2626', icon: <AlertCircle size={22} /> },
-                        { label: 'Contact Forms', value: contactCount, color: '#1d3528', icon: <Mail size={22} /> },
-                        { label: 'Quote Requests', value: quoteCount, color: '#C5A059', icon: <Calendar size={22} /> },
-                        { label: 'WhatsApp Clicks', value: whatsappCount, color: '#25D366', icon: <Phone size={22} /> },
+                        { label: 'New',     value: newCount,      color: '#dc2626', icon: <AlertCircle size={22} /> },
+                        { label: 'Forms',   value: contactCount,  color: '#1d3528', icon: <Mail size={22} /> },
+                        { label: 'Quotes',  value: quoteCount,    color: '#C5A059', icon: <Calendar size={22} /> },
+                        { label: 'WhatsApp', value: whatsappCount, color: '#25D366', icon: <Phone size={22} /> },
                     ].map((card, i) => (
-                        <div key={i} style={{
-                            background: '#fff',
-                            border: '1px solid var(--admin-border)',
-                            borderBottom: `3px solid ${card.color}`,
-                            padding: '1.4rem 1.6rem',
-                            borderRadius: '2px',
-                            boxShadow: 'var(--admin-shadow)',
-                        }}>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
-                                <span style={{ color: card.color, opacity: 0.6 }}>{card.icon}</span>
-                            </div>
-                            <div style={{ fontSize: '2rem', fontFamily: 'var(--hero-font)', color: card.color, fontWeight: 400 }}>
-                                {card.value}
-                            </div>
-                            <div style={{ fontSize: '0.72rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginTop: '0.3rem' }}>
-                                {card.label}
-                            </div>
+                        <div key={i} className="admin-stat-card" style={{ borderBottom: `3px solid ${card.color}` }}>
+                            <div className="admin-stat-card__icon" style={{ color: card.color }}>{card.icon}</div>
+                            <div className="admin-stat-card__value" style={{ color: card.color }}>{card.value}</div>
+                            <div className="admin-stat-card__label">{card.label}</div>
                         </div>
                     ))}
                 </div>
 
                 {/* Filter Bar */}
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    marginBottom: '1.5rem',
-                    flexWrap: 'wrap'
-                }}>
+                <div className="admin-filter-bar" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', flexWrap: 'wrap' }}>
                     {[
-                        { key: 'all', label: 'All' },
-                        { key: 'contact', label: 'Contact' },
-                        { key: 'quote', label: 'Quotes' },
+                        { key: 'all',      label: 'All' },
+                        { key: 'contact',  label: 'Contact' },
+                        { key: 'quote',    label: 'Quotes' },
                         { key: 'whatsapp', label: 'WhatsApp' },
-                        { key: 'new', label: 'New Only' },
+                        { key: 'new',      label: 'New Only' },
                     ].map(f => (
                         <button
                             key={f.key}
                             onClick={() => setInquiryFilter(f.key)}
-                            style={{
-                                padding: '0.5rem 1.2rem',
-                                border: `1.5px solid ${inquiryFilter === f.key ? 'var(--admin-green)' : 'var(--admin-border)'}`,
-                                background: inquiryFilter === f.key ? 'var(--admin-green)' : 'transparent',
-                                color: inquiryFilter === f.key ? 'var(--admin-cream)' : 'var(--admin-muted)',
-                                fontFamily: 'var(--body-font)',
-                                fontSize: '0.75rem',
-                                fontWeight: 600,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.1em',
-                                cursor: 'pointer',
-                                borderRadius: '2px',
-                                transition: 'all 0.25s ease',
-                            }}
+                            className={`admin-btn ${inquiryFilter === f.key ? 'admin-btn--primary' : 'admin-btn--ghost'} admin-btn--sm`}
                         >
                             {f.label}
                         </button>
@@ -1713,324 +1663,136 @@ const AdminDashboard = () => {
 
                     <button
                         onClick={fetchInquiries}
-                        style={{
-                            marginLeft: 'auto',
-                            padding: '0.5rem 1.2rem',
-                            border: '1.5px solid var(--admin-border)',
-                            background: 'transparent',
-                            color: 'var(--admin-muted)',
-                            fontFamily: 'var(--body-font)',
-                            fontSize: '0.75rem',
-                            fontWeight: 600,
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.1em',
-                            cursor: 'pointer',
-                            borderRadius: '2px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                        }}
+                        className="admin-btn admin-btn--ghost admin-btn--sm"
+                        style={{ marginLeft: 'auto' }}
                     >
-                        <Clock size={13} /> Refresh
+                        <Clock size={13} style={{ marginRight: '6px' }} /> Refresh
                     </button>
                 </div>
 
-                {/* Empty State */}
-                {filtered.length === 0 && (
-                    <div style={{
-                        textAlign: 'center',
-                        padding: '4rem 2rem',
-                        background: '#fff',
-                        border: '1px solid var(--admin-border)',
-                        borderRadius: '2px',
-                    }}>
-                        <MessageSquare size={48} style={{ opacity: 0.15, marginBottom: '1rem' }} />
-                        <p style={{ color: 'var(--admin-muted)', fontSize: '0.95rem' }}>
-                            {inquiryFilter === 'all' ? 'No customer inquiries yet.' : `No ${inquiryFilter} inquiries found.`}
-                        </p>
-                        <p style={{ color: 'var(--admin-muted)', fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7 }}>
-                            Inquiries from the contact form, quote widget, and WhatsApp will appear here.
-                        </p>
-                    </div>
-                )}
-
                 {/* Inquiry List */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    {filtered.map((inq) => {
-                        const typeConf = TYPE_CONFIG[inq.type] || TYPE_CONFIG.contact;
-                        const statusConf = STATUS_CONFIG[inq.status] || STATUS_CONFIG.new;
-                        const isExpanded = expandedInquiry === inq._id;
+                <div className="inquiry-list">
+                    {filtered.length === 0 ? (
+                        <div className="admin-empty">
+                            <MessageSquare size={40} style={{ opacity: 0.1, marginBottom: '1rem' }} />
+                            <p>No inquiries found for this filter.</p>
+                        </div>
+                    ) : (
+                        filtered.map((inq) => {
+                            const typeConf = TYPE_CONFIG[inq.type] || TYPE_CONFIG.contact;
+                            const statusConf = STATUS_CONFIG[inq.status] || STATUS_CONFIG.new;
+                            const isExpanded = expandedInquiry === inq._id;
 
-                        return (
-                            <div key={inq._id} style={{
-                                background: '#fff',
-                                border: `1px solid ${isExpanded ? 'var(--admin-green)' : 'var(--admin-border)'}`,
-                                borderLeft: `3px solid ${typeConf.color}`,
-                                borderRadius: '2px',
-                                boxShadow: isExpanded ? 'var(--admin-shadow-lg)' : 'var(--admin-shadow)',
-                                transition: 'all 0.25s ease',
-                                overflow: 'hidden',
-                            }}>
-                                {/* Header row */}
-                                <div
-                                    onClick={() => {
-                                        setExpandedInquiry(isExpanded ? null : inq._id);
-                                        if (inq.status === 'new') updateInquiryStatus(inq._id, 'read');
-                                    }}
-                                    style={{
-                                        padding: '1.2rem 1.5rem',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '1rem',
-                                        cursor: 'pointer',
-                                        transition: 'background 0.2s',
-                                    }}
-                                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--admin-cream-dark)'}
-                                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            return (
+                                <div 
+                                    key={inq._id} 
+                                    className={`inquiry-item ${isExpanded ? 'is-expanded' : ''}`}
+                                    style={{ borderLeft: `3px solid ${typeConf.color}` }}
                                 >
-                                    {/* Type badge */}
-                                    <span style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: '5px',
-                                        padding: '4px 10px',
-                                        background: typeConf.bg,
-                                        color: typeConf.color,
-                                        fontSize: '0.68rem',
-                                        fontWeight: 700,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.1em',
-                                        borderRadius: '2px',
-                                        flexShrink: 0,
-                                    }}>
-                                        {typeConf.icon} {typeConf.label}
-                                    </span>
+                                    <div
+                                        className="inquiry-header"
+                                        onClick={() => {
+                                            setExpandedInquiry(isExpanded ? null : inq._id);
+                                            if (inq.status === 'new') updateInquiryStatus(inq._id, 'read');
+                                        }}
+                                    >
+                                        <span className="inquiry-badge" style={{ background: typeConf.bg, color: typeConf.color }}>
+                                            {typeConf.icon} {typeConf.label}
+                                        </span>
 
-                                    {/* Name + email */}
-                                    <div style={{ flex: 1, minWidth: 0 }}>
-                                        <div style={{
-                                            fontFamily: 'var(--hero-font)',
-                                            fontSize: '1.05rem',
-                                            color: 'var(--admin-green)',
-                                            fontWeight: inq.status === 'new' ? 600 : 400,
-                                            whiteSpace: 'nowrap',
-                                            overflow: 'hidden',
-                                            textOverflow: 'ellipsis',
-                                        }}>
-                                            {inq.name || 'Anonymous'}
-                                        </div>
-                                        {inq.email && (
-                                            <div style={{ fontSize: '0.78rem', color: 'var(--admin-muted)', marginTop: '2px' }}>
-                                                {inq.email}
+                                        <div className="inquiry-info">
+                                            <div className="inquiry-name" style={{ fontWeight: inq.status === 'new' ? 700 : 400 }}>
+                                                {inq.name || 'Anonymous'}
                                             </div>
-                                        )}
+                                            {inq.email && <div className="inquiry-email">{inq.email}</div>}
+                                        </div>
+
+                                        <span className="inquiry-status" style={{ background: statusConf.bg, color: statusConf.color }}>
+                                            {statusConf.label}
+                                        </span>
+
+                                        <span className="inquiry-date">{formatDate(inq.createdAt)}</span>
+
+                                        <ArrowRight size={16} className="inquiry-row-arrow" style={{ 
+                                            transform: isExpanded ? 'rotate(90deg)' : 'none',
+                                            transition: 'transform 0.3s'
+                                        }} />
                                     </div>
 
-                                    {/* Status */}
-                                    <span style={{
-                                        padding: '3px 10px',
-                                        background: statusConf.bg,
-                                        color: statusConf.color,
-                                        fontSize: '0.65rem',
-                                        fontWeight: 700,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.1em',
-                                        borderRadius: '2px',
-                                        flexShrink: 0,
-                                    }}>
-                                        {statusConf.label}
-                                    </span>
-
-                                    {/* Date */}
-                                    <span style={{
-                                        fontSize: '0.72rem',
-                                        color: 'var(--admin-muted)',
-                                        whiteSpace: 'nowrap',
-                                        flexShrink: 0,
-                                    }}>
-                                        {formatDate(inq.createdAt)}
-                                    </span>
-
-                                    <ArrowRight size={16} style={{
-                                        color: 'var(--admin-muted)',
-                                        transform: isExpanded ? 'rotate(90deg)' : 'none',
-                                        transition: 'transform 0.3s ease',
-                                        flexShrink: 0,
-                                    }} />
-                                </div>
-
-                                {/* Expanded details */}
-                                {isExpanded && (
-                                    <div style={{
-                                        padding: '0 1.5rem 1.5rem',
-                                        borderTop: '1px solid var(--admin-border)',
-                                        animation: 'slideDown 0.3s ease-out forwards',
-                                    }}>
-                                        <div style={{
-                                            display: 'grid',
-                                            gridTemplateColumns: 'repeat(2, 1fr)',
-                                            gap: '1.2rem',
-                                            padding: '1.5rem 0',
-                                        }}>
-                                            {inq.name && inq.type !== 'whatsapp' && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <User size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Name</div>
-                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.name}</div>
+                                    {isExpanded && (
+                                        <div className="inquiry-details">
+                                            <div className="inquiry-details-grid">
+                                                {inq.phone && (
+                                                    <div className="inquiry-detail-item">
+                                                        <Phone size={14} style={{ color: 'var(--admin-gold)', flexShrink: 0 }} />
+                                                        <div>
+                                                            <div className="inquiry-detail-label">Phone</div>
+                                                            <div className="inquiry-detail-value">{inq.phone}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                            {inq.email && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <Mail size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Email</div>
-                                                        <a href={`mailto:${inq.email}`} style={{ fontSize: '0.92rem', color: 'var(--admin-green)', textDecoration: 'none' }}>{inq.email}</a>
+                                                )}
+                                                {inq.weddingDate && (
+                                                    <div className="inquiry-detail-item">
+                                                        <Calendar size={14} style={{ color: 'var(--admin-gold)', flexShrink: 0 }} />
+                                                        <div>
+                                                            <div className="inquiry-detail-label">Wedding Date</div>
+                                                            <div className="inquiry-detail-value">{inq.weddingDate}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                            {inq.phone && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <Phone size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Phone</div>
-                                                        <a href={`tel:${inq.phone}`} style={{ fontSize: '0.92rem', color: 'var(--admin-green)', textDecoration: 'none' }}>{inq.phone}</a>
+                                                )}
+                                                {inq.weddingLocation && (
+                                                    <div className="inquiry-detail-item">
+                                                        <MapPin size={14} style={{ color: 'var(--admin-gold)', flexShrink: 0 }} />
+                                                        <div>
+                                                            <div className="inquiry-detail-label">Location</div>
+                                                            <div className="inquiry-detail-value">{inq.weddingLocation}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                            {inq.address && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <MapPin size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Address</div>
-                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.address}</div>
+                                                )}
+                                                {inq.guestCount && (
+                                                    <div className="inquiry-detail-item">
+                                                        <User size={14} style={{ color: 'var(--admin-gold)', flexShrink: 0 }} />
+                                                        <div>
+                                                            <div className="inquiry-detail-label">Guests</div>
+                                                            <div className="inquiry-detail-value">{inq.guestCount}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                            {inq.weddingDate && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <Calendar size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Wedding Date</div>
-                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.weddingDate}</div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {inq.weddingLocation && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <MapPin size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Wedding Location</div>
-                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.weddingLocation}</div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {inq.guestCount && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <User size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Guest Count</div>
-                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.guestCount}</div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {inq.serviceRequired && (
-                                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                                    <Briefcase size={15} style={{ color: 'var(--admin-gold)', flexShrink: 0, marginTop: '2px' }} />
-                                                    <div>
-                                                        <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '3px' }}>Service Required</div>
-                                                        <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)' }}>{inq.serviceRequired}</div>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* Message */}
-                                        {inq.message && (
-                                            <div style={{
-                                                background: 'var(--admin-cream)',
-                                                border: '1px solid var(--admin-border)',
-                                                borderLeft: '3px solid var(--admin-gold)',
-                                                padding: '1.2rem 1.5rem',
-                                                borderRadius: '2px',
-                                                marginBottom: '1.2rem',
-                                            }}>
-                                                <div style={{ fontSize: '0.68rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginBottom: '8px' }}>
-                                                    Message / Vision
-                                                </div>
-                                                <div style={{ fontSize: '0.92rem', color: 'var(--admin-text)', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>
-                                                    {inq.message}
-                                                </div>
+                                                )}
                                             </div>
-                                        )}
 
-                                        {/* Actions */}
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: '0.6rem',
-                                            flexWrap: 'wrap',
-                                            paddingTop: '0.5rem',
-                                            borderTop: '1px solid var(--admin-border)',
-                                        }}>
-                                            <span style={{ fontSize: '0.7rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--admin-muted)', marginRight: '0.5rem' }}>
-                                                Set Status:
-                                            </span>
-                                            {['new', 'read', 'replied', 'archived'].map(s => (
+                                            {inq.message && (
+                                                <div className="inquiry-message-box">
+                                                    <div className="inquiry-detail-label" style={{ marginBottom: '8px' }}>Message</div>
+                                                    <div className="inquiry-detail-value" style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{inq.message}</div>
+                                                </div>
+                                            )}
+
+                                            <div className="inquiry-actions">
+                                                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                                    {['read', 'replied', 'archived'].map(s => (
+                                                        <button
+                                                            key={s}
+                                                            className={`admin-btn admin-btn--ghost admin-btn--sm ${inq.status === s ? 'is-active' : ''}`}
+                                                            onClick={(e) => { e.stopPropagation(); updateInquiryStatus(inq._id, s); }}
+                                                        >
+                                                            Mark as {s}
+                                                        </button>
+                                                    ))}
+                                                </div>
                                                 <button
-                                                    key={s}
-                                                    onClick={(e) => { e.stopPropagation(); updateInquiryStatus(inq._id, s); }}
-                                                    style={{
-                                                        padding: '4px 12px',
-                                                        border: `1.5px solid ${inq.status === s ? STATUS_CONFIG[s].color : 'var(--admin-border)'}`,
-                                                        background: inq.status === s ? STATUS_CONFIG[s].bg : 'transparent',
-                                                        color: inq.status === s ? STATUS_CONFIG[s].color : 'var(--admin-muted)',
-                                                        fontFamily: 'var(--body-font)',
-                                                        fontSize: '0.68rem',
-                                                        fontWeight: 600,
-                                                        textTransform: 'uppercase',
-                                                        letterSpacing: '0.08em',
-                                                        cursor: 'pointer',
-                                                        borderRadius: '2px',
-                                                        transition: 'all 0.2s',
-                                                    }}
+                                                    className="admin-btn admin-btn--danger admin-btn--sm"
+                                                    onClick={(e) => { e.stopPropagation(); deleteInquiry(inq._id); }}
+                                                    style={{ marginLeft: 'auto' }}
                                                 >
-                                                    {STATUS_CONFIG[s].label}
+                                                    <Trash2 size={13} />
                                                 </button>
-                                            ))}
-
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); deleteInquiry(inq._id); }}
-                                                style={{
-                                                    marginLeft: 'auto',
-                                                    padding: '4px 12px',
-                                                    border: '1.5px solid rgba(220, 38, 38, 0.3)',
-                                                    background: 'transparent',
-                                                    color: '#dc2626',
-                                                    fontFamily: 'var(--body-font)',
-                                                    fontSize: '0.68rem',
-                                                    fontWeight: 600,
-                                                    textTransform: 'uppercase',
-                                                    letterSpacing: '0.08em',
-                                                    cursor: 'pointer',
-                                                    borderRadius: '2px',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '5px',
-                                                    transition: 'all 0.2s',
-                                                }}
-                                                onMouseEnter={(e) => { e.currentTarget.style.background = '#dc2626'; e.currentTarget.style.color = '#fff'; }}
-                                                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#dc2626'; }}
-                                            >
-                                                <Trash2 size={12} /> Delete
-                                            </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    })}
+                                    )}
+                                </div>
+                            );
+                        })
+                    )}
                 </div>
             </div>
         );
@@ -2086,6 +1848,9 @@ const AdminDashboard = () => {
                                             {SECTION_ICONS[tab] || <LayoutGrid size={17} />}
                                         </span>
                                         {SECTION_LABELS[tab] || tab}
+                                        {tab === 'inquiries' && newInquiryCount > 0 && (
+                                            <span className="admin-nav-badge">{newInquiryCount}</span>
+                                        )}
                                     </button>
                                 </li>
                             ))}
