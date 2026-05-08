@@ -42,6 +42,8 @@ h3 {
     letter-spacing: -0.02em;
 }
 
+h1 em,
+h1 i,
 h2 em,
 h2 i {
     font-style: italic;
@@ -488,8 +490,10 @@ h2 i {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     align-items: center;
-    padding: 80px 40px;
-    gap: 80px;
+    padding: 100px 0; /* Refined padding */
+    gap: 0; /* Remove gap to allow full-bleed if desired, or keep for spacing */
+    width: 100%;
+    position: relative;
 }
 
 .founder-image {
@@ -504,7 +508,7 @@ h2 i {
 }
 
 .founder-content {
-    padding: 80px 100px;
+    padding: 100px 120px;
 }
 
 .founder-content .section-label {

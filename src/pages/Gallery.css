@@ -9,15 +9,20 @@
 }
 
 .about-hero-new .container {
-    max-width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 100% !important;
+    max-width: var(--container-width);
+    padding: 0 30px;
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .about-hero-new .container {
+        padding: 0 20px;
+    }
 }
 
 .about-hero-new h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 3.8rem; /* Refined for editorial feel */
+    font-size: clamp(2.2rem, 5vw, 3.8rem); /* Use clamp for better mobile fit */
     color: var(--accent-color);
     margin: 0;
     letter-spacing: 2px;

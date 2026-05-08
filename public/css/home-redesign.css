@@ -64,7 +64,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--accent-color);
+    background: var(--primary-color);
     transform: translateX(-100%);
     transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: -1;
@@ -81,8 +81,9 @@
 }
 
 .pw-btn--dark:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     border-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 .pw-btn--light {
@@ -92,8 +93,8 @@
 }
 
 .pw-btn--light:hover {
-    color: var(--primary-color);
-    border-color: var(--accent-color);
+    color: var(--secondary-color);
+    border-color: var(--primary-color);
 }
 
 .pw-btn--ghost {
@@ -108,7 +109,8 @@
 
 .pw-btn--ghost:hover {
     color: var(--secondary-color);
-    border-color: rgba(253, 251, 247, 0.8);
+    border-color: var(--primary-color);
+    background: var(--primary-color);
 }
 
 .pw-btn--gold {
@@ -118,9 +120,9 @@
 }
 
 .pw-btn--gold:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
-    border-color: var(--secondary-color);
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border-color: var(--primary-color);
 }
 
 .pw-btn--outline {
@@ -130,8 +132,9 @@
 }
 
 .pw-btn--outline:hover {
-    color: var(--primary-color);
-    border-color: var(--accent-color);
+    color: var(--secondary-color);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 /* ─── SCROLL REVEAL ──────────────────────────────────────────────────────── */
@@ -202,10 +205,16 @@
     text-align: center;
     color: var(--secondary-color);
     padding: 0 20px;
-    margin-top: 65px;
+    margin-top: 100px;
     /* Pushes text further down */
     animation: heroFadeIn 1.5s ease-out forwards;
     order: 1;
+}
+
+@media (max-width: 768px) {
+    .pw-hero__content {
+        margin-top: 0;
+    }
 }
 
 @keyframes heroFadeIn {
@@ -257,13 +266,13 @@
 
 .pw-hero__tagline {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 5.5vw, 5rem);
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
     font-weight: 400;
-    line-height: 1.3;
+    line-height: 1.2;
     color: var(--secondary-color);
     margin: 0 0 48px;
     white-space: pre-line;
-    max-width: 900px;
+    max-width: 1300px;
     margin-left: auto;
     margin-right: auto;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
@@ -407,7 +416,7 @@ section.pw-hero .pw-hero__floating-img {
 @media (max-width: 768px) {
     .pw-hero {
         min-height: 150vh;
-        padding-top: 60px;
+        padding-top: 120px; /* Reduced slightly from 140px */
         gap: 20px;
     }
 
@@ -419,6 +428,12 @@ section.pw-hero .pw-hero__floating-img {
 
     .pw-hero__title-main {
         font-size: 3.5rem;
+    }
+    .pw-hero__tagline {
+        font-size: 2.6rem;
+        line-height: 1.2;
+        margin-bottom: 30px;
+        padding: 0 20px;
     }
 }
 
@@ -960,21 +975,39 @@ section.pw-hero .pw-hero__floating-img {
 
 .pw-portfolio__header {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 50px;
-    gap: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 60px;
+    gap: 30px;
+}
+
+.pw-portfolio__header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1000px;
 }
 
 .pw-portfolio__title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-size: clamp(2.4rem, 4vw, 3.6rem); /* Standardized with largest section headings */
     font-weight: 400;
     color: var(--primary-color);
     line-height: 1.2;
     padding-bottom: 0;
     margin-bottom: 0;
+    white-space: normal; /* Allowed wrap now that it's centered */
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .pw-portfolio__title {
+        white-space: normal; /* Allow wrap on mobile */
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
 }
 
 .pw-portfolio__title::after {
@@ -1076,7 +1109,7 @@ section.pw-hero .pw-hero__floating-img {
 
 .pw-destination__heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
     font-weight: 400;
     color: var(--secondary-color);
     line-height: 1.15;
@@ -1190,7 +1223,7 @@ section.pw-hero .pw-hero__floating-img {
 
 .pw-testimonials__quote {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
     font-style: italic;
     line-height: 1.6;
     color: var(--primary-color);
@@ -1217,22 +1250,23 @@ section.pw-hero .pw-hero__floating-img {
     align-items: center;
     justify-content: center;
     gap: 22px;
-    margin-bottom: 40px;
+    margin-bottom: 0;
 }
 
 .pw-testimonials__author-flex {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
 }
 
 .pw-testimonials__author-img {
-    width: 65px;
-    height: 65px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid var(--accent-color);
+    border: 3px solid var(--accent-color);
     flex-shrink: 0;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
@@ -1253,7 +1287,8 @@ section.pw-hero .pw-hero__floating-img {
 .pw-testimonials__author-info {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 5px;
+    text-align: center;
 }
 
 .pw-testimonials__author-info strong {
@@ -1309,7 +1344,7 @@ section.pw-hero .pw-hero__floating-img {
 
 .pw-form-wrap__title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
     font-weight: 400;
     color: var(--primary-color);
     line-height: 1.15;
@@ -1520,5 +1555,14 @@ section.pw-hero .pw-hero__floating-img {
 
     .pw-hero__title-main {
         font-size: 4rem;
+    }
+
+    .pw-testimonials__author-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .pw-testimonials__author-flex {
+        gap: 20px;
     }
 }

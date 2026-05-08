@@ -48,7 +48,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 0; /* Changed to allow native scroll padding */
+    overflow-y: auto;
     animation: fadeInModal 0.4s ease;
 }
 
@@ -180,27 +181,34 @@
         grid-template-columns: 1fr;
     }
     
+    .quote-modal-overlay {
+        align-items: flex-start;
+        padding: 40px 15px; /* Added padding to ensure space at top/bottom */
+    }
+    
     .quote-modal-card {
-        padding: 50px 25px;
+        padding: 45px 22px;
+        margin: auto 0; /* Helps centering when content is smaller than screen */
     }
 
     .quote-modal-header h2 {
-        font-size: 2.2rem;
+        font-size: 1.8rem; /* Slightly smaller for mobile */
     }
 
     .floating-quote-badge {
-        bottom: 20px;
-        right: 20px;
+        bottom: 85px; /* Stacked above WhatsApp */
+        right: 15px;
         top: auto;
         transform: none;
-        border-radius: 50px;
+        border-radius: 50%;
         position: fixed;
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.25);
     }
 
     .badge-text {

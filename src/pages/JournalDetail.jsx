@@ -52,22 +52,9 @@ const JournalDetail = () => {
             {/* ═══ SECTION: PAGE BANNER ═══ */}
             <section className="about-hero-new" style={{ padding: '160px 0 140px' }}>
                 <div className="pw-container reveal" style={{ position: 'relative' }}>
-                    <h1 style={{ fontSize: '2.8rem', lineHeight: '1.2', marginBottom: '0', textAlign: 'center', color: 'var(--accent-color)' }}>{post.title}</h1>
+                    <h1 className="pw-article-title">{post.title}</h1>
                     
-                    <div style={{ 
-                        position: 'absolute',
-                        bottom: '-80px',
-                        left: '0',
-                        display: 'flex', 
-                        alignItems: 'center',
-                        gap: '30px',
-                        color: 'var(--secondary-color)',
-                        opacity: '0.9',
-                        fontSize: '0.85rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.15em',
-                        fontWeight: '600'
-                    }}>
+                    <div className="pw-article-meta">
                         <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <Calendar size={14} color="var(--accent-color)" /> {post.date}
                         </span>
@@ -88,37 +75,25 @@ const JournalDetail = () => {
                         fontFamily: "'Outfit', sans-serif",
                         fontWeight: '300'
                     }}>
-                        {/* Intro Paragraph First */}
-                        <div style={{ marginBottom: '40px' }}>
-                            {renderText(introPara)}
-                        </div>
-
                         {/* Featured Image */}
-                        <div style={{ marginBottom: '60px', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.08)' }}>
+                        <div className="pw-article-img-wrap">
                             <img 
                                 src={resolveMediaURL(post.image)} 
                                 alt={post.title} 
-                                style={{ 
-                                    width: '100%', 
-                                    height: '500px', 
-                                    objectFit: 'cover', 
-                                    display: 'block' 
-                                }} 
+                                className="pw-article-img-inner"
                             />
+                        </div>
+
+                        {/* Intro Paragraph First */}
+                        <div style={{ marginBottom: '40px' }}>
+                            {renderText(introPara)}
                         </div>
 
 
                         {restOfContent.map((para, idx) => {
                             if (para.startsWith('###')) {
                                 return (
-                                    <h3 key={idx} style={{ 
-                                        fontFamily: "'Playfair Display', serif", 
-                                        fontSize: '2.5rem', 
-                                        fontWeight: '400',
-                                        margin: '60px 0 30px',
-                                        color: 'var(--primary-color)',
-                                        lineHeight: '1.3'
-                                    }}>
+                                    <h3 key={idx} className="pw-article-h3">
                                         {para.replace('###', '').trim()}
                                     </h3>
                                 )
@@ -138,12 +113,7 @@ const JournalDetail = () => {
                         boxShadow: '0 30px 60px rgba(0,0,0,0.1)'
                     }}>
                         <span className="pw-label pw-label--light">{renderText(journals.ctaLabel || "READY TO START?")}</span>
-                        <h2 style={{ 
-                            fontFamily: "'Cormorant Garamond', serif", 
-                            fontSize: '2.8rem', 
-                            margin: '30px 0 50px',
-                            fontWeight: '300'
-                        }}>
+                        <h2 className="pw-article-cta-title">
                             {renderText(journals.ctaTitle || "Let us craft your _Unique Narrative_")}
                         </h2>
                         <Link to="/contact" className="pw-btn pw-btn--gold">{renderText(journals.ctaBtnText || "Get in Touch — Start Planning")}</Link>

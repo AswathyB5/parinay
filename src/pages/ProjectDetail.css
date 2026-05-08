@@ -127,7 +127,7 @@
 
 .pd-meta-row__item {
     flex: 1;
-    padding: 0 40px;
+    padding: 20px 40px;
     text-align: center;
     border-right: 1px solid rgba(0,0,0,0.08);
 }
@@ -158,7 +158,7 @@
 /* DESCRIPTION SECTION */
 .pd-description {
     max-width: 900px;
-    margin: 0 auto 120px;
+    margin: 100px auto 120px;
     text-align: center;
 }
 
@@ -243,7 +243,7 @@
     position: relative;
     max-width: 1240px;
     width: 100%;
-    height: 450px;
+    height: 380px;
     margin: 0 auto;
     background: #000;
     overflow: hidden;
@@ -306,6 +306,7 @@
 .pd-result {
     padding-bottom: 40px;
     text-align: center;
+    margin-top: 120px;
 }
 
 .pd-result__inner {
@@ -387,52 +388,62 @@
 .delay-1 { transition-delay: 0.15s; }
 .delay-2 { transition-delay: 0.3s; }
 
-/* RESPONSIVE */
-@media (max-width: 1200px) {
-    .pd-intro__grid {
-        gap: 60px;
+@media (max-width: 768px) {
+    .pd-meta-row {
+        flex-direction: column;
+        padding: 40px 0;
     }
-}
-
-@media (max-width: 992px) {
-    .pd-intro__grid {
-        grid-template-columns: 1fr;
+    .pd-meta-row__item {
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        padding: 30px 20px;
     }
-    .pd-intro__meta {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        order: 2;
-    }
-    .pd-intro__text {
-        order: 1;
-        margin-bottom: 60px;
-    }
-    .pd-gallery__grid {
-        grid-template-columns: 1fr;
-    }
-    .pd-hero {
-        height: 80vh;
-    }
-    .pd-title {
-        font-size: 4.5rem;
+    .pd-meta-row__item:last-child {
+        border-bottom: none;
     }
 }
 
 @media (max-width: 600px) {
     .pd-hero {
-        padding: 100px 20px 60px;
+        padding: 120px 20px 80px;
+        min-height: 40vh;
     }
     .pd-title {
-        font-size: 3.2rem;
+        font-size: 2.2rem;
     }
-    .pd-intro__meta {
+    .pd-main {
+        padding: 40px 0;
+    }
+    .pd-main-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    .pd-meta-row__item p {
+        font-size: 1.2rem;
+    }
+    .pd-description {
+        margin: 60px auto 80px;
+    }
+    .pd-gallery__grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     .pd-moment__wrap {
-        height: 60vh;
+        height: 240px;
     }
-    .pd-section-title {
-        font-size: 2.8rem;
+    .pd-result {
+        margin-top: 80px;
+    }
+    .pd-sub-title {
+        font-size: 1.8rem;
+    }
+    .pd-body {
+        font-size: 1rem;
+    }
+    .pd-result__inner p {
+        font-size: 1.1rem;
+    }
+    .pd-final-cta h2 {
+        font-size: 2rem;
     }
 }

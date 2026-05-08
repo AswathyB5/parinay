@@ -88,14 +88,15 @@ const ProjectDetail = () => {
             <section className="pd-main section-padding">
                 <div className="container">
                     {/* PROJECT HEADER FOCUS */}
+                    {/* PROJECT HEADER FOCUS */}
                     <div className="pd-header-focus reveal">
                         <span className="pd-label pd-label--dark">{project.category} Wedding</span>
-                        <h2 className="pd-main-title">{project.title}</h2>
+                        <h2 className="pd-main-title">{renderText(project.title)}</h2>
                         
                         <div className="pd-meta-row">
                             <div className="pd-meta-row__item">
                                 <h3>Client</h3>
-                                <p>{project.title}</p>
+                                <p>{renderText(project.title)}</p>
                             </div>
                             <div className="pd-meta-row__item">
                                 <h3>Date</h3>
@@ -128,6 +129,7 @@ const ProjectDetail = () => {
                                     ></iframe>
                                 ) : (
                                     <video 
+                                        key={resolveMediaURL(project.video)}
                                         src={resolveMediaURL(project.video)} 
                                         autoPlay 
                                         muted 
@@ -154,12 +156,13 @@ const ProjectDetail = () => {
                     </div>
 
                     {/* PROJECT DESCRIPTION */}
-                    <div className="pd-description reveal" style={{ marginTop: '100px' }}>
+                    {/* PROJECT DESCRIPTION */}
+                    <div className="pd-description reveal">
                         <h3 className="pd-sub-title">PROJECT OVERVIEW</h3>
                         <div className="pd-text-wrap">
                             {project.overview ? (
                                 project.overview.split('\n\n').map((para, i) => (
-                                    <p key={i} className="pd-body">{renderText(para)}</p>
+                                    <div key={i} className="pd-body" style={{ marginBottom: '1.5em' }}>{renderText(para)}</div>
                                 ))
                             ) : (
                                 <>
@@ -183,7 +186,7 @@ const ProjectDetail = () => {
                             {projectImages.map((img, idx) => (
                                 <div key={idx} className={`pd-gallery__item reveal delay-${idx % 3}`}>
                                     {isVideoUrl(img.url) ? (
-                                        <video src={resolveMediaURL(img.url)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <video key={resolveMediaURL(img.url)} src={resolveMediaURL(img.url)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     ) : (
                                         <img src={resolveMediaURL(img.url)} alt={img.alt} loading="lazy" />
                                     )}
@@ -194,7 +197,8 @@ const ProjectDetail = () => {
                 )}
 
                 {/* PROJECT RESULT */}
-                <div className="container pd-result reveal" style={{ marginTop: '120px' }}>
+                {/* PROJECT RESULT */}
+                <div className="container pd-result reveal">
                     <div className="pd-result__inner">
                         <h3 className="pd-sub-title">PROJECT RESULT</h3>
                         <div className="pd-text-wrap">

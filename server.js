@@ -8,6 +8,13 @@ import dotenv from 'dotenv';
 import multer from 'multer';
 import Content from './models/Content.js';
 import Inquiry from './models/Inquiry.js';
+import {
+    createAdminSessionToken,
+    setAdminSessionCookie,
+    clearAdminSessionCookie,
+    verifyAdminSessionFromReq,
+    timingSafeEqualString,
+} from './api/_lib/auth.js';
 
 dotenv.config();
 
@@ -72,6 +79,61 @@ const upload = multer({
     },
 });
 
+// ── Admin session middleware (cookie-based) ─────────────────────────────
+const requireAdminMiddleware = (req, res, next) => {
+    const session = verifyAdminSessionFromReq(req);
+    if (!session?.authenticated) {
+        return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+    return next();
+};
+
+/* ── Admin Auth (local dev server.js) ──────────────────────────────────── */
+app.post('/api/admin/login', (req, res) => {
+    const { username, password } = req.body || {};
+
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    
+    console.log(`[DEBUG] Login Attempt: user="${username}", expected="${adminUsername}"`);
+    
+    if (!adminUsername || !adminPassword) {
+        return res.status(500).json({
+            success: false,
+            error: 'Admin credentials are not configured. Set ADMIN_USERNAME and ADMIN_PASSWORD.',
+        });
+    }
+
+    if (String(username ?? '') !== String(adminUsername)) {
+        return res.status(401).json({ success: false, error: 'Invalid username or password.' });
+    }
+
+    const ok = timingSafeEqualString(password, adminPassword);
+    if (!ok) return res.status(401).json({ success: false, error: 'Invalid username or password.' });
+
+    try {
+        const ttlSeconds = Number(process.env.ADMIN_SESSION_TTL_SECONDS || 2 * 60 * 60);
+        const { token, maxAgeSeconds } = createAdminSessionToken(String(username), ttlSeconds);
+        setAdminSessionCookie(res, token, maxAgeSeconds);
+        return res.status(200).json({ success: true, username: String(username) });
+    } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.post('/api/admin/logout', (_req, res) => {
+    clearAdminSessionCookie(res);
+    return res.status(200).json({ success: true });
+});
+
+app.get('/api/admin/me', (req, res) => {
+    const session = verifyAdminSessionFromReq(req);
+    return res.status(200).json({
+        authenticated: !!session?.authenticated,
+        username: session?.username || null,
+    });
+});
+
 /* ══════════════════════════════════════════════════
    ROUTES
 ══════════════════════════════════════════════════ */
@@ -86,7 +148,7 @@ app.get('/', (_req, res) => {
 });
 
 /* ── Upload File ───────────────────────────────── */
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', requireAdminMiddleware, upload.single('file'), (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ success: false, error: 'No file received.' });
@@ -121,7 +183,7 @@ app.get('/api/content', async (_req, res) => {
 });
 
 /* ── Save Content ──────────────────────────────── */
-app.post('/api/content', async (req, res) => {
+app.post('/api/content', requireAdminMiddleware, async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
         return res.status(503).json({ error: 'Database not connected. Cannot save content.' });
     }
@@ -135,7 +197,7 @@ app.post('/api/content', async (req, res) => {
         const doc = new Content({ data: payload });
         await doc.save();
 
-        // 2. Save to Local JSON (for Vercel/Production Fallback)
+        // 2. Save to local JSON (production/non-local fallback)
         try {
             const contentPath = path.join(__dirname, 'src', 'data', 'site-content.json');
             const dataDir = path.dirname(contentPath);
@@ -155,7 +217,7 @@ app.post('/api/content', async (req, res) => {
 });
 
 /* ── Delete Uploaded File ──────────────────────── */
-app.delete('/api/upload/:filename', (req, res) => {
+app.delete('/api/upload/:filename', requireAdminMiddleware, (req, res) => {
     const filepath = path.join(uploadsDir, req.params.filename);
     if (!fs.existsSync(filepath)) {
         return res.status(404).json({ success: false, error: 'File not found.' });
@@ -194,7 +256,7 @@ app.post('/api/inquiries', async (req, res) => {
 });
 
 /* ── Get All Inquiries ─────────────────────────── */
-app.get('/api/inquiries', async (_req, res) => {
+app.get('/api/inquiries', requireAdminMiddleware, async (_req, res) => {
     if (mongoose.connection.readyState !== 1) {
         return res.status(503).json({ error: 'Database not connected.' });
     }
@@ -208,7 +270,7 @@ app.get('/api/inquiries', async (_req, res) => {
 });
 
 /* ── Update Inquiry Status ─────────────────────── */
-app.put('/api/inquiries/:id', async (req, res) => {
+app.put('/api/inquiries/:id', requireAdminMiddleware, async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
         return res.status(503).json({ error: 'Database not connected.' });
     }
@@ -230,7 +292,7 @@ app.put('/api/inquiries/:id', async (req, res) => {
 });
 
 /* ── Delete Inquiry ────────────────────────────── */
-app.delete('/api/inquiries/:id', async (req, res) => {
+app.delete('/api/inquiries/:id', requireAdminMiddleware, async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
         return res.status(503).json({ error: 'Database not connected.' });
     }
@@ -248,7 +310,8 @@ app.delete('/api/inquiries/:id', async (req, res) => {
 });
 
 /* ── Catch-all for API 404s ── */
-app.use('/api/*', (req, res) => {
+app.use((req, res, next) => {
+    if (!req.path.startsWith('/api/')) return next();
     console.warn(`[404] ${req.method} ${req.originalUrl}`);
     res.status(404).json({ success: false, error: `Route ${req.originalUrl} not found on this server.` });
 });
@@ -258,9 +321,9 @@ const distPath = path.join(__dirname, 'dist');
 if (fs.existsSync(distPath)) {
     console.log(`[Static] Serving frontend from ${distPath}`);
     app.use(express.static(distPath));
-    app.get('*', (req, res) => {
+    app.get(/.*/, (req, res) => {
         // Skip API routes already handled
-        if (req.path.startsWith('/api')) return;
+        if (req.path.startsWith('/api')) return res.status(404).end();
         res.sendFile(path.join(distPath, 'index.html'));
     });
 }
@@ -275,19 +338,24 @@ app.use((err, _req, res, _next) => {
    START
 ══════════════════════════════════════════════════ */
 const PORT = process.env.PORT || 5000;
+const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI;
 
 app.listen(PORT, () => {
     console.log(`[Server] Listening on http://localhost:${PORT}`);
 });
 
-mongoose
-    .connect(process.env.MONGODB_URI, {
-        serverSelectionTimeoutMS: 8000,
-    })
-    .then(() => {
-        console.log('[MongoDB] Connected successfully.');
-    })
-    .catch((err) => {
-        console.error('[MongoDB] Connection failed:');
-        console.error(err);
-    });
+if (!mongoUri) {
+    console.error('[MongoDB] Missing connection string. Set MONGODB_URI (or MONGO_URI) in environment variables.');
+} else {
+    mongoose
+        .connect(mongoUri, {
+            serverSelectionTimeoutMS: 8000,
+        })
+        .then(() => {
+            console.log('[MongoDB] Connected successfully.');
+        })
+        .catch((err) => {
+            console.error('[MongoDB] Connection failed:');
+            console.error(err);
+        });
+}

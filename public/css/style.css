@@ -114,7 +114,7 @@ section {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 9999;
     padding: 30px 0;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     background: transparent;
@@ -170,7 +170,8 @@ body.lightbox-open .main-header {
 .logo {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     flex-shrink: 0;
     overflow: visible;
@@ -342,7 +343,7 @@ body.lightbox-open .main-header {
 }
 
 .btn-primary:hover {
-    background: var(--accent-color);
+    background: #12231a; /* Darker green */
     transform: translateY(-5px);
 }
 
@@ -353,8 +354,8 @@ body.lightbox-open .main-header {
 }
 
 .btn-secondary:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .btn-outline {
@@ -705,6 +706,42 @@ body.lightbox-open .main-header {
     text-align: center;
     font-size: 0.8rem;
     opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-admin-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    opacity: 0.75;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+    position: absolute;
+    left: 0;
+}
+
+.footer-admin-link:hover {
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-admin-link {
+        position: static;
+    }
 }
 
 /* WhatsApp Float */
@@ -731,6 +768,21 @@ body.lightbox-open .main-header {
 
 .whatsapp-btn:hover {
     transform: scale(1.05) translateY(-5px);
+}
+
+@media (max-width: 600px) {
+    .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+        bottom: 20px;
+        right: 15px;
+    }
+    .whatsapp-btn span {
+        display: none;
+    }
 }
 
 /* Animations */
