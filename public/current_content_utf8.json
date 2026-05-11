@@ -5,6 +5,10 @@
         "heroBtnUrl": "/contact",
         "heroVideo1": "/uploads/Untitled design.mp4",
         "heroVideo2": "/uploads/12874721_1920_1080_30fps.mp4",
+        "heroVideos": [
+            { "id": 1, "video": "/uploads/Untitled design.mp4" },
+            { "id": 2, "video": "/uploads/12874721_1920_1080_30fps.mp4" }
+        ],
         "heroImages": [
             {
                 "id": 1,
