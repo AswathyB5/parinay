@@ -131,7 +131,43 @@ const Home = () => {
 
     // --- Testimonial Carousel Logic ---
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
-    const testimonials = home.testimonials || [];
+    const testimonials = useMemo(() => [
+        { 
+            id: 1, 
+            text: "To make this unique vision a reality, we did extensive online research before meeting Ambadi from Parinay Weddings. From our very first interaction, we felt a deep sense of confidence and reassurance that we were in the right hands. Every detail was thoughtfully planned, keeping in mind the sentiments, traditions, and expectations of two new families coming together.", 
+            author: "Priya Anil", 
+            location: "Kerala", 
+            image: "uploads/upload_1777030403086_4422.png" 
+        },
+        { 
+            id: 2, 
+            text: "A big thanks to Parinay Weddings & Events for their outstanding efforts in managing our son’s wedding reception, held at Trivandrum. The planning, execution, and attention to detail were exceptional. Truly professional and dependable_ highly recommended", 
+            author: "Nila & Nikhil", 
+            location: "Trivandrum", 
+            image: "uploads/upload_1777030397717_3261.png" 
+        },
+        { 
+            id: 3, 
+            text: "Madona and her team made our wedding magical at The Leela Ashtamudi. Everything was well organised and perfectly executed. The decoration team grasped my expectation and customised the designs.", 
+            author: "Madona & team", 
+            location: "Kollam", 
+            image: "uploads/upload_1777030390648_5764.png" 
+        },
+        { 
+            id: 4, 
+            text: "We recently worked with Parinay and team to style our wedding. Right from the start Parinay and team was friendly,approachable and understood the concept we wanted to achieve. To be honest they helped us create our dream wedding. ", 
+            author: "Ruchitha & Anand", 
+            location: "Kerala", 
+            image: "uploads/upload_1777030376259_8552.png" 
+        },
+        { 
+            id: 5, 
+            text: "The moment I walked in, I knew I had to go find the Parinay Weddings team and theank them right away. It was THAT beautiful! I know I was a pain sometimes, but you handled everything so professionally and delivered every little thing I asked for.", 
+            author: "Krishna & Krishna", 
+            location: "Kerala", 
+            image: "uploads/upload_1777030363686_142.png" 
+        }
+    ], []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -139,9 +175,51 @@ const Home = () => {
         }, 5000);
         return () => clearInterval(interval);
     }, [testimonials.length]);
+    // --- YouTube Hardcoded Logic ---
+    const youtubeVideos = useMemo(() => [
+        { id: 1, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
+        { id: 2, url: "https://www.youtube.com/embed/S_8V3t73WzE?si=D8_H3_X_H_X_H_X" },
+        { id: 3, url: "https://www.youtube.com/embed/S_8V3t73WzE?si=D8_H3_X_H_X_H_X" }
+    ], []);
+
+    // --- Journals Hardcoded Logic ---
+    const journalsList = useMemo(() => [
+        {
+            id: 101,
+            title: "Choosing the Perfect Backwater Venue in Kerala",
+            date: "February 12, 2026",
+            excerpt: "Discover our curated list of the most stunning luxury resorts for your destination backwater wedding.",
+            image: "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg",
+            author: "By Parinay"
+        },
+        {
+            id: 102,
+            title: "Floral Trends for 2026: Sustainable Elegance",
+            date: "January 28, 2026",
+            excerpt: "From locally sourced blooms to artisanal floral installations, explore the future of wedding decor.",
+            image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
+            author: "By Parinay"
+        },
+        {
+            id: 103,
+            title: "Planning Your Destination Wedding: A Step-by-Step Guide",
+            date: "January 15, 2026",
+            excerpt: "From budget allocation to guest management, here is everything you need to know about planning your big day.",
+            image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+            author: "By Parinay"
+        }
+    ], []);
+
     // --- Portfolio Auto-slide Logic ---
     const portfolioRef = useRef(null);
-    const portfolioItems = home.portfolioItems || [];
+    const portfolioItems = useMemo(() => [
+        { id: 1, title: "Tropical Paradise", location: "Kerala", image: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80" },
+        { id: 2, title: "Backwater Magic", location: "Kumarakom", image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg" },
+        { id: 3, title: "Mist & Mountains", location: "Munnar", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" },
+        { id: 4, title: "Timeless Romance", location: "Udaipur", image: "https://briannakirkphotography.com/wp-content/uploads/2023/03/Ana-and-Jonah-Forden-Wedding-8.20.21-Cover-Pic-BKIRK-1-1.jpg" },
+        { id: 5, title: "Sunset Vows", location: "Goa", image: "https://i.pinimg.com/236x/e7/03/e5/e703e5e43a036a403e3d46bbfb02577e.jpg" },
+        { id: 6, title: "Floral Elegance", location: "Jaipur", image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80" }
+    ], []);
 
     useEffect(() => {
         const portfolio = portfolioRef.current;
@@ -635,7 +713,7 @@ const Home = () => {
 
                 <div className="pw-container">
                     <div className="pw-portfolio__footer reveal" style={{ marginTop: '60px', textAlign: 'center' }}>
-                        <Link to={home.portfolioViewAllUrl || '/stories'} className="pw-btn pw-btn--outline">{home.portfolioViewAllText}</Link>
+                        <Link to="/stories" className="pw-btn pw-btn--outline">Explore Our Wedding Portfolio →</Link>
                     </div>
                 </div>
             </section><br />
@@ -653,9 +731,9 @@ const Home = () => {
                             <p style={{ marginBottom: '25px' }}>{renderText(home.youtubeText1)}</p>
                             <p style={{ marginBottom: '35px' }}>{renderText(home.youtubeText2)}</p>
 
-                            <a href={home.youtubeBtnUrl} target="_blank" rel="noopener noreferrer"
+                            <a href="https://www.youtube.com/@ParinayWeddings" target="_blank" rel="noopener noreferrer"
                                 className="btn btn-outline youtube-cta-btn">
-                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> {renderText(home.youtubeBtnText)}
+                                <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> Visit Our YouTube Channel
                             </a>
                         </div>
 
@@ -668,12 +746,12 @@ const Home = () => {
                                         <div className="video-frame">
                                             {home.youtubeEmbedUrl ? (
                                                 <iframe width="560" height="315"
-                                                    src={getYoutubeEmbedUrl(home.youtubeEmbedUrl)}
+                                                    src="https://www.youtube.com/embed/s4dWp9_nNYk"
                                                     title="Featured Video"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                     referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                             ) : (
-                                                (home.youtubeVideos || []).slice(0, 1).map((vid, i) => (
+                                                (youtubeVideos || []).slice(0, 1).map((vid, i) => (
                                                     <React.Fragment key={vid.id || i}>
                                                         {isVideoUrl(vid.url) ? (
                                                             <video src={vid.url} controls width="100%" height="100%" />
@@ -788,14 +866,7 @@ const Home = () => {
                                         <video src={resolveMediaURL(testimonials[currentTestimonial]?.image)} autoPlay muted loop playsInline />
                                     ) : (
                                         <img
-                                        src={resolveMediaURL(
-                                            currentTestimonial === 0 ? 'uploads/upload_1777030403086_4422.png' :
-                                            currentTestimonial === 1 ? 'uploads/upload_1777030397717_3261.png' :
-                                            currentTestimonial === 2 ? 'uploads/upload_1777030390648_5764.png' :
-                                            currentTestimonial === 3 ? 'uploads/upload_1777030376259_8552.png' :
-                                            currentTestimonial === 4 ? 'uploads/upload_1777030363686_142.png' :
-                                            testimonials[currentTestimonial]?.image
-                                        )}
+                                        src={resolveMediaURL(testimonials[currentTestimonial]?.image)}
                                         alt={testimonials[currentTestimonial]?.author}
                                         className="pw-testimonials__img"
                                     />)}
@@ -843,20 +914,10 @@ const Home = () => {
                     </div>
 
                     <div className="pw-journal__grid">
-                        {content.journals.journalsList.slice(0, 3).map((item) => (
+                        {journalsList.map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    {isVideoUrl(item.image) ? (
-                                        <video src={resolveMediaURL(item.image)} autoPlay muted loop playsInline className="pw-journal__img" />
-                                    ) : (
-                                        <img 
-                                            src={item.title === "Choosing the Perfect Backwater Venue in Kerala" 
-                                                ? "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg" 
-                                                : resolveMediaURL(item.image)} 
-                                            alt={item.title} 
-                                            className="pw-journal__img" 
-                                        />
-                                    )}
+                                    <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
                                 </div>
                                 <span className="pw-journal__meta">{renderText(item.date)}</span>
                                 <h3 className="pw-journal__title">{renderText(item.title)}</h3>

@@ -8,6 +8,50 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
     const [activeFaq, setActiveFaq] = useState(null);
 
     // Safety guards for data access
+    // --- Hardcoded Stories Data ---
+    const destinationStories = [
+        {
+            id: 1,
+            title: "Traditional Hindu Wedding",
+            location: "Trivandrum",
+            image: "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg",
+            badge: "TRADITIONAL",
+            date: "Jan 2024",
+            overview: "A vibrant celebration of love and culture..."
+        },
+        {
+            id: 2,
+            title: "Backwater Serenity",
+            location: "Kumarakom",
+            image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg",
+            badge: "BACKWATERS",
+            date: "Dec 2023",
+            overview: "An intimate ceremony by the serene backwaters..."
+        },
+        {
+            id: 3,
+            title: "Luxury Beach Wedding",
+            location: "Kovalam",
+            image: "https://briannakirkphotography.com/wp-content/uploads/2023/03/Ana-and-Jonah-Forden-Wedding-8.20.21-Cover-Pic-BKIRK-1-1.jpg",
+            badge: "BEACH",
+            date: "Nov 2023",
+            overview: "A grand celebration overlooking the Arabian Sea..."
+        }
+    ];
+
+    const traditionalStories = [
+        { id: 4, title: "Grand Temple Wedding", location: "Guruvayur", image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", badge: "TEMPLE", date: "Feb 2024", overview: "A sacred union at the historic temple..." },
+        { id: 5, title: "Royal Palace Ceremony", location: "Mysore", image: "https://i.pinimg.com/736x/d9/16/2a/d9162aded7c5c2347216669d559b265b.jpg", badge: "PALACE", date: "Jan 2024", overview: "A majestic wedding in the heart of the palace..." }
+    ];
+    const themedStories = [
+        { id: 6, title: "Bohemian Rhapsody", location: "Wayanad", image: "https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg", badge: "BOHO", date: "Mar 2024", overview: "A free-spirited celebration in the misty hills..." },
+        { id: 7, title: "Vintage Glamour", location: "Kochi", image: "https://img.freepik.com/premium-photo/bride-groom-pose-front-window-dark-room_444642-4894.jpg", badge: "VINTAGE", date: "Feb 2024", overview: "A classic and sophisticated wedding affair..." }
+    ];
+
+    const currentStoriesList = sectionKey === "storiesDestination" ? destinationStories : 
+                               sectionKey === "storiesTraditional" ? traditionalStories : 
+                               themedStories;
+
     const stories = (content && content[sectionKey]) || (content && content.storiesDestination) || { storiesList: [] };
     const home = (content && content.home) || { testimonials: [] };
     const testimonials = home.testimonials || [];
@@ -133,7 +177,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
 
             {/* WEDDLIN-STYLE STORY LIST */}
             <section className="wsl-section">
-                {stories.storiesList && stories.storiesList.filter(item => item.title && item.title.trim()).map((item, index) => {
+                {currentStoriesList.map((item, index) => {
                     const isEven = index % 2 === 0;
                     const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");
                     const sentences = item.overview ? item.overview.split(/(?<=[.!?])\s+/) : [];
@@ -434,7 +478,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundImage: `url(${resolveMediaURL(stories.heroImage)})`,
+                    backgroundImage: `url(${resolveMediaURL('https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid\u0026w=740\u0026q=80')})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: 0.15,

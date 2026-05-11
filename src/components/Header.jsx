@@ -45,7 +45,7 @@ const Header = () => {
 
     const isScrolled = scrolled || location.pathname !== '/';
 
-    const fullLogoPath = resolveMediaURL(logoImage);
+    const fullLogoPath = resolveMediaURL('uploads/upload_1777017695831_3523.png');
 
     return (
         <header className={`main-header ${isScrolled ? 'scrolled' : ''}`}>

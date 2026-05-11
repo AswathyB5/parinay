@@ -56,7 +56,7 @@ const Footer = () => {
                         <Link to="/" className="footer-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '15px' }}>
                             {logoImage && (
                                 <img
-                                    src={resolveMediaURL(logoImage)}
+                                    src={resolveMediaURL('uploads/upload_1777017695831_3523.png')}
                                     alt={logoText}
                                     style={{ 
                                         width: logoWidth, 
