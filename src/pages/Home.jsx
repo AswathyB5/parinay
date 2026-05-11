@@ -100,8 +100,7 @@ const Home = () => {
         resolveMediaURL('/uploads/12874721_1920_1080_30fps.mp4')
     ], []);
 
-    // Fallback if needed for other sections
-    const home = content.home;
+
 
     // --- Hero Floating Image Slideshow Logic ---
     const [currentHeroImg, setCurrentHeroImg] = useState(0);
