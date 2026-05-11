@@ -135,37 +135,37 @@ const Home = () => {
         { 
             id: 1, 
             text: "To make this unique vision a reality, we did extensive online research before meeting Ambadi from Parinay Weddings. From our very first interaction, we felt a deep sense of confidence and reassurance that we were in the right hands. Every detail was thoughtfully planned, keeping in mind the sentiments, traditions, and expectations of two new families coming together.", 
-            author: "Priya Anil", 
+            author: "Priya & Anil", 
             location: "Kerala", 
-            image: "uploads/upload_1777030403086_4422.png" 
+            image: "uploads/priya_anil.png" 
         },
         { 
             id: 2, 
             text: "A big thanks to Parinay Weddings & Events for their outstanding efforts in managing our son’s wedding reception, held at Trivandrum. The planning, execution, and attention to detail were exceptional. Truly professional and dependable_ highly recommended", 
             author: "Nila & Nikhil", 
             location: "Trivandrum", 
-            image: "uploads/upload_1777030397717_3261.png" 
+            image: "uploads/nikhila_nikhil.png" 
         },
         { 
             id: 3, 
             text: "Madona and her team made our wedding magical at The Leela Ashtamudi. Everything was well organised and perfectly executed. The decoration team grasped my expectation and customised the designs.", 
-            author: "Madona & team", 
+            author: "Sivanandhitha & Sorna", 
             location: "Kollam", 
-            image: "uploads/upload_1777030390648_5764.png" 
+            image: "uploads/sivanandhitha_sorna.png" 
         },
         { 
             id: 4, 
-            text: "We recently worked with Parinay and team to style our wedding. Right from the start Parinay and team was friendly,approachable and understood the concept we wanted to achieve. To be honest they helped us create our dream wedding. ", 
+            text: "We recently worked with Parinay and team to style our wedding. Right from the start Parinay and team was friendly, approachable and understood the concept we wanted to achieve. To be honest they helped us create our dream wedding. ", 
             author: "Ruchitha & Anand", 
             location: "Kerala", 
-            image: "uploads/upload_1777030376259_8552.png" 
+            image: "uploads/ruchitha_anand.png" 
         },
         { 
             id: 5, 
-            text: "The moment I walked in, I knew I had to go find the Parinay Weddings team and theank them right away. It was THAT beautiful! I know I was a pain sometimes, but you handled everything so professionally and delivered every little thing I asked for.", 
+            text: "The moment I walked in, I knew I had to go find the Parinay Weddings team and thank them right away. It was THAT beautiful! I know I was a pain sometimes, but you handled everything so professionally and delivered every little thing I asked for.", 
             author: "Krishna & Krishna", 
             location: "Kerala", 
-            image: "uploads/upload_1777030363686_142.png" 
+            image: "uploads/krishna.png" 
         }
     ], []);
 
@@ -407,6 +407,7 @@ const Home = () => {
                         <video
                             key={`${index}-${src}`}
                             muted
+                            loop
                             playsInline
                             className={`pw-hero__video ${currentVid === index ? 'is-active' : ''}`}
                             id={`heroVid${index}`}
@@ -449,7 +450,7 @@ const Home = () => {
             {/* ═══ SECTION 2: HERO STATEMENT & STATS ═══ */}
             <section className="pw-intro">
                 <div className="pw-container">
-                    <div className="pw-intro__content reveal" style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto' }}>
+                    <div className="pw-intro__content reveal" style={{ textAlign: 'center', maxWidth: '940px', margin: '0 auto' }}>
 
                         <h2 className="pw-intro__heading">
                             {renderText(home.introHeading)}
@@ -503,7 +504,14 @@ const Home = () => {
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                         <span className="section-label">{renderText(home.servicesLabel)}</span>
-                        <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '20px' }}>
+                        <h2 style={{ 
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                            fontWeight: '400',
+                            lineHeight: '1.1',
+                            color: 'var(--primary-color)',
+                            marginBottom: '20px' 
+                        }}>
                             {renderText(home.servicesHeading)}
                         </h2>
                         <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem', color: '#666', lineHeight: '1.8' }}>
@@ -725,13 +733,20 @@ const Home = () => {
                         {/* Left: Editorial Text Content */}
                         <div className="youtube-text-content">
                             <span className="editorial-label">{renderText(home.youtubeLabel)}</span>
-                            <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3.8rem)', margin: '20px 0 35px', lineHeight: '1.1' }}>
+                            <h2 style={{ 
+                                fontFamily: "'Playfair Display', serif",
+                                fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                                fontWeight: '400',
+                                lineHeight: '1.1',
+                                color: 'var(--primary-color)',
+                                margin: '20px 0 35px' 
+                            }}>
                                 {renderText(home.youtubeHeading)}
                             </h2>
                             <p style={{ marginBottom: '25px' }}>{renderText(home.youtubeText1)}</p>
                             <p style={{ marginBottom: '35px' }}>{renderText(home.youtubeText2)}</p>
 
-                            <a href="https://www.youtube.com/@ParinayWeddings" target="_blank" rel="noopener noreferrer"
+                            <a href="https://youtube.com/@parinayweddingseventsiq5626?si=EsQeDR9NDMoSQKqD" target="_blank" rel="noopener noreferrer"
                                 className="btn btn-outline youtube-cta-btn">
                                 <i className="fab fa-youtube" style={{ color: '#ff0000', marginRight: '10px', fontSize: '1.2rem' }}></i> Visit Our YouTube Channel
                             </a>
@@ -849,9 +864,11 @@ const Home = () => {
                     <div className="pw-testimonials__inner">
                         <span className="pw-label pw-label--gold">{renderText(home.testimonialLabel || 'Testimonials')}</span>
                         <h2 className="pw-testimonials__heading" style={{ 
-                            fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', 
-                            color: 'var(--primary-color)', 
-                            fontFamily: 'Playfair Display, serif',
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                            fontWeight: '400',
+                            lineHeight: '1.1',
+                            color: 'var(--primary-color)',
                             marginBottom: '40px',
                             textAlign: 'center'
                         }}>
@@ -905,7 +922,14 @@ const Home = () => {
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                         <span className="pw-label">{renderText(content.journals.sectionLabel)}</span>
-                        <h2 className="pw-section-header__title" style={{ fontSize: '3.5rem', marginBottom: '20px' }}>
+                        <h2 className="pw-section-header__title" style={{ 
+                            fontFamily: "'Playfair Display', serif",
+                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                            fontWeight: '400',
+                            lineHeight: '1.1',
+                            color: 'var(--primary-color)',
+                            marginBottom: '20px' 
+                        }}>
                             {renderText(content.journals.sectionTitle)}
                         </h2>
                         <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem', color: '#666' }}>

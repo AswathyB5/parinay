@@ -16,11 +16,11 @@ const Header = () => {
     const logoHeight    = h.logoHeight    || 'auto';
     const nav1Label     = h.nav1Label     || 'Home';
     const nav1Url       = h.nav1Url       || '/';
-    const nav2Label     = h.nav2Label     || 'About';
+    const nav2Label     = h.nav2Label     || 'Our Story';
     const nav2Url       = h.nav2Url       || '/about';
     const nav3Label     = h.nav3Label     || 'Services';
     const nav3Url       = h.nav3Url       || '/services';
-    const nav4Label     = h.nav4Label     || 'Gallery';
+    const nav4Label     = h.nav4Label     || 'Our Portfolio';
     const nav4Url       = h.nav4Url       || '/stories';
     const nav4Sub1Label = h.nav4Sub1Label || 'Destination Weddings';
     const nav4Sub1Url   = h.nav4Sub1Url   || '/destination-weddings';

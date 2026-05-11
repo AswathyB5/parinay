@@ -13,14 +13,14 @@ const Footer = () => {
     const logoWidth = f.logoWidth || '80px';
     const logoHeight = f.logoHeight || 'auto';
     const tagline = f.tagline || 'Bespoke destination wedding planners based in Kerala, India. Planning meaningful celebrations for over 8 years.';
-    const instagramUrl = f.instagramUrl || '#';
-    const facebookUrl = f.facebookUrl || '#';
-    const pinterestUrl = f.pinterestUrl || '#';
-    const youtubeUrl = f.youtubeUrl || '#';
+    const instagramUrl = f.instagramUrl || 'https://www.instagram.com/parinayweddings?igsh=MXZrdTI3NDdlMm8yeA==';
+    const facebookUrl = f.facebookUrl || 'https://www.facebook.com/share/1Cj2QJcddt/';
+    const pinterestUrl = f.pinterestUrl || 'https://pin.it/7xoYEM4jY';
+    const youtubeUrl = f.youtubeUrl || 'https://youtube.com/@parinayweddingseventsiq5626?si=EsQeDR9NDMoSQKqD';
     const email = f.email || 'info.parinayweddings@gmail.com';
-    const phone = f.phone || '+91 98765 43210';
+    const phone = f.phone ? (f.phone.startsWith('+') ? f.phone : `+91 ${f.phone}`) : '+91 9447708597';
     const address = f.address || 'Cochin, Kerala, India';
-    const whatsappNumber = f.whatsappNumber || '9645745111';
+    const whatsappNumber = f.whatsappNumber ? (String(f.whatsappNumber).startsWith('+') ? f.whatsappNumber : `+91 ${f.whatsappNumber}`) : '+91 9645745111';
     const whatsappNumberDigits = String(whatsappNumber).replace(/\D/g, '');
     const whatsappNumberClean =
         whatsappNumberDigits.length === 10 ? `91${whatsappNumberDigits}` : whatsappNumberDigits;
@@ -35,15 +35,15 @@ const Footer = () => {
     const h = content?.header || {};
     const nav1Label = h.nav1Label || 'Home';
     const nav1Url = h.nav1Url || '/';
-    const nav2Label = h.nav2Label || 'About';
+    const nav2Label = h.nav2Label || 'Our Story';
     const nav2Url = h.nav2Url || '/about';
     const nav3Label = h.nav3Label || 'Services';
     const nav3Url = h.nav3Url || '/services';
     const nav4Sub1Label = h.nav4Sub1Label || 'Destination Weddings';
     const nav4Sub1Url = h.nav4Sub1Url || '/destination-weddings';
-    const nav4Label = h.nav4Label || 'Gallery';
+    const nav4Label = h.nav4Label || 'Our Portfolio';
     const nav4Url = h.nav4Url || '/stories';
-    const nav6Label = h.nav6Label || 'Contact';
+    const nav6Label = h.nav6Label || 'Contact Us';
     const nav6Url = h.nav6Url || '/contact';
     const nav5Label = h.nav5Label || 'Journals';
     const nav5Url = h.nav5Url || '/journals';
@@ -87,8 +87,8 @@ const Footer = () => {
                             <li><Link to={nav3Url}>{nav3Label}</Link></li>
                             <li><Link to={nav4Sub1Url}>{nav4Sub1Label}</Link></li>
                             <li><Link to={nav4Url}>{nav4Label}</Link></li>
-                            <li><Link to={nav6Url}>{nav6Label}</Link></li>
                             <li><Link to={nav5Url}>{nav5Label}</Link></li>
+                            <li><Link to={nav6Url}>{nav6Label}</Link></li>
                         </ul>
                     </div>
                     <div className="footer-contact">

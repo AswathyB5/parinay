@@ -1,65 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ContentContext, isVideoUrl, renderText, resolveMediaURL, API } from '../context/ContentContext';
+import { ContentContext, renderText, resolveMediaURL } from '../context/ContentContext';
 
 const About = () => {
     const { content } = useContext(ContentContext);
     const about = content.about;
     const home = content.home;
-    const [popup, setPopup] = useState({ open: false, title: '', message: '' });
-
-    // --- Lead Form Logic ---
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        const submitBtn = e.target.querySelector('.btn-submit');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = 'Sending...';
-        submitBtn.disabled = true;
-
-        const formEl = e.target;
-        const payload = {
-            type: 'contact',
-            name: formEl.fullName?.value || '',
-            email: formEl.email?.value || '',
-            phone: formEl.phone?.value || '',
-            weddingLocation: formEl.weddingLocation?.value || '',
-            guestCount: formEl.guestCount?.value || '',
-            weddingDate: formEl.weddingDate?.value || '',
-            message: formEl.message?.value || '',
-        };
-
-        try {
-            const res = await fetch(`${API}/api/inquiries`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            });
-            const data = await res.json();
-            if (data.success) {
-                setPopup({
-                    open: true,
-                    title: 'Thank You!',
-                    message: 'Thank you for contacting Parinay Weddings. Our team will get back to you shortly.',
-                });
-                formEl.reset();
-            } else {
-                setPopup({
-                    open: true,
-                    title: 'Submission Failed',
-                    message: data.error || 'Something went wrong. Please try again.',
-                });
-            }
-        } catch {
-            setPopup({
-                open: true,
-                title: 'Connection Issue',
-                message: 'Could not reach the server right now. Please try again in a moment.',
-            });
-        }
-
-        submitBtn.innerText = originalText;
-        submitBtn.disabled = false;
-    };
 
     // --- Scroll Reveal Logic ---
     useEffect(() => {
@@ -86,70 +32,20 @@ const About = () => {
             const revealElements = document.querySelectorAll('.reveal');
             revealElements.forEach(el => observer.unobserve(el));
         };
-    }, [content]);
+    }, [content, about.seoTitle]);
 
     return (
         <div className="about-page-new">
-            {popup.open && (
-                <div style={{
-                    position: 'fixed',
-                    inset: 0,
-                    background: 'rgba(8, 16, 13, 0.62)',
-                    backdropFilter: 'blur(3px)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1000,
-                    padding: '20px',
-                }}>
-                    <div style={{
-                        width: '100%',
-                        maxWidth: '460px',
-                        background: 'linear-gradient(155deg, #fffdf8 0%, #fff3df 45%, #f8f1e8 100%)',
-                        borderRadius: '22px',
-                        padding: '32px 28px',
-                        boxShadow: '0 24px 60px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.35) inset',
-                        textAlign: 'center',
-                        border: '2px solid rgba(197,160,89,0.55)',
-                        position: 'relative',
-                    }}>
-                        <div style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: '5px',
-                            borderTopLeftRadius: '20px',
-                            borderTopRightRadius: '20px',
-                            background: 'linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%)',
-                        }}></div>
-                        <div style={{ fontSize: '2rem', marginBottom: '10px', filter: 'drop-shadow(0 3px 6px rgba(197,160,89,0.35))' }}>💍</div>
-                        <h3 style={{ margin: '0 0 12px', color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>{popup.title}</h3>
-                        <p style={{ margin: 0, color: '#4f5c56', lineHeight: 1.7 }}>{popup.message}</p>
-                        <button
-                            type="button"
-                            className="pw-btn pw-btn--dark"
-                            style={{ marginTop: '24px', minWidth: '140px' }}
-                            onClick={() => setPopup({ open: false, title: '', message: '' })}
-                        >
-                            Close
-                        </button>
-                    </div>
-                </div>
-            )}
             {/* HERO SECTION */}
             <section className="about-hero-new">
                 <div className="container reveal">
-                    <h1>{renderText(about.pageBannerTitle || "About Us")}</h1>
-
+                    <h1>{renderText(about.pageBannerTitle || "Our Story")}</h1>
                 </div>
             </section>
-
 
             {/* ABOUT US (SPLIT INTRO) EXPLAINER SECTION */}
             <section className="about-values-new reveal" style={{ backgroundColor: '#FDFBF7' }}>
                 <div className="container">
-                    {/* Upper Split Design (inspired by Weddlin) */}
                     <div className="about-intro-split">
                         <div className="left-content">
                             <span className="section-label">{about.introLabel}</span>
@@ -169,7 +65,7 @@ const About = () => {
                 </div>
             </section>
 
-            {/* ABOUT CONTENT SECTION (What makes us different) - FULL WIDTH GREEN BG */}
+            {/* ABOUT CONTENT SECTION (What makes us different) */}
             <section className="about-founder-new reveal">
                 <div className="founder-image">
                     <img src={resolveMediaURL('https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80')} alt="About Parinay" />
@@ -188,7 +84,6 @@ const About = () => {
             {/* WHAT WE SPECIALISE IN SECTION */}
             <section className="about-values-new reveal" style={{ backgroundColor: '#FDFBF7', paddingTop: '100px' }}>
                 <div className="container">
-                    {/* Specialities Grid */}
                     {about.specialities && (
                         <div className="values-grid-new">
                             <div style={{ width: '100%', gridColumn: '1 / -1', marginBottom: '20px' }}>
@@ -232,9 +127,7 @@ const About = () => {
                 </section>
             )}
 
-
-
-            {/* Stats — full width green band */}
+            {/* Stats Band */}
             <div className="pw-stats reveal">
                 <div className="pw-stats__grid">
                     <div className="pw-stats__item">
@@ -264,7 +157,6 @@ const About = () => {
                 </div>
             </div>
 
-
             {/* CTA SECTION */}
             <section className="about-cta-section" style={{ background: 'none', padding: '160px 0' }}>
                 <div className="cta-video-bg-wrapper" style={{
@@ -277,16 +169,8 @@ const About = () => {
                     overflow: 'hidden'
                 }}>
                     <video
-                        key={resolveMediaURL('/uploads/about-video.mp4')}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
-                        }}
+                        autoPlay loop muted playsInline
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         src={resolveMediaURL('/uploads/about-video.mp4')}
                     />
                     <div className="cta-video-overlay" style={{
@@ -303,59 +187,9 @@ const About = () => {
                     <h2 style={{ color: '#fff', fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '40px' }}>
                         {about.ctaHeading || "Ready to start your journey?"}
                     </h2>
-                    <Link to={about.ctaBtnUrl || "/contact"} className="btn btn-primary" style={{ backgroundColor: 'var(--accent-color)', color: 'var(--primary-color)', padding: '20px 45px' }}>
+                    <Link to={about.ctaBtnUrl || "/contact"} className="pw-btn pw-btn--gold" style={{ padding: '20px 45px' }}>
                         {about.ctaBtnText || "Get In Touch"}
                     </Link>
-                </div>
-            </section>
-            {/* ═══ SECTION 8: LEAD FORM ═══ */}
-            <section className="pw-form-section" style={{ paddingTop: '100px', paddingBottom: '140px' }}>
-                <div className="pw-container">
-                    <div className="pw-form-wrap reveal">
-                        <div className="pw-form-wrap__left">
-                            <span className="pw-label">{home.formLabel}</span>
-                            <h2 className="pw-form-wrap__title">
-                                {renderText(home.formHeading)}
-                            </h2>
-                            <p className="pw-form-wrap__sub">{home.formSubtext}</p>
-                        </div>
-
-                        <form className="pw-form" onSubmit={handleFormSubmit}>
-                            <div className="pw-form__grid">
-                                <div className="pw-form__field">
-                                    <label className="pw-form__label">Full Name</label>
-                                    <input type="text" name="fullName" className="pw-form__input" placeholder="Your full name" required />
-                                </div>
-                                <div className="pw-form__field">
-                                    <label className="pw-form__label">Email Address</label>
-                                    <input type="email" name="email" className="pw-form__input" placeholder="your@email.com" required />
-                                </div>
-                                <div className="pw-form__field">
-                                    <label className="pw-form__label">Phone Number</label>
-                                    <input type="tel" name="phone" className="pw-form__input" placeholder="+91 00000 00000" required />
-                                </div>
-                                <div className="pw-form__field">
-                                    <label className="pw-form__label">Wedding Location</label>
-                                    <input type="text" name="weddingLocation" className="pw-form__input" placeholder="e.g. Kerala, Goa, Udaipur" required />
-                                </div>
-                                <div className="pw-form__field">
-                                    <label className="pw-form__label">Approx. Guest Count</label>
-                                    <input type="number" name="guestCount" className="pw-form__input" placeholder="Number of guests" required />
-                                </div>
-                                <div className="pw-form__field">
-                                    <label className="pw-form__label">Wedding Date</label>
-                                    <input type="date" name="weddingDate" className="pw-form__input" required />
-                                </div>
-                                <div className="pw-form__field" style={{ gridColumn: 'span 2' }}>
-                                    <label className="pw-form__label">Your Expectations</label>
-                                    <textarea name="message" className="pw-form__input" rows="4" placeholder="Briefly describe your vision and what you expect from us..." required></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" className="pw-btn pw-btn--dark btn-submit" style={{ marginTop: '50px', width: '100%' }}>
-                                {home.formBtnText}
-                            </button>
-                        </form>
-                    </div>
                 </div>
             </section>
         </div>

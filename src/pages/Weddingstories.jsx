@@ -177,15 +177,39 @@ const Gallery = () => {
             )}
 
             {/* BOTTOM CTA SECTION */}
-            <section className="pw-cta-section gallery-reveal" style={{ 
+            <section className="pw-cta-section" style={{ 
                 padding: '120px 0', 
-                background: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')}) center/cover no-repeat`, 
-                color: '#fff',
-                textAlign: 'center',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                backgroundColor: '#000'
             }}>
-                <div className="pw-container" style={{ position: 'relative', zIndex: 2 }}>
+                {/* Fixed Background Layer */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundAttachment: 'fixed',
+                    zIndex: 1
+                }}></div>
+
+                {/* Dark Overlay Layer */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65))',
+                    zIndex: 2
+                }}></div>
+
+                <div className="pw-container gallery-reveal" style={{ position: 'relative', zIndex: 3, textAlign: 'center' }}>
                     <h2 style={{ 
                         fontFamily: 'Playfair Display, serif', 
                         fontSize: 'clamp(2rem, 4vw, 3rem)', 
@@ -198,7 +222,7 @@ const Gallery = () => {
                         fontSize: '1.2rem', 
                         maxWidth: '700px', 
                         margin: '0 auto 50px', 
-                        opacity: 0.9,
+                        color: 'rgba(255,255,255,0.9)',
                         lineHeight: '1.8'
                     }}>
                         {renderText(ws.ctaBody || "Tell us your vision. We'll take care of everything else.")}
@@ -214,16 +238,6 @@ const Gallery = () => {
                         </Link>
                     </div>
                 </div>
-                {/* Subtle background texture or overlay */}
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65))',
-                    zIndex: 1
-                }}></div>
             </section>
         </div>
     );

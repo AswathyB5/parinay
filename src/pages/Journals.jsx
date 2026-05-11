@@ -73,19 +73,19 @@ const Journals = () => {
             </section>
 
             {/* LEAD MAGNET / BOOK CTA */}
-            <section className="pw-destination reveal">
+            <section className="pw-destination reveal" style={{ backgroundColor: '#fff', padding: '120px 0' }}>
                 <div className="pw-container">
                     <div className="pw-destination__grid pw-guide-grid">
                         <div className="pw-destination__content" style={{ order: '2' }}>
-                            <span className="pw-label pw-label--light">{journals.guideLabel}</span>
-                            <h2 className="pw-destination__heading">
+                            <span className="pw-label" style={{ color: 'var(--primary-color)' }}>{journals.guideLabel}</span>
+                            <h2 className="pw-destination__heading" style={{ color: 'var(--primary-color)' }}>
                                 {journals.guideTitle.split(' ').slice(0, -2).join(' ')}<br />
-                                <em>{journals.guideTitle.split(' ').slice(-2).join(' ')}</em>
+                                <em style={{ color: 'var(--accent-color)' }}>{journals.guideTitle.split(' ').slice(-2).join(' ')}</em>
                             </h2>
-                            <div className="pw-destination__divider"></div>
-                            <p className="pw-destination__text">{journals.guideDesc}</p>
-
-                            <ul style={{ listStyle: 'none', padding: '0', marginTop: '30px', color: 'rgba(253, 251, 247, 0.8)', fontSize: '0.95rem' }}>
+                            <div className="pw-destination__divider" style={{ backgroundColor: 'rgba(58, 18, 25, 0.1)' }}></div>
+                            <p className="pw-destination__text" style={{ color: '#666' }}>{journals.guideDesc}</p>
+                            
+                            <ul style={{ listStyle: 'none', padding: '0', marginTop: '30px', color: '#444', fontSize: '0.95rem' }}>
                                 {journals.guideChecks?.map((item, idx) => (
                                     <li key={item.id || idx} style={{ marginBottom: '15px' }}>
                                         <i className="fas fa-check" style={{ color: 'var(--accent-color)', marginRight: '12px' }}></i> 
@@ -94,14 +94,14 @@ const Journals = () => {
                                 ))}
                             </ul>
 
-                            <Link to="/contact" className="pw-btn pw-btn--ghost" style={{ marginTop: '20px' }}>{journals.guideRequestBtnText || 'Request Copy'}</Link>
+                            <Link to="/contact" className="pw-btn pw-btn--dark" style={{ marginTop: '20px' }}>{journals.guideRequestBtnText || 'Request Copy'}</Link>
                         </div>
 
                         <div className="pw-destination__images pw-guide-images-wrap">
                             <img src={resolveMediaURL(journals.guideImage)} className="pw-destination__img-main pw-guide-img" alt="Guide Book" />
-                            <div className="pw-guide-year-box">
-                                <h3 className="pw-guide-year-title">{renderText(journals.guideYear)}<br /><em>{renderText(journals.guidePlannerLabel)}</em></h3>
-                                <p className="pw-guide-year-badge">{renderText(journals.guideFreeText)}</p>
+                            <div className="pw-guide-year-box" style={{ background: 'var(--primary-color)' }}>
+                                <h3 className="pw-guide-year-title" style={{ color: '#fff' }}>{renderText(journals.guideYear)}<br /><em>{renderText(journals.guidePlannerLabel)}</em></h3>
+                                <p className="pw-guide-year-badge" style={{ color: 'var(--accent-color)' }}>{renderText(journals.guideFreeText)}</p>
                             </div>
                         </div>
                     </div>
