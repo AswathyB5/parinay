@@ -39,19 +39,15 @@ export const resolveMediaURL = (url) => {
     // Remove any leading slashes to normalize
     const cleanPath = url.replace(/^\/+/, '');
     
-    // If it's a known root-level public asset (like logo-img.jpeg), don't prepend /uploads/
+    // If it already starts with 'uploads/', return as absolute relative path
+    if (cleanPath.startsWith('uploads/')) return `/${cleanPath}`;
+    
+    // For root assets
     const rootAssets = ['logo-img.jpeg', 'favicon.ico', 'robots.txt'];
-    if (rootAssets.includes(cleanPath)) {
-        // In local dev, Vite serves these from root. In prod, the backend might.
-        // For simplicity, if no API, use relative.
-        return API ? `${API}/${cleanPath}` : `/${cleanPath}`;
-    }
+    if (rootAssets.includes(cleanPath)) return `/${cleanPath}`;
     
-    // If it already starts with 'uploads/', just prepend API
-    if (cleanPath.startsWith('uploads/')) return `${API}/${cleanPath}`;
-    
-    // Otherwise, prepend API and uploads/
-    return `${API}/uploads/${cleanPath}`;
+    // Otherwise, assume it's an upload and prepend /uploads/
+    return `/uploads/${cleanPath}`;
 };
 
 export const renderText = (text) => {
