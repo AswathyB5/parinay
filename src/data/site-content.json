@@ -17,11 +17,6 @@
     ],
     "heroImages": [
       {
-        "id": 1,
-        "image": "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg",
-        "alt": "Wedding Celebration 1"
-      },
-      {
         "id": 2,
         "image": "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80",
         "alt": "Wedding Celebration 2"
