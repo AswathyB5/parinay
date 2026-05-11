@@ -144,8 +144,7 @@ const initialContent = {
         heroBtnText: "Start Planning Your Wedding →",
         heroBtnUrl: "/contact",
         heroVideos: [
-            { id: 1, video: "uploads/Untitled design.mp4" },
-            { id: 2, video: "uploads/12874721_1920_1080_30fps.mp4" }
+            { id: 1, video: "uploads/Untitled design.mp4" }
         ],
         heroImages: [
 
@@ -177,8 +176,8 @@ const initialContent = {
         destinationBody3: "Locations we plan weddings in: Kerala (Alleppey | Munnar | Kovalam | Kumarakom | Trivandrum | Wayanad | Kochi) | Goa | Nagercoil | Chennai | and more across South India.",
         destinationBtnText: "Explore Destination Weddings →",
         destinationBtnUrl: "/destination-weddings",
-        destinationImage1: "https://media.istockphoto.com/id/1173488478/photo/the-most-beautiful-day-of-their-lives.jpg?s=612x612&w=0&k=20&c=xoAbApCFRMxSScg-CZBlCSDHd-0Yhaybh9FpbV7V38Q=",
-        destinationImage2: "https://media.istockphoto.com/id/1397574789/photo/together-we-make-the-world-better.jpg?s=612x612&w=0&k=20&c=hZGF9CCheaK-b31DY6hv7TlDB91duMd-dlHYKs604S0=",
+        destinationImage1: "https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg",
+        destinationImage2: "https://cdn.prod.website-files.com/62229207eeaf5c1ed4bd2d73/667bdc77569043f1671bb5a0_Evyssa%20Vacations%20-%20Wedding%20Destination%20Guide.webp",
         portfolioLabel: "Wedding Stories ",
         portfolioHeading: "Our Wedding Portfolio - Couples Across[[ Kerala & South India]]",
         portfolioBody: "Each wedding in our portfolio tells a different story. A different family, a different culture, a different idea of beauty.",
@@ -670,7 +669,7 @@ const initialContent = {
                 title: "Choosing the Perfect Backwater Venue in Kerala",
                 date: "February 12, 2026",
                 excerpt: "Discover our curated list of the most stunning luxury resorts for your destination backwater wedding.",
-                image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+                image: "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg",
                 author: "By Parinay",
                 content: "When it comes to destination weddings in Kerala... "
             },

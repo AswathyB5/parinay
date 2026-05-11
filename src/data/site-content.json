@@ -8,11 +8,7 @@
     "heroVideos": [
       {
         "id": 1,
-        "video": ""
-      },
-      {
-        "id": 2,
-        "video": ""
+        "video": "uploads/Untitled design.mp4"
       }
     ],
     "heroImages": [
@@ -81,8 +77,8 @@
     "destinationBody3": "Locations we plan weddings in: Kerala (Alleppey | Munnar | Kovalam | Kumarakom | Trivandrum | Wayanad | Kochi) | Goa | Nagercoil | Chennai | and more across South India.",
     "destinationBtnText": "Explore Destination Weddings →",
     "destinationBtnUrl": "/destination-weddings",
-    "destinationImage1": "/uploads/upload_1773923613337_6810.jpg",
-    "destinationImage2": "/uploads/upload_1778474893847_1482.jpg",
+    "destinationImage1": "https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg",
+    "destinationImage2": "https://cdn.prod.website-files.com/62229207eeaf5c1ed4bd2d73/667bdc77569043f1671bb5a0_Evyssa%20Vacations%20-%20Wedding%20Destination%20Guide.webp",
     "portfolioLabel": "Wedding Stories ",
     "portfolioHeading": "Our Wedding Portfolio - Couples Across[[ Kerala & South India]]",
     "portfolioBody": "Each wedding in our portfolio tells a different story. A different family, a different culture, a different idea of beauty.",
@@ -796,7 +792,7 @@
         "title": "Choosing the Perfect Backwater Venue in Kerala",
         "date": "February 12, 2026",
         "excerpt": "Curated advice, venue guides, and trend reports for couples planning destination weddings in Kerala and beyond.",
-        "image": "/uploads/upload_1776061313577_2756.avif",
+        "image": "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg",
         "author": "By Parinay",
         "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
       },

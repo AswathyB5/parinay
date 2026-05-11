@@ -96,15 +96,19 @@ const Home = () => {
     const [currentVid, setCurrentVid] = useState(0);
     // --- Hero Video Hardcoded Logic ---
     const heroVideos = useMemo(() => [
-        resolveMediaURL('/uploads/Untitled design.mp4'),
-        resolveMediaURL('/uploads/12874721_1920_1080_30fps.mp4')
+        resolveMediaURL('/uploads/Untitled design.mp4')
     ], []);
 
 
 
     // --- Hero Floating Image Slideshow Logic ---
     const [currentHeroImg, setCurrentHeroImg] = useState(0);
-    const heroImages = useMemo(() => home.heroImages || [], [home.heroImages]);
+    const heroImages = useMemo(() => [
+        { id: 2, image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", alt: "Wedding Celebration 2" },
+        { id: 3, image: "https://i.pinimg.com/736x/d9/16/2a/d9162aded7c5c2347216669d559b265b.jpg", alt: "Wedding Celebration 3" },
+        { id: 4, image: "https://img.freepik.com/premium-photo/bride-groom-pose-front-window-dark-room_444642-4894.jpg", alt: "Wedding Celebration 4" },
+        { id: 1776150815650, image: "/uploads/upload_1776150824610_4382.jpg", alt: "Wedding" }
+    ], []);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -514,12 +518,12 @@ const Home = () => {
 
                         <div className="pw-destination__images reveal">
                             <img
-                                src={resolveMediaURL('uploads/upload_1774345251045_4601.jpg')}
+                                src={resolveMediaURL('https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg')}
                                 alt="Kerala Destination Wedding"
                                 className="pw-destination__img-main"
                             />
                             <img
-                                src={resolveMediaURL('uploads/upload_1774342298693_5238.jpg')}
+                                src={resolveMediaURL('https://cdn.prod.website-files.com/62229207eeaf5c1ed4bd2d73/667bdc77569043f1671bb5a0_Evyssa%20Vacations%20-%20Wedding%20Destination%20Guide.webp')}
                                 alt="Sunset Wedding"
                                 className="pw-destination__img-sub"
                             />
@@ -784,10 +788,17 @@ const Home = () => {
                                         <video src={resolveMediaURL(testimonials[currentTestimonial]?.image)} autoPlay muted loop playsInline />
                                     ) : (
                                         <img
-                                            src={resolveMediaURL(testimonials[currentTestimonial]?.image)}
-                                            alt={testimonials[currentTestimonial]?.author}
-                                        />
-                                    )}
+                                        src={resolveMediaURL(
+                                            currentTestimonial === 0 ? 'uploads/upload_1777030403086_4422.png' :
+                                            currentTestimonial === 1 ? 'uploads/upload_1777030397717_3261.png' :
+                                            currentTestimonial === 2 ? 'uploads/upload_1777030390648_5764.png' :
+                                            currentTestimonial === 3 ? 'uploads/upload_1777030376259_8552.png' :
+                                            currentTestimonial === 4 ? 'uploads/upload_1777030363686_142.png' :
+                                            testimonials[currentTestimonial]?.image
+                                        )}
+                                        alt={testimonials[currentTestimonial]?.author}
+                                        className="pw-testimonials__img"
+                                    />)}
                                 </div>
                                 <div className="pw-testimonials__author-info">
                                     <strong>{renderText(testimonials[currentTestimonial]?.author)}</strong>
@@ -838,7 +849,13 @@ const Home = () => {
                                     {isVideoUrl(item.image) ? (
                                         <video src={resolveMediaURL(item.image)} autoPlay muted loop playsInline className="pw-journal__img" />
                                     ) : (
-                                        <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
+                                        <img 
+                                            src={item.title === "Choosing the Perfect Backwater Venue in Kerala" 
+                                                ? "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg" 
+                                                : resolveMediaURL(item.image)} 
+                                            alt={item.title} 
+                                            className="pw-journal__img" 
+                                        />
                                     )}
                                 </div>
                                 <span className="pw-journal__meta">{renderText(item.date)}</span>
