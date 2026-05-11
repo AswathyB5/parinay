@@ -1,7 +1,7 @@
 /* 
    WEDDLIN-INSPIRED REDESIGN
    Layouts and effects based on https://askproject.net/weddlin/
-   Maintains existing color palette: #1d3528 (Primary), #FDFBF7 (Secondary), #C5A059 (Accent)
+   Maintains existing color palette: #3a1219 (Primary), #FDFBF7 (Secondary), #C5A059 (Accent)
 */
 
 :root {
@@ -42,6 +42,8 @@ h3 {
     letter-spacing: -0.02em;
 }
 
+h1 em,
+h1 i,
 h2 em,
 h2 i {
     font-style: italic;
@@ -120,7 +122,7 @@ h2 i {
     left: 0;
     width: 100%;
     padding: 40px;
-    background: linear-gradient(transparent, rgba(29, 53, 40, 0.8));
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
     color: var(--secondary-color);
     transition: var(--weddlin-transition);
 }
@@ -488,8 +490,10 @@ h2 i {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     align-items: center;
-    padding: 80px 40px;
-    gap: 80px;
+    padding: 100px 0; /* Refined padding */
+    gap: 0; /* Remove gap to allow full-bleed if desired, or keep for spacing */
+    width: 100%;
+    position: relative;
 }
 
 .founder-image {
@@ -504,7 +508,7 @@ h2 i {
 }
 
 .founder-content {
-    padding: 80px 100px;
+    padding: 100px 120px;
 }
 
 .founder-content .section-label {
@@ -627,7 +631,7 @@ h2 i {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(rgba(29, 53, 40, 0.5), rgba(29, 53, 40, 0.7));
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
     z-index: -1;
 }
 

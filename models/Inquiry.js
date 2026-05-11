@@ -22,4 +22,4 @@ const InquirySchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-export default mongoose.model('Inquiry', InquirySchema);
+export default mongoose.models.Inquiry || mongoose.model('Inquiry', InquirySchema);

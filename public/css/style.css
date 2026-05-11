@@ -1,10 +1,10 @@
 /* 
    PARINAY WEDDINGS - Premium Design System
-   Colors: #1d3528 (Emerald Green), #FDFBF7 (Beige/Ivory), #C5A059 (Muted Gold)
+   Colors: #3a1219 (Deep Maroon), #FDFBF7 (Beige/Ivory), #C5A059 (Muted Gold)
 */
 
 :root {
-    --primary-color: #1d3528;
+    --primary-color: #3a1219;
     --secondary-color: #FDFBF7;
     --accent-color: #C5A059;
     --text-dark: #2a2a2a;
@@ -105,7 +105,7 @@ section {
     height: 600px;
     object-fit: cover;
     border-radius: 4px;
-    box-shadow: 20px 20px 0 var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 /* Header & Nav */
@@ -114,7 +114,7 @@ section {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 9999;
     padding: 30px 0;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     background: transparent;
@@ -170,7 +170,8 @@ body.lightbox-open .main-header {
 .logo {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     flex-shrink: 0;
     overflow: visible;
@@ -290,7 +291,7 @@ body.lightbox-open .main-header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.4));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.35));
     z-index: 2;
 }
 
@@ -342,7 +343,7 @@ body.lightbox-open .main-header {
 }
 
 .btn-primary:hover {
-    background: var(--accent-color);
+    background: #12231a; /* Darker green */
     transform: translateY(-5px);
 }
 
@@ -353,8 +354,8 @@ body.lightbox-open .main-header {
 }
 
 .btn-secondary:hover {
-    background: var(--secondary-color);
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .btn-outline {
@@ -610,16 +611,16 @@ body.lightbox-open .main-header {
 
 /* Footer */
 .main-footer {
-    background: #1d3528;
+    background: #3a1219;
     color: var(--secondary-color);
-    padding: 80px 0 30px;
+    padding: 40px 0 20px;
 }
 
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 60px;
-    margin-bottom: 50px;
+    gap: 35px;
+    margin-bottom: 25px;
 }
 
 .footer-logo {
@@ -628,7 +629,7 @@ body.lightbox-open .main-header {
     font-size: 1.5rem;
     color: var(--secondary-color);
     text-decoration: none;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .footer-info p {
@@ -663,7 +664,7 @@ body.lightbox-open .main-header {
 .footer-links h4,
 .footer-contact h4 {
     font-size: 1.2rem;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     color: var(--accent-color);
 }
 
@@ -701,10 +702,46 @@ body.lightbox-open .main-header {
 
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 30px;
+    padding-top: 15px;
     text-align: center;
     font-size: 0.8rem;
     opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-admin-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    opacity: 0.75;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+    position: absolute;
+    left: 0;
+}
+
+.footer-admin-link:hover {
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-admin-link {
+        position: static;
+    }
 }
 
 /* WhatsApp Float */
@@ -731,6 +768,21 @@ body.lightbox-open .main-header {
 
 .whatsapp-btn:hover {
     transform: scale(1.05) translateY(-5px);
+}
+
+@media (max-width: 600px) {
+    .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 50%;
+        bottom: 20px;
+        right: 15px;
+    }
+    .whatsapp-btn span {
+        display: none;
+    }
 }
 
 /* Animations */
@@ -801,7 +853,7 @@ body.lightbox-open .main-header {
         right: -100%;
         width: 100%;
         height: 100vh;
-        background: rgba(29, 53, 40, 0.95);
+        background: rgba(58, 18, 25, 0.95);
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         flex-direction: column;
@@ -1505,13 +1557,13 @@ body.lightbox-open .main-header {
     background: #fff;
     border-radius: 4px;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(29, 53, 40, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
 }
 
 .youtube-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(29, 53, 40, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
 }
 
 .youtube-card.featured-video {
@@ -1584,14 +1636,14 @@ body.lightbox-open .main-header {
 
 .youtube-trio-stack .youtube-card {
     position: relative;
-    box-shadow: 0 15px 45px rgba(29, 53, 40, 0.12);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
     transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .youtube-trio-stack .youtube-card:hover {
     transform: translateY(-10px) scale(1.02);
     z-index: 10;
-    box-shadow: 0 30px 70px rgba(29, 53, 40, 0.2);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.18);
 }
 
 .youtube-section-header {
@@ -1821,9 +1873,9 @@ body.lightbox-open .main-header {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom,
-            rgba(18, 35, 26, 0.55) 0%,
-            rgba(18, 35, 26, 0.40) 50%,
-            rgba(18, 35, 26, 0.55) 100%);
+            rgba(0, 0, 0, 0.5) 0%,
+            rgba(0, 0, 0, 0.35) 50%,
+            rgba(0, 0, 0, 0.5) 100%);
     pointer-events: none;
 }
 
@@ -2130,7 +2182,7 @@ body.lightbox-open .main-header {
    ============================================================ */
 
 .bespoke-services-premium {
-    background: #1d3528;
+    background: #3a1219;
     padding: 110px 0;
     position: relative;
     overflow: hidden;
@@ -2583,7 +2635,7 @@ body.lightbox-open .main-header {
     display: grid;
     grid-template-columns: 380px 1fr;
     gap: 0;
-    border: 1px solid rgba(29, 53, 40, 0.1);
+    border: 1px solid rgba(58, 18, 25, 0.1);
     /* Darker Border */
     border-radius: 8px;
     overflow: hidden;
@@ -2595,7 +2647,7 @@ body.lightbox-open .main-header {
 
 /* ---- Left Tab List ---- */
 .bsp-tab-list {
-    border-right: 1px solid rgba(29, 53, 40, 0.1);
+    border-right: 1px solid rgba(58, 18, 25, 0.1);
     display: flex;
     flex-direction: column;
     background: #FAFAFA;
@@ -2607,7 +2659,7 @@ body.lightbox-open .main-header {
     gap: 18px;
     padding: 26px 30px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(29, 53, 40, 0.05);
+    border-bottom: 1px solid rgba(58, 18, 25, 0.05);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -2630,7 +2682,7 @@ body.lightbox-open .main-header {
 }
 
 .bsp-tab:hover {
-    background: rgba(29, 53, 40, 0.03);
+    background: rgba(58, 18, 25, 0.03);
 }
 
 .bsp-tab.active {
@@ -2644,7 +2696,7 @@ body.lightbox-open .main-header {
 .bsp-tab-num {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
-    color: rgba(29, 53, 40, 0.2);
+    color: rgba(58, 18, 25, 0.2);
     /* Dark number */
     font-weight: 700;
     min-width: 36px;
@@ -2678,7 +2730,7 @@ body.lightbox-open .main-header {
 
 .bsp-tab-arrow {
     font-size: 0.7rem;
-    color: rgba(29, 53, 40, 0.2);
+    color: rgba(58, 18, 25, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -2831,7 +2883,7 @@ body.lightbox-open .main-header {
 
     .bsp-tab-list {
         border-right: none;
-        border-bottom: 1px solid rgba(29, 53, 40, 0.1);
+        border-bottom: 1px solid rgba(58, 18, 25, 0.1);
         flex-direction: row;
         overflow-x: auto;
         flex-wrap: nowrap;
@@ -2843,7 +2895,7 @@ body.lightbox-open .main-header {
         gap: 6px;
         padding: 18px 20px;
         border-bottom: none;
-        border-right: 1px solid rgba(29, 53, 40, 0.05);
+        border-right: 1px solid rgba(58, 18, 25, 0.05);
         min-width: 140px;
         flex-shrink: 0;
     }
@@ -2931,5 +2983,117 @@ body.lightbox-open .main-header {
 
     .mobile-menu-btn.open span:nth-child(3) {
         transform: translateY(-10px) rotate(-45deg);
+    }
+}
+
+/* ═══ ACHIEVEMENTS SECTION (Clean Luxury Version) ═══ */
+.pw-achievements {
+    background: #3a1219; /* Pure Wine */
+    padding: 55px 0 !important;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+/* Clean background */
+.pw-achievements::before {
+    display: none;
+}
+
+.pw-achievements__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.pw-achievements__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+/* Elegant vertical dividers */
+.pw-achievements__item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(197, 160, 89, 0.4), transparent);
+}
+
+.pw-achievements__item:hover {
+    transform: scale(1.05);
+}
+
+.pw-achievements__number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-bottom: 8px;
+    transition: var(--transition-smooth);
+    text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.pw-achievements__item:hover .pw-achievements__number {
+    color: #fff;
+    text-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
+}
+
+.pw-achievements__label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(253, 251, 247, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Decorative dot above the number */
+.pw-achievements__item::before {
+    content: '✦';
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991px) {
+    .pw-achievements__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .pw-achievements__item {
+        border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+    }
+    .pw-achievements__item:nth-child(even)::after {
+        display: none;
+    }
+    .pw-achievements__item:nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 580px) {
+    .pw-achievements__grid {
+        grid-template-columns: 1fr;
+    }
+    .pw-achievements__item::after {
+        display: none;
+    }
+    .pw-achievements__item:not(:last-child) {
+        border-bottom: 1px solid rgba(197, 160, 89, 0.1);
     }
 }

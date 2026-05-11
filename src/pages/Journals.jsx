@@ -43,7 +43,7 @@ const Journals = () => {
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '100px' }}>
                         <span className="pw-label">{journals.sectionLabel}</span>
-                        <h2 className="pw-section-header__title" style={{ fontSize: '4.5rem' }}>
+                        <h2 className="pw-section-header__title pw-journal-header-title">
                             {renderText(journals.sectionTitle)}
                         </h2>
                     </div>
@@ -75,7 +75,7 @@ const Journals = () => {
             {/* LEAD MAGNET / BOOK CTA */}
             <section className="pw-destination reveal">
                 <div className="pw-container">
-                    <div className="pw-destination__grid" style={{ gridTemplateColumns: '1.2fr 0.8fr' }}>
+                    <div className="pw-destination__grid pw-guide-grid">
                         <div className="pw-destination__content" style={{ order: '2' }}>
                             <span className="pw-label pw-label--light">{journals.guideLabel}</span>
                             <h2 className="pw-destination__heading">
@@ -97,11 +97,11 @@ const Journals = () => {
                             <Link to="/contact" className="pw-btn pw-btn--ghost" style={{ marginTop: '20px' }}>{journals.guideRequestBtnText || 'Request Copy'}</Link>
                         </div>
 
-                        <div className="pw-destination__images" style={{ order: '1', height: '600px' }}>
-                            <img src={resolveMediaURL(journals.guideImage)} className="pw-destination__img-main" style={{ width: '90%', height: '520px', left: '0', right: 'auto' }} alt="Guide Book" />
-                            <div style={{ position: 'absolute', bottom: '0', right: '0', background: 'var(--secondary-color)', padding: '40px', width: '300px', textAlign: 'center' }}>
-                                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '2rem', color: 'var(--primary-color)', margin: '0 0 10px' }}>{renderText(journals.guideYear)}<br /><em>{renderText(journals.guidePlannerLabel)}</em></h3>
-                                <p style={{ fontSize: '0.8rem', color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.2em', margin: '0' }}>{renderText(journals.guideFreeText)}</p>
+                        <div className="pw-destination__images pw-guide-images-wrap">
+                            <img src={resolveMediaURL(journals.guideImage)} className="pw-destination__img-main pw-guide-img" alt="Guide Book" />
+                            <div className="pw-guide-year-box">
+                                <h3 className="pw-guide-year-title">{renderText(journals.guideYear)}<br /><em>{renderText(journals.guidePlannerLabel)}</em></h3>
+                                <p className="pw-guide-year-badge">{renderText(journals.guideFreeText)}</p>
                             </div>
                         </div>
                     </div>

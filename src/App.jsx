@@ -9,7 +9,7 @@ import Contact from './pages/Contact';
 import Stories from './pages/Stories';
 import Journals from './pages/Journals';
 import JournalDetail from './pages/JournalDetail';
-import AdminDashboard from './admin/AdminDashboard';
+import AdminRoute from './admin/AdminRoute';
 import FloatingQuote from './components/FloatingQuote';
 import Weddingstories from './pages/Weddingstories';
 import ProjectDetail from './pages/ProjectDetail';
@@ -37,7 +37,7 @@ function App() {
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/journals" element={<Journals />} />
           <Route path="/journals/:id" element={<JournalDetail />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminRoute />} />
         </Routes>
       </main>
       {!isAdminRoute && <Footer />}

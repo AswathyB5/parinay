@@ -3,8 +3,11 @@
         "heroTagline": "Thoughtfully Planned.\nBeautifully Executed.",
         "heroBtnText": "Get Started ",
         "heroBtnUrl": "/contact",
-        "heroVideo1": "/Untitled design.mp4",
-        "heroVideo2": "/12874721_1920_1080_30fps.mp4",
+        "heroVideo1": "/uploads/Untitled design.mp4",
+        "heroVideo2": "https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4",
+        "heroVideos": [
+            { "id": 1, "video": "/uploads/Untitled design.mp4" }
+        ],
         "heroImages": [
             {
                 "id": 1,
@@ -56,7 +59,7 @@
         "destinationBody3": "From intimate celebrations to large multi-day weddings, we ensure every element feels effortless and unforgettable",
         "destinationBtnText": "Explore Destination Weddings",
         "destinationBtnUrl": "/contact",
-        "destinationImage1": "http://localhost:5000/uploads/upload_1773923613337_6810.jpg",
+        "destinationImage1": "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1200&q=80",
         "destinationImage2": "https://media.istockphoto.com/id/1397574789/photo/together-we-make-the-world-better.jpg?s=612x612&w=0&k=20&c=hZGF9CCheaK-b31DY6hv7TlDB91duMd-dlHYKs604S0=",
         "portfolioLabel": "A Glimpse Into Our Work",
         "portfolioHeading": "Each wedding we plan reflects the couple behind it - their love, their story, their style, their culture.",
@@ -121,7 +124,7 @@
                 "text": "The attention to detail and personal touch Parinay Weddings brought to our wedding was truly remarkable. Our guests are still talking about the beautiful decor!",
                 "author": "Rahul & Meera",
                 "location": "Kerala",
-                "image": "http://localhost:5000/uploads/upload_1773911746640_857.jpg"
+                "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80"
             },
             {
                 "id": 4,
@@ -139,7 +142,7 @@
             }
         ],
         "transitionHeading": "We manage complexity so your celebration feels effortless",
-        "transitionVideoUrl": "/1330-147084829_medium.mp4",
+        "transitionVideoUrl": "https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_25fps.mp4",
         "transitionBtnText": "Work With Us",
         "transitionBtnUrl": "/contact",
         "youtubeLabel": "CINEMATIC STORYTELLING",
@@ -158,11 +161,45 @@
         "_hiddenSections": []
     },
     "about": {
-        "pageBannerTitle": "About Us",
-        "differentiatorLabel": "WHY PARINAY?",
-        "differentiatorHeading": "The Parinay Difference",
-        "differentiatorText": "At Parinay Weddings, we believe a wedding is more than an event - It is a deeply personal celebration of family, culture, and connection. For over 8 years. we have been planning and executing weddings across South India and beyond, working closely with couples and families to create celebrations that are meaningful with clarity and care.\nOur approach is rooted in understanding - your vision, your priorities, your expectations - and translating them into a seamless wedding experience that feels authentic and beautifully organised.",
+        "seoTitle": "About Us | Parinay Weddings — Destination Wedding Planners, Trivandrum",
+        "pageBannerTitle": "About Parinay Weddings",
+        "introLabel": "ABOUT US",
+        "introHeading": "We Plan Destination Weddings That Feel Like You",
+        "introText": "Parinay Weddings is a destination wedding planning company based in Trivandrum, Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay — meaning betrothal in Sanskrit — reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
+        "introImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+        "differentiatorLabel": "What Makes Us Different",
+        "differentiatorHeading": "Bespoke Planning. No Templates.",
+        "differentiatorText": "Most wedding planners offer packages. We don't.\n\nEvery Parinay wedding is built from the ground up — a completely custom design, a carefully selected venue, and a planning process that begins with understanding who you are as a couple. Whether you're a Kerala couple planning a backwater celebration, an NRI planning your India wedding from abroad, or a family looking for a full multi-day destination event in Munnar or Goa — our approach is the same: deeply personal, meticulously executed.",
         "differentiatorImage": "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
+        "specialitiesLabel": "What We Specialise In",
+        "specialitiesHeading": "Our Specialisations",
+        "specialities": [
+            {
+                "id": 1,
+                "title": "Kerala Destination Weddings",
+                "desc": "Alleppey, Kumarakom, Munnar, Kovalam, Trivandrum, Wayanad, Varkala, Kochi and more. Kerala is our home and we know its venues, vendors, and seasons better than anyone."
+            },
+            {
+                "id": 2,
+                "title": "South India Destination Weddings",
+                "desc": "Goa, Chennai, Coimbatore, Nagercoil, and other landmark locations. We manage complete logistics for weddings outside Kerala with the same level of care."
+            },
+            {
+                "id": 3,
+                "title": "NRI & Outstation Weddings",
+                "desc": "We work with couples based outside India regularly, managing everything remotely with complete transparency and communication."
+            },
+            {
+                "id": 4,
+                "title": "Traditional & Cultural Weddings",
+                "desc": "Kerala Hindu, Christian, and Muslim weddings planned with deep respect for ritual and tradition, combined with refined aesthetics."
+            },
+            {
+                "id": 5,
+                "title": "Intimate & Luxury Weddings",
+                "desc": "From 30-guest private ceremonies to 3000-guest luxury celebrations, scale never changes our standard of personalisation."
+            }
+        ],
         "heroImage": "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1920&q=80",
         "heroQuote": "Every couple has a story. Every wedding deserves its own identity.",
         "teamLabel": "MEET THE EXPERTS",
@@ -198,11 +235,11 @@
         "stat2Label": "150+ Weddings\nPlanned",
         "stat3Label": "Destination Wedding\nSpecialists",
         "stat4Label": "Trusted by Clients\nWorldwide",
-        "philosophyQuote": "We believe in the magic of beginnings and the beauty of forever. Your wedding is the first page of your greatest adventure.",
+        "philosophyQuote": "You will not find a Parinay wedding in a catalogue. If you've seen it before, we won't do it.",
         "philosophyAuthor": "The Parinay Promise",
-        "philosophySubtitle": "Core Philosophy",
-        "ctaHeading": "Ready to start your journey?",
-        "ctaBtnText": "Get in Touch",
+        "philosophySubtitle": "Our Promise",
+        "ctaHeading": "Ready to Begin Your Wedding Conversation?",
+        "ctaBtnText": "Begin Your Wedding Conversation →",
         "ctaBtnUrl": "/contact",
         "_hiddenSections": []
     },
@@ -248,18 +285,18 @@
         "heroSubtitle": "Every extraordinary wedding begins with a single conversation. We look forward to hearing your story and vision.",
         "emailLabel": "General Inquiries",
         "emailHeading": "Email Us",
-        "email": "aswathykurup17@gmail.com",
+        "email": "info.parinayweddings@gmail.com",
         "phoneLabel": "Direct Line",
         "phoneHeading": "Call Us",
         "phone": "+91 6282698190",
         "addressLabel": "Meet In Person",
         "addressHeading": "Visit Our Studio",
         "address": "Cochin, Kerala, India\nBy Appointment Only",
-        "whatsappNumber": "916282698190",
+        "whatsappNumber": "9645745111",
         "whatsappText": "Chat with us",
         "whatsappReply": "Typically replies within 1 hour",
         "instagramUrl": "https://instagram.com/parinayweddings",
-        "facebookUrl": "https://facebook.com/parinayweddings",
+        "facebookUrl": "https://www.facebook.com/share/1Cj2QJcddt/",
         "pinterestUrl": "https://pinterest.com/parinayweddings",
         "formBtnText": "Send Inquiry",
         "footerImage": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1600&q=80"
@@ -396,11 +433,11 @@
         "instagramUrl": "https://instagram.com/parinayweddings",
         "facebookUrl": "https://facebook.com/parinayweddings",
         "pinterestUrl": "https://pinterest.com/parinayweddings",
-        "youtubeUrl": "https://youtube.com/@parinayweddings",
-        "email": "aswathykurup17@gmail.com",
+        "youtubeUrl": "https://youtube.com/@parinayweddingseventsiq5626?si=EsQeDR9NDMoSQKqD",
+        "email": "info.parinayweddings@gmail.com",
         "phone": "+91 6282698190",
         "address": "Cochin, Kerala, India",
-        "whatsappNumber": "916282698190",
+        "whatsappNumber": "9645745111",
         "ctaTagline": "Let's Start Your Journey",
         "ctaBtnText": "Book a Consultation",
         "ctaBtnUrl": "/contact",

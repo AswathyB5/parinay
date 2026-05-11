@@ -23,6 +23,7 @@ async function synchronize() {
         console.log('[Maintenance] Clearing existing content and pushing updated data...');
         console.log('addressLabel:', data.contact.addressLabel);
         console.log('addressHeading:', data.contact.addressHeading);
+        console.log('nav4Label (Header):', data.header.nav4Label);
 
         // Delete all and save new
         await Content.deleteMany({});

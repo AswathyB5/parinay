@@ -11,9 +11,28 @@ const Gallery = () => {
     // Wedding Stories page-level content
     const ws = content?.weddingStories || {};
     const pageTitle = ws.pageBannerTitle || "Wedding Stories";
-    const ctaBtnText = ws.ctaBtnText || ws.instagramBtnText || "EXPLORE MORE COLLECTIONS";
-    const ctaBtnUrl = ws.ctaBtnUrl || ws.instagramUrl || "https://instagram.com";
-    const ctaBtnIcon = ws.ctaBtnIcon || ws.instagramBtnIcon || "fab fa-instagram";
+    const seoTitle = ws.seoTitle || pageTitle;
+    const metaDesc = ws.metaDescription || "";
+    
+    // Moved button (Explore Collections / Instagram)
+    const instaBtnText = ws.instagramBtnText || "EXPLORE MORE COLLECTIONS";
+    const instaBtnUrl = ws.instagramUrl || "https://instagram.com/parinayweddings";
+    
+    // Bottom CTA button (Start Planning)
+    const ctaBtnText = ws.ctaBtnText && ws.ctaBtnText !== "EXPLORE MORE COLLECTIONS" 
+        ? ws.ctaBtnText 
+        : "Schedule a Consultation →";
+    const ctaBtnUrl = ws.ctaBtnUrl && ws.ctaBtnUrl.includes('instagram') 
+        ? "/contact" 
+        : (ws.ctaBtnUrl || "/contact");
+
+    useEffect(() => {
+        if (seoTitle) document.title = seoTitle;
+        if (metaDesc) {
+            let meta = document.querySelector('meta[name="description"]');
+            if (meta) meta.setAttribute('content', metaDesc);
+        }
+    }, [seoTitle, metaDesc]);
 
     const allGalleryItems = (ws.storiesList || []).map(item => {
         const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");
@@ -71,9 +90,28 @@ const Gallery = () => {
         <div className="gallery-page">
             <section className="about-hero-new">
                 <div className="container">
-                    <h1 className="gallery-reveal">{pageTitle}</h1>
+                    <h1 className="gallery-reveal">{renderText(pageTitle)}</h1>
                 </div>
             </section>
+
+            {ws.pageBannerSubtitle && (
+                <section className="gallery-intro gallery-reveal" style={{ padding: '80px 0 20px', textAlign: 'center' }}>
+                    <div className="container">
+                        <p style={{ 
+                            fontSize: '1.25rem', 
+                            color: 'rgb(85, 85, 85)', 
+                            maxWidth: '850px', 
+                            margin: '0 auto', 
+                            lineHeight: '1.8',
+                            fontStyle: 'italic',
+                            fontWeight: '300'
+                        }}>
+                            {renderText(ws.pageBannerSubtitle)}
+                        </p>
+                    </div>
+                </section>
+            )}
+
 
             <section className="gallery-section" style={{ paddingTop: '40px' }}>
                 <div className="container">
@@ -87,14 +125,14 @@ const Gallery = () => {
                             >
                                 <div className="gallery-img-wrap">
                                     {isVideoUrl(item.displayImage) ? (
-                                        <video src={resolveMediaURL(item.displayImage)} autoPlay muted loop playsInline />
+                                        <video key={resolveMediaURL(item.displayImage)} src={resolveMediaURL(item.displayImage)} autoPlay muted loop playsInline />
                                     ) : (
                                         <img src={resolveMediaURL(item.displayImage)} alt={item.title || 'Wedding Gallery'} loading="lazy" />
                                     )}
                                     <div className="gallery-overlay">
                                         <div className="gallery-info">
                                             <span className="gallery-cat">{item.category}</span>
-                                            <h3>{item.title}</h3>
+                                            <h3>{renderText(item.title)}</h3>
                                             <p>{item.loc || item.location} • Kerala</p>
                                             <span className="gallery-btn">VIEW STORY <i className="fas fa-expand"></i></span>
                                         </div>
@@ -102,6 +140,11 @@ const Gallery = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                    <div className="gallery-reveal" style={{ textAlign: 'center', marginTop: '60px' }}>
+                        <Link to={instaBtnUrl} className="pw-btn pw-btn--gold" style={{ padding: '18px 45px' }}>
+                            {instaBtnText}
+                        </Link>
                     </div>
                 </div>
             </section>
@@ -122,7 +165,7 @@ const Gallery = () => {
                             {selectedProject.related.map((img, i) => (
                                 <div key={i} className="pd-lightbox__item">
                                     {isVideoUrl(img.url) ? (
-                                        <video src={resolveMediaURL(img.url)} controls width="100%" />
+                                        <video key={resolveMediaURL(img.url)} src={resolveMediaURL(img.url)} controls width="100%" />
                                     ) : (
                                         <img src={resolveMediaURL(img.url)} alt={img.alt} />
                                     )}
@@ -133,17 +176,55 @@ const Gallery = () => {
                 </div>
             )}
 
-            {/* CALL TO ACTION BUTTON */}
-            <div className="pw-stories__footer-cta gallery-reveal" style={{ textAlign: 'center', padding: '80px 0 140px' }}>
-                <a 
-                    href={ctaBtnUrl} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="pw-btn pw-btn--gold"
-                >
-                    {ctaBtnText} <i className={ctaBtnIcon} style={{ marginLeft: '10px', fontSize: '0.9rem' }}></i>
-                </a>
-            </div>
+            {/* BOTTOM CTA SECTION */}
+            <section className="pw-cta-section gallery-reveal" style={{ 
+                padding: '120px 0', 
+                background: `url(${resolveMediaURL(ws.ctaImage)}) center/cover no-repeat`, 
+                color: '#fff',
+                textAlign: 'center',
+                position: 'relative',
+                overflow: 'hidden'
+            }}>
+                <div className="pw-container" style={{ position: 'relative', zIndex: 2 }}>
+                    <h2 style={{ 
+                        fontFamily: 'Playfair Display, serif', 
+                        fontSize: 'clamp(2rem, 4vw, 3rem)', 
+                        marginBottom: '30px',
+                        color: '#fff'
+                    }}>
+                        {renderText(ws.ctaHeading || "Planning a Destination Wedding in Kerala or South India?")}
+                    </h2>
+                    <p style={{ 
+                        fontSize: '1.2rem', 
+                        maxWidth: '700px', 
+                        margin: '0 auto 50px', 
+                        opacity: 0.9,
+                        lineHeight: '1.8'
+                    }}>
+                        {renderText(ws.ctaBody || "Tell us your vision. We'll take care of everything else.")}
+                    </p>
+                    <div style={{ 
+                        display: 'flex', 
+                        gap: '20px', 
+                        justifyContent: 'center',
+                        flexWrap: 'wrap'
+                    }}>
+                        <Link to={ctaBtnUrl} className="pw-btn pw-btn--gold" style={{ padding: '18px 35px' }}>
+                            {ctaBtnText}
+                        </Link>
+                    </div>
+                </div>
+                {/* Subtle background texture or overlay */}
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65))',
+                    zIndex: 1
+                }}></div>
+            </section>
         </div>
     );
 };

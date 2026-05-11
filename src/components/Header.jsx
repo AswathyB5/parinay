@@ -12,7 +12,7 @@ const Header = () => {
     const h = content?.header || {};
     const logoText      = h.logoText      || 'PARINAY';
     const logoImage     = h.logoImage     || '';
-    const logoWidth     = h.logoWidth     || '150px';
+    const logoWidth     = h.logoWidth     || '100px';
     const logoHeight    = h.logoHeight    || 'auto';
     const nav1Label     = h.nav1Label     || 'Home';
     const nav1Url       = h.nav1Url       || '/';
@@ -20,7 +20,7 @@ const Header = () => {
     const nav2Url       = h.nav2Url       || '/about';
     const nav3Label     = h.nav3Label     || 'Services';
     const nav3Url       = h.nav3Url       || '/services';
-    const nav4Label     = h.nav4Label     || 'Wedding Stories';
+    const nav4Label     = h.nav4Label     || 'Gallery';
     const nav4Url       = h.nav4Url       || '/stories';
     const nav4Sub1Label = h.nav4Sub1Label || 'Destination Weddings';
     const nav4Sub1Url   = h.nav4Sub1Url   || '/destination-weddings';
@@ -54,6 +54,7 @@ const Header = () => {
                     <li><Link to={nav1Url} className={location.pathname === nav1Url ? 'active' : ''}>{nav1Label}</Link></li>
                     <li><Link to={nav2Url} className={location.pathname === nav2Url ? 'active' : ''}>{nav2Label}</Link></li>
                     <li><Link to={nav3Url} className={location.pathname === nav3Url ? 'active' : ''}>{nav3Label}</Link></li>
+                    <li><Link to={nav4Url} className={location.pathname.startsWith('/stories') ? 'active' : ''}>{nav4Label}</Link></li>
                 </ul>
 
                 <div className="logo">
@@ -62,24 +63,22 @@ const Header = () => {
                             <img 
                                 src={fullLogoPath} 
                                 alt={logoText} 
-                                style={{ width: logoWidth, height: logoHeight, objectFit: 'contain' }} 
+                                style={{ 
+                                    width: logoWidth, 
+                                    maxHeight: '90px', 
+                                    objectFit: 'contain'
+                                }} 
                             />
-                        ) : (
-                            logoText
-                        )}
+                        ) : null}
                     </Link>
                 </div>
 
                 <ul className="nav-links nav-links--right">
                     <li className="nav-dropdown">
-                        <Link 
-                            to={nav4Url} 
-                            className={location.pathname.startsWith('/stories') ? 'active' : ''}
-                        >
-                            {nav4Label}
+                        <Link to={nav4Sub1Url} className={location.pathname === nav4Sub1Url ? 'active' : ''}>
+                            {nav4Sub1Label} <i className="fas fa-chevron-down" style={{ fontSize: '0.7rem', marginLeft: '5px' }}></i>
                         </Link>
                         <ul className="nav-dropdown-menu">
-                            <li><Link to={nav4Sub1Url}>{nav4Sub1Label}</Link></li>
                             <li><Link to={nav4Sub2Url}>{nav4Sub2Label}</Link></li>
                             <li><Link to={nav4Sub3Url}>{nav4Sub3Label}</Link></li>
                         </ul>
@@ -93,14 +92,10 @@ const Header = () => {
                     <li><Link to={nav1Url}>{nav1Label}</Link></li>
                     <li><Link to={nav2Url}>{nav2Label}</Link></li>
                     <li><Link to={nav3Url}>{nav3Label}</Link></li>
-                    <li>
-                        <Link to={nav4Url}>{nav4Label}</Link>
-                        <ul className="mobile-sub-menu" style={{ listStyle: 'none', paddingLeft: '1rem', marginTop: '0.5rem' }}>
-                            <li><Link to={nav4Sub1Url}>- {nav4Sub1Label}</Link></li>
-                            <li><Link to={nav4Sub2Url}>- {nav4Sub2Label}</Link></li>
-                            <li><Link to={nav4Sub3Url}>- {nav4Sub3Label}</Link></li>
-                        </ul>
-                    </li>
+                    <li><Link to={nav4Url}>{nav4Label}</Link></li>
+                    <li><Link to={nav4Sub1Url}>{nav4Sub1Label}</Link></li>
+                    <li><Link to={nav4Sub2Url}>{nav4Sub2Label}</Link></li>
+                    <li><Link to={nav4Sub3Url}>{nav4Sub3Label}</Link></li>
                     <li><Link to={nav5Url}>{nav5Label}</Link></li>
                     <li><Link to={nav6Url}>{nav6Label}</Link></li>
                 </ul>

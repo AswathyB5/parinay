@@ -27,7 +27,7 @@
 
 .pw-page-banner__title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 10vw, 7.5rem);
+    font-size: clamp(2.2rem, 10vw, 7.5rem);
     /* Truly "big size" */
     font-weight: 300;
     line-height: 0.9;
@@ -96,7 +96,7 @@
 
 .pw-page-hero__title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-size: clamp(2.2rem, 6vw, 5.5rem);
     font-weight: 300;
     line-height: 1.1;
     margin-bottom: 24px;
@@ -117,6 +117,18 @@
     color: var(--accent-color) !important;
 }
 
+/* Ensure horizontal spacing for hero sections on mobile */
+@media (max-width: 600px) {
+    .about-hero-new .container,
+    .pw-page-hero__content,
+    .pw-page-banner .container,
+    .comprehensive-services .container,
+    .process-timeline-section .container {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+    }
+}
+
 .pw-page-hero__subtitle {
     font-family: 'Outfit', sans-serif;
     font-size: 1.1rem;
@@ -130,7 +142,7 @@
 }
 
 .pw-page-hero--light .pw-page-hero__subtitle {
-    color: rgba(29, 53, 40, 0.6);
+    color: rgba(58, 18, 25, 0.6);
 }
 
 /* ─── TEAM GRID ───────────────────────────────────────────────────────────── */
@@ -214,7 +226,7 @@
 
 .pw-story__filter-btn {
     background: transparent;
-    border: 1px solid rgba(29, 53, 40, 0.2);
+    border: 1px solid rgba(58, 18, 25, 0.2);
     color: var(--primary-color);
     padding: 10px 24px;
     font-family: 'Outfit', sans-serif;
@@ -320,7 +332,7 @@
 }
 
 .pw-journal__img-wrap {
-    aspect-ratio: 3/2;
+    aspect-ratio: 16/9;
     overflow: hidden;
     margin-bottom: 24px;
 }
@@ -375,7 +387,7 @@
 
 .pw-contact__info {
     padding-right: 40px;
-    border-right: 1px solid rgba(29, 53, 40, 0.1);
+    border-right: 1px solid rgba(58, 18, 25, 0.1);
 }
 
 .pw-contact__block {
@@ -562,12 +574,34 @@
     }
 
     .pw-page-banner {
-        padding: 120px 0 60px;
+        padding: 180px 0 60px !important;
     }
 }
 
-@media (max-width: 768px) {
-    /* About Us Sections */
+@media (max-width: 1024px) {
+    .about-hero-new,
+    .services-hero,
+    .stories-hero,
+    .pd-hero,
+    .pw-page-banner {
+        display: block !important;
+        padding-top: 140px !important; /* Reduced from 240px to eliminate excessive space */
+        padding-bottom: 60px !important;
+        height: auto !important;
+        min-height: auto !important;
+    }
+
+    .about-hero-new h1,
+    .services-hero h1,
+    .stories-hero h1,
+    .pd-hero h1,
+    .pw-page-banner h1,
+    .pd-title {
+        margin-top: 20px !important; /* Reduced from 50px to bring headings higher */
+        padding-top: 0 !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
     .about-values-new, 
     .about-philosophy-new, 
     .about-team-grid,
@@ -581,11 +615,29 @@
     }
 
     .about-founder-new {
+        display: flex;
         flex-direction: column;
+        padding: 40px 20px;
+        gap: 40px;
     }
 
     .founder-image, .founder-content {
         width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .founder-image img {
+        height: 400px !important;
+    }
+
+    .founder-content h2 {
+        font-size: 2.2rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .founder-quote {
+        font-size: 1.3rem !important;
+        line-height: 1.5 !important;
     }
 
     .pw-stats__grid {
@@ -630,7 +682,7 @@
 
     .pw-page-hero__title,
     .about-hero-new h1 {
-        font-size: 2.8rem !important;
+        font-size: 2.2rem !important;
     }
     
     .pw-stats__grid {
@@ -647,7 +699,7 @@
 .wsl-item {
     position: relative;
     width: 100%;
-    height: 580px;
+    height: 480px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -658,7 +710,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: #fdfbf7;
 }
 
 .wsl-item__thumb {
@@ -667,7 +719,7 @@
     object-fit: cover;
     display: block;
     transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: brightness(0.72);
+    filter: none;
 }
 
 .wsl-item:hover .wsl-item__thumb {
@@ -883,7 +935,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: #fdfbf7;
 }
 
 .wsl-item__thumb {
@@ -892,7 +944,7 @@
     object-fit: cover;
     display: block;
     transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: brightness(0.72);
+    filter: none;
 }
 
 .wsl-item:hover .wsl-item__thumb {
@@ -1087,8 +1139,11 @@
     }
 
     .wsl-item {
-        width: calc(100% - 24px);
+        width: calc(100% - 40px); /* Increased from 24px to ensure space from left/right */
+        margin-left: auto;
+        margin-right: auto;
         margin-bottom: 24px;
+        border-radius: 4px; /* Slight rounding for card look */
     }
 
     .wsl-item__media {
@@ -1105,9 +1160,32 @@
 }
 
 /* ─── NEW COMPREHENSIVE CARDS ─────────────────── */
+.comprehensive-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+}
+
+@media (max-width: 1024px) {
+    .comprehensive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .comprehensive-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
 .comprehensive-grid > div {
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     will-change: transform;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .comprehensive-grid > div:hover {
@@ -1166,11 +1244,11 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     color: var(--primary-color);
-    marginTop: 20px;
+    margin-top: 20px;
 }
 
 .team-subtext {
-    maxWidth: 600px;
+    max-width: 600px;
     margin: 30px auto 0;
     color: #555;
     line-height: 1.8;
@@ -1183,13 +1261,13 @@
 }
 
 .about-team-card {
-    textAlign: center;
+    text-align: center;
 }
 
 .about-team-img-wrap {
     height: 400px;
     overflow: hidden;
-    marginBottom: 25px;
+    margin-bottom: 25px;
     position: relative;
 }
 
@@ -1204,7 +1282,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
     color: var(--primary-color);
-    marginBottom: 8px;
+    margin-bottom: 8px;
 }
 
 .member-role {

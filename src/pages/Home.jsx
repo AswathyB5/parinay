@@ -1,10 +1,82 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText, API } from '../context/ContentContext';
 
+const StatCounter = ({ number, label, start }) => {
+    const [displayValue, setDisplayValue] = useState('0');
+
+    useEffect(() => {
+        if (!start) {
+            setDisplayValue('0');
+            return;
+        }
+
+        const targetStr = String(number);
+        const match = targetStr.match(/(\d+(\.\d+)?)/);
+        if (!match) {
+            setDisplayValue(number);
+            return;
+        }
+
+        const target = parseFloat(match[1]);
+        const prefix = targetStr.split(match[0])[0] || '';
+        const suffix = targetStr.split(match[0])[1] || '';
+        const duration = 2000; // Faster 2s duration for a snappier feel
+        const startTime = performance.now();
+
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Cubic ease-out: Snappier than Quart/Expo, finishes more decisively
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            
+            const isDecimal = targetStr.includes('.');
+            const currentVal = (target * easeProgress).toFixed(isDecimal ? 1 : 0);
+            
+            setDisplayValue(prefix + currentVal + suffix);
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                setDisplayValue(targetStr);
+            }
+        };
+
+        requestAnimationFrame(animate);
+    }, [start, number]);
+
+    return (
+        <div className="pw-achievements__item">
+            <span className="pw-achievements__number">{displayValue || '0'}</span>
+            <span className="pw-achievements__label">{renderText(label)}</span>
+        </div>
+    );
+};
+
+
 const Home = () => {
+    // --- Stats Counter Logic ---
+    const statsRef = useRef(null);
+    const [statsInView, setStatsInView] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!statsRef.current || statsInView) return;
+            const rect = statsRef.current.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.85) {
+                setStatsInView(true);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [statsInView]);
+
     const { content } = useContext(ContentContext);
     const home = content.home;
+    const [popup, setPopup] = useState({ open: false, title: '', message: '' });
+    const todayStr = new Date().toISOString().split('T')[0];
 
     const getYoutubeEmbedUrl = (url) => {
         if (!url || typeof url !== 'string') return "";
@@ -22,16 +94,16 @@ const Home = () => {
     };
     // --- Hero Video Crossfade Logic ---
     const [currentVid, setCurrentVid] = useState(0);
-    const heroVideos = (home.heroVideos && home.heroVideos.length > 0)
+    const heroVideos = useMemo(() => (home.heroVideos && home.heroVideos.length > 0)
         ? home.heroVideos.map(v => resolveMediaURL(v.video))
         : [
-            resolveMediaURL(home.heroVideo1 || '/Untitled design.mp4'),
-            resolveMediaURL(home.heroVideo2 || '/12874721_1920_1080_30fps.mp4'),
-        ];
+            resolveMediaURL(home.heroVideo1 || 'https://videos.pexels.com/video-files/5305149/5305149-uhd_2560_1440_25fps.mp4'),
+            resolveMediaURL(home.heroVideo2 || 'https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4'),
+        ], [home.heroVideos, home.heroVideo1, home.heroVideo2]);
 
     // --- Hero Floating Image Slideshow Logic ---
     const [currentHeroImg, setCurrentHeroImg] = useState(0);
-    const heroImages = home.heroImages || [];
+    const heroImages = useMemo(() => home.heroImages || [], [home.heroImages]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -50,7 +122,7 @@ const Home = () => {
             video.addEventListener('ended', handleEnded);
             return () => video.removeEventListener('ended', handleEnded);
         }
-    }, [currentVid, heroVideos.length]);
+    }, [currentVid, heroVideos]);
 
     // --- Testimonial Carousel Logic ---
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -87,13 +159,27 @@ const Home = () => {
     }, [portfolioItems.length]);
 
     // --- Lead Form Logic ---
+    const validateForm = (payload) => {
+        if (!payload.name.trim()) return 'Please enter your full name.';
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!payload.email.trim()) return 'Please enter your email address.';
+        if (!emailRegex.test(payload.email)) return 'Please enter a valid email address.';
+        
+        if (payload.phone && payload.phone.trim()) {
+            const phoneDigits = payload.phone.replace(/\D/g, '');
+            if (phoneDigits.length < 10) return 'Please enter a valid phone number.';
+        }
+
+        if (!payload.message.trim()) return 'Please provide some details about your wedding.';
+        if (payload.message.trim().length < 10) return 'Please tell us a bit more so we can help you better.';
+        
+        return null;
+    };
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        const submitBtn = e.target.querySelector('.btn-submit');
-        const originalText = submitBtn.innerText;
-        submitBtn.innerText = 'Sending...';
-        submitBtn.disabled = true;
-
+        
         const formEl = e.target;
         const payload = {
             type: 'contact',
@@ -107,26 +193,50 @@ const Home = () => {
             message: formEl.message?.value || '',
         };
 
+        const validationError = validateForm(payload);
+        if (validationError) {
+            setPopup({
+                open: true,
+                title: 'Information Needed',
+                message: validationError,
+            });
+            return;
+        }
+
+        const submitBtn = e.target.querySelector('.btn-submit');
+        const originalText = submitBtn.innerText;
+        submitBtn.innerText = 'Sending...';
+        submitBtn.disabled = true;
+
         try {
-            console.log('[Home Form] Sending payload:', payload);
             const res = await fetch(`${API}/api/inquiries`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             });
-            console.log('[Home Form] Response status:', res.status);
             const data = await res.json();
-            console.log('[Home Form] Response data:', data);
 
             if (data.success) {
-                alert('Thank you for contacting Parinay Weddings. Our team will review your requirements and get in touch within 24 hours via WhatsApp and Email.');
+                setPopup({
+                    open: true,
+                    title: 'Thank You!',
+                    message: 'Thank you for contacting Parinay Weddings. Our team will get back to you shortly.',
+                });
                 formEl.reset();
             } else {
-                alert(`Something went wrong: ${data.error || 'Unknown error'}`);
+                setPopup({
+                    open: true,
+                    title: 'Submission Failed',
+                    message: data.error || 'Something went wrong. Please try again.',
+                });
             }
         } catch (err) {
             console.error('[Home Form] FETCH ERROR:', err);
-            alert(`Could not reach the server. \n\nTechnical Error: ${err.message}`);
+            setPopup({
+                open: true,
+                title: 'Connection Issue',
+                message: 'Could not reach the server right now. Please try again in a moment.',
+            });
         }
 
         submitBtn.innerText = originalText;
@@ -159,32 +269,83 @@ const Home = () => {
 
     return (
         <div className="home-page">
+            {popup.open && (
+                <div style={{
+                    position: 'fixed',
+                    inset: 0,
+                    background: 'rgba(8, 16, 13, 0.62)',
+                    backdropFilter: 'blur(3px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 20000, 
+                    padding: '20px',
+                }}>
+                    <div style={{
+                        width: '100%',
+                        maxWidth: '460px',
+                        background: 'linear-gradient(155deg, #fffdf8 0%, #fff3df 45%, #f8f1e8 100%)',
+                        borderRadius: '22px',
+                        padding: '32px 28px',
+                        boxShadow: '0 24px 60px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.35) inset',
+                        textAlign: 'center',
+                        border: '2px solid rgba(197,160,89,0.55)',
+                        position: 'relative',
+                    }}>
+                        <div style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: '5px',
+                            borderTopLeftRadius: '20px',
+                            borderTopRightRadius: '20px',
+                            background: 'linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%)',
+                        }}></div>
+                        <div style={{ fontSize: '2rem', marginBottom: '10px', filter: 'drop-shadow(0 3px 6px rgba(197,160,89,0.35))' }}>💍</div>
+                        <h3 style={{ margin: '0 0 12px', color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>{popup.title}</h3>
+                        <p style={{ margin: 0, color: '#4f5c56', lineHeight: 1.7 }}>{popup.message}</p>
+                        <button
+                            type="button"
+                            className="pw-btn pw-btn--dark"
+                            style={{ marginTop: '24px', minWidth: '140px' }}
+                            onClick={() => setPopup({ open: false, title: '', message: '' })}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
 
             {/* ═══ SECTION 1: HERO ═══ */}
             <section className="pw-hero">
                 <div className="pw-hero__video-bg">
                     {heroVideos.map((src, index) => (
                         <video
-                            key={index}
+                            key={`${index}-${src}`}
                             muted
                             playsInline
                             className={`pw-hero__video ${currentVid === index ? 'is-active' : ''}`}
                             id={`heroVid${index}`}
                             preload="auto"
-                        >
-                            <source src={src} type="video/mp4" />
-                        </video>
+                            src={src}
+                        />
                     ))}
                     <div className="pw-hero__overlay"></div>
                 </div>
 
                 <div className="pw-hero__content">
-                    <span className="pw-hero__eyebrow"></span>
-                    <p className="pw-hero__tagline">
+                    <h1 className="pw-hero__tagline">
                         {renderText(home.heroTagline)}
+                    </h1>
+                    <p className="pw-hero__subheading" style={{ fontSize: '1.5rem', marginBottom: '20px', color: '#fff', fontWeight: '300' }}>
+                        {renderText(home.heroSubheading)}
+                    </p>
+                    <p className="pw-hero__body" style={{ fontSize: '1.1rem', marginBottom: '35px', color: 'rgba(255,255,255,0.9)', maxWidth: '600px', lineHeight: '1.6', margin: '0 auto 35px' }}>
+                        {renderText(home.heroBody)}
                     </p>
                     <div className="pw-hero__ctas">
-                        <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
+                        <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--dark">
                             {home.heroBtnText || "Get Started"}
                         </Link>
                     </div>
@@ -194,7 +355,7 @@ const Home = () => {
                     {heroImages.map((img, index) => (
                         isVideoUrl(img.image) ? (
                             <video
-                                key={index}
+                                key={`${index}-${img.image}`}
                                 src={resolveMediaURL(img.image)}
                                 autoPlay muted loop playsInline
                                 className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
@@ -222,6 +383,11 @@ const Home = () => {
                         <p className="pw-intro__text" style={{ fontSize: '1.4rem', marginTop: '30px' }}>
                             <em>{renderText(home.introSubText)}</em>
                         </p>
+                        <div style={{ marginTop: '50px' }}>
+                            <Link to="/about" className="pw-btn pw-btn--dark">
+                                {home.introBtnText || "Learn About Us →"}
+                            </Link>
+                        </div>
                     </div>
                 </div><br />
 
@@ -264,7 +430,7 @@ const Home = () => {
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                         <span className="section-label">{renderText(home.servicesLabel)}</span>
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '20px' }}>
-                            {(home.servicesHeading || '').split(/\\n|\n/)[0]} <em>{(home.servicesHeading || '').split(/\\n|\n/)[1] || ''}</em>
+                            {renderText(home.servicesHeading)}
                         </h2>
                         <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem', color: '#666', lineHeight: '1.8' }}>
                             {renderText(home.servicesIntroText)}
@@ -284,7 +450,7 @@ const Home = () => {
                             <div className="team-card-new" key={idx}>
                                 <div className="team-img-wrap-new">
                                     {isVideoUrl(s.image) ? (
-                                        <video src={resolveMediaURL(s.image)} autoPlay muted loop playsInline />
+                                        <video key={resolveMediaURL(s.image)} src={resolveMediaURL(s.image)} autoPlay muted loop playsInline />
                                     ) : (
                                         <img src={resolveMediaURL(s.image)} alt={s.title} />
                                     )}
@@ -292,7 +458,7 @@ const Home = () => {
                                 <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '8px', fontFamily: 'Playfair Display, serif' }}>
                                     {s.title}
                                 </h3>
-                                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: '1.6' }}>
+                                <p style={{ fontSize: '1.0rem', color: '#666', lineHeight: '1.6' }}>
                                     {s.desc}
                                 </p>
                             </div>
@@ -311,7 +477,7 @@ const Home = () => {
                     }}>
                         <p style={{
                             fontSize: '1.8rem',
-                            color: '#1d3528',
+                            color: '#3a1219',
                             fontFamily: 'Playfair Display, serif',
                             lineHeight: '1.1',
                             textAlign: 'center',
@@ -341,8 +507,7 @@ const Home = () => {
                         <div className="pw-destination__content reveal">
                             <span className="pw-label pw-label--light">{renderText(home.destinationLabel)}</span>
                             <h2 className="pw-destination__heading">
-                                {(home.destinationHeading || '').split(',')[0]}<br />
-                                <em>{(home.destinationHeading || '').includes(',') ? (home.destinationHeading || '').split(',')[1].trim() : ''}</em>
+                                {renderText(home.destinationHeading)}
                             </h2>
                             <div className="pw-destination__divider"></div>
                             <p className="pw-destination__text">{renderText(home.destinationBody1)}</p>
@@ -350,14 +515,14 @@ const Home = () => {
                             <p className="pw-destination__text" style={{ fontStyle: 'italic', color: '#a1a1a1ff', fontWeight: '400' }}>
                                 {renderText(home.destinationBody3)}
                             </p>
-                            <Link to={home.destinationBtnUrl || '/contact'} className="pw-btn pw-btn--gold" style={{ marginTop: '40px' }}>
+                            <Link to={home.destinationBtnUrl || '/contact'} className="pw-btn pw-btn--dark" style={{ marginTop: '40px' }}>
                                 {renderText(home.destinationBtnText)}
                             </Link>
                         </div>
 
                         <div className="pw-destination__images reveal">
                             {isVideoUrl(home.destinationImage1) ? (
-                                <video src={resolveMediaURL(home.destinationImage1)} autoPlay muted loop playsInline className="pw-destination__img-main" />
+                                <video key={resolveMediaURL(home.destinationImage1)} src={resolveMediaURL(home.destinationImage1)} autoPlay muted loop playsInline className="pw-destination__img-main" />
                             ) : (
                                 <img
                                     src={resolveMediaURL(home.destinationImage1)}
@@ -366,7 +531,7 @@ const Home = () => {
                                 />
                             )}
                             {isVideoUrl(home.destinationImage2) ? (
-                                <video src={resolveMediaURL(home.destinationImage2)} autoPlay muted loop playsInline className="pw-destination__img-sub" />
+                                <video key={resolveMediaURL(home.destinationImage2)} src={resolveMediaURL(home.destinationImage2)} autoPlay muted loop playsInline className="pw-destination__img-sub" />
                             ) : (
                                 <img
                                     src={resolveMediaURL(home.destinationImage2)}
@@ -388,6 +553,9 @@ const Home = () => {
                             <h2 className="pw-portfolio__title">
                                 {renderText(home.portfolioHeading)}
                             </h2>
+                            <p className="pw-portfolio__body" style={{ marginTop: '15px', color: '#666', fontSize: '1.1rem', maxWidth: '800px' }}>
+                                {renderText(home.portfolioBody)}
+                            </p>
                         </div>
                     </div>
                 </div><br />
@@ -461,7 +629,7 @@ const Home = () => {
                             return (
                                 <div className="pw-services__card" key={idx}>
                                     {isVideoUrl(displayImage) ? (
-                                        <video src={resolveMediaURL(displayImage)} autoPlay muted loop playsInline className="pw-services__card-img" />
+                                        <video key={resolveMediaURL(displayImage)} src={resolveMediaURL(displayImage)} autoPlay muted loop playsInline className="pw-services__card-img" />
                                     ) : (
                                         <img src={resolveMediaURL(displayImage)} alt={item.title} className="pw-services__card-img" />
                                     )}
@@ -492,12 +660,7 @@ const Home = () => {
                         <div className="youtube-text-content">
                             <span className="editorial-label">{renderText(home.youtubeLabel)}</span>
                             <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3.8rem)', margin: '20px 0 35px', lineHeight: '1.1' }}>
-                                {(home.youtubeHeading || '').split(/\\n|\n/).map((line, i, arr) => (
-                                    <React.Fragment key={i}>
-                                        {i === arr.length - 1 ? <em>{line}</em> : line}
-                                        {i < arr.length - 1 && <br />}
-                                    </React.Fragment>
-                                ))}
+                                {renderText(home.youtubeHeading)}
                             </h2>
                             <p style={{ marginBottom: '25px' }}>{renderText(home.youtubeText1)}</p>
                             <p style={{ marginBottom: '35px' }}>{renderText(home.youtubeText2)}</p>
@@ -586,22 +749,51 @@ const Home = () => {
             </section><br />
 
 
+
+            {/* ═══ ACHIEVEMENTS STATS BAR ═══ */}
+            <section 
+                className="pw-achievements reveal"
+                ref={statsRef}
+            >
+                <div className="pw-container">
+                    <div className="pw-achievements__grid">
+                        {(home.achievements && home.achievements.length > 0
+                            ? home.achievements
+                            : [
+                                { number: '1500+', label: 'Happy Couples' },
+                                { number: '4.9/5', label: 'Google Rating' },
+                                { number: '10+', label: 'Years Of Experience' },
+                                { number: '20+', label: 'Strong Team' }
+                            ]
+                        ).map((stat, idx) => (
+                            <StatCounter 
+                                key={idx} 
+                                number={stat.number} 
+                                label={stat.label} 
+                                start={statsInView}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* ═══ SECTION 7: TESTIMONIALS ═══ */}
             <section className="pw-testimonials">
                 <div className="pw-container">
                     <div className="pw-testimonials__inner">
                         <span className="pw-label pw-label--gold">{renderText(home.testimonialLabel || 'Testimonials')}</span>
+                        <h2 className="pw-testimonials__heading" style={{ 
+                            fontSize: 'clamp(2.5rem, 4vw, 3.5rem)', 
+                            color: 'var(--primary-color)', 
+                            fontFamily: 'Playfair Display, serif',
+                            marginBottom: '40px',
+                            textAlign: 'center'
+                        }}>
+                            {renderText(home.testimonialHeading || 'What Our Couples, [[Have to Say]]')}
+                        </h2>
 
-
-                        <div className="pw-testimonials__quote-wrap">
-                            <div className="pw-testimonials__quote-mark">"</div>
-                            <p className="pw-testimonials__quote" key={currentTestimonial}>
-                                {renderText(testimonials[currentTestimonial]?.text)}
-                            </p>
-                        </div>
 
                         <div className="pw-testimonials__author">
-                            <div className="pw-testimonials__author-line"></div>
                             <div className="pw-testimonials__author-flex">
                                 <div className="pw-testimonials__author-img">
                                     {isVideoUrl(testimonials[currentTestimonial]?.image) ? (
@@ -618,6 +810,14 @@ const Home = () => {
                                     <span>{renderText(testimonials[currentTestimonial]?.location)}</span>
                                 </div>
                             </div>
+                            <div className="pw-testimonials__author-line" style={{ marginTop: '30px', marginBottom: '10px' }}></div>
+                        </div>
+
+                        <div className="pw-testimonials__quote-wrap">
+                            <div className="pw-testimonials__quote-mark">"</div>
+                            <p className="pw-testimonials__quote" key={currentTestimonial}>
+                                {renderText(testimonials[currentTestimonial]?.text)}
+                            </p>
                         </div>
 
                         <div className="pw-testimonials__dots">
@@ -639,11 +839,12 @@ const Home = () => {
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                         <span className="pw-label">{renderText(content.journals.sectionLabel)}</span>
-                        <h2 className="pw-section-header__title" style={{ fontSize: '3.5rem' }}>
-                            {(content.journals.sectionTitle || "").split(' ').map((word, i, arr) => (
-                                i === arr.length - 1 ? <em key={i} style={{ fontStyle: 'italic', color: 'var(--accent-color)' }}>{word}</em> : `${word} `
-                            ))}
+                        <h2 className="pw-section-header__title" style={{ fontSize: '3.5rem', marginBottom: '20px' }}>
+                            {renderText(content.journals.sectionTitle)}
                         </h2>
+                        <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.2rem', color: '#666' }}>
+                            {renderText(content.journals.guideDesc)}
+                        </p>
                     </div>
 
                     <div className="pw-journal__grid">
@@ -673,7 +874,7 @@ const Home = () => {
                     </div>
 
                     <div style={{ textAlign: 'center', marginTop: '60px' }}>
-                        <Link to="/journals" className="pw-btn pw-btn--outline">View All Entries</Link>
+                        <Link to="/journals" className="pw-btn pw-btn--outline">View All Guides →</Link>
                     </div>
                 </div>
             </section>
@@ -683,32 +884,27 @@ const Home = () => {
             <section className="pw-transition">
                 <div className="pw-transition__video-bg">
                     <video
+                        key={resolveMediaURL(home.transitionVideoUrl)}
                         autoPlay
                         loop
                         muted
                         playsInline
                         className="pw-transition__video"
                         preload="auto"
-                    >
-                        <source src={resolveMediaURL(home.transitionVideoUrl)} type="video/mp4" />
-                    </video>
+                        src={resolveMediaURL(home.transitionVideoUrl)}
+                    />
                     <div className="pw-transition__overlay"></div>
                 </div>
 
                 <div className="pw-container reveal">
-                    <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4.5vw, 4rem)', marginBottom: '50px', lineHeight: '1.1', color: 'var(--secondary-color)' }}>
-                        {(home.transitionHeading || '').split(/\\n|\n/).length > 1
-                            ? (home.transitionHeading || '').split(/\\n|\n/).map((line, i) => <React.Fragment key={i}>{line}<br /></React.Fragment>)
-                            : (
-                                <>
-                                    {(home.transitionHeading || '').split(' ').slice(0, -2).join(' ')} <br />
-                                    <em>{(home.transitionHeading || '').split(' ').slice(-2).join(' ')}</em>
-                                </>
-                            )
-                        }
+                    <h2 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.5rem, 4.5vw, 4rem)', marginBottom: '20px', lineHeight: '1.1', color: 'var(--secondary-color)' }}>
+                        {renderText(home.transitionHeading)}
                     </h2>
+                    <p style={{ fontSize: '1.5rem', color: 'rgba(255,255,255,0.9)', marginBottom: '40px', fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>
+                        {renderText(home.transitionSubtext)}
+                    </p>
                     <div className="pw-transition__cta" style={{ marginTop: '40px' }}>
-                        <Link to={home.transitionBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
+                        <Link to={home.transitionBtnUrl || "/contact"} className="pw-btn pw-btn--dark">
                             {renderText(home.transitionBtnText || "Work With Us")}
                         </Link>
                     </div>
@@ -724,8 +920,7 @@ const Home = () => {
                         <div className="pw-form-wrap__left">
                             <span className="pw-label">{home.formLabel}</span>
                             <h2 className="pw-form-wrap__title">
-                                {home.formHeading.split(' ').slice(0, 1).join(' ')} <br />
-                                <em>{home.formHeading.split(' ').slice(1).join(' ')}</em>
+                                {renderText(home.formHeading)}
                             </h2>
                             <p className="pw-form-wrap__sub">{home.formSubtext}</p>
                         </div>
@@ -758,7 +953,7 @@ const Home = () => {
                                 </div>
                                 <div className="pw-form__field">
                                     <label className="pw-form__label">Wedding Date</label>
-                                    <input type="date" name="weddingDate" className="pw-form__input" required />
+                                    <input type="date" name="weddingDate" className="pw-form__input" min={todayStr} required />
                                 </div>
                                 <div className="pw-form__field" style={{ gridColumn: 'span 2' }}>
                                     <label className="pw-form__label">Your Expectations</label>
