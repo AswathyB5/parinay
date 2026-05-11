@@ -31,6 +31,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/stories" element={<Weddingstories />} />
           <Route path="/destination-weddings" element={<Stories sectionKey="storiesDestination" />} />
+          <Route path="/themed-weddings" element={<Stories sectionKey="storiesThemed" />} />
+          <Route path="/traditional-weddings" element={<Stories sectionKey="storiesTraditional" />} />
 
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/journals" element={<Journals />} />

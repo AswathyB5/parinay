@@ -5,16 +5,14 @@
     "heroBody": "At Parinay, we plan destination weddings that are entirely, unmistakably yours - across Kerala's backwaters, hill stations, and beaches, and beyond into South India's most stunning locations.",
     "heroBtnText": "Start Planning Your Wedding →",
     "heroBtnUrl": "/contact",
-    "heroVideo1": "uploads/Untitled%20design.mp4",
-    "heroVideo2": "uploads/12874721_1920_1080_30fps.mp4",
     "heroVideos": [
       {
         "id": 1,
-        "video": "uploads/Untitled%20design.mp4"
+        "video": ""
       },
       {
         "id": 2,
-        "video": "uploads/12874721_1920_1080_30fps.mp4"
+        "video": ""
       }
     ],
     "heroImages": [
@@ -253,12 +251,30 @@
     "testimonialHeading": "What Our Couples, [[Have to Say]]",
     "youtubeEmbedUrl": "https://www.youtube.com/watch?v=s4dWp9_nNYk",
     "achievements": [
-      { "id": 1, "number": "1500+", "label": "Happy Couples" },
-      { "id": 2, "number": "4.9/5", "label": "Google Rating" },
-      { "id": 3, "number": "10+", "label": "Years Of Experience" },
-      { "id": 4, "number": "20+", "label": "Strong Team" }
+      {
+        "id": 1,
+        "number": "1500+",
+        "label": "Happy Couples"
+      },
+      {
+        "id": 2,
+        "number": "4.9/5",
+        "label": "Google Rating"
+      },
+      {
+        "id": 3,
+        "number": "10+",
+        "label": "Years Of Experience"
+      },
+      {
+        "id": 4,
+        "number": "20+",
+        "label": "Strong Team"
+      }
     ],
-    "_hiddenSections": []
+    "_hiddenSections": [],
+    "heroVideo1": "uploads/Untitled design.mp4",
+    "heroVideo2": "uploads/12874721_1920_1080_30fps.mp4"
   },
   "about": {
     "seoTitle": "About Us | Parinay Weddings, Destination Wedding Planners, Trivandrum",

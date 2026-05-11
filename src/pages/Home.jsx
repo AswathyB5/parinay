@@ -356,7 +356,7 @@ const Home = () => {
                     {heroImages.map((img, index) => (
                         <img
                             key={index}
-                            src={resolveMediaURL(index === 0 ? 'uploads/upload_1773923613337_6810.jpg' : img.image)}
+                            src={resolveMediaURL(img.image)}
                             alt={img.alt || `Wedding Celebration ${index + 1}`}
                             className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
                         />

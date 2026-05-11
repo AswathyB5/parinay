@@ -102,6 +102,8 @@ const SECTION_ICONS = {
     contact: <Mail size={17} />,
     header: <Layout size={17} />,
     footer: <AlignLeft size={17} />,
+    storiesThemed: <LayoutGrid size={17} />,
+    storiesTraditional: <Clock size={17} />,
     inquiries: <MessageSquare size={17} />,
 };
 
@@ -115,13 +117,15 @@ const SECTION_LABELS = {
     contact: 'Contact Page',
     header: 'Site Header & Nav',
     footer: 'Site Footer',
+    storiesThemed: 'Themed Weddings',
+    storiesTraditional: 'Traditional Weddings',
     inquiries: 'Customer Inquiries',
 };
 
 const SIDEBAR_GROUPS = [
     { title: 'Global Branding', tabs: ['header', 'footer'] },
     { title: 'Page Content', tabs: ['home', 'about', 'services', 'contact'] },
-    { title: 'Galleries & Stories', tabs: ['weddingStories', 'storiesDestination'] },
+    { title: 'Galleries & Stories', tabs: ['weddingStories', 'storiesDestination', 'storiesThemed', 'storiesTraditional'] },
     { title: 'Editorial', tabs: ['journals'] },
     { title: 'Customer Leads', tabs: ['inquiries'] }
 ];
@@ -259,6 +263,22 @@ const FIELD_GROUPS = {
         guideChecklist2:     'Downloadable Guide',
         guideChecklist3:     'Downloadable Guide'
     },
+    /* ── THEMED WEDDINGS ────────────────────────── */
+    storiesThemed: {
+        pageBannerTitle:     'Page Header',
+        storiesList:         'Themed Stories List',
+        heroImage:           'Hero Section',
+        heroTitle:           'Hero Section',
+        testimonialQuote:    'Client Testimonial'
+    },
+    /* ── TRADITIONAL WEDDINGS ────────────────────── */
+    storiesTraditional: {
+        pageBannerTitle:     'Page Header',
+        storiesList:         'Traditional Stories List',
+        heroImage:           'Hero Section',
+        heroTitle:           'Hero Section',
+        testimonialQuote:    'Client Testimonial'
+    },
     /* ── HEADER / NAVIGATION ───────────────────────── */
     header: {
         logoText:       'Logo & Branding',
@@ -343,6 +363,9 @@ const GROUP_DESCRIPTIONS = {
     'Downloadable Guide':          'Lead magnet section with cover image, checklist items and CTA button.',
     'Post Detail Labels':          'Button and section labels used on the journal detail and listing pages.',
     'Post Detail CTA':             'The call-to-action band at the bottom of each journal entry.',
+    /* Themed / Traditional */
+    'Themed Stories List':         'Collection of themed wedding projects.',
+    'Traditional Stories List':    'Collection of traditional wedding projects.',
     /* Header / Footer */
     'Logo & Branding':             'Settings for your site logo image, sizing, and fallback text.',
     'Navigation Menu':             'Manage all main navigation links (Home, About, Services, Wedding Stories) and the items within the stories dropdown menu.',
@@ -1533,9 +1556,7 @@ const AdminDashboard = () => {
                                                                                 if (fieldKey === 'portfolioItems') return ['title', 'location', 'image'].includes(k);
                                                                                 if (fieldKey === 'storiesList') {
                                                                                     if (activeTab === 'weddingStories') return ['category', 'title', 'location', 'image', 'galleryImages', 'overview'].includes(k);
-                                                                                    let excluded = [];
-                                                                                    if (activeTab === 'storiesTraditional' || activeTab === 'storiesThemed' || activeTab === 'storiesDestination') excluded = ['image', 'desc'];
-                                                                                    return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result'].filter(f => !excluded.includes(f)).includes(k);
+                                                                                    return ['badge', 'title', 'date', 'location', 'desc', 'overview', 'image', 'video', 'galleryImages', 'result'].includes(k);
                                                                                 }
                                                                                 if (fieldKey === 'journalsList') return k !== 'id' && k !== 'loc';
                                                                                 return k !== 'id' && k !== '_id' && k !== '__v';
