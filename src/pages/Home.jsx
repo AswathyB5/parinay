@@ -96,7 +96,7 @@ const Home = () => {
     const [currentVid, setCurrentVid] = useState(0);
     // --- Hero Video Hardcoded Logic ---
     const heroVideos = useMemo(() => [
-        resolveMediaURL('/uploads/Untitled design.mp4'),
+        resolveMediaURL('/uploads/Untitled%20design.mp4'),
         resolveMediaURL('/uploads/12874721_1920_1080_30fps.mp4')
     ], []);
 

@@ -5,12 +5,12 @@
     "heroBody": "At Parinay, we plan destination weddings that are entirely, unmistakably yours - across Kerala's backwaters, hill stations, and beaches, and beyond into South India's most stunning locations.",
     "heroBtnText": "Start Planning Your Wedding →",
     "heroBtnUrl": "/contact",
-    "heroVideo1": "uploads/Untitled design.mp4",
+    "heroVideo1": "uploads/Untitled%20design.mp4",
     "heroVideo2": "uploads/12874721_1920_1080_30fps.mp4",
     "heroVideos": [
       {
         "id": 1,
-        "video": "uploads/Untitled design.mp4"
+        "video": "uploads/Untitled%20design.mp4"
       },
       {
         "id": 2,

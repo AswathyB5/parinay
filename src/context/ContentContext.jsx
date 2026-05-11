@@ -40,18 +40,23 @@ export const resolveMediaURL = (url) => {
     const cleanPath = url.replace(/^\/+/, '');
     
     // If it's a known root-level public asset (like logo-img.jpeg), don't prepend /uploads/
-    const rootAssets = ['logo-img.jpeg', 'favicon.ico', 'robots.txt'];
+    const rootAssets = ['logo-img.jpeg', 'favicon.ico', 'robots.txt', 'logo-img.png'];
     if (rootAssets.includes(cleanPath)) {
-        // In local dev, Vite serves these from root. In prod, the backend might.
-        // For simplicity, if no API, use relative.
+        return API && !API.includes('localhost') ? `${API}/${cleanPath}` : `/${cleanPath}`;
+    }
+    
+    // For uploads, if we are in production (not localhost) but API is localhost, use relative path
+    const isProduction = typeof window !== 'undefined' && !window.location.hostname.includes('localhost');
+    const apiIsLocal = API.includes('localhost');
+
+    if (cleanPath.startsWith('uploads/')) {
+        if (isProduction && apiIsLocal) return `/${cleanPath}`;
         return API ? `${API}/${cleanPath}` : `/${cleanPath}`;
     }
     
-    // If it already starts with 'uploads/', just prepend API
-    if (cleanPath.startsWith('uploads/')) return `${API}/${cleanPath}`;
-    
     // Otherwise, prepend API and uploads/
-    return `${API}/uploads/${cleanPath}`;
+    if (isProduction && apiIsLocal) return `/uploads/${cleanPath}`;
+    return API ? `${API}/uploads/${cleanPath}` : `/uploads/${cleanPath}`;
 };
 
 export const renderText = (text) => {
@@ -144,7 +149,7 @@ const initialContent = {
         heroBtnText: "Start Planning Your Wedding →",
         heroBtnUrl: "/contact",
         heroVideos: [
-            { id: 1, video: "uploads/Untitled design.mp4" },
+            { id: 1, video: "uploads/Untitled%20design.mp4" },
             { id: 2, video: "uploads/12874721_1920_1080_30fps.mp4" }
         ],
         heroImages: [
