@@ -212,7 +212,15 @@ const ProjectDetail = () => {
 
             {/* FINAL CTA */}
             <section className="pd-final-cta section-padding reveal">
-                <div className="container">
+                {/* Fixed Background Layer */}
+                <div className="pd-final-cta__bg" style={{
+                    backgroundImage: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')})`
+                }}></div>
+
+                {/* Dark Overlay Layer */}
+                <div className="pd-final-cta__overlay"></div>
+
+                <div className="container pd-final-cta__container">
                     <div className="pd-final-cta__content">
                         <span className="pd-label">Let's Work Together</span>
                         <h2>READY TO START <em>YOUR JOURNEY?</em></h2>

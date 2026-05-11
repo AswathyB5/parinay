@@ -567,28 +567,28 @@ const initialContent = {
         pageBannerTitle: "Themed Weddings",
         storiesList: [
             {
-                id: 3,
+                id: 3001,
                 title: "The Secret Garden Soirée",
                 date: "October 2024",
                 location: "Kochi, Kerala",
                 badge: "Themed",
                 video: "/uploads/upload_1773132860733_81.mp4",
-                overview: "A whimsical floral-themed wedding in a colonial estate. Our approach was editorial yet deeply cinematic, weaving together the intimate details that make each wedding unique.",
-                galleryImages: "",
-                result: "The ethereal garden oasis came to life, providing a magical backdrop for the couple's vows. A flawlessly executed theme that exceeded expectations.",
+                overview: "A whimsical floral-themed wedding set within the lush gardens of a colonial heritage estate in Kochi. The vision was to create an immersive 'Secret Garden' experience where nature and luxury blend seamlessly. We utilised over 10,000 seasonal blooms, vintage birdcages, and soft fairy lighting to transform the space into an ethereal wonderland.\n\nThe ceremony took place under a century-old banyan tree, adorned with cascading wisteria and crystal chandeliers. Our team focused on creating an editorial narrative, capturing the intimate glances and the soft rustle of silk against the garden breeze. Every element, from the hand-painted floral stationery to the bespoke botanical cocktails, was designed to evoke a sense of timeless romance.",
+                galleryImages: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800\nhttps://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
+                result: "The ethereal garden oasis came to life exactly as envisioned, providing a magical and serene backdrop for the couple's vows. The feedback from guests was overwhelming, many noting that they felt they had stepped into a different world. Beyond the visual success, the flow of the event was flawless, allowing the family to fully immerse themselves in the celebration without a single logistical concern.",
                 image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
                 desc: "A whimsical floral-themed wedding that transformed a colonial estate into an ethereal garden oasis."
             },
             {
-                id: 4,
+                id: 3002,
                 title: "Sunset By The Shore",
                 date: "January 2025",
                 location: "Goa",
                 badge: "Themed",
                 video: "/uploads/upload_1773132906231_395.mp4",
-                overview: "Dreamy beach celebration in Goa. We ensured that every hue, every glance, and every ritual was preserved in its most authentic form against the backdrop of the ocean.",
-                galleryImages: "",
-                result: "A romantic sunset victory. The beach-themed design was both elegant and relaxed, perfectly suiting the couple's style.",
+                overview: "A dreamy beach-themed celebration on the pristine shores of South Goa. The concept focused on 'Barefoot Luxury', where the elegance of a high-end wedding met the relaxed, organic vibe of the ocean. We chose a palette of sea-glass blues, sandy beiges, and sunset corals to complement the natural surroundings.\n\nThe mandap was a minimalist structure of driftwood and diaphanous white silk, positioned so the sun would set directly behind the couple during the final rituals. We prioritized a cinematic approach to documentation, ensuring that every hue of the sky, every rhythmic sound of the waves, and every heartfelt ritual was preserved in its most authentic and beautiful form.",
+                galleryImages: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
+                result: "A romantic sunset victory that perfectly captured the couple's free-spirited yet sophisticated style. The transition from the sun-drenched ceremony to the starlit dinner was seamless, with the décor evolving to include hundreds of lanterns and driftwood fire-pits. It was a celebration that felt both grand and deeply personal, leaving a lasting legacy of love by the sea.",
                 image: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80",
                 desc: "A dreamy beach-themed celebration where golden hues and ocean breezes created the most romantic backdrop."
             }
