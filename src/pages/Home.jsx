@@ -94,12 +94,14 @@ const Home = () => {
     };
     // --- Hero Video Crossfade Logic ---
     const [currentVid, setCurrentVid] = useState(0);
-    const heroVideos = useMemo(() => (home.heroVideos && home.heroVideos.length > 0)
-        ? home.heroVideos.map(v => resolveMediaURL(v.video))
-        : [
-            resolveMediaURL(home.heroVideo1 || 'https://videos.pexels.com/video-files/5305149/5305149-uhd_2560_1440_25fps.mp4'),
-            resolveMediaURL(home.heroVideo2 || 'https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4'),
-        ], [home.heroVideos, home.heroVideo1, home.heroVideo2]);
+    // --- Hero Video Hardcoded Logic ---
+    const heroVideos = useMemo(() => [
+        resolveMediaURL('/uploads/Untitled design.mp4'),
+        resolveMediaURL('/uploads/12874721_1920_1080_30fps.mp4')
+    ], []);
+
+    // Fallback if needed for other sections
+    const home = content.home;
 
     // --- Hero Floating Image Slideshow Logic ---
     const [currentHeroImg, setCurrentHeroImg] = useState(0);
@@ -353,21 +355,12 @@ const Home = () => {
 
                 <div className="pw-hero__floating-img reveal">
                     {heroImages.map((img, index) => (
-                        isVideoUrl(img.image) ? (
-                            <video
-                                key={`${index}-${img.image}`}
-                                src={resolveMediaURL(img.image)}
-                                autoPlay muted loop playsInline
-                                className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
-                            />
-                        ) : (
-                            <img
-                                key={index}
-                                src={resolveMediaURL(img.image)}
-                                alt={img.alt || `Wedding Celebration ${index + 1}`}
-                                className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
-                            />
-                        )
+                        <img
+                            key={index}
+                            src={resolveMediaURL(index === 0 ? 'uploads/upload_1773923613337_6810.jpg' : img.image)}
+                            alt={img.alt || `Wedding Celebration ${index + 1}`}
+                            className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
+                        />
                     ))}
                 </div>
             </section>
@@ -521,24 +514,16 @@ const Home = () => {
                         </div>
 
                         <div className="pw-destination__images reveal">
-                            {isVideoUrl(home.destinationImage1) ? (
-                                <video key={resolveMediaURL(home.destinationImage1)} src={resolveMediaURL(home.destinationImage1)} autoPlay muted loop playsInline className="pw-destination__img-main" />
-                            ) : (
-                                <img
-                                    src={resolveMediaURL(home.destinationImage1)}
-                                    alt="Kerala Destination Wedding"
-                                    className="pw-destination__img-main"
-                                />
-                            )}
-                            {isVideoUrl(home.destinationImage2) ? (
-                                <video key={resolveMediaURL(home.destinationImage2)} src={resolveMediaURL(home.destinationImage2)} autoPlay muted loop playsInline className="pw-destination__img-sub" />
-                            ) : (
-                                <img
-                                    src={resolveMediaURL(home.destinationImage2)}
-                                    alt="Sunset Wedding"
-                                    className="pw-destination__img-sub"
-                                />
-                            )}
+                            <img
+                                src={resolveMediaURL('uploads/upload_1774345251045_4601.jpg')}
+                                alt="Kerala Destination Wedding"
+                                className="pw-destination__img-main"
+                            />
+                            <img
+                                src={resolveMediaURL('uploads/upload_1774342298693_5238.jpg')}
+                                alt="Sunset Wedding"
+                                className="pw-destination__img-sub"
+                            />
                         </div>
                     </div>
                 </div>
@@ -882,16 +867,10 @@ const Home = () => {
 
             {/* ═══ SECTION 3: TRANSITION ═══ */}
             <section className="pw-transition">
-                <div className="pw-transition__video-bg">
-                    <video
-                        key={resolveMediaURL(home.transitionVideoUrl)}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="pw-transition__video"
-                        preload="auto"
-                        src={resolveMediaURL(home.transitionVideoUrl)}
+                <div className="pw-transition__video">
+                    <video 
+                        src={resolveMediaURL('/uploads/1330-147084829_medium.mp4')} 
+                        autoPlay muted loop playsInline 
                     />
                     <div className="pw-transition__overlay"></div>
                 </div>

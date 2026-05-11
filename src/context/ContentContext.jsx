@@ -144,8 +144,8 @@ const initialContent = {
         heroBtnText: "Start Planning Your Wedding →",
         heroBtnUrl: "/contact",
         heroVideos: [
-            { id: 1, video: "/uploads/Untitled design.mp4" },
-            { id: 2, video: "/uploads/12874721_1920_1080_30fps.mp4" }
+            { id: 1, video: "uploads/Untitled design.mp4" },
+            { id: 2, video: "uploads/12874721_1920_1080_30fps.mp4" }
         ],
         heroImages: [
             { id: 1, image: "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg", alt: "Wedding Celebration 1" },
@@ -202,7 +202,7 @@ const initialContent = {
         ],
         transitionHeading: "Planning a Destination Wedding in Kerala or South India?",
         transitionSubtext: "We manage the complexity. You experience the celebration.",
-        transitionVideoUrl: "/uploads/1330-147084829_medium.mp4",
+        transitionVideoUrl: "uploads/1330-147084829_medium.mp4",
         transitionBtnText: "Work With Us →",
         transitionBtnUrl: "/contact",
         youtubeLabel: "Videos Section",
@@ -241,7 +241,7 @@ const initialContent = {
         introLabel: "ABOUT US",
         introHeading: "We Plan Destination Weddings That Feel Like You",
         introText: "Parinay Weddings is a destination wedding planning company based in Trivandrum, Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay, meaning betrothal in Sanskrit, reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
-        introImage: "/uploads/upload_1775897905550_6647.avif",
+        introImage: "uploads/upload_1775897905550_6647.avif",
         differentiatorLabel: "What Makes Us Different",
         differentiatorHeading: "Most wedding planners offer packages. \n[[We don't. ]]",
         differentiatorText: "Most wedding planners offer packages. We don't.\n\nEvery Parinay wedding is built from the ground up, a completely custom design, a carefully selected venue, and a planning process that begins with understanding who you are as a couple. Whether you're a Kerala couple planning a backwater celebration, an NRI planning your India wedding from abroad, or a family looking for a full multi-day destination event in Munnar or Goa, our approach is the same: deeply personal, meticulously executed.",

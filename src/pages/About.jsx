@@ -163,11 +163,7 @@ const About = () => {
                             )}
                         </div>
                         <div className="about-intro-img reveal">
-                            {isVideoUrl(about.introImage) ? (
-                                <video key={resolveMediaURL(about.introImage)} src={resolveMediaURL(about.introImage)} autoPlay muted loop playsInline />
-                            ) : (
-                                <img src={resolveMediaURL(about.introImage)} alt="Who we are" />
-                            )}
+                            <img src={resolveMediaURL('uploads/upload_1775897905550_6647.avif')} alt="Who we are" />
                         </div>
                     </div>
                 </div>
@@ -176,11 +172,7 @@ const About = () => {
             {/* ABOUT CONTENT SECTION (What makes us different) - FULL WIDTH GREEN BG */}
             <section className="about-founder-new reveal">
                 <div className="founder-image">
-                    {isVideoUrl(about.differentiatorImage) ? (
-                        <video key={resolveMediaURL(about.differentiatorImage)} src={resolveMediaURL(about.differentiatorImage)} autoPlay muted loop playsInline />
-                    ) : (
-                        <img src={resolveMediaURL(about.differentiatorImage)} alt="About Parinay" />
-                    )}
+                    <img src={resolveMediaURL('https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80')} alt="About Parinay" />
                 </div>
                 <div className="founder-content">
                     <span className="section-label">{about.differentiatorLabel}</span>
@@ -285,7 +277,7 @@ const About = () => {
                     overflow: 'hidden'
                 }}>
                     <video
-                        key={resolveMediaURL(about.ctaVideoUrl || '/uploads/about-video.mp4')}
+                        key={resolveMediaURL('/uploads/about-video.mp4')}
                         autoPlay
                         loop
                         muted
@@ -295,7 +287,7 @@ const About = () => {
                             height: '100%',
                             objectFit: 'cover'
                         }}
-                        src={resolveMediaURL(about.ctaVideoUrl || '/uploads/about-video.mp4')}
+                        src={resolveMediaURL('/uploads/about-video.mp4')}
                     />
                     <div className="cta-video-overlay" style={{
                         position: 'absolute',

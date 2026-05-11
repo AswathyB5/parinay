@@ -350,12 +350,12 @@ const Services = () => {
                         pointerEvents: 'none'
                     }}>
                         {isVideoUrl(services.ctaImage) ? (
-                            <video src={resolveMediaURL(services.ctaImage)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <video src={resolveMediaURL('/uploads/upload_1776055715543_5501.mp4')} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
                             <div style={{ 
                                 width: '100%', 
                                 height: '100%', 
-                                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${resolveMediaURL(services.ctaImage) || 'https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg'}')`,
+                                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')}')`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}></div>

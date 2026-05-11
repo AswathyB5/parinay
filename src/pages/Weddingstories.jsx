@@ -179,7 +179,7 @@ const Gallery = () => {
             {/* BOTTOM CTA SECTION */}
             <section className="pw-cta-section gallery-reveal" style={{ 
                 padding: '120px 0', 
-                background: `url(${resolveMediaURL(ws.ctaImage)}) center/cover no-repeat`, 
+                background: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')}) center/cover no-repeat`, 
                 color: '#fff',
                 textAlign: 'center',
                 position: 'relative',
