@@ -121,7 +121,7 @@ const About = () => {
                             height: '5px',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px',
-                            background: 'linear-gradient(90deg, #1d3528 0%, #c5a059 50%, #1d3528 100%)',
+                            background: 'linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%)',
                         }}></div>
                         <div style={{ fontSize: '2rem', marginBottom: '10px', filter: 'drop-shadow(0 3px 6px rgba(197,160,89,0.35))' }}>💍</div>
                         <h3 style={{ margin: '0 0 12px', color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>{popup.title}</h3>
@@ -241,36 +241,6 @@ const About = () => {
             )}
 
 
-            {/* TEAM SECTION */}
-            <section className="about-team-grid reveal">
-                <div className="container">
-                    <div className="team-header">
-                        <span className="section-label">{about.teamLabel || "MEET THE EXPERTS"}</span>
-                        <h2 className="team-title">
-                            {renderText(about.teamHeading)}
-                        </h2>
-                        <p className="team-subtext">
-                            {renderText(about.teamSubtext)}
-                        </p>
-                    </div>
-
-                    <div className="team-members-flex">
-                        {about.teamMembers?.filter(m => m.name && m.name.trim()).map((member, idx) => (
-                            <div key={member.id || idx} className="about-team-card reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
-                                <div className="about-team-img-wrap">
-                                    {isVideoUrl(member.image) ? (
-                                        <video key={resolveMediaURL(member.image)} src={resolveMediaURL(member.image)} autoPlay muted loop playsInline />
-                                    ) : (
-                                        <img src={resolveMediaURL(member.image)} alt={member.name} />
-                                    )}
-                                </div>
-                                <h3 className="member-name">{renderText(member.name)}</h3>
-                                <p className="member-role">{renderText(member.role)}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             {/* Stats — full width green band */}
             <div className="pw-stats reveal">
@@ -333,7 +303,7 @@ const About = () => {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        background: 'linear-gradient(rgba(29, 53, 40, 0.4), rgba(29, 53, 40, 0.6))'
+                        background: 'linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55))'
                     }}></div>
                 </div>
 

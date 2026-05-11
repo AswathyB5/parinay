@@ -157,7 +157,7 @@ const Services = () => {
                             height: '5px',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px',
-                            background: 'linear-gradient(90deg, #1d3528 0%, #c5a059 50%, #1d3528 100%)',
+                            background: 'linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%)',
                         }}></div>
                         <div style={{ fontSize: '2rem', marginBottom: '10px', filter: 'drop-shadow(0 3px 6px rgba(197,160,89,0.35))' }}>💍</div>
                         <h3 style={{ margin: '0 0 12px', color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>{popup.title}</h3>
@@ -194,7 +194,7 @@ const Services = () => {
                                      textTransform: 'uppercase',
                                      letterSpacing: '0.05em'
                                  }}>{renderText(services.comprehensiveHeading)}</h2>
-                                <p style={{ fontSize: '1.25rem', lineHeight: '1.9', color: '#1d3528', marginBottom: '30px', fontWeight: '400', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
+                                <p style={{ fontSize: '1.25rem', lineHeight: '1.9', color: '#3a1219', marginBottom: '30px', fontWeight: '400', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>
                                     {renderText(services.comprehensiveIntro1)}
                                 </p>
                                 <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: '#555', fontWeight: '400', maxWidth: '700px', margin: '0 auto' }}>
@@ -355,7 +355,7 @@ const Services = () => {
                             <div style={{ 
                                 width: '100%', 
                                 height: '100%', 
-                                backgroundImage: `linear-gradient(rgba(18, 53, 36, 0.6), rgba(18, 53, 36, 0.6)), url('${resolveMediaURL(services.ctaImage) || 'https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg'}')`,
+                                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${resolveMediaURL(services.ctaImage) || 'https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg'}')`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}></div>

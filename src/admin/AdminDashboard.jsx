@@ -50,7 +50,7 @@ const renderAdminPreview = (text) => {
                     {tags.map((tag, ti) => (
                         <span key={ti} style={{ 
                             padding: '4px 10px', 
-                            backgroundColor: '#1d3528', 
+                            backgroundColor: '#3a1219', 
                             borderRadius: '100px', 
                             fontSize: '0.75rem', 
                             color: '#fff',
@@ -157,7 +157,8 @@ const FIELD_GROUPS = {
         formLabel:          'Consultation Form Section',
         journalNote:        'Journal Preview Note',
         testimonialHeading: 'Client Testimonials',
-        youtubeEmbedUrl:    'Featured YouTube Video'
+        youtubeEmbedUrl:    'Featured YouTube Video',
+        achievements:       'Achievements Bar'
     },
     /* ── ABOUT PAGE ────────────────────────────────── */
     /* Keys MUST follow the JSON key order in site-content.json so that
@@ -295,6 +296,7 @@ const GROUP_DESCRIPTIONS = {
     'YouTube Videos Grid':         'The 6 YouTube embed videos shown in a grid layout.',
     'Consultation Form Section':   'Label, heading, sub-text and button text for the lead form.',
     'Journal Preview Note':        'Auto-pulls the latest 3 posts from the Journal page.',
+    'Achievements Bar':            'The credentials bar with numbers and labels (e.g. "1500+ Happy Couples").',
     /* About */
     'SEO Settings':                'Page title tag and meta description for search engine optimisation.',
     'Page Header':                 'The large title shown in the dark banner at the top of the page.',
@@ -817,7 +819,8 @@ const AdminDashboard = () => {
                 heroVideos:        { video: '' },
                 homeServices:      { title: '', image: '', desc: '' },
                 youtubeVideos:     { url: '' },
-                guideChecks:       { text: '' }
+                guideChecks:       { text: '' },
+                achievements:      { number: '', label: '' }
             };
 
             // 1. Try to use a predefined template first
@@ -1378,7 +1381,7 @@ const AdminDashboard = () => {
                                 border: '1px solid #eee', 
                                 borderRadius: '6px',
                                 fontSize: '1.1rem',
-                                color: '#1d3528',
+                                color: '#3a1219',
                                 fontFamily: "'Playfair Display', serif"
                             }}>
                                 <div style={{ fontSize: '0.6rem', color: '#999', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '6px' }}>Live Preview</div>
@@ -1697,7 +1700,7 @@ const AdminDashboard = () => {
                                         fontSize: '0.7rem',
                                         fontWeight: '600',
                                         color: 'var(--admin-muted)',
-                                        background: 'rgba(29, 53, 40, 0.06)',
+                                        background: 'rgba(58, 18, 25, 0.06)',
                                         padding: '3px 10px',
                                         borderRadius: '2px',
                                         letterSpacing: '0.1em',
@@ -1794,7 +1797,7 @@ const AdminDashboard = () => {
     /* ── Inquiries Panel Renderer ─────────────────── */
     const renderInquiriesPanel = () => {
         const TYPE_CONFIG = {
-            contact:  { label: 'Contact Form',  color: '#1d3528', bg: 'rgba(29, 53, 40, 0.08)',  icon: <Mail size={14} /> },
+            contact:  { label: 'Contact Form',  color: '#3a1219', bg: 'rgba(58, 18, 25, 0.08)',  icon: <Mail size={14} /> },
             quote:    { label: 'Quote Request', color: '#C5A059', bg: 'rgba(197, 160, 89, 0.12)', icon: <Calendar size={14} /> },
             whatsapp: { label: 'WhatsApp',      color: '#25D366', bg: 'rgba(37, 211, 102, 0.1)',   icon: <Phone size={14} /> },
         };
@@ -1836,7 +1839,7 @@ const AdminDashboard = () => {
                 <div className="admin-stats-bar" style={{ marginBottom: '2.5rem' }}>
                     {[
                         { label: 'New',     value: newCount,      color: '#dc2626', icon: <AlertCircle size={22} /> },
-                        { label: 'Forms',   value: contactCount,  color: '#1d3528', icon: <Mail size={22} /> },
+                        { label: 'Forms',   value: contactCount,  color: '#3a1219', icon: <Mail size={22} /> },
                         { label: 'Quotes',  value: quoteCount,    color: '#C5A059', icon: <Calendar size={22} /> },
                         { label: 'WhatsApp', value: whatsappCount, color: '#25D366', icon: <Phone size={22} /> },
                     ].map((card, i) => (

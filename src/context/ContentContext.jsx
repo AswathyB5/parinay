@@ -227,6 +227,12 @@ const initialContent = {
         journalNote: "",
         testimonialHeading: "What Our Couples, [[Have to Say]]",
         youtubeEmbedUrl: "https://www.youtube.com/watch?v=s4dWp9_nNYk",
+        achievements: [
+            { id: 1, number: "1500+", label: "Happy Couples" },
+            { id: 2, number: "4.9/5", label: "Google Rating" },
+            { id: 3, number: "10+", label: "Years Of Experience" },
+            { id: 4, number: "20+", label: "Strong Team" }
+        ],
         _hiddenSections: []
     },
     about: {

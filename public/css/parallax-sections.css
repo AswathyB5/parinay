@@ -28,7 +28,7 @@
 .features.hero-text-section {
     position: relative;
     overflow: visible !important;
-    background: linear-gradient(rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.2)),
+    background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
         url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -40,7 +40,7 @@
 .journey-cta {
     position: relative;
     height: 70vh;
-    background: linear-gradient(rgba(18, 35, 26, 0.2), rgba(29, 53, 40, 0.2)),
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         url('https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1600&q=80') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -57,7 +57,7 @@
 .diagonal-content-side {
     position: relative;
     overflow: visible !important;
-    background: linear-gradient(rgba(18, 35, 26, 0.2), rgba(29, 53, 40, 0.2)),
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         url('https://media.istockphoto.com/id/536012807/vector/vintage-gold-wedding-pattern-background.jpg?s=170667a&w=0&k=20&c=q216u4VxqnrHV2_pCQ3DDn5kqNrcISXym1r23EKXLYw=') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -69,7 +69,7 @@
 .services-overview {
     position: relative;
     overflow: visible !important;
-    background: linear-gradient(rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.2)),
+    background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
         url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -81,7 +81,7 @@
 .destination-highlight {
     position: relative;
     overflow: visible !important;
-    background: linear-gradient(rgba(29, 53, 40, 0.2), rgba(29, 53, 40, 0.2)),
+    background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
         url('https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1600&q=80') !important;
     background-size: cover !important;
     background-position: center !important;

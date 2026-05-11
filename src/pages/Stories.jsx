@@ -111,7 +111,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                         {stories.introBody && (
                             <div style={{ 
                                 fontSize: '1.15rem', 
-                                color: 'rgba(29, 53, 40, 0.8)', 
+                                color: 'rgba(58, 18, 25, 0.8)', 
                                 lineHeight: '1.9',
                                 textAlign: 'center'
                             }}>
@@ -328,7 +328,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                             {stories.faqsList.filter(faq => faq.question && faq.question.trim()).map((faq, idx) => (
                                 <div key={idx} className={`pw-faq-item ${activeFaq === idx ? 'active' : ''}`} style={{
                                     marginBottom: '20px',
-                                    borderBottom: '1px solid rgba(29, 53, 40, 0.1)',
+                                    borderBottom: '1px solid rgba(58, 18, 25, 0.1)',
                                     paddingBottom: '20px'
                                 }}>
                                     <button
@@ -366,7 +366,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                     }}>
                                         <p style={{
                                             padding: '10px 0 20px',
-                                            color: 'rgba(29, 53, 40, 0.8)',
+                                            color: 'rgba(58, 18, 25, 0.8)',
                                             lineHeight: '1.8',
                                             fontSize: '1.1rem',
                                             fontWeight: '300'
@@ -442,75 +442,6 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                 }}></div>
             </section>
 
-            {/* TESTIMONIALS SECTION */}
-            <section className="pw-testimonials reveal">
-                <div className="pw-container">
-                    <div className="pw-testimonials__inner">
-                        <span className="pw-label pw-label--gold">{stories.testimonialLabel || home.testimonialLabel || 'Testimonial'}</span>
-
-                        {stories.testimonialQuote ? (
-                            <div className="pw-testimonials__featured">
-                                <div className="pw-testimonials__author">
-                                    <div className="pw-testimonials__author-flex">
-                                        <div className="pw-testimonials__author-img">
-                                            <img 
-                                                src={resolveMediaURL(stories.testimonialImage) || "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80"} 
-                                                alt={stories.testimonialAuthor} 
-                                            />
-                                        </div>
-                                        <div className="pw-testimonials__author-info">
-                                            <strong>{stories.testimonialAuthor}</strong>
-                                            <span>{stories.testimonialLocation}</span>
-                                        </div>
-                                    </div>
-                                    <div className="pw-testimonials__author-line" style={{ marginTop: '30px', marginBottom: '10px' }}></div>
-                                </div>
-                                <div className="pw-testimonials__quote-wrap">
-                                    <div className="pw-testimonials__quote-mark">"</div>
-                                    <p className="pw-testimonials__quote">
-                                        {stories.testimonialQuote}
-                                    </p>
-                                </div>
-                            </div>
-                        ) : (
-                            <>
-                                <div className="pw-testimonials__author">
-                                    <div className="pw-testimonials__author-flex">
-                                        <div className="pw-testimonials__author-img">
-                                            <img 
-                                                src={testimonials[currentTestimonial]?.image} 
-                                                alt={testimonials[currentTestimonial]?.author} 
-                                            />
-                                        </div>
-                                        <div className="pw-testimonials__author-info">
-                                            <strong>{testimonials[currentTestimonial]?.author}</strong>
-                                            <span>{testimonials[currentTestimonial]?.location}</span>
-                                        </div>
-                                    </div>
-                                    <div className="pw-testimonials__author-line" style={{ marginTop: '30px', marginBottom: '10px' }}></div>
-                                </div>
-                                <div className="pw-testimonials__quote-wrap">
-                                    <div className="pw-testimonials__quote-mark">"</div>
-                                    <p className="pw-testimonials__quote" key={currentTestimonial}>
-                                        {testimonials[currentTestimonial]?.text}
-                                    </p>
-                                </div>
-
-                                <div className="pw-testimonials__dots">
-                                    {testimonials.map((_, i) => (
-                                        <button
-                                            key={i}
-                                            className={`pw-testimonials__dot ${currentTestimonial === i ? 'is-active' : ''}`}
-                                            onClick={() => setCurrentTestimonial(i)}
-                                            aria-label={`Testimonial ${i + 1}`}
-                                        />
-                                    ))}
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

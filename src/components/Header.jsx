@@ -24,6 +24,10 @@ const Header = () => {
     const nav4Url       = h.nav4Url       || '/stories';
     const nav4Sub1Label = h.nav4Sub1Label || 'Destination Weddings';
     const nav4Sub1Url   = h.nav4Sub1Url   || '/destination-weddings';
+    const nav4Sub2Label = h.nav4Sub2Label || 'Themed Weddings';
+    const nav4Sub2Url   = h.nav4Sub2Url   || '/themed-weddings';
+    const nav4Sub3Label = h.nav4Sub3Label || 'Traditional Weddings';
+    const nav4Sub3Url   = h.nav4Sub3Url   || '/traditional-weddings';
     const nav5Label     = h.nav5Label     || 'Journals';
     const nav5Url       = h.nav5Url       || '/journals';
     const nav6Label     = h.nav6Label     || 'Contact';
@@ -70,7 +74,15 @@ const Header = () => {
                 </div>
 
                 <ul className="nav-links nav-links--right">
-                    <li><Link to={nav4Sub1Url} className={location.pathname === nav4Sub1Url ? 'active' : ''}>{nav4Sub1Label}</Link></li>
+                    <li className="nav-dropdown">
+                        <Link to={nav4Sub1Url} className={location.pathname === nav4Sub1Url ? 'active' : ''}>
+                            {nav4Sub1Label} <i className="fas fa-chevron-down" style={{ fontSize: '0.7rem', marginLeft: '5px' }}></i>
+                        </Link>
+                        <ul className="nav-dropdown-menu">
+                            <li><Link to={nav4Sub2Url}>{nav4Sub2Label}</Link></li>
+                            <li><Link to={nav4Sub3Url}>{nav4Sub3Label}</Link></li>
+                        </ul>
+                    </li>
                     <li><Link to={nav5Url} className={location.pathname === nav5Url ? 'active' : ''}>{nav5Label}</Link></li>
                     <li><Link to={nav6Url} className={`cta-nav ${location.pathname === nav6Url ? 'active' : ''}`}>{nav6Label}</Link></li>
                 </ul>
@@ -82,6 +94,8 @@ const Header = () => {
                     <li><Link to={nav3Url}>{nav3Label}</Link></li>
                     <li><Link to={nav4Url}>{nav4Label}</Link></li>
                     <li><Link to={nav4Sub1Url}>{nav4Sub1Label}</Link></li>
+                    <li><Link to={nav4Sub2Url}>{nav4Sub2Label}</Link></li>
+                    <li><Link to={nav4Sub3Url}>{nav4Sub3Label}</Link></li>
                     <li><Link to={nav5Url}>{nav5Label}</Link></li>
                     <li><Link to={nav6Url}>{nav6Label}</Link></li>
                 </ul>

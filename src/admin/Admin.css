@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --admin-green:      #1d3528;
+    --admin-green:      #3a1219;
     --admin-green-mid:  #2a4a38;
     --admin-green-light:#3a6148;
     --admin-cream:      #FDFBF7;
@@ -16,9 +16,9 @@
     --admin-gold-light: #D4B878;
     --admin-text:       #2c2c2c;
     --admin-muted:      #6b7280;
-    --admin-border:     rgba(29, 53, 40, 0.12);
-    --admin-shadow:     0 4px 24px rgba(29, 53, 40, 0.08);
-    --admin-shadow-lg:  0 12px 48px rgba(29, 53, 40, 0.14);
+    --admin-border:     rgba(58, 18, 25, 0.12);
+    --admin-shadow:     0 4px 24px rgba(58, 18, 25, 0.08);
+    --admin-shadow-lg:  0 12px 48px rgba(58, 18, 25, 0.14);
     --hero-font:        'Playfair Display', serif;
     --body-font:        'Outfit', sans-serif;
     --ease:             cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -222,7 +222,7 @@
     background: rgba(253, 251, 247, 0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--admin-border);
-    box-shadow: 0 1px 12px rgba(29, 53, 40, 0.05);
+    box-shadow: 0 1px 12px rgba(58, 18, 25, 0.05);
 }
 
 @media (max-width: 900px) {
@@ -334,7 +334,7 @@
     border-left-color: var(--admin-gold);
     border-color: rgba(197, 160, 89, 0.5);
     border-left-color: var(--admin-gold);
-    box-shadow: 0 6px 28px rgba(29, 53, 40, 0.1);
+    box-shadow: 0 6px 28px rgba(58, 18, 25, 0.1);
     transform: translateY(-1px);
 }
 
@@ -370,7 +370,7 @@
 
 .admin-accordion__item.is-expanded .admin-accordion__header {
     border-bottom: 1px solid var(--admin-border);
-    background: rgba(29, 53, 40, 0.04);
+    background: rgba(58, 18, 25, 0.04);
 }
 
 .admin-accordion__title {
@@ -391,7 +391,7 @@
     padding: 0.52rem 1.15rem;
     border: 1.5px solid var(--admin-green);
     border-radius: 2px;
-    background: rgba(29, 53, 40, 0.07);
+    background: rgba(58, 18, 25, 0.07);
     color: var(--admin-green);
     font-family: var(--body-font);
     font-size: 0.72rem;
@@ -407,7 +407,7 @@
     background: var(--admin-green);
     color: var(--admin-cream);
     border-color: var(--admin-green);
-    box-shadow: 0 4px 12px rgba(29, 53, 40, 0.25);
+    box-shadow: 0 4px 12px rgba(58, 18, 25, 0.25);
     transform: translateY(-1px);
 }
 
@@ -431,8 +431,8 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    border: 1px solid rgba(29, 53, 40, 0.15);
-    background: rgba(29, 53, 40, 0.06);
+    border: 1px solid rgba(58, 18, 25, 0.15);
+    background: rgba(58, 18, 25, 0.06);
     border-radius: 4px;
     cursor: pointer;
     color: var(--admin-green);
@@ -440,8 +440,8 @@
 }
 
 .admin-btn-icon-hover:hover {
-    background: rgba(29, 53, 40, 0.15);
-    border-color: rgba(29, 53, 40, 0.3);
+    background: rgba(58, 18, 25, 0.15);
+    border-color: rgba(58, 18, 25, 0.3);
 }
 
 .admin-btn-icon-hover--danger {
@@ -561,7 +561,7 @@
 }
 
 .admin-input:hover {
-    border-color: rgba(29, 53, 40, 0.25);
+    border-color: rgba(58, 18, 25, 0.25);
 }
 
 .admin-input:focus {
@@ -630,7 +630,7 @@
 
 .admin-btn--ghost {
     background: transparent;
-    border: 1.5px solid rgba(29, 53, 40, 0.2);
+    border: 1.5px solid rgba(58, 18, 25, 0.2);
     color: var(--admin-muted);
 }
 
@@ -748,7 +748,7 @@
 }
 
 .admin-array-item:hover {
-    box-shadow: 0 4px 16px rgba(29, 53, 40, 0.07);
+    box-shadow: 0 4px 16px rgba(58, 18, 25, 0.07);
 }
 
 .admin-array-item__remove {
@@ -758,7 +758,7 @@
     background: rgba(220, 38, 38, 0.05);
     border: 1px solid transparent;
     cursor: pointer;
-    color: rgba(29, 53, 40, 0.4);
+    color: rgba(58, 18, 25, 0.4);
     padding: 6px;
     border-radius: 50%;
     display: flex;
@@ -824,7 +824,7 @@
     position: absolute;
     top: 8px;
     left: 8px;
-    background: rgba(29, 53, 40, 0.75);
+    background: rgba(58, 18, 25, 0.75);
     color: #fff;
     font-size: 0.65rem;
     font-weight: 600;
@@ -899,7 +899,7 @@ input[type="file"].admin-input {
     position: absolute;
     top: 1.2rem;
     right: 1.4rem;
-    color: rgba(29, 53, 40, 0.12);
+    color: rgba(58, 18, 25, 0.12);
 }
 
 /* ── Loading State ───────────────────────────────── */
@@ -936,7 +936,7 @@ input[type="file"].admin-input {
 }
 
 .admin-empty__icon {
-    color: rgba(29, 53, 40, 0.15);
+    color: rgba(58, 18, 25, 0.15);
     margin-bottom: 1rem;
 }
 
@@ -1030,7 +1030,7 @@ input[type="file"].admin-input {
     background: var(--admin-cream-dark);
     padding: 15px;
     border-radius: 4px;
-    border: 2px dashed rgba(29, 53, 40, 0.08);
+    border: 2px dashed rgba(58, 18, 25, 0.08);
 }
 
 .admin-gallery-thumb {
@@ -1046,7 +1046,7 @@ input[type="file"].admin-input {
 
 .admin-gallery-thumb:hover {
     transform: scale(1.03);
-    box-shadow: 0 8px 24px rgba(29, 53, 40, 0.12);
+    box-shadow: 0 8px 24px rgba(58, 18, 25, 0.12);
 }
 
 .admin-gallery-thumb img {
@@ -1287,7 +1287,7 @@ input[type="file"].admin-input {
     font-size: 0.7rem;
     font-weight: 600;
     color: var(--admin-muted);
-    background: rgba(29, 53, 40, 0.06);
+    background: rgba(58, 18, 25, 0.06);
     padding: 3px 10px;
     border-radius: 2px;
     letter-spacing: 0.1em;

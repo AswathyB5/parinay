@@ -4,10 +4,9 @@
         "heroBtnText": "Get Started ",
         "heroBtnUrl": "/contact",
         "heroVideo1": "/uploads/Untitled design.mp4",
-        "heroVideo2": "/uploads/12874721_1920_1080_30fps.mp4",
+        "heroVideo2": "https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4",
         "heroVideos": [
-            { "id": 1, "video": "/uploads/Untitled design.mp4" },
-            { "id": 2, "video": "/uploads/12874721_1920_1080_30fps.mp4" }
+            { "id": 1, "video": "/uploads/Untitled design.mp4" }
         ],
         "heroImages": [
             {
@@ -60,7 +59,7 @@
         "destinationBody3": "From intimate celebrations to large multi-day weddings, we ensure every element feels effortless and unforgettable",
         "destinationBtnText": "Explore Destination Weddings",
         "destinationBtnUrl": "/contact",
-        "destinationImage1": "http://localhost:5000/uploads/upload_1773923613337_6810.jpg",
+        "destinationImage1": "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1200&q=80",
         "destinationImage2": "https://media.istockphoto.com/id/1397574789/photo/together-we-make-the-world-better.jpg?s=612x612&w=0&k=20&c=hZGF9CCheaK-b31DY6hv7TlDB91duMd-dlHYKs604S0=",
         "portfolioLabel": "A Glimpse Into Our Work",
         "portfolioHeading": "Each wedding we plan reflects the couple behind it - their love, their story, their style, their culture.",
@@ -125,7 +124,7 @@
                 "text": "The attention to detail and personal touch Parinay Weddings brought to our wedding was truly remarkable. Our guests are still talking about the beautiful decor!",
                 "author": "Rahul & Meera",
                 "location": "Kerala",
-                "image": "http://localhost:5000/uploads/upload_1773911746640_857.jpg"
+                "image": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80"
             },
             {
                 "id": 4,
@@ -143,7 +142,7 @@
             }
         ],
         "transitionHeading": "We manage complexity so your celebration feels effortless",
-        "transitionVideoUrl": "/uploads/1330-147084829_medium.mp4",
+        "transitionVideoUrl": "https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_25fps.mp4",
         "transitionBtnText": "Work With Us",
         "transitionBtnUrl": "/contact",
         "youtubeLabel": "CINEMATIC STORYTELLING",
@@ -167,7 +166,7 @@
         "introLabel": "ABOUT US",
         "introHeading": "We Plan Destination Weddings That Feel Like You",
         "introText": "Parinay Weddings is a destination wedding planning company based in Trivandrum, Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay — meaning betrothal in Sanskrit — reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
-        "introImage": "/uploads/upload_1775897905550_6647.avif",
+        "introImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
         "differentiatorLabel": "What Makes Us Different",
         "differentiatorHeading": "Bespoke Planning. No Templates.",
         "differentiatorText": "Most wedding planners offer packages. We don't.\n\nEvery Parinay wedding is built from the ground up — a completely custom design, a carefully selected venue, and a planning process that begins with understanding who you are as a couple. Whether you're a Kerala couple planning a backwater celebration, an NRI planning your India wedding from abroad, or a family looking for a full multi-day destination event in Munnar or Goa — our approach is the same: deeply personal, meticulously executed.",

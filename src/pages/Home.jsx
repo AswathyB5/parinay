@@ -2,7 +2,77 @@ import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText, API } from '../context/ContentContext';
 
+const StatCounter = ({ number, label, start }) => {
+    const [displayValue, setDisplayValue] = useState('0');
+
+    useEffect(() => {
+        if (!start) {
+            setDisplayValue('0');
+            return;
+        }
+
+        const targetStr = String(number);
+        const match = targetStr.match(/(\d+(\.\d+)?)/);
+        if (!match) {
+            setDisplayValue(number);
+            return;
+        }
+
+        const target = parseFloat(match[1]);
+        const prefix = targetStr.split(match[0])[0] || '';
+        const suffix = targetStr.split(match[0])[1] || '';
+        const duration = 2000; // Faster 2s duration for a snappier feel
+        const startTime = performance.now();
+
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Cubic ease-out: Snappier than Quart/Expo, finishes more decisively
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            
+            const isDecimal = targetStr.includes('.');
+            const currentVal = (target * easeProgress).toFixed(isDecimal ? 1 : 0);
+            
+            setDisplayValue(prefix + currentVal + suffix);
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                setDisplayValue(targetStr);
+            }
+        };
+
+        requestAnimationFrame(animate);
+    }, [start, number]);
+
+    return (
+        <div className="pw-achievements__item">
+            <span className="pw-achievements__number">{displayValue || '0'}</span>
+            <span className="pw-achievements__label">{renderText(label)}</span>
+        </div>
+    );
+};
+
+
 const Home = () => {
+    // --- Stats Counter Logic ---
+    const statsRef = useRef(null);
+    const [statsInView, setStatsInView] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!statsRef.current || statsInView) return;
+            const rect = statsRef.current.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.85) {
+                setStatsInView(true);
+            }
+        };
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [statsInView]);
+
     const { content } = useContext(ContentContext);
     const home = content.home;
     const [popup, setPopup] = useState({ open: false, title: '', message: '' });
@@ -27,8 +97,8 @@ const Home = () => {
     const heroVideos = useMemo(() => (home.heroVideos && home.heroVideos.length > 0)
         ? home.heroVideos.map(v => resolveMediaURL(v.video))
         : [
-            resolveMediaURL(home.heroVideo1 || '/uploads/Untitled design.mp4'),
-            resolveMediaURL(home.heroVideo2 || '/uploads/12874721_1920_1080_30fps.mp4'),
+            resolveMediaURL(home.heroVideo1 || 'https://videos.pexels.com/video-files/5305149/5305149-uhd_2560_1440_25fps.mp4'),
+            resolveMediaURL(home.heroVideo2 || 'https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4'),
         ], [home.heroVideos, home.heroVideo1, home.heroVideo2]);
 
     // --- Hero Floating Image Slideshow Logic ---
@@ -230,7 +300,7 @@ const Home = () => {
                             height: '5px',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px',
-                            background: 'linear-gradient(90deg, #1d3528 0%, #c5a059 50%, #1d3528 100%)',
+                            background: 'linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%)',
                         }}></div>
                         <div style={{ fontSize: '2rem', marginBottom: '10px', filter: 'drop-shadow(0 3px 6px rgba(197,160,89,0.35))' }}>💍</div>
                         <h3 style={{ margin: '0 0 12px', color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>{popup.title}</h3>
@@ -275,7 +345,7 @@ const Home = () => {
                         {renderText(home.heroBody)}
                     </p>
                     <div className="pw-hero__ctas">
-                        <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
+                        <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--dark">
                             {home.heroBtnText || "Get Started"}
                         </Link>
                     </div>
@@ -314,7 +384,7 @@ const Home = () => {
                             <em>{renderText(home.introSubText)}</em>
                         </p>
                         <div style={{ marginTop: '50px' }}>
-                            <Link to="/about" className="pw-btn pw-btn--gold">
+                            <Link to="/about" className="pw-btn pw-btn--dark">
                                 {home.introBtnText || "Learn About Us →"}
                             </Link>
                         </div>
@@ -407,7 +477,7 @@ const Home = () => {
                     }}>
                         <p style={{
                             fontSize: '1.8rem',
-                            color: '#1d3528',
+                            color: '#3a1219',
                             fontFamily: 'Playfair Display, serif',
                             lineHeight: '1.1',
                             textAlign: 'center',
@@ -445,7 +515,7 @@ const Home = () => {
                             <p className="pw-destination__text" style={{ fontStyle: 'italic', color: '#a1a1a1ff', fontWeight: '400' }}>
                                 {renderText(home.destinationBody3)}
                             </p>
-                            <Link to={home.destinationBtnUrl || '/contact'} className="pw-btn pw-btn--gold" style={{ marginTop: '40px' }}>
+                            <Link to={home.destinationBtnUrl || '/contact'} className="pw-btn pw-btn--dark" style={{ marginTop: '40px' }}>
                                 {renderText(home.destinationBtnText)}
                             </Link>
                         </div>
@@ -679,6 +749,34 @@ const Home = () => {
             </section><br />
 
 
+
+            {/* ═══ ACHIEVEMENTS STATS BAR ═══ */}
+            <section 
+                className="pw-achievements reveal"
+                ref={statsRef}
+            >
+                <div className="pw-container">
+                    <div className="pw-achievements__grid">
+                        {(home.achievements && home.achievements.length > 0
+                            ? home.achievements
+                            : [
+                                { number: '1500+', label: 'Happy Couples' },
+                                { number: '4.9/5', label: 'Google Rating' },
+                                { number: '10+', label: 'Years Of Experience' },
+                                { number: '20+', label: 'Strong Team' }
+                            ]
+                        ).map((stat, idx) => (
+                            <StatCounter 
+                                key={idx} 
+                                number={stat.number} 
+                                label={stat.label} 
+                                start={statsInView}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* ═══ SECTION 7: TESTIMONIALS ═══ */}
             <section className="pw-testimonials">
                 <div className="pw-container">
@@ -806,7 +904,7 @@ const Home = () => {
                         {renderText(home.transitionSubtext)}
                     </p>
                     <div className="pw-transition__cta" style={{ marginTop: '40px' }}>
-                        <Link to={home.transitionBtnUrl || "/contact"} className="pw-btn pw-btn--gold">
+                        <Link to={home.transitionBtnUrl || "/contact"} className="pw-btn pw-btn--dark">
                             {renderText(home.transitionBtnText || "Work With Us")}
                         </Link>
                     </div>

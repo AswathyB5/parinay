@@ -221,7 +221,7 @@ const Gallery = () => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    background: 'linear-gradient(rgba(18, 53, 36, 0.85), rgba(18, 53, 36, 0.85))',
+                    background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65))',
                     zIndex: 1
                 }}></div>
             </section>

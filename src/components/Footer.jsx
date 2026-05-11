@@ -77,18 +77,7 @@ const Footer = () => {
                             <a href={pinterestUrl} target="_blank" rel="noreferrer"><i className="fab fa-pinterest-p"></i></a>
                             <a href={youtubeUrl} target="_blank" rel="noreferrer"><i className="fab fa-youtube"></i></a>
                         </div>
-                        <div className="footer-map" style={{ marginTop: '25px', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', height: '180px', width: '80%' }}>
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15783.207704908633!2d76.955321!3d8.518603!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05baeb444fd9f9%3A0xf1c9af2940501a75!2sParinay%20Weddings%20%26%20Events%20IQ!5e0!3m2!1sen!2sin!4v1776937838650!5m2!1sen!2sin"
 
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0, display: 'block' }}
-                                allowFullScreen=""
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                            ></iframe>
-                        </div>
                     </div>
                     <div className="footer-links">
                         <h4>Quick Links</h4>
@@ -109,7 +98,7 @@ const Footer = () => {
                         <p><i className="fab fa-whatsapp"></i> {whatsappNumber} (WhatsApp)</p>
                         <p><i className="fas fa-map-marker-alt"></i> {renderText(address)}</p>
 
-                        <div className="footer-cta" style={{ marginTop: '45px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '25px' }}>
+                        <div className="footer-cta" style={{ marginTop: '20px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '15px' }}>
                             <p style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.25rem', fontStyle: 'italic', marginBottom: '22px', opacity: '1', color: 'var(--secondary-color)' }}>{renderText(ctaTagline)}</p>
                             <Link to={ctaBtnUrl} className="pw-btn pw-btn--gold" style={{ padding: '12px 28px', fontSize: '0.78rem' }}>{ctaBtnText}</Link>
                         </div>

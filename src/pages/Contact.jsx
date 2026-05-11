@@ -159,7 +159,7 @@ const Contact = () => {
                         padding: '45px 35px',
                         textAlign: 'center',
                         boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
-                        borderTop: `8px solid ${popup.type === 'success' ? '#1d3528' : '#9e2a2b'}`,
+                        borderTop: `8px solid ${popup.type === 'success' ? '#3a1219' : '#9e2a2b'}`,
                         borderLeft: '1px solid rgba(197,160,89,0.3)',
                         borderRight: '1px solid rgba(197,160,89,0.3)',
                         borderBottom: '1px solid rgba(197,160,89,0.3)',
@@ -169,14 +169,14 @@ const Contact = () => {
                         <div style={{ 
                             fontSize: '3.5rem', 
                             marginBottom: '20px',
-                            color: popup.type === 'success' ? '#1d3528' : '#9e2a2b'
+                            color: popup.type === 'success' ? '#3a1219' : '#9e2a2b'
                         }}>
                             {popup.type === 'success' ? '✓' : '⚠'}
                         </div>
                         <h2 style={{ 
                             fontFamily: 'Playfair Display, serif', 
                             fontSize: '2.2rem', 
-                            color: popup.type === 'success' ? '#1d3528' : '#540b0e', 
+                            color: popup.type === 'success' ? '#3a1219' : '#540b0e', 
                             marginBottom: '15px' 
                         }}>
                             {popup.title}
@@ -196,7 +196,7 @@ const Contact = () => {
                                 width: '100%', 
                                 padding: '18px', 
                                 borderRadius: '12px',
-                                backgroundColor: '#1d3528',
+                                backgroundColor: '#3a1219',
                                 border: 'none',
                                 color: '#fff',
                                 fontWeight: '600',

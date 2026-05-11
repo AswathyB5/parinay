@@ -117,7 +117,7 @@ const FloatingQuote = () => {
                             height: '5px',
                             borderTopLeftRadius: '20px',
                             borderTopRightRadius: '20px',
-                            background: 'linear-gradient(90deg, #1d3528 0%, #c5a059 50%, #1d3528 100%)',
+                            background: 'linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%)',
                         }}></div>
                         <div style={{ fontSize: '2rem', marginBottom: '10px', filter: 'drop-shadow(0 3px 6px rgba(197,160,89,0.35))' }}>💍</div>
                         <h3 style={{ margin: '0 0 12px', color: 'var(--primary-color)', fontFamily: "'Playfair Display', serif" }}>{popup.title}</h3>

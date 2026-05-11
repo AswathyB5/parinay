@@ -142,7 +142,7 @@
 }
 
 .pw-page-hero--light .pw-page-hero__subtitle {
-    color: rgba(29, 53, 40, 0.6);
+    color: rgba(58, 18, 25, 0.6);
 }
 
 /* ─── TEAM GRID ───────────────────────────────────────────────────────────── */
@@ -226,7 +226,7 @@
 
 .pw-story__filter-btn {
     background: transparent;
-    border: 1px solid rgba(29, 53, 40, 0.2);
+    border: 1px solid rgba(58, 18, 25, 0.2);
     color: var(--primary-color);
     padding: 10px 24px;
     font-family: 'Outfit', sans-serif;
@@ -387,7 +387,7 @@
 
 .pw-contact__info {
     padding-right: 40px;
-    border-right: 1px solid rgba(29, 53, 40, 0.1);
+    border-right: 1px solid rgba(58, 18, 25, 0.1);
 }
 
 .pw-contact__block {
@@ -710,7 +710,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: #fdfbf7;
 }
 
 .wsl-item__thumb {
@@ -719,7 +719,7 @@
     object-fit: cover;
     display: block;
     transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: brightness(0.72);
+    filter: none;
 }
 
 .wsl-item:hover .wsl-item__thumb {
@@ -935,7 +935,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: #fdfbf7;
 }
 
 .wsl-item__thumb {
@@ -944,7 +944,7 @@
     object-fit: cover;
     display: block;
     transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: brightness(0.72);
+    filter: none;
 }
 
 .wsl-item:hover .wsl-item__thumb {

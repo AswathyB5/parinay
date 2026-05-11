@@ -89,9 +89,9 @@
     "destinationBtnText": "Explore Destination Weddings →",
     "destinationBtnUrl": "/destination-weddings",
     "destinationImage1": "/uploads/upload_1773923613337_6810.jpg",
-    "destinationImage2": "https://media.istockphoto.com/id/1397574789/photo/together-we-make-the-world-better.jpg?s=612x612&w=0&k=20&c=hZGF9CCheaK-b31DY6hv7TlDB91duMd-dlHYKs604S0=",
+    "destinationImage2": "/uploads/upload_1778474893847_1482.jpg",
     "portfolioLabel": "Wedding Stories ",
-    "portfolioHeading": "Our Wedding Portfolio - Couples Across \n[[Kerala & South India]]",
+    "portfolioHeading": "Our Wedding Portfolio - Couples Across[[ Kerala & South India]]",
     "portfolioBody": "Each wedding in our portfolio tells a different story. A different family, a different culture, a different idea of beauty.",
     "portfolioItems": [
       {
@@ -252,6 +252,12 @@
     "journalNote": "",
     "testimonialHeading": "What Our Couples, [[Have to Say]]",
     "youtubeEmbedUrl": "https://www.youtube.com/watch?v=s4dWp9_nNYk",
+    "achievements": [
+      { "id": 1, "number": "1500+", "label": "Happy Couples" },
+      { "id": 2, "number": "4.9/5", "label": "Google Rating" },
+      { "id": 3, "number": "10+", "label": "Years Of Experience" },
+      { "id": 4, "number": "20+", "label": "Strong Team" }
+    ],
     "_hiddenSections": []
   },
   "about": {
