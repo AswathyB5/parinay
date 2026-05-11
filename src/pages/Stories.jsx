@@ -8,54 +8,9 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
     const [activeFaq, setActiveFaq] = useState(null);
 
     // Safety guards for data access
-    // --- Hardcoded Stories Data ---
-    const destinationStories = [
-        {
-            id: 1,
-            title: "Traditional Hindu Wedding",
-            location: "Trivandrum",
-            image: "https://img.freepik.com/premium-photo/beautiful-wedding-husband-wife-lovers-man-woman-bride-groom-newlyweds-couple-love-looks-one-one_210028-77.jpg",
-            video: "uploads/upload_1773132860733_81.mp4",
-            badge: "TRADITIONAL",
-            date: "Jan 2024",
-            overview: "A vibrant celebration of love and culture..."
-        },
-        {
-            id: 2,
-            title: "Backwater Serenity",
-            location: "Kumarakom",
-            image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg",
-            video: "uploads/upload_1773132906231_395.mp4",
-            badge: "BACKWATERS",
-            date: "Dec 2023",
-            overview: "An intimate ceremony by the serene backwaters..."
-        },
-        {
-            id: 3,
-            title: "Luxury Beach Wedding",
-            location: "Kovalam",
-            image: "https://briannakirkphotography.com/wp-content/uploads/2023/03/Ana-and-Jonah-Forden-Wedding-8.20.21-Cover-Pic-BKIRK-1-1.jpg",
-            video: "uploads/upload_1773132909114_925.mp4",
-            badge: "BEACH",
-            date: "Nov 2023",
-            overview: "A grand celebration overlooking the Arabian Sea..."
-        }
-    ];
-
-    const traditionalStories = [
-        { id: 4, title: "Grand Temple Wedding", location: "Guruvayur", image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", video: "uploads/upload_1774337356630_7420.mp4", badge: "TEMPLE", date: "Feb 2024", overview: "A sacred union at the historic temple..." },
-        { id: 5, title: "Royal Palace Ceremony", location: "Mysore", image: "https://i.pinimg.com/736x/d9/16/2a/d9162aded7c5c2347216669d559b265b.jpg", video: "uploads/upload_1774337365319_8290.mp4", badge: "PALACE", date: "Jan 2024", overview: "A majestic wedding in the heart of the palace..." }
-    ];
-    const themedStories = [
-        { id: 6, title: "Bohemian Rhapsody", location: "Wayanad", image: "https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg", video: "uploads/upload_1774337374626_314.mp4", badge: "BOHO", date: "Mar 2024", overview: "A free-spirited celebration in the misty hills..." },
-        { id: 7, title: "Vintage Glamour", location: "Kochi", image: "https://img.freepik.com/premium-photo/bride-groom-pose-front-window-dark-room_444642-4894.jpg", video: "uploads/upload_1774337411180_9268.mp4", badge: "VINTAGE", date: "Feb 2024", overview: "A classic and sophisticated wedding affair..." }
-    ];
-
-    const currentStoriesList = sectionKey === "storiesDestination" ? destinationStories : 
-                               sectionKey === "storiesTraditional" ? traditionalStories : 
-                               themedStories;
-
     const stories = (content && content[sectionKey]) || (content && content.storiesDestination) || { storiesList: [] };
+    const currentStoriesList = stories.storiesList || [];
+
     const home = (content && content.home) || { testimonials: [] };
     const testimonials = home.testimonials || [];
 
@@ -249,7 +204,7 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                 </Link>
                             </div>
                         </div>
-                        {index < stories.storiesList.filter(item => item.title && item.title.trim()).length - 1 && (
+                        {index < currentStoriesList.length - 1 && (
                             <div className="wsl-separator reveal" style={{ 
                                 width: '100%', 
                                 display: 'flex', 
@@ -429,46 +384,26 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
             )}
 
             {/* FINAL CTA SECTION */}
-            <section className="pw-cta-section" style={{ 
-                padding: '120px 0', 
-                position: 'relative',
-                overflow: 'hidden',
-                backgroundColor: '#000' /* Fallback */
-            }}>
+            <section className="pw-cta-section">
                 {/* Fixed Background Layer */}
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backgroundImage: `url(${resolveMediaURL(
-                        stories.ctaBgImage || 
-                        (sectionKey === "storiesTraditional" 
-                            ? "/uploads/upload_1774345251045_4601.jpg" 
-                            : sectionKey === "storiesThemed" 
-                                ? "/uploads/upload_1775901602741_5362.webp" 
-                                : "/uploads/upload_1778474854663_2232.jpg")
-                    )})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundAttachment: 'fixed',
-                    zIndex: 1
-                }}></div>
+                <div 
+                    className="pw-cta-section__bg"
+                    style={{
+                        backgroundImage: `url(${resolveMediaURL(
+                            stories.ctaBgImage || 
+                            (sectionKey === "storiesTraditional" 
+                                ? "/uploads/upload_1774345251045_4601.jpg" 
+                                : sectionKey === "storiesThemed" 
+                                    ? "/uploads/upload_1775901602741_5362.webp" 
+                                    : "/uploads/upload_1778474854663_2232.jpg")
+                        )})`
+                    }}
+                ></div>
 
                 {/* Dark Overlay Layer */}
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6))',
-                    zIndex: 2
-                }}></div>
+                <div className="pw-cta-section__overlay"></div>
 
-                <div className="pw-container reveal" style={{ position: 'relative', zIndex: 3 }}>
+                <div className="pw-container reveal">
                     <h2 style={{ 
                         fontFamily: 'Playfair Display, serif', 
                         fontSize: 'clamp(2rem, 4vw, 3rem)', 

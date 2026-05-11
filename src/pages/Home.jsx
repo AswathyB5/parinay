@@ -131,43 +131,8 @@ const Home = () => {
 
     // --- Testimonial Carousel Logic ---
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
-    const testimonials = useMemo(() => [
-        { 
-            id: 1, 
-            text: "To make this unique vision a reality, we did extensive online research before meeting Ambadi from Parinay Weddings. From our very first interaction, we felt a deep sense of confidence and reassurance that we were in the right hands. Every detail was thoughtfully planned, keeping in mind the sentiments, traditions, and expectations of two new families coming together.", 
-            author: "Priya & Anil", 
-            location: "Kerala", 
-            image: "uploads/priya_anil.png" 
-        },
-        { 
-            id: 2, 
-            text: "A big thanks to Parinay Weddings & Events for their outstanding efforts in managing our son’s wedding reception, held at Trivandrum. The planning, execution, and attention to detail were exceptional. Truly professional and dependable_ highly recommended", 
-            author: "Nila & Nikhil", 
-            location: "Trivandrum", 
-            image: "uploads/nikhila_nikhil.png" 
-        },
-        { 
-            id: 3, 
-            text: "Madona and her team made our wedding magical at The Leela Ashtamudi. Everything was well organised and perfectly executed. The decoration team grasped my expectation and customised the designs.", 
-            author: "Sivanandhitha & Sorna", 
-            location: "Kollam", 
-            image: "uploads/sivanandhitha_sorna.png" 
-        },
-        { 
-            id: 4, 
-            text: "We recently worked with Parinay and team to style our wedding. Right from the start Parinay and team was friendly, approachable and understood the concept we wanted to achieve. To be honest they helped us create our dream wedding. ", 
-            author: "Ruchitha & Anand", 
-            location: "Kerala", 
-            image: "uploads/ruchitha_anand.png" 
-        },
-        { 
-            id: 5, 
-            text: "The moment I walked in, I knew I had to go find the Parinay Weddings team and thank them right away. It was THAT beautiful! I know I was a pain sometimes, but you handled everything so professionally and delivered every little thing I asked for.", 
-            author: "Krishna & Krishna", 
-            location: "Kerala", 
-            image: "uploads/krishna.png" 
-        }
-    ], []);
+    const testimonials = home.testimonials || [];
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -176,50 +141,17 @@ const Home = () => {
         return () => clearInterval(interval);
     }, [testimonials.length]);
     // --- YouTube Hardcoded Logic ---
-    const youtubeVideos = useMemo(() => [
-        { id: 1, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-        { id: 2, url: "https://www.youtube.com/embed/S_8V3t73WzE?si=D8_H3_X_H_X_H_X" },
-        { id: 3, url: "https://www.youtube.com/embed/S_8V3t73WzE?si=D8_H3_X_H_X_H_X" }
-    ], []);
+    const youtubeVideos = home.youtubeVideos || [];
+
 
     // --- Journals Hardcoded Logic ---
-    const journalsList = useMemo(() => [
-        {
-            id: 101,
-            title: "Choosing the Perfect Backwater Venue in Kerala",
-            date: "February 12, 2026",
-            excerpt: "Discover our curated list of the most stunning luxury resorts for your destination backwater wedding.",
-            image: "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg",
-            author: "By Parinay"
-        },
-        {
-            id: 102,
-            title: "Floral Trends for 2026: Sustainable Elegance",
-            date: "January 28, 2026",
-            excerpt: "From locally sourced blooms to artisanal floral installations, explore the future of wedding decor.",
-            image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
-            author: "By Parinay"
-        },
-        {
-            id: 103,
-            title: "Planning Your Destination Wedding: A Step-by-Step Guide",
-            date: "January 15, 2026",
-            excerpt: "From budget allocation to guest management, here is everything you need to know about planning your big day.",
-            image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
-            author: "By Parinay"
-        }
-    ], []);
+    const journalsList = content.journals?.journalsList || [];
+
 
     // --- Portfolio Auto-slide Logic ---
     const portfolioRef = useRef(null);
-    const portfolioItems = useMemo(() => [
-        { id: 1, title: "Tropical Paradise", location: "Kerala", image: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80" },
-        { id: 2, title: "Backwater Magic", location: "Kumarakom", image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg" },
-        { id: 3, title: "Mist & Mountains", location: "Munnar", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" },
-        { id: 4, title: "Timeless Romance", location: "Udaipur", image: "https://briannakirkphotography.com/wp-content/uploads/2023/03/Ana-and-Jonah-Forden-Wedding-8.20.21-Cover-Pic-BKIRK-1-1.jpg" },
-        { id: 5, title: "Sunset Vows", location: "Goa", image: "https://i.pinimg.com/236x/e7/03/e5/e703e5e43a036a403e3d46bbfb02577e.jpg" },
-        { id: 6, title: "Floral Elegance", location: "Jaipur", image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80" }
-    ], []);
+    const portfolioItems = home.portfolioItems || [];
+
 
     useEffect(() => {
         const portfolio = portfolioRef.current;
@@ -701,7 +633,7 @@ const Home = () => {
                         {portfolioItems.map((item, idx) => {
                             const displayImage = item.image || (item.galleryImages ? item.galleryImages.split('\n')[0].trim() : "");
                             return (
-                                <div className="pw-services__card" key={idx}>
+                                <Link to={`/projects/${item.id}`} className="pw-services__card" key={idx}>
                                     {isVideoUrl(displayImage) ? (
                                         <video key={resolveMediaURL(displayImage)} src={resolveMediaURL(displayImage)} autoPlay muted loop playsInline className="pw-services__card-img" />
                                     ) : (
@@ -713,7 +645,7 @@ const Home = () => {
                                             <p className="pw-services__card-desc">{item.location || item.loc}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             );
                         })}
                     </div>

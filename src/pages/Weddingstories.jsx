@@ -177,39 +177,19 @@ const Gallery = () => {
             )}
 
             {/* BOTTOM CTA SECTION */}
-            <section className="pw-cta-section" style={{ 
-                padding: '120px 0', 
-                position: 'relative',
-                overflow: 'hidden',
-                backgroundColor: '#000'
-            }}>
+            <section className="pw-cta-section">
                 {/* Fixed Background Layer */}
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backgroundImage: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundAttachment: 'fixed',
-                    zIndex: 1
-                }}></div>
+                <div 
+                    className="pw-cta-section__bg"
+                    style={{
+                        backgroundImage: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')})`
+                    }}
+                ></div>
 
                 {/* Dark Overlay Layer */}
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65))',
-                    zIndex: 2
-                }}></div>
+                <div className="pw-cta-section__overlay"></div>
 
-                <div className="pw-container gallery-reveal" style={{ position: 'relative', zIndex: 3, textAlign: 'center' }}>
+                <div className="pw-container gallery-reveal">
                     <h2 style={{ 
                         fontFamily: 'Playfair Display, serif', 
                         fontSize: 'clamp(2rem, 4vw, 3rem)', 
