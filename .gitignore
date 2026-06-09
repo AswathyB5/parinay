@@ -32,3 +32,4 @@ dist-ssr
 src/assets/*.mov
 src/assets/*.mp4
 public/uploads/*.mov
+public/uploads/*.mp4
