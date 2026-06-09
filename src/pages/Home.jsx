@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText, API } from '../context/ContentContext';
+import heroVideoSrc from '../assets/t4.mp4';
 
 const StatCounter = ({ number, label, start }) => {
     const [displayValue, setDisplayValue] = useState('0');
@@ -102,7 +103,7 @@ const Home = () => {
     const [currentVid, setCurrentVid] = useState(0);
     // --- Hero Video Hardcoded Logic ---
     const heroVideos = useMemo(() => [
-        resolveMediaURL('/uploads/t4.mp4')
+        heroVideoSrc
     ], []);
 
 

@@ -29,7 +29,9 @@ dist-ssr
 *.sw?
 
 # Large video files (exceed GitHub 100MB limit - store locally only)
+# Exception: t4.mp4 is only 30.5 MB so it CAN be committed
 src/assets/*.mov
 src/assets/*.mp4
+!src/assets/t4.mp4
 public/uploads/*.mov
 public/uploads/*.mp4
