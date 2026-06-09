@@ -430,6 +430,7 @@ const Services = () => {
                 <div className="pw-container">
                     <div className="pw-form-wrap reveal">
                         <div className="pw-form-wrap__left">
+                            <img src={resolveMediaURL('uploads/upload_1777017695831_3523.png')} alt="Logo" style={{ width: '120px', marginBottom: '20px' }} />
                             <span className="pw-label">{home.formLabel}</span>
                             <h2 className="pw-form-wrap__title">
                                 {renderText(home.formHeading)}

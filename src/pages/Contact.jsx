@@ -271,6 +271,9 @@ const Contact = () => {
                             {/* RIGHT: FORM */}
                             <div className="pw-contact__form">
                                 <div className="pw-form-container">
+                                    <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                                        <img src={resolveMediaURL('uploads/upload_1777017695831_3523.png')} alt="Logo" style={{ width: '120px' }} />
+                                    </div>
                                     <form className="pw-form" onSubmit={handleFormSubmit}>
                                         <div className="pw-form__grid">
                                             <div className="pw-form__field">

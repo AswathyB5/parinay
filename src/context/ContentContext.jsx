@@ -35,17 +35,17 @@ export const resolveMediaURL = (url) => {
     if (!url) return '';
     if (typeof url !== 'string') return url;
     if (url.startsWith('http') || url.startsWith('blob:') || url.startsWith('data:')) return url;
-    
+
     // Remove any leading slashes to normalize
     const cleanPath = url.replace(/^\/+/, '');
-    
+
     // If it already starts with 'uploads/', return as absolute relative path
     if (cleanPath.startsWith('uploads/')) return `/${cleanPath}`;
-    
+
     // For root assets
     const rootAssets = ['logo-img.jpeg', 'favicon.ico', 'robots.txt'];
     if (rootAssets.includes(cleanPath)) return `/${cleanPath}`;
-    
+
     // Otherwise, assume it's an upload and prepend /uploads/
     return `/uploads/${cleanPath}`;
 };
@@ -65,12 +65,12 @@ export const renderText = (text) => {
                     <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--accent-color)', marginBottom: '12px', fontWeight: '600' }}>Best For</span>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '10px', width: '100%' }}>
                         {tags.map((tag, ti) => (
-                            <span key={ti} style={{ 
-                                padding: '8px 20px', 
-                                backgroundColor: 'var(--primary-color)', 
-                                border: '1px solid var(--primary-color)', 
-                                borderRadius: '100px', 
-                                fontSize: '0.95rem', 
+                            <span key={ti} style={{
+                                padding: '8px 20px',
+                                backgroundColor: 'var(--primary-color)',
+                                border: '1px solid var(--primary-color)',
+                                borderRadius: '100px',
+                                fontSize: '0.95rem',
                                 color: '#fff',
                                 boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
                                 whiteSpace: 'normal',
@@ -151,7 +151,7 @@ const initialContent = {
         introHeading: "Kerala's Bespoke Destination Wedding Specialists",
         introSubText: "Parinay Weddings is a Trivandrum-based destination wedding planning company with over 8 years of experience planning weddings across Kerala, Munnar, Alleppey, Kovalam, Kumarakom, Kochi, and across South India including Goa, Tamil Nadu, and Karnataka.\n\nWe are not a template-driven company. Every wedding we plan is built from scratch around the couple, their story, their culture, their aesthetic. From intimate 50-guest celebrations to multi-day luxury weddings, we take complete ownership of every detail so you don't have to.",
         introBtnText: "Learn About Us →",
-        stat1Label: "8+ Years of\nExperience",
+        stat1Label: "9+ Years of\nExperience",
         stat2Label: "Destination Wedding\nSpecialists",
         stat3Label: "South India\n& Beyond",
         stat4Label: "Fully Customised,\nEnd-to-End Planning",
@@ -223,9 +223,9 @@ const initialContent = {
         testimonialHeading: "What Our Couples, [[Have to Say]]",
         youtubeEmbedUrl: "https://www.youtube.com/watch?v=s4dWp9_nNYk",
         achievements: [
-            { id: 1, number: "1500+", label: "Happy Couples" },
-            { id: 2, number: "4.9/5", label: "Google Rating" },
-            { id: 3, number: "10+", label: "Years Of Experience" },
+            { id: 1, number: "500+", label: "Happy Couples" },
+            { id: 2, number: "4.8/5", label: "Google Rating" },
+            { id: 3, number: "9+", label: "Years Of Experience" },
             { id: 4, number: "20+", label: "Strong Team" }
         ],
         _hiddenSections: []
@@ -235,7 +235,7 @@ const initialContent = {
         pageBannerTitle: "About Parinay Weddings",
         introLabel: "ABOUT US",
         introHeading: "We Plan Destination Weddings That Feel Like You",
-        introText: "Parinay Weddings is a destination wedding planning company based in Trivandrum, Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay, meaning betrothal in Sanskrit, reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
+        introText: "Parinay Weddings is a destination wedding planning company based in Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay, meaning betrothal in Sanskrit, reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
         introImage: "uploads/upload_1775897905550_6647.avif",
         differentiatorLabel: "What Makes Us Different",
         differentiatorHeading: "Most wedding planners offer packages. \n[[We don't. ]]",
@@ -417,7 +417,7 @@ const initialContent = {
         phone: "+91 9447708597",
         addressLabel: "Visit Us",
         addressHeading: "Office Address",
-        address: "Trivandrum, Kerala, India",
+        address: "Kerala, India",
 
         whatsappNumber: "9645745111",
         whatsappText: "Chat with us",
@@ -428,7 +428,7 @@ const initialContent = {
         youtubeUrl: "https://youtube.com/@parinayweddingseventsiq5626?si=EsQeDR9NDMoSQKqD",
         formBtnText: "Send Inquiry"
     },
-        storiesDestination: {
+    storiesDestination: {
         pageBannerTitle: "Destination Wedding Planner in Kerala & South India",
         seoTitle: "Destination Wedding Planner in Kerala | Parinay Weddings — Alleppey, Munnar, Kovalam, Trivandrum & Nagercoil",
         metaDescription: "Parinay Weddings plans fully customised destination weddings across Kerala — Alleppey backwaters, Munnar hill stations, Kovalam beaches, Trivandrum, and Nagercoil. NRI-friendly. End-to-end planning from Trivandrum.",
@@ -734,7 +734,7 @@ const initialContent = {
         logoImage: "/uploads/upload_1777017711206_9176.png",
         logoWidth: "140px",
         logoHeight: "auto",
-        tagline: "Parinay Weddings, Bespoke destination wedding planners based in Trivandrum, Kerala. Planning customised luxury weddings across South India and beyond.",
+        tagline: "Parinay Weddings, Bespoke destination wedding planners based in Kerala. Planning customised luxury weddings across South India and beyond.",
         instagramUrl: "https://instagram.com/parinayweddings",
         facebookUrl: "https://www.facebook.com/share/1Cj2QJcddt/",
         pinterestUrl: "https://pinterest.com/parinayweddings",

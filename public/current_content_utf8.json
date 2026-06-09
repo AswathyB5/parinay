@@ -6,7 +6,10 @@
         "heroVideo1": "/uploads/Untitled design.mp4",
         "heroVideo2": "https://videos.pexels.com/video-files/3130182/3130182-uhd_2560_1440_30fps.mp4",
         "heroVideos": [
-            { "id": 1, "video": "/uploads/Untitled design.mp4" }
+            {
+                "id": 1,
+                "video": "/uploads/Untitled design.mp4"
+            }
         ],
         "heroImages": [
             {
@@ -32,7 +35,7 @@
         ],
         "introHeading": "At Parinay Weddings, we specialise in thoughtfully planned, aesthetically refined weddings where every detail is handled with care.",
         "introSubText": "We don't believe in templates. Every wedding we plan is personal, intentional, and beautifully executed.",
-        "stat1Label": "8+ Years of\nExperience",
+        "stat1Label": "9+ Years of\nExperience",
         "stat2Label": "Destination Wedding\nSpecialists",
         "stat3Label": "End-to-End Planning\nand Execution",
         "stat4Label": "Trusted by Clients\nWorldwide",
@@ -165,7 +168,7 @@
         "pageBannerTitle": "About Parinay Weddings",
         "introLabel": "ABOUT US",
         "introHeading": "We Plan Destination Weddings That Feel Like You",
-        "introText": "Parinay Weddings is a destination wedding planning company based in Trivandrum, Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay — meaning betrothal in Sanskrit — reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
+        "introText": "Parinay Weddings is a destination wedding planning company based in Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay — meaning betrothal in Sanskrit — reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
         "introImage": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
         "differentiatorLabel": "What Makes Us Different",
         "differentiatorHeading": "Bespoke Planning. No Templates.",
@@ -231,8 +234,8 @@
                 "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80"
             }
         ],
-        "stat1Label": "8+ Years of\nExperience",
-        "stat2Label": "150+ Weddings\nPlanned",
+        "stat1Label": "9+ Years of\nExperience",
+        "stat2Label": "500+ Weddings\nPlanned",
         "stat3Label": "Destination Wedding\nSpecialists",
         "stat4Label": "Trusted by Clients\nWorldwide",
         "philosophyQuote": "You will not find a Parinay wedding in a catalogue. If you've seen it before, we won't do it.",

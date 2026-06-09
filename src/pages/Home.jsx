@@ -24,26 +24,32 @@ const StatCounter = ({ number, label, start }) => {
         const duration = 2000; // Faster 2s duration for a snappier feel
         const startTime = performance.now();
 
+        let animationFrameId;
+
         const animate = (currentTime) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            
+
             // Cubic ease-out: Snappier than Quart/Expo, finishes more decisively
             const easeProgress = 1 - Math.pow(1 - progress, 3);
-            
+
             const isDecimal = targetStr.includes('.');
             const currentVal = (target * easeProgress).toFixed(isDecimal ? 1 : 0);
-            
+
             setDisplayValue(prefix + currentVal + suffix);
 
             if (progress < 1) {
-                requestAnimationFrame(animate);
+                animationFrameId = requestAnimationFrame(animate);
             } else {
                 setDisplayValue(targetStr);
             }
         };
 
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
+
+        return () => {
+            if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        };
     }, [start, number]);
 
     return (
@@ -96,7 +102,7 @@ const Home = () => {
     const [currentVid, setCurrentVid] = useState(0);
     // --- Hero Video Hardcoded Logic ---
     const heroVideos = useMemo(() => [
-        resolveMediaURL('/uploads/Untitled design.mp4')
+        resolveMediaURL('/uploads/t4.mov')
     ], []);
 
 
@@ -176,11 +182,11 @@ const Home = () => {
     // --- Lead Form Logic ---
     const validateForm = (payload) => {
         if (!payload.name.trim()) return 'Please enter your full name.';
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!payload.email.trim()) return 'Please enter your email address.';
         if (!emailRegex.test(payload.email)) return 'Please enter a valid email address.';
-        
+
         if (payload.phone && payload.phone.trim()) {
             const phoneDigits = payload.phone.replace(/\D/g, '');
             if (phoneDigits.length < 10) return 'Please enter a valid phone number.';
@@ -188,13 +194,13 @@ const Home = () => {
 
         if (!payload.message.trim()) return 'Please provide some details about your wedding.';
         if (payload.message.trim().length < 10) return 'Please tell us a bit more so we can help you better.';
-        
+
         return null;
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        
+
         const formEl = e.target;
         const payload = {
             type: 'contact',
@@ -293,7 +299,7 @@ const Home = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    zIndex: 20000, 
+                    zIndex: 20000,
                     padding: '20px',
                 }}>
                     <div style={{
@@ -436,13 +442,13 @@ const Home = () => {
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                         <span className="section-label">{renderText(home.servicesLabel)}</span>
-                        <h2 style={{ 
+                        <h2 style={{
                             fontFamily: "'Playfair Display', serif",
-                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)',
                             fontWeight: '400',
                             lineHeight: '1.1',
                             color: 'var(--primary-color)',
-                            marginBottom: '20px' 
+                            marginBottom: '20px'
                         }}>
                             {renderText(home.servicesHeading)}
                         </h2>
@@ -665,13 +671,13 @@ const Home = () => {
                         {/* Left: Editorial Text Content */}
                         <div className="youtube-text-content">
                             <span className="editorial-label">{renderText(home.youtubeLabel)}</span>
-                            <h2 style={{ 
+                            <h2 style={{
                                 fontFamily: "'Playfair Display', serif",
-                                fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                                fontSize: 'clamp(2.4rem, 4vw, 3.6rem)',
                                 fontWeight: '400',
                                 lineHeight: '1.1',
                                 color: 'var(--primary-color)',
-                                margin: '20px 0 35px' 
+                                margin: '20px 0 35px'
                             }}>
                                 {renderText(home.youtubeHeading)}
                             </h2>
@@ -764,7 +770,7 @@ const Home = () => {
 
 
             {/* ═══ ACHIEVEMENTS STATS BAR ═══ */}
-            <section 
+            <section
                 className="pw-achievements reveal"
                 ref={statsRef}
             >
@@ -773,16 +779,16 @@ const Home = () => {
                         {(home.achievements && home.achievements.length > 0
                             ? home.achievements
                             : [
-                                { number: '1500+', label: 'Happy Couples' },
-                                { number: '4.9/5', label: 'Google Rating' },
-                                { number: '10+', label: 'Years Of Experience' },
+                                { number: '500+', label: 'Happy Couples' },
+                                { number: '4.8/5', label: 'Google Rating' },
+                                { number: '9+', label: 'Years Of Experience' },
                                 { number: '20+', label: 'Strong Team' }
                             ]
                         ).map((stat, idx) => (
-                            <StatCounter 
-                                key={idx} 
-                                number={stat.number} 
-                                label={stat.label} 
+                            <StatCounter
+                                key={idx}
+                                number={stat.number}
+                                label={stat.label}
                                 start={statsInView}
                             />
                         ))}
@@ -795,9 +801,9 @@ const Home = () => {
                 <div className="pw-container">
                     <div className="pw-testimonials__inner">
                         <span className="pw-label pw-label--gold">{renderText(home.testimonialLabel || 'Testimonials')}</span>
-                        <h2 className="pw-testimonials__heading" style={{ 
+                        <h2 className="pw-testimonials__heading" style={{
                             fontFamily: "'Playfair Display', serif",
-                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)',
                             fontWeight: '400',
                             lineHeight: '1.1',
                             color: 'var(--primary-color)',
@@ -815,10 +821,10 @@ const Home = () => {
                                         <video src={resolveMediaURL(testimonials[currentTestimonial]?.image)} autoPlay muted loop playsInline />
                                     ) : (
                                         <img
-                                        src={resolveMediaURL(testimonials[currentTestimonial]?.image)}
-                                        alt={testimonials[currentTestimonial]?.author}
-                                        className="pw-testimonials__img"
-                                    />)}
+                                            src={resolveMediaURL(testimonials[currentTestimonial]?.image)}
+                                            alt={testimonials[currentTestimonial]?.author}
+                                            className="pw-testimonials__img"
+                                        />)}
                                 </div>
                                 <div className="pw-testimonials__author-info">
                                     <strong>{renderText(testimonials[currentTestimonial]?.author)}</strong>
@@ -854,13 +860,13 @@ const Home = () => {
                 <div className="pw-container">
                     <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                         <span className="pw-label">{renderText(content.journals.sectionLabel)}</span>
-                        <h2 className="pw-section-header__title" style={{ 
+                        <h2 className="pw-section-header__title" style={{
                             fontFamily: "'Playfair Display', serif",
-                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)', 
+                            fontSize: 'clamp(2.4rem, 4vw, 3.6rem)',
                             fontWeight: '400',
                             lineHeight: '1.1',
                             color: 'var(--primary-color)',
-                            marginBottom: '20px' 
+                            marginBottom: '20px'
                         }}>
                             {renderText(content.journals.sectionTitle)}
                         </h2>
@@ -901,9 +907,9 @@ const Home = () => {
             {/* ═══ SECTION 3: TRANSITION ═══ */}
             <section className="pw-transition">
                 <div className="pw-transition__video">
-                    <video 
-                        src={resolveMediaURL('/uploads/1330-147084829_medium.mp4')} 
-                        autoPlay muted loop playsInline 
+                    <video
+                        src={resolveMediaURL('/uploads/1330-147084829_medium.mp4')}
+                        autoPlay muted loop playsInline
                     />
                     <div className="pw-transition__overlay"></div>
                 </div>
@@ -930,6 +936,7 @@ const Home = () => {
                 <div className="pw-container">
                     <div className="pw-form-wrap reveal">
                         <div className="pw-form-wrap__left">
+                            <img src={resolveMediaURL('uploads/upload_1777017695831_3523.png')} alt="Logo" style={{ width: '120px', marginBottom: '20px' }} />
                             <span className="pw-label">{home.formLabel}</span>
                             <h2 className="pw-form-wrap__title">
                                 {renderText(home.formHeading)}

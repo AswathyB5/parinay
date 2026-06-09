@@ -119,6 +119,7 @@
 
 /* Ensure horizontal spacing for hero sections on mobile */
 @media (max-width: 600px) {
+
     .about-hero-new .container,
     .pw-page-hero__content,
     .pw-page-banner .container,
@@ -579,13 +580,15 @@
 }
 
 @media (max-width: 1024px) {
+
     .about-hero-new,
     .services-hero,
     .stories-hero,
     .pd-hero,
     .pw-page-banner {
         display: block !important;
-        padding-top: 140px !important; /* Reduced from 240px to eliminate excessive space */
+        padding-top: 140px !important;
+        /* Reduced from 240px to eliminate excessive space */
         padding-bottom: 60px !important;
         height: auto !important;
         min-height: auto !important;
@@ -597,13 +600,15 @@
     .pd-hero h1,
     .pw-page-banner h1,
     .pd-title {
-        margin-top: 20px !important; /* Reduced from 50px to bring headings higher */
+        margin-top: 20px !important;
+        /* Reduced from 50px to bring headings higher */
         padding-top: 0 !important;
         padding-left: 20px !important;
         padding-right: 20px !important;
     }
-    .about-values-new, 
-    .about-philosophy-new, 
+
+    .about-values-new,
+    .about-philosophy-new,
     .about-team-grid,
     .pw-form-section {
         padding: 60px 0 !important;
@@ -621,7 +626,8 @@
         gap: 40px;
     }
 
-    .founder-image, .founder-content {
+    .founder-image,
+    .founder-content {
         width: 100% !important;
         padding: 0 !important;
     }
@@ -684,7 +690,7 @@
     .about-hero-new h1 {
         font-size: 2.2rem !important;
     }
-    
+
     .pw-stats__grid {
         grid-template-columns: 1fr;
     }
@@ -1139,11 +1145,13 @@
     }
 
     .wsl-item {
-        width: calc(100% - 40px); /* Increased from 24px to ensure space from left/right */
+        width: calc(100% - 40px);
+        /* Increased from 24px to ensure space from left/right */
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 24px;
-        border-radius: 4px; /* Slight rounding for card look */
+        border-radius: 4px;
+        /* Slight rounding for card look */
     }
 
     .wsl-item__media {
@@ -1180,7 +1188,7 @@
     }
 }
 
-.comprehensive-grid > div {
+.comprehensive-grid>div {
     transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     will-change: transform;
     display: flex;
@@ -1188,18 +1196,19 @@
     height: 100%;
 }
 
-.comprehensive-grid > div:hover {
+.comprehensive-grid>div:hover {
     transform: translateY(-12px);
-    box-shadow: 0 40px 80px rgba(0,0,0,0.08) !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08) !important;
 }
 
-.comprehensive-grid > div:hover .service-card-img {
+.comprehensive-grid>div:hover .service-card-img {
     transform: scale(1.1) rotate(1deg);
 }
 
 .service-card-img {
     transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
+
 /* -- About Page Refinements -- */
 .about-philosophy-new {
     padding: 120px 0;
@@ -1318,7 +1327,7 @@
     border-radius: 12px;
     overflow: hidden;
     height: 500px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     margin: 0 0 100px;
 }
 
@@ -1331,4 +1340,3 @@
 .pw-map-iframe:hover {
     filter: grayscale(0%);
 }
-

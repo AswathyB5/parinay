@@ -35,7 +35,7 @@ const getYoutubeEmbedUrl_local = (url) => {
 
 const renderAdminPreview = (text) => {
     if (!text || typeof text !== 'string') return text;
-    
+
     const lines = text.split(/\\n|\n/);
     return lines.map((line, i) => {
         const trimLine = line.trim();
@@ -48,11 +48,11 @@ const renderAdminPreview = (text) => {
                 <div key={i} style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                     <div style={{ width: '100%', fontSize: '0.65rem', textTransform: 'uppercase', color: '#C5A059', letterSpacing: '0.1em', marginBottom: '4px' }}>Best For</div>
                     {tags.map((tag, ti) => (
-                        <span key={ti} style={{ 
-                            padding: '4px 10px', 
-                            backgroundColor: '#3a1219', 
-                            borderRadius: '100px', 
-                            fontSize: '0.75rem', 
+                        <span key={ti} style={{
+                            padding: '4px 10px',
+                            backgroundColor: '#3a1219',
+                            borderRadius: '100px',
+                            fontSize: '0.75rem',
                             color: '#fff',
                             fontWeight: '500'
                         }}>
@@ -65,7 +65,7 @@ const renderAdminPreview = (text) => {
 
         // Replace ###text### with bold
         let parts = line.split(/(###.*?###|\[\[.*?\]\]|__.*?__|_.*?_)/g);
-        
+
         const processed = parts.map((part, j) => {
             if (part.startsWith('###') && part.endsWith('###')) {
                 return <strong key={j} style={{ fontWeight: '800' }}>{part.slice(3, -3)}</strong>;
@@ -145,153 +145,153 @@ const LINKED_SECTIONS = {};
 const FIELD_GROUPS = {
     /* ── HOME PAGE ─────────────────────────────────── */
     home: {
-        heroTagline:        'Hero Section',
-        heroVideos:         'Hero Background Videos',
-        heroImages:         'Hero Floating Images',
-        introHeading:       'Introduction Text',
-        stat1Label:         'Statistics Counter',
-        servicesLabel:      'Services Preview',
-        homeServices:       'Services Cards',
-        destinationLabel:   'Destination Weddings Feature',
-        portfolioLabel:     'Portfolio Glimpse',
-        testimonialLabel:   'Client Testimonials',
-        transitionHeading:  'Cinematic CTA Band',
-        youtubeLabel:       'YouTube / Video Section',
-        youtubeVideos:      'YouTube Videos Grid',
-        formLabel:          'Consultation Form Section',
-        journalNote:        'Journal Preview Note',
+        heroTagline: 'Hero Section',
+        heroVideos: 'Hero Background Videos',
+        heroImages: 'Hero Floating Images',
+        introHeading: 'Introduction Text',
+        stat1Label: 'Statistics Counter',
+        servicesLabel: 'Services Preview',
+        homeServices: 'Services Cards',
+        destinationLabel: 'Destination Weddings Feature',
+        portfolioLabel: 'Portfolio Glimpse',
+        testimonialLabel: 'Client Testimonials',
+        transitionHeading: 'Cinematic CTA Band',
+        youtubeLabel: 'YouTube / Video Section',
+        youtubeVideos: 'YouTube Videos Grid',
+        formLabel: 'Consultation Form Section',
+        journalNote: 'Journal Preview Note',
         testimonialHeading: 'Client Testimonials',
-        youtubeEmbedUrl:    'Featured YouTube Video',
-        achievements:       'Achievements Bar'
+        youtubeEmbedUrl: 'Featured YouTube Video',
+        achievements: 'Achievements Bar'
     },
     /* ── ABOUT PAGE ────────────────────────────────── */
     /* Keys MUST follow the JSON key order in site-content.json so that
        un-mapped keys fall into the correct preceding group.            */
     about: {
-        seoTitle:             'SEO Settings',
-        pageBannerTitle:      'Page Header',
-        introLabel:           'Split Intro Section',
-        differentiatorLabel:  'The Parinay Difference',
-        specialitiesLabel:    'Specialities Section',
-        specialitiesSubtext:  'Specialities Section',
-        specialities:         'Specialities List',
-        heroImage:            'About Hero Banner',
-        heroQuote:            'Hero Quote',
-        teamLabel:            'Team Section',
-        stat1Label:           'About Stats Band',
-        philosophyQuote:      'Our Philosophy',
-        promiseBtnText:       'Our Philosophy',
-        ctaHeading:           'About CTA Band',
+        seoTitle: 'SEO Settings',
+        pageBannerTitle: 'Page Header',
+        introLabel: 'Split Intro Section',
+        differentiatorLabel: 'The Parinay Difference',
+        specialitiesLabel: 'Specialities Section',
+        specialitiesSubtext: 'Specialities Section',
+        specialities: 'Specialities List',
+        heroImage: 'About Hero Banner',
+        heroQuote: 'Hero Quote',
+        teamLabel: 'Team Section',
+        stat1Label: 'About Stats Band',
+        philosophyQuote: 'Our Philosophy',
+        promiseBtnText: 'Our Philosophy',
+        ctaHeading: 'About CTA Band',
     },
     /* ── SERVICES PAGE ─────────────────────────────── */
     services: {
-        pageBannerTitle:        'Page Header',
-        comprehensiveHeading:   'Comprehensive Services',
-        comprehensiveList:      'Detailed Services Grid',
-        processLabel:           'The Planning Process',
-        processItems:           'Process Steps',
-        ctaHeading:             'Closing CTA Band',
+        pageBannerTitle: 'Page Header',
+        comprehensiveHeading: 'Comprehensive Services',
+        comprehensiveList: 'Detailed Services Grid',
+        processLabel: 'The Planning Process',
+        processItems: 'Process Steps',
+        ctaHeading: 'Closing CTA Band',
     },
     /* ── CONTACT PAGE ──────────────────────────────── */
     contact: {
-        pageBannerTitle:  'Page Header',
-        emailLabel:       'Email Inquiry',
-        phoneLabel:       'Phone Inquiry',
-        addressLabel:     'Office Address',
-        whatsappNumber:   'WhatsApp & Social',
-        formBtnText:      'Inquiry Form Settings',
-        youtubeUrl:       'WhatsApp & Social',
+        pageBannerTitle: 'Page Header',
+        emailLabel: 'Email Inquiry',
+        phoneLabel: 'Phone Inquiry',
+        addressLabel: 'Office Address',
+        whatsappNumber: 'WhatsApp & Social',
+        formBtnText: 'Inquiry Form Settings',
+        youtubeUrl: 'WhatsApp & Social',
     },
     /* ── WEDDING STORIES (GALLERY) PAGE ──────────── */
     weddingStories: {
-        seoTitle:            'SEO Settings',
-        metaDescription:     'SEO Settings',
-        pageBannerTitle:     'Page Header',
-        pageBannerSubtitle:  'Page Header',
-        storiesList:         'Wedding Stories Gallery',
-        instagramBtnText:    'Instagram / Explore Button',
-        instagramUrl:        'Instagram / Explore Button',
-        ctaHeading:          'Bottom CTA Section',
-        ctaBody:             'Bottom CTA Section',
-        ctaImage:            'Bottom CTA Section',
-        ctaBtnText:          'Bottom CTA Section',
-        ctaBtnUrl:           'Bottom CTA Section',
+        seoTitle: 'SEO Settings',
+        metaDescription: 'SEO Settings',
+        pageBannerTitle: 'Page Header',
+        pageBannerSubtitle: 'Page Header',
+        storiesList: 'Wedding Stories Gallery',
+        instagramBtnText: 'Instagram / Explore Button',
+        instagramUrl: 'Instagram / Explore Button',
+        ctaHeading: 'Bottom CTA Section',
+        ctaBody: 'Bottom CTA Section',
+        ctaImage: 'Bottom CTA Section',
+        ctaBtnText: 'Bottom CTA Section',
+        ctaBtnUrl: 'Bottom CTA Section',
     },
     /* ── DESTINATION WEDDINGS ──────────────────────── */
     storiesDestination: {
-        seoTitle:            'SEO Settings',
-        pageBannerTitle:     'Page Header',
-        pageBannerSubtitle:  'Page Header',
-        introH2:             'Intro Text Section',
-        introBody:           'Intro Text Section',
-        listH2:              'Location List Section',
-        storiesList:         'Destination Stories List',
-        nriH2:               'NRI Planning Section',
-        nriBody:             'NRI Planning Section',
-        nriBtnText:          'NRI Planning Section',
-        nriImage1:           'NRI Planning Section',
-        processLabel:        'Destination Planning Process',
-        processHeading:      'Destination Planning Process',
-        processItems:        'Destination Process Steps',
-        faqsList:            'Frequently Asked Questions',
-        ctaHeading:          'Final CTA Section',
-        heroImage:           'Cinematic CTA Banner',
-        testimonialQuote:    'Featured Testimonial'
+        seoTitle: 'SEO Settings',
+        pageBannerTitle: 'Page Header',
+        pageBannerSubtitle: 'Page Header',
+        introH2: 'Intro Text Section',
+        introBody: 'Intro Text Section',
+        listH2: 'Location List Section',
+        storiesList: 'Destination Stories List',
+        nriH2: 'NRI Planning Section',
+        nriBody: 'NRI Planning Section',
+        nriBtnText: 'NRI Planning Section',
+        nriImage1: 'NRI Planning Section',
+        processLabel: 'Destination Planning Process',
+        processHeading: 'Destination Planning Process',
+        processItems: 'Destination Process Steps',
+        faqsList: 'Frequently Asked Questions',
+        ctaHeading: 'Final CTA Section',
+        heroImage: 'Cinematic CTA Banner',
+        testimonialQuote: 'Featured Testimonial'
     },
     /* ── JOURNAL / BLOG ────────────────────────────── */
     journals: {
-        pageBannerTitle:     'Page Header',
-        sectionLabel:        'Blog Feed Header',
-        sectionTitle:        'Blog Feed Header',
-        journalsList:        'Blog Posts List',
-        guideLabel:          'Downloadable Guide',
-        guideTitle:          'Downloadable Guide',
-        guideDesc:           'Downloadable Guide',
-        guideChecks:         'Downloadable Guide',
+        pageBannerTitle: 'Page Header',
+        sectionLabel: 'Blog Feed Header',
+        sectionTitle: 'Blog Feed Header',
+        journalsList: 'Blog Posts List',
+        guideLabel: 'Downloadable Guide',
+        guideTitle: 'Downloadable Guide',
+        guideDesc: 'Downloadable Guide',
+        guideChecks: 'Downloadable Guide',
         guideRequestBtnText: 'Downloadable Guide',
-        guideImage:          'Downloadable Guide',
-        guideYear:           'Downloadable Guide',
-        guidePlannerLabel:   'Downloadable Guide',
-        guideFreeText:       'Downloadable Guide',
-        readEntryText:       'Post Detail Labels',
+        guideImage: 'Downloadable Guide',
+        guideYear: 'Downloadable Guide',
+        guidePlannerLabel: 'Downloadable Guide',
+        guideFreeText: 'Downloadable Guide',
+        readEntryText: 'Post Detail Labels',
         relatedSectionLabel: 'Post Detail Labels',
         relatedSectionTitle: 'Post Detail Labels',
-        ctaLabel:            'Post Detail CTA',
-        ctaTitle:            'Post Detail CTA',
-        ctaBtnText:          'Post Detail CTA',
-        guideChecklist1:     'Downloadable Guide',
-        guideChecklist2:     'Downloadable Guide',
-        guideChecklist3:     'Downloadable Guide'
+        ctaLabel: 'Post Detail CTA',
+        ctaTitle: 'Post Detail CTA',
+        ctaBtnText: 'Post Detail CTA',
+        guideChecklist1: 'Downloadable Guide',
+        guideChecklist2: 'Downloadable Guide',
+        guideChecklist3: 'Downloadable Guide'
     },
     /* ── THEMED WEDDINGS ────────────────────────── */
     storiesThemed: {
-        pageBannerTitle:     'Page Header',
-        storiesList:         'Themed Stories List',
-        heroImage:           'Hero Section',
-        heroTitle:           'Hero Section',
-        testimonialQuote:    'Client Testimonial'
+        pageBannerTitle: 'Page Header',
+        storiesList: 'Themed Stories List',
+        heroImage: 'Hero Section',
+        heroTitle: 'Hero Section',
+        testimonialQuote: 'Client Testimonial'
     },
     /* ── TRADITIONAL WEDDINGS ────────────────────── */
     storiesTraditional: {
-        pageBannerTitle:     'Page Header',
-        storiesList:         'Traditional Stories List',
-        heroImage:           'Hero Section',
-        heroTitle:           'Hero Section',
-        testimonialQuote:    'Client Testimonial'
+        pageBannerTitle: 'Page Header',
+        storiesList: 'Traditional Stories List',
+        heroImage: 'Hero Section',
+        heroTitle: 'Hero Section',
+        testimonialQuote: 'Client Testimonial'
     },
     /* ── HEADER / NAVIGATION ───────────────────────── */
     header: {
-        logoText:       'Logo & Branding',
-        nav1Label:      'Navigation Menu',
+        logoText: 'Logo & Branding',
+        nav1Label: 'Navigation Menu',
     },
     /* ── FOOTER ────────────────────────────────────── */
     footer: {
-        logoText:       'Footer Branding',
-        tagline:        'Tagline & Description',
-        instagramUrl:   'Social Media Links',
-        email:          'Contact Details',
-        ctaTagline:     'Footer CTA',
-        copyrightName:  'Copyright'
+        logoText: 'Footer Branding',
+        tagline: 'Tagline & Description',
+        instagramUrl: 'Social Media Links',
+        email: 'Contact Details',
+        ctaTagline: 'Footer CTA',
+        copyrightName: 'Copyright'
     }
 };
 
@@ -300,82 +300,82 @@ const FIELD_GROUPS = {
 ══════════════════════════════════════════════════ */
 const GROUP_DESCRIPTIONS = {
     /* Home */
-    'Hero Section':                'The first thing visitors see — hero video background, tagline, subheading, body text and "Get Started" button.',
-    'Hero Background Videos':      'Looping background videos (MP4) that crossfade behind the hero text.',
-    'Hero Floating Images':        'Floating portrait images that slide alongside the hero text on desktop.',
-    'Introduction Text':           'The brand introduction heading, italic sub-text and "Learn About Us" button shown below the hero.',
-    'Statistics Counter':          'Four credential badges shown as an animated green strip (e.g. "8+ Years of Experience").',
-    'Services Preview':            'Section label, heading and intro sentence above the service cards.',
-    'Services Cards':              'Four service cards with images, titles and descriptions shown on the homepage.',
-    'Destination Weddings Feature':'Two-column destination weddings section with text and images.',
-    'Portfolio Glimpse':           'The horizontally scrolling portfolio grid of past wedding images.',
-    'Client Testimonials':         'Rotating quotes from couples — heading, text, author name, location and photo.',
-    'Cinematic CTA Band':          'Full-screen looping video with the "Work With Us" heading and button.',
-    'YouTube / Video Section':     'Editorial section — label, heading, body paragraphs and "Watch More Films" button.',
-    'Featured YouTube Video':      'The main featured YouTube video embed shown at the top of the video grid.',
-    'YouTube Videos Grid':         'The 6 YouTube embed videos shown in a grid layout.',
-    'Consultation Form Section':   'Label, heading, sub-text and button text for the lead form.',
-    'Journal Preview Note':        'Auto-pulls the latest 3 posts from the Journal page.',
-    'Achievements Bar':            'The credentials bar with numbers and labels (e.g. "1500+ Happy Couples").',
+    'Hero Section': 'The first thing visitors see — hero video background, tagline, subheading, body text and "Get Started" button.',
+    'Hero Background Videos': 'Looping background videos (MP4) that crossfade behind the hero text.',
+    'Hero Floating Images': 'Floating portrait images that slide alongside the hero text on desktop.',
+    'Introduction Text': 'The brand introduction heading, italic sub-text and "Learn About Us" button shown below the hero.',
+    'Statistics Counter': 'Four credential badges shown as an animated green strip (e.g. "8+ Years of Experience").',
+    'Services Preview': 'Section label, heading and intro sentence above the service cards.',
+    'Services Cards': 'Four service cards with images, titles and descriptions shown on the homepage.',
+    'Destination Weddings Feature': 'Two-column destination weddings section with text and images.',
+    'Portfolio Glimpse': 'The horizontally scrolling portfolio grid of past wedding images.',
+    'Client Testimonials': 'Rotating quotes from couples — heading, text, author name, location and photo.',
+    'Cinematic CTA Band': 'Full-screen looping video with the "Work With Us" heading and button.',
+    'YouTube / Video Section': 'Editorial section — label, heading, body paragraphs and "Watch More Films" button.',
+    'Featured YouTube Video': 'The main featured YouTube video embed shown at the top of the video grid.',
+    'YouTube Videos Grid': 'The 6 YouTube embed videos shown in a grid layout.',
+    'Consultation Form Section': 'Label, heading, sub-text and button text for the lead form.',
+    'Journal Preview Note': 'Auto-pulls the latest 3 posts from the Journal page.',
+    'Achievements Bar': 'The credentials bar with numbers and labels (e.g. "1500+ Happy Couples").',
     /* About */
-    'SEO Settings':                'Page title tag and meta description for search engine optimisation.',
-    'Page Header':                 'The large title shown in the dark banner at the top of the page.',
-    'Split Intro Section':         'Label, heading, body text and image shown in the split layout intro area.',
-    'Specialities Section':        'Label and heading for the specialities grid.',
-    'Specialities List':           'Cards listing what Parinay specialises in — each with a title and description.',
-    'Our Philosophy':              'Your mission statement/promise quote section with author attribution.',
-    'The Parinay Difference':      'Full content block with label, heading, multi-paragraph text and image.',
-    'Team Section':                'Team heading, description and member cards with images and roles.',
-    'About Stats Band':            'Four stats credentials on the About page (may differ from home stats).',
-    'About Hero Banner':           'Decorative hero banner image for the About page.',
-    'About CTA Band':              'Closing full-screen band with heading, button and background video.',
-    'Hero Quote':                  'A prominent quote or mission statement displayed on the About page hero.',
+    'SEO Settings': 'Page title tag and meta description for search engine optimisation.',
+    'Page Header': 'The large title shown in the dark banner at the top of the page.',
+    'Split Intro Section': 'Label, heading, body text and image shown in the split layout intro area.',
+    'Specialities Section': 'Label and heading for the specialities grid.',
+    'Specialities List': 'Cards listing what Parinay specialises in — each with a title and description.',
+    'Our Philosophy': 'Your mission statement/promise quote section with author attribution.',
+    'The Parinay Difference': 'Full content block with label, heading, multi-paragraph text and image.',
+    'Team Section': 'Team heading, description and member cards with images and roles.',
+    'About Stats Band': 'Four stats credentials on the About page (may differ from home stats).',
+    'About Hero Banner': 'Decorative hero banner image for the About page.',
+    'About CTA Band': 'Closing full-screen band with heading, button and background video.',
+    'Hero Quote': 'A prominent quote or mission statement displayed on the About page hero.',
     /* Services */
-    'Comprehensive Services':      'The top-level heading and intro text for the comprehensive services section.',
-    'Detailed Services Grid':      'The 9-item services grid. Each item needs an Image, Title and Description.',
-    'The Planning Process':        'Label and heading for the process roadmap section.',
-    'Process Steps':               'The 11-step planning process roadmap. Each needs a title and description.',
-    'Closing CTA Band':            'Background image CTA at the bottom of the Services page.',
+    'Comprehensive Services': 'The top-level heading and intro text for the comprehensive services section.',
+    'Detailed Services Grid': 'The 9-item services grid. Each item needs an Image, Title and Description.',
+    'The Planning Process': 'Label and heading for the process roadmap section.',
+    'Process Steps': 'The 11-step planning process roadmap. Each needs a title and description.',
+    'Closing CTA Band': 'Background image CTA at the bottom of the Services page.',
     /* Contact */
-    'Email Inquiry':               'Email label, heading and address for the contact info block.',
-    'Phone Inquiry':               'Phone label, heading and number for the contact info block.',
-    'Office Address':              'Address label, heading and full address for the contact info block.',
-    'WhatsApp & Social':           'WhatsApp number, auto-reply text and social media URLs.',
-    'Inquiry Form Settings':       'Button text for the contact inquiry form.',
+    'Email Inquiry': 'Email label, heading and address for the contact info block.',
+    'Phone Inquiry': 'Phone label, heading and number for the contact info block.',
+    'Office Address': 'Address label, heading and full address for the contact info block.',
+    'WhatsApp & Social': 'WhatsApp number, auto-reply text and social media URLs.',
+    'Inquiry Form Settings': 'Button text for the contact inquiry form.',
     /* Wedding Stories Page */
-    'Wedding Stories Gallery':     'Dedicated gallery items for the Wedding Stories page. Each item has a category badge, title, date, location, description, main image, video, gallery images, and more.',
-    'Instagram CTA Button':        'The text, URL and icon for the call-to-action button at the bottom of the gallery.',
+    'Wedding Stories Gallery': 'Dedicated gallery items for the Wedding Stories page. Each item has a category badge, title, date, location, description, main image, video, gallery images, and more.',
+    'Instagram CTA Button': 'The text, URL and icon for the call-to-action button at the bottom of the gallery.',
     /* Destination Weddings */
-    'Cinematic CTA Banner':        'The full-screen hero image shown in the cinematic CTA band at the bottom of the stories page.',
-    'CTA Banner Copy':             'Heading and subtitle text overlaid on the cinematic CTA banner image.',
-    'Featured Testimonial':        'A highlighted couple quote with name, location and photo shown at the bottom of the page.',
-    'Intro Text Section':          'Additional heading and body paragraphs for the introduction.',
-    'Location List Section':       'Heading for the list of destination wedding locations.',
-    'NRI Planning Section':        'Section for NRI wedding planning services — heading, body and button.',
-    'Destination Stories List':    'Story cards for destination weddings — each card includes badge, title, date, location, overview, video, gallery images, and project result.',
-    'Destination Planning Process':'Label and heading for the destination wedding planning process timeline.',
-    'Destination Process Steps':   'The 4-step destination wedding planning process. Each needs a title and description.',
-    'Frequently Asked Questions':  'FAQ items shown on the Destination Weddings page.',
-    'Final CTA Section':           'Heading, body text and two CTA buttons at the bottom of the Destination Weddings page.',
+    'Cinematic CTA Banner': 'The full-screen hero image shown in the cinematic CTA band at the bottom of the stories page.',
+    'CTA Banner Copy': 'Heading and subtitle text overlaid on the cinematic CTA banner image.',
+    'Featured Testimonial': 'A highlighted couple quote with name, location and photo shown at the bottom of the page.',
+    'Intro Text Section': 'Additional heading and body paragraphs for the introduction.',
+    'Location List Section': 'Heading for the list of destination wedding locations.',
+    'NRI Planning Section': 'Section for NRI wedding planning services — heading, body and button.',
+    'Destination Stories List': 'Story cards for destination weddings — each card includes badge, title, date, location, overview, video, gallery images, and project result.',
+    'Destination Planning Process': 'Label and heading for the destination wedding planning process timeline.',
+    'Destination Process Steps': 'The 4-step destination wedding planning process. Each needs a title and description.',
+    'Frequently Asked Questions': 'FAQ items shown on the Destination Weddings page.',
+    'Final CTA Section': 'Heading, body text and two CTA buttons at the bottom of the Destination Weddings page.',
     /* Journals */
-    'Blog Feed Header':            'The section label and title for the journal listing page.',
-    'Blog Posts List':             'Journal posts — title, date, excerpt, author, image and content.',
-    'Downloadable Guide':          'Lead magnet section with cover image, checklist items and CTA button.',
-    'Post Detail Labels':          'Button and section labels used on the journal detail and listing pages.',
-    'Post Detail CTA':             'The call-to-action band at the bottom of each journal entry.',
+    'Blog Feed Header': 'The section label and title for the journal listing page.',
+    'Blog Posts List': 'Journal posts — title, date, excerpt, author, image and content.',
+    'Downloadable Guide': 'Lead magnet section with cover image, checklist items and CTA button.',
+    'Post Detail Labels': 'Button and section labels used on the journal detail and listing pages.',
+    'Post Detail CTA': 'The call-to-action band at the bottom of each journal entry.',
     /* Themed / Traditional */
-    'Themed Stories List':         'Collection of themed wedding projects.',
-    'Traditional Stories List':    'Collection of traditional wedding projects.',
+    'Themed Stories List': 'Collection of themed wedding projects.',
+    'Traditional Stories List': 'Collection of traditional wedding projects.',
     /* Header / Footer */
-    'Logo & Branding':             'Settings for your site logo image, sizing, and fallback text.',
-    'Navigation Menu':             'Manage all main navigation links (Home, About, Services, Wedding Stories) and the items within the stories dropdown menu.',
-    'CTA / Contact Link':          'The highlighted Contact link on the right side of the navigation.',
-    'Footer Branding':             'Logo text and sub-label at the top of the footer.',
-    'Tagline & Description':       'Short brand tagline shown below the footer logo.',
-    'Social Media Links':          'Instagram, Facebook, Pinterest and YouTube URLs.',
-    'Contact Details':             'Email, phone and address shown in the footer.',
-    'Footer CTA':                  'Italic tagline and consultation button in the footer.',
-    'Copyright':                   'The copyright name and year in the footer bottom bar.',
+    'Logo & Branding': 'Settings for your site logo image, sizing, and fallback text.',
+    'Navigation Menu': 'Manage all main navigation links (Home, About, Services, Wedding Stories) and the items within the stories dropdown menu.',
+    'CTA / Contact Link': 'The highlighted Contact link on the right side of the navigation.',
+    'Footer Branding': 'Logo text and sub-label at the top of the footer.',
+    'Tagline & Description': 'Short brand tagline shown below the footer logo.',
+    'Social Media Links': 'Instagram, Facebook, Pinterest and YouTube URLs.',
+    'Contact Details': 'Email, phone and address shown in the footer.',
+    'Footer CTA': 'Italic tagline and consultation button in the footer.',
+    'Copyright': 'The copyright name and year in the footer bottom bar.',
 };
 
 /* ══════════════════════════════════════════════════
@@ -383,215 +383,215 @@ const GROUP_DESCRIPTIONS = {
 ══════════════════════════════════════════════════ */
 const FIELD_HINTS = {
     /* ── Home Fields ────────────────────────── */
-    heroTagline:        'Use \\n for line breaks, ###text### for bold, and [[text]] for gold/italic highlights.',
-    heroSubheading:     'Secondary tagline shown below the hero heading (e.g. "Premium Wedding Planning").',
-    heroBody:           'Short body text below the subheading.',
-    heroBtnText:        'Label on the hero call-to-action button.',
-    heroBtnUrl:         'Page the hero button links to.',
-    heroVideos:         'Looping background videos (MP4). Add as many as you like.',
-    heroImages:         'Floating images alongside the hero text. Recommended: 1000×1400 px portrait.',
-    introHeading:       'Main brand introduction heading.',
-    introSubText:       'The italic sentence beneath the introduction heading.',
-    introBtnText:       'Label on the "Learn About Us" button below the intro.',
-    stat1Label:         'Use \\n to split into two lines (e.g. "8+ Years of\\nExperience").',
-    stat2Label:         'Use \\n to split into two lines.',
-    stat3Label:         'Use \\n to split into two lines.',
-    stat4Label:         'Use \\n to split into two lines.',
-    servicesLabel:      'Small uppercase label above the services heading (e.g. "What We Handle").',
-    servicesHeading:    'Main heading for services. Use [[text]] for beige/italic styling.',
-    servicesIntroText:  'Intro sentence shown above the service cards.',
-    homeServices:       'Service cards shown on the homepage. Each needs an Image, Title and Short Description.',
+    heroTagline: 'Use \\n for line breaks, ###text### for bold, and [[text]] for gold/italic highlights.',
+    heroSubheading: 'Secondary tagline shown below the hero heading (e.g. "Premium Wedding Planning").',
+    heroBody: 'Short body text below the subheading.',
+    heroBtnText: 'Label on the hero call-to-action button.',
+    heroBtnUrl: 'Page the hero button links to.',
+    heroVideos: 'Looping background videos (MP4). Add as many as you like.',
+    heroImages: 'Floating images alongside the hero text. Recommended: 1000×1400 px portrait.',
+    introHeading: 'Main brand introduction heading.',
+    introSubText: 'The italic sentence beneath the introduction heading.',
+    introBtnText: 'Label on the "Learn About Us" button below the intro.',
+    stat1Label: 'Use \\n to split into two lines (e.g. "8+ Years of\\nExperience").',
+    stat2Label: 'Use \\n to split into two lines.',
+    stat3Label: 'Use \\n to split into two lines.',
+    stat4Label: 'Use \\n to split into two lines.',
+    servicesLabel: 'Small uppercase label above the services heading (e.g. "What We Handle").',
+    servicesHeading: 'Main heading for services. Use [[text]] for beige/italic styling.',
+    servicesIntroText: 'Intro sentence shown above the service cards.',
+    homeServices: 'Service cards shown on the homepage. Each needs an Image, Title and Short Description.',
     servicesFooterText: 'Closing italic line below the service cards. Use \\n for line breaks.',
-    destinationLabel:   'Small label for the destination weddings section.',
+    destinationLabel: 'Small label for the destination weddings section.',
     destinationHeading: 'Section heading — use [[text]] for beige/italic styling.',
-    destinationBody1:   'First paragraph about destination weddings.',
-    destinationBody2:   'Second paragraph about destination weddings.',
-    destinationBody3:   'Third paragraph — shown in italicised emphasis.',
+    destinationBody1: 'First paragraph about destination weddings.',
+    destinationBody2: 'Second paragraph about destination weddings.',
+    destinationBody3: 'Third paragraph — shown in italicised emphasis.',
     destinationBtnText: 'Text on the "Explore Destination Weddings" button.',
-    destinationBtnUrl:  'Page the destination button links to.',
-    destinationImage1:  'Primary destination wedding image (larger, left).',
-    destinationImage2:  'Secondary destination image (overlapping, right).',
-    portfolioLabel:     'Small label above the portfolio heading.',
-    portfolioHeading:   'The portfolio section heading — use [[text]] for beige/italic styling.',
-    portfolioBody:      'Short description paragraph below the portfolio heading.',
-    portfolioItems:     'Images for the horizontally scrolling portfolio. Each needs image, title and location.',
+    destinationBtnUrl: 'Page the destination button links to.',
+    destinationImage1: 'Primary destination wedding image (larger, left).',
+    destinationImage2: 'Secondary destination image (overlapping, right).',
+    portfolioLabel: 'Small label above the portfolio heading.',
+    portfolioHeading: 'The portfolio section heading — use [[text]] for beige/italic styling.',
+    portfolioBody: 'Short description paragraph below the portfolio heading.',
+    portfolioItems: 'Images for the horizontally scrolling portfolio. Each needs image, title and location.',
     portfolioViewAllText: 'Label on the "View our weddings" button.',
-    portfolioViewAllUrl:  'Page the portfolio button links to.',
-    testimonialLabel:   'Small label above the testimonials section.',
+    portfolioViewAllUrl: 'Page the portfolio button links to.',
+    testimonialLabel: 'Small label above the testimonials section.',
     testimonialHeading: 'Heading for the testimonials section — use [[text]] for beige/italic styling.',
-    testimonials:       'Client testimonials — text, author, location and photo.',
-    transitionHeading:  'The large heading in the video CTA band — use [[text]] for beige/italic styling.',
-    transitionSubtext:  'Subtitle text shown below the heading in the CTA band.',
+    testimonials: 'Client testimonials — text, author, location and photo.',
+    transitionHeading: 'The large heading in the video CTA band — use [[text]] for beige/italic styling.',
+    transitionSubtext: 'Subtitle text shown below the heading in the CTA band.',
     transitionVideoUrl: 'Background video for the CTA band (MP4).',
-    transitionBtnText:  'Button label in the CTA band.',
-    transitionBtnUrl:   'Page the CTA band button links to.',
-    youtubeLabel:       'Small uppercase label for the YouTube section.',
-    youtubeHeading:     'Heading for the video section — use [[text]] for beige/italic styling.',
-    youtubeText1:       'First body paragraph for the YouTube section.',
-    youtubeText2:       'Second body paragraph for the YouTube section.',
-    youtubeBtnText:     'Label on the "Watch More Films" button.',
-    youtubeBtnUrl:      'Full URL of the YouTube channel (opens in a new tab).',
-    youtubeEmbedUrl:    'The main featured YouTube video. Paste the YouTube Embed URL (e.g. https://www.youtube.com/embed/xxxxx).',
-    youtubeVideos:      'The 6 YouTube embed videos. Each needs a YouTube Embed URL.',
-    formLabel:          'Small label above the consultation form.',
-    formHeading:        'Main heading for the consultation form — use [[text]] for beige/italic styling.',
-    formSubtext:        'Sub-text shown below the form heading.',
-    formBtnText:        'Label on the form submit button.',
-    journalNote:        'Auto-pulls the latest 3 posts from the Journal page. No editing needed.',
+    transitionBtnText: 'Button label in the CTA band.',
+    transitionBtnUrl: 'Page the CTA band button links to.',
+    youtubeLabel: 'Small uppercase label for the YouTube section.',
+    youtubeHeading: 'Heading for the video section — use [[text]] for beige/italic styling.',
+    youtubeText1: 'First body paragraph for the YouTube section.',
+    youtubeText2: 'Second body paragraph for the YouTube section.',
+    youtubeBtnText: 'Label on the "Watch More Films" button.',
+    youtubeBtnUrl: 'Full URL of the YouTube channel (opens in a new tab).',
+    youtubeEmbedUrl: 'The main featured YouTube video. Paste the YouTube Embed URL (e.g. https://www.youtube.com/embed/xxxxx).',
+    youtubeVideos: 'The 6 YouTube embed videos. Each needs a YouTube Embed URL.',
+    formLabel: 'Small label above the consultation form.',
+    formHeading: 'Main heading for the consultation form — use [[text]] for beige/italic styling.',
+    formSubtext: 'Sub-text shown below the form heading.',
+    formBtnText: 'Label on the form submit button.',
+    journalNote: 'Auto-pulls the latest 3 posts from the Journal page. No editing needed.',
     /* ── Wedding Stories Page Fields ─────────── */
     pageBannerSubtitle: 'Subtitle text shown below the page banner heading on the gallery page.',
-    storiesList:        'The main gallery grid items.',
-    instagramBtnText:   'Label for the "Explore more collections" button below the gallery (Instagram link).',
-    instagramUrl:       'Instagram profile or specific collection link.',
-    ctaHeading:         'Main heading for the bottom dark green CTA section.',
-    ctaBody:            'Body text for the bottom CTA section.',
-    ctaBtnText:         'Label for the button in the bottom CTA section.',
-    ctaBtnUrl:          'Page the bottom CTA button links to (e.g. /contact).',
+    storiesList: 'The main gallery grid items.',
+    instagramBtnText: 'Label for the "Explore more collections" button below the gallery (Instagram link).',
+    instagramUrl: 'Instagram profile or specific collection link.',
+    ctaHeading: 'Main heading for the bottom dark green CTA section.',
+    ctaBody: 'Body text for the bottom CTA section.',
+    ctaBtnText: 'Label for the button in the bottom CTA section.',
+    ctaBtnUrl: 'Page the bottom CTA button links to (e.g. /contact).',
     /* ── About Fields ───────────────────────── */
-    seoTitle:           'Browser tab title for SEO (e.g. "About Us | Parinay Weddings").',
-    metaDescription:    'Meta description for search engines (150–160 characters recommended).',
-    pageBannerTitle:    'The large decorative title in the dark banner at the top of the page.',
-    introLabel:         'Small uppercase label above the intro heading (e.g. "ABOUT PARINAY").',
-    introText:          'Body paragraph in the intro section. Use \\n for line breaks.',
-    introImage:         'Image shown to the right of the split intro layout.',
-    specialitiesLabel:  'Small uppercase label above the specialities grid (e.g. "WHAT WE SPECIALISE IN").',
+    seoTitle: 'Browser tab title for SEO (e.g. "About Us | Parinay Weddings").',
+    metaDescription: 'Meta description for search engines (150–160 characters recommended).',
+    pageBannerTitle: 'The large decorative title in the dark banner at the top of the page.',
+    introLabel: 'Small uppercase label above the intro heading (e.g. "ABOUT PARINAY").',
+    introText: 'Body paragraph in the intro section. Use \\n for line breaks.',
+    introImage: 'Image shown to the right of the split intro layout.',
+    specialitiesLabel: 'Small uppercase label above the specialities grid (e.g. "WHAT WE SPECIALISE IN").',
     specialitiesSubtext: 'The main heading shown below the label. Use [[text]] for gold/italic styling.',
-    specialities:       'Speciality cards — each needs a Title and Description.',
-    philosophyQuote:    'A strong mission statement or "Promise" quote.',
-    philosophyAuthor:   'The label/author for the philosophy quote.',
+    specialities: 'Speciality cards — each needs a Title and Description.',
+    philosophyQuote: 'A strong mission statement or "Promise" quote.',
+    philosophyAuthor: 'The label/author for the philosophy quote.',
     philosophySubtitle: 'Small decorative subtitle for the philosophy section.',
-    promiseBtnText:     'Label on the button after the Parinay Promise section.',
-    promiseBtnUrl:      'Page the promise button links to.',
+    promiseBtnText: 'Label on the button after the Parinay Promise section.',
+    promiseBtnUrl: 'Page the promise button links to.',
     differentiatorLabel: 'Small uppercase label for The Parinay Difference section.',
     differentiatorHeading: 'Heading for the differentiator block.',
     differentiatorText: 'Multi-paragraph text. Press Enter twice between paragraphs.',
     differentiatorImage: 'Image for the differentiator block.',
-    teamLabel:          'Small label above the team section.',
-    teamHeading:        'Main heading for the team section — use [[text]] for beige/italic styling.',
-    teamSubtext:        'Short description for the team section.',
-    teamMembers:        'Team member cards — name, role and image.',
-    ctaHeading:         'Heading for the CTA band.',
-    ctaBtnText:         'Label on the CTA button.',
-    ctaBtnUrl:          'Page the CTA button links to.',
-    ctaVideoUrl:        'Background video for the About CTA band (MP4).',
-        heroQuote:          'A prominent quote or mission statement for the About page.',
+    teamLabel: 'Small label above the team section.',
+    teamHeading: 'Main heading for the team section — use [[text]] for beige/italic styling.',
+    teamSubtext: 'Short description for the team section.',
+    teamMembers: 'Team member cards — name, role and image.',
+    ctaHeading: 'Heading for the CTA band.',
+    ctaBtnText: 'Label on the CTA button.',
+    ctaBtnUrl: 'Page the CTA button links to.',
+    ctaVideoUrl: 'Background video for the About CTA band (MP4).',
+    heroQuote: 'A prominent quote or mission statement for the About page.',
     /* ── Services Fields ────────────────────── */
     comprehensiveHeading: 'Large uppercase heading for Comprehensive Services.',
     comprehensiveIntro1: 'Italic primary intro text below the heading.',
     comprehensiveIntro2: 'Secondary intro paragraph.',
-    comprehensiveList:  'Grid of detailed services. Each item has an Image, Title and Description.',
-    processLabel:       'Small uppercase label above the process heading.',
-    processHeading:     'Main heading for "Our Planning Process".',
-    processItems:       'Planning process steps. Each needs a title and description.',
-    ctaHeading:         'The large H2 heading for the bottom CTA section.',
-    ctaBody:            'The descriptive text below the CTA heading.',
-    ctaImage:           'Background image for the bottom CTA section. Recommended: 1920×1200 landscape.',
-    ctaDesc:            'Short paragraph below the CTA heading.',
+    comprehensiveList: 'Grid of detailed services. Each item has an Image, Title and Description.',
+    processLabel: 'Small uppercase label above the process heading.',
+    processHeading: 'Main heading for "Our Planning Process".',
+    processItems: 'Planning process steps. Each needs a title and description.',
+    ctaHeading: 'The large H2 heading for the bottom CTA section.',
+    ctaBody: 'The descriptive text below the CTA heading.',
+    ctaImage: 'Background image for the bottom CTA section. Recommended: 1920×1200 landscape.',
+    ctaDesc: 'Short paragraph below the CTA heading.',
     /* ── Contact Fields ─────────────────────── */
-    emailLabel:         'Small label above "Email Us" (e.g. "General Inquiries").',
-    emailHeading:       'Heading for the email block.',
-    email:              'Email address shown on the contact page.',
-    phoneLabel:         'Small label above "Call Us".',
-    phoneHeading:       'Heading for the phone block.',
-    phone:              'Phone number displayed on the contact page.',
-    addressLabel:       'Small label above "Office Address".',
-    addressHeading:     'Heading for the address block.',
-    address:            'Use \\n for line breaks (e.g. "Trivandrum, Kerala, India").',
+    emailLabel: 'Small label above "Email Us" (e.g. "General Inquiries").',
+    emailHeading: 'Heading for the email block.',
+    email: 'Email address shown on the contact page.',
+    phoneLabel: 'Small label above "Call Us".',
+    phoneHeading: 'Heading for the phone block.',
+    phone: 'Phone number displayed on the contact page.',
+    addressLabel: 'Small label above "Office Address".',
+    addressHeading: 'Heading for the address block.',
+    address: 'Use \\n for line breaks (e.g. "Kerala, India").',
 
-    whatsappNumber:     'Country code + number, no spaces or "+" (e.g. 919876543210).',
-    whatsappText:       'Text shown on the WhatsApp chat button.',
-    whatsappReply:      'Auto-reply time indicator (e.g. "Typically replies within 1 hour").',
-    instagramUrl:       'Full Instagram profile URL.',
-    facebookUrl:        'Full Facebook profile URL.',
-    pinterestUrl:       'Full Pinterest profile URL.',
+    whatsappNumber: 'Country code + number, no spaces or "+" (e.g. 919876543210).',
+    whatsappText: 'Text shown on the WhatsApp chat button.',
+    whatsappReply: 'Auto-reply time indicator (e.g. "Typically replies within 1 hour").',
+    instagramUrl: 'Full Instagram profile URL.',
+    facebookUrl: 'Full Facebook profile URL.',
+    pinterestUrl: 'Full Pinterest profile URL.',
     // formBtnText:        'Label on the contact form submit button.',
-    faqsList:           'FAQ items — each needs a question and answer.',
+    faqsList: 'FAQ items — each needs a question and answer.',
     /* ── Stories Fields ──────────────────────── */
-    pageBannerTitle:    'The large main heading (H1) for the Gallery page.',
+    pageBannerTitle: 'The large main heading (H1) for the Gallery page.',
     pageBannerSubtitle: 'The introduction paragraph below the H1. Supports [[text]] for gold italics and \\n for line breaks.',
-    galleryImages:      'Lightbox gallery images — paste one image URL per line. If empty, the main image is shown.',
-    storiesList:        'All story cards for this page. Supports ###text### for bold and _text_ for italics. Use the pipe symbol | to separate "Best for" points.',
-    heroTitle:           'Heading overlaid on the cinematic CTA banner.',
-    heroSubtitle:        'Subtitle overlaid on the CTA banner (below the heading).',
-    testimonialQuote:   'A single powerful client quote to feature.',
-    testimonialAuthor:  'Name of the couple for the featured testimonial.',
-    testimonialLocation:'Wedding location for the featured testimonial.',
-    testimonialImage:   'Photo of the couple (vertical recommended).',
-    video:              'Upload a video (MP4) or paste an /uploads/ path. Autoplays muted on the story card.',
-    badge:              'Badge label shown on the story card (e.g. "Destination", "Themed", "Traditional").',
-    date:               'Date of the wedding (e.g. "February 2025").',
-    desc:               'Short one-line description shown on the story listing card.',
-    result:             'Project result text — shown on individual project page under "PROJECT RESULT". Supports ###text### for bold and _text_ for italics.',
-    category:           'Short category label (Featured / Destination / Themed / Traditional).',
-    heroImage:          'Full-screen decorative banner image for the cinematic CTA band at the bottom of the page.',
-    introH2:            'Large H2 heading for the introduction section.',
-    introBody:          'Multi-paragraph text for the introduction section. Use \\n for line breaks.',
-    listH2:             'Main heading above the locations list (e.g. "Kerala Destination Wedding Locations We Specialise In").',
-    nriH2:              'Heading for the NRI section.',
-    nriBody:            'Body text for the NRI section. Use \\n for line breaks.',
-    nriBtnText:         'Label for the NRI section CTA button.',
-    nriImage1:          'Main image for the NRI section (Portrait/Large).',
-    ctaBody:            'Body text below the CTA heading on the destination page.',
-    ctaBtn1Text:        'Label for the primary CTA button (e.g. "Schedule a Free Consultation →").',
-    ctaBtn1Url:         'URL for the primary CTA button.',
-    ctaBtn2Text:        'Label for the secondary CTA button (e.g. "Browse Our Wedding Portfolio →").',
-    ctaBtn2Url:         'URL for the secondary CTA button.',
+    galleryImages: 'Lightbox gallery images — paste one image URL per line. If empty, the main image is shown.',
+    storiesList: 'All story cards for this page. Supports ###text### for bold and _text_ for italics. Use the pipe symbol | to separate "Best for" points.',
+    heroTitle: 'Heading overlaid on the cinematic CTA banner.',
+    heroSubtitle: 'Subtitle overlaid on the CTA banner (below the heading).',
+    testimonialQuote: 'A single powerful client quote to feature.',
+    testimonialAuthor: 'Name of the couple for the featured testimonial.',
+    testimonialLocation: 'Wedding location for the featured testimonial.',
+    testimonialImage: 'Photo of the couple (vertical recommended).',
+    video: 'Upload a video (MP4) or paste an /uploads/ path. Autoplays muted on the story card.',
+    badge: 'Badge label shown on the story card (e.g. "Destination", "Themed", "Traditional").',
+    date: 'Date of the wedding (e.g. "February 2025").',
+    desc: 'Short one-line description shown on the story listing card.',
+    result: 'Project result text — shown on individual project page under "PROJECT RESULT". Supports ###text### for bold and _text_ for italics.',
+    category: 'Short category label (Featured / Destination / Themed / Traditional).',
+    heroImage: 'Full-screen decorative banner image for the cinematic CTA band at the bottom of the page.',
+    introH2: 'Large H2 heading for the introduction section.',
+    introBody: 'Multi-paragraph text for the introduction section. Use \\n for line breaks.',
+    listH2: 'Main heading above the locations list (e.g. "Kerala Destination Wedding Locations We Specialise In").',
+    nriH2: 'Heading for the NRI section.',
+    nriBody: 'Body text for the NRI section. Use \\n for line breaks.',
+    nriBtnText: 'Label for the NRI section CTA button.',
+    nriImage1: 'Main image for the NRI section (Portrait/Large).',
+    ctaBody: 'Body text below the CTA heading on the destination page.',
+    ctaBtn1Text: 'Label for the primary CTA button (e.g. "Schedule a Free Consultation →").',
+    ctaBtn1Url: 'URL for the primary CTA button.',
+    ctaBtn2Text: 'Label for the secondary CTA button (e.g. "Browse Our Wedding Portfolio →").',
+    ctaBtn2Url: 'URL for the secondary CTA button.',
     /* ── Journals Fields ────────────────────── */
-    sectionLabel:       'Small label above the journal section heading.',
-    sectionTitle:       'Main heading (last word renders in accent color).',
-    journalsList:       'Journal posts — title, date, excerpt, image and content.',
-    excerpt:            'Single sentence summary shown on each listing card.',
-    content:            'Full article content (supports ###text### for bold and _text_ for italics).',
-    guideLabel:         'Small label for the downloadable guide section.',
-    guideTitle:         'Heading for the guide section.',
-    guideDesc:          'Description text for the guide.',
-    guideChecklist1:    'First checklist bullet point.',
-    guideChecklist2:    'Second checklist bullet point.',
-    guideChecklist3:    'Third checklist bullet point.',
-    guideImage:         'Cover image for the downloadable guide.',
-    guideYear:          'Year label on the guide cover (e.g. "The 2026").',
-    guidePlannerLabel:  'Second line on the guide cover (e.g. "Planner").',
-    guideFreeText:      'Small text under the cover badge (e.g. "Free Download").',
-    guideRequestBtnText:'Label on the guide request button.',
-    author:             'Name of the author (e.g. "By Sarah Thomas"). Defaults to "By Parinay" if empty.',
-    readEntryText:      'Label for the link to full post (e.g. "Read Entry —").',
-    relatedSectionLabel:'Label for the related posts section (e.g. "CONTINUE READING").',
-    relatedSectionTitle:'Title for the related posts section (e.g. "More Stories").',
-    ctaLabel:           'Label above the CTA heading.',
-    ctaTitle:           'CTA heading at post bottom. Use ###text### for bold and _text_ for italics.',
+    sectionLabel: 'Small label above the journal section heading.',
+    sectionTitle: 'Main heading (last word renders in accent color).',
+    journalsList: 'Journal posts — title, date, excerpt, image and content.',
+    excerpt: 'Single sentence summary shown on each listing card.',
+    content: 'Full article content (supports ###text### for bold and _text_ for italics).',
+    guideLabel: 'Small label for the downloadable guide section.',
+    guideTitle: 'Heading for the guide section.',
+    guideDesc: 'Description text for the guide.',
+    guideChecklist1: 'First checklist bullet point.',
+    guideChecklist2: 'Second checklist bullet point.',
+    guideChecklist3: 'Third checklist bullet point.',
+    guideImage: 'Cover image for the downloadable guide.',
+    guideYear: 'Year label on the guide cover (e.g. "The 2026").',
+    guidePlannerLabel: 'Second line on the guide cover (e.g. "Planner").',
+    guideFreeText: 'Small text under the cover badge (e.g. "Free Download").',
+    guideRequestBtnText: 'Label on the guide request button.',
+    author: 'Name of the author (e.g. "By Sarah Thomas"). Defaults to "By Parinay" if empty.',
+    readEntryText: 'Label for the link to full post (e.g. "Read Entry —").',
+    relatedSectionLabel: 'Label for the related posts section (e.g. "CONTINUE READING").',
+    relatedSectionTitle: 'Title for the related posts section (e.g. "More Stories").',
+    ctaLabel: 'Label above the CTA heading.',
+    ctaTitle: 'CTA heading at post bottom. Use ###text### for bold and _text_ for italics.',
     /* ── Header Fields ──────────────────────── */
-    logoText:           'Logo text (shown if no image is uploaded).',
-    logoImage:          'Upload a custom logo image. Recommended: PNG with transparency, around 300x80px.',
-    logoWidth:          'Custom width for the logo (e.g. "180px", "50%", or "auto"). default is 150px.',
-    logoHeight:         'Custom height for the logo (e.g. "50px" or "auto"). default is auto.',
-    nav1Label:          'Label for the first nav link.',
-    nav1Url:            'URL for the first nav link.',
-    nav2Label:          'Label for the second nav link.',
-    nav2Url:            'URL for the second nav link.',
-    nav3Label:          'Label for the third nav link.',
-    nav3Url:            'URL for the third nav link.',
-    nav4Label:          'Label for the Wedding Stories nav link.',
-    nav4Url:            'URL for the Wedding Stories nav link.',
-    nav4Sub1Label:      'Label for the first dropdown sub-link.',
-    nav4Sub1Url:        'URL for the first dropdown sub-link.',
-    nav5Label:          'Label for the Journals nav link.',
-    nav5Url:            'URL for the Journals nav link.',
-    nav6Label:          'Label for the Contact nav link.',
-    nav6Url:            'URL for the Contact nav link.',
+    logoText: 'Logo text (shown if no image is uploaded).',
+    logoImage: 'Upload a custom logo image. Recommended: PNG with transparency, around 300x80px.',
+    logoWidth: 'Custom width for the logo (e.g. "180px", "50%", or "auto"). default is 150px.',
+    logoHeight: 'Custom height for the logo (e.g. "50px" or "auto"). default is auto.',
+    nav1Label: 'Label for the first nav link.',
+    nav1Url: 'URL for the first nav link.',
+    nav2Label: 'Label for the second nav link.',
+    nav2Url: 'URL for the second nav link.',
+    nav3Label: 'Label for the third nav link.',
+    nav3Url: 'URL for the third nav link.',
+    nav4Label: 'Label for the Wedding Stories nav link.',
+    nav4Url: 'URL for the Wedding Stories nav link.',
+    nav4Sub1Label: 'Label for the first dropdown sub-link.',
+    nav4Sub1Url: 'URL for the first dropdown sub-link.',
+    nav5Label: 'Label for the Journals nav link.',
+    nav5Url: 'URL for the Journals nav link.',
+    nav6Label: 'Label for the Contact nav link.',
+    nav6Url: 'URL for the Contact nav link.',
     /* ── Footer Fields ──────────────────────── */
-    logoImage_ftr:      'Upload a custom logo image for the footer.',
-    logoWidth_ftr:      'Custom width for the footer logo (default is 120px).',
-    logoHeight_ftr:     'Custom height for the footer logo (default is auto).',
-    logoSub:            'Sub-label beneath the footer logo (e.g. "WEDDINGS").',
-    tagline:            'Brand description shown below the footer logo.',
-    youtubeUrl:         'Full YouTube channel URL.',
+    logoImage_ftr: 'Upload a custom logo image for the footer.',
+    logoWidth_ftr: 'Custom width for the footer logo (default is 120px).',
+    logoHeight_ftr: 'Custom height for the footer logo (default is auto).',
+    logoSub: 'Sub-label beneath the footer logo (e.g. "WEDDINGS").',
+    tagline: 'Brand description shown below the footer logo.',
+    youtubeUrl: 'Full YouTube channel URL.',
     whatsappNumber_ftr: 'WhatsApp number for the floating chat button.',
-    ctaTagline:         'Italic tagline above the footer CTA button.',
-    ctaBtnText_ftr:     'Label on the footer consultation button.',
-    ctaBtnUrl_ftr:      'Page the footer CTA links to.',
-    copyrightName:      'Name shown in the copyright line.',
+    ctaTagline: 'Italic tagline above the footer CTA button.',
+    ctaBtnText_ftr: 'Label on the footer consultation button.',
+    ctaBtnUrl_ftr: 'Page the footer CTA links to.',
+    copyrightName: 'Name shown in the copyright line.',
     /* ── Shared URL field ────────────────────── */
-    'url':              'Paste the YouTube Embed URL (Share → Embed, e.g. https://www.youtube.com/embed/xxxxx).',
+    'url': 'Paste the YouTube Embed URL (Share → Embed, e.g. https://www.youtube.com/embed/xxxxx).',
 };
 
 /* ══════════════════════════════════════════════════
@@ -819,31 +819,32 @@ const AdminDashboard = () => {
     const addArrayItem = (arrayName) => {
         setFormData(prev => {
             const existing = prev[arrayName] || [];
-            
+
             // Predefined templates for common arrays to ensure fields are rendered empty/with defaults
             const templates = {
-                storiesList: { 
-                    title: '', date: '', location: '', 
-                    ...(activeTab === 'weddingStories' ? { category: '' } : { badge: 
-                        activeTab === 'storiesDestination' ? 'Destination' : 
-                        activeTab === 'storiesThemed' ? 'Themed' : 
-                        activeTab === 'storiesTraditional' ? 'Traditional' : '' 
+                storiesList: {
+                    title: '', date: '', location: '',
+                    ...(activeTab === 'weddingStories' ? { category: '' } : {
+                        badge:
+                            activeTab === 'storiesDestination' ? 'Destination' :
+                                activeTab === 'storiesThemed' ? 'Themed' :
+                                    activeTab === 'storiesTraditional' ? 'Traditional' : ''
                     }),
-                    video: '', overview: '', galleryImages: '', result: '', image: '', desc: '' 
+                    video: '', overview: '', galleryImages: '', result: '', image: '', desc: ''
                 },
-                journalsList:      { title: '', author: '', date: '', excerpt: '', image: '', content: '' },
-                portfolioItems:    { title: '', date: '', location: '', overview: '', video: '', galleryImages: '', result: '', image: '', loc: '' },
-                testimonials:      { text: '', author: '', location: '', image: '' },
-                teamMembers:       { name: '', role: '', image: '' },
-                processItems:      { title: '', desc: '' },
+                journalsList: { title: '', author: '', date: '', excerpt: '', image: '', content: '' },
+                portfolioItems: { title: '', date: '', location: '', overview: '', video: '', galleryImages: '', result: '', image: '', loc: '' },
+                testimonials: { text: '', author: '', location: '', image: '' },
+                teamMembers: { name: '', role: '', image: '' },
+                processItems: { title: '', desc: '' },
                 comprehensiveList: { title: '', image: '', desc: '' },
-                faqsList:          { question: '', answer: '' },
-                heroImages:        { image: '', alt: '' },
-                heroVideos:        { video: '' },
-                homeServices:      { title: '', image: '', desc: '' },
-                youtubeVideos:     { url: '' },
-                guideChecks:       { text: '' },
-                achievements:      { number: '', label: '' }
+                faqsList: { question: '', answer: '' },
+                heroImages: { image: '', alt: '' },
+                heroVideos: { video: '' },
+                homeServices: { title: '', image: '', desc: '' },
+                youtubeVideos: { url: '' },
+                guideChecks: { text: '' },
+                achievements: { number: '', label: '' }
             };
 
             // 1. Try to use a predefined template first
@@ -859,7 +860,7 @@ const AdminDashboard = () => {
 
             // 3. Last fallback
             if (!blank) blank = {};
-            
+
             return { ...prev, [arrayName]: [...existing, { ...blank, id: Date.now() }] };
         });
     };
@@ -886,9 +887,9 @@ const AdminDashboard = () => {
                 return JSON.parse(cleaned);
             } catch { return obj; }
         };
-        
+
         const allUpdates = {};
-        
+
         // 1. Prepare main section update
         allUpdates[activeTab] = cleanData(formData);
 
@@ -902,10 +903,10 @@ const AdminDashboard = () => {
                     const sourceData = content[link.sourceSection]
                         ? JSON.parse(JSON.stringify(content[link.sourceSection]))
                         : {};
-                    
+
                     // Update the specific array key
                     sourceData[link.arrayKey] = cleanData(linkedData[key]);
-                    
+
                     // Add to batch (merge if already present in allUpdates)
                     allUpdates[link.sourceSection] = {
                         ...(allUpdates[link.sourceSection] || {}),
@@ -973,7 +974,7 @@ const AdminDashboard = () => {
         // --- MULTI-MEDIA GALLERY (Newline separated) ---
         if (key === 'galleryImages') {
             const urls = (value || '').split('\n').map(u => u.trim()).filter(u => u.length > 0);
-            
+
             // Helpful fallback for UI - if gallery is empty, show the primary 'image' if it exists
             const displayUrls = urls.length > 0 ? urls : (itemContext?.image ? [itemContext.image] : []);
             const isUsingFallback = urls.length === 0 && displayUrls.length > 0;
@@ -989,7 +990,7 @@ const AdminDashboard = () => {
                 if (!files || files.length === 0) return;
 
                 showToast(`Uploading ${files.length} items...`);
-                
+
                 const newUploadedUrls = [];
                 for (let i = 0; i < files.length; i++) {
                     const uploadData = new FormData();
@@ -1036,9 +1037,9 @@ const AdminDashboard = () => {
                                         <img src={url.startsWith('/uploads') ? `${API}${url}` : url} alt="" />
                                     )}
                                     {!isUsingFallback && (
-                                        <button 
+                                        <button
                                             type="button"
-                                            onClick={() => removeUrl(i)} 
+                                            onClick={() => removeUrl(i)}
                                             className="admin-gallery-remove"
                                             title="Remove item"
                                         >
@@ -1054,19 +1055,19 @@ const AdminDashboard = () => {
                         <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                             <label className="admin-btn admin-btn--outline" style={{ cursor: 'pointer', margin: 0 }}>
                                 <Plus size={15} /> Choose Files
-                                <input 
-                                    type="file" 
-                                    multiple 
-                                    hidden 
-                                    onChange={handleGalleryUpload} 
-                                    accept="image/*,video/*" 
+                                <input
+                                    type="file"
+                                    multiple
+                                    hidden
+                                    onChange={handleGalleryUpload}
+                                    accept="image/*,video/*"
                                 />
                             </label>
                             <span style={{ fontSize: '0.75rem', color: 'var(--admin-muted)' }}>
                                 You can select multiple images or videos to upload at once.
                             </span>
                         </div>
-                        
+
                         <p className="admin-field-hint" style={{ marginTop: '1.5rem', marginBottom: '0.5rem' }}>
                             <AlertCircle size={12} style={{ marginRight: '4px' }} />
                             Manual URL Edit (Advanced)
@@ -1087,7 +1088,7 @@ const AdminDashboard = () => {
         const isMultiPara = ['overview', 'result', 'content', 'desc', 'differentiatorText', 'introSubText', 'teamSubtext', 'philosophyQuote'].includes(key);
         if (isMultiPara && typeof value === 'string') {
             const paragraphs = (value || '').split(/\n\n|\\n\\n/);
-            
+
             return (
                 <div key={key} className="admin-form-group" style={{ gridColumn: 'span 2' }}>
                     <label className="admin-label">{label}</label>
@@ -1095,8 +1096,8 @@ const AdminDashboard = () => {
                         {paragraphs.map((p, idx) => (
                             <div key={idx} style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div style={{ display: 'flex', gap: '6px' }}>
-                                    <button 
-                                        type="button" 
+                                    <button
+                                        type="button"
                                         onClick={() => {
                                             const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}-${idx}`;
                                             const input = document.getElementById(inputId);
@@ -1114,8 +1115,8 @@ const AdminDashboard = () => {
                                     >
                                         <em>Beige</em>
                                     </button>
-                                    <button 
-                                        type="button" 
+                                    <button
+                                        type="button"
                                         onClick={() => {
                                             const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}-${idx}`;
                                             const input = document.getElementById(inputId);
@@ -1147,8 +1148,8 @@ const AdminDashboard = () => {
                                     style={{ minHeight: idx === 0 ? '120px' : '80px' }}
                                 />
                                 {paragraphs.length > 1 && (
-                                    <button 
-                                        type="button" 
+                                    <button
+                                        type="button"
                                         onClick={() => {
                                             if (window.confirm('Delete this paragraph?')) {
                                                 const newParas = paragraphs.filter((_, i) => i !== idx);
@@ -1163,11 +1164,11 @@ const AdminDashboard = () => {
                                 )}
                             </div>
                         ))}
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             className="admin-btn admin-btn--sm"
-                            style={{ 
-                                background: 'rgba(197, 160, 89, 0.1)', 
+                            style={{
+                                background: 'rgba(197, 160, 89, 0.1)',
                                 border: '1px dashed var(--admin-gold)',
                                 color: 'var(--admin-gold)',
                                 width: 'fit-content'
@@ -1268,11 +1269,11 @@ const AdminDashboard = () => {
                 ) : isLongText ? (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <div style={{ display: 'flex', gap: '6px', marginBottom: '2px' }}>
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => {
-                                            const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
-                                            const input = document.getElementById(inputId);
+                                    const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
+                                    const input = document.getElementById(inputId);
                                     const start = input.selectionStart;
                                     const end = input.selectionEnd;
                                     const text = input.value;
@@ -1286,11 +1287,11 @@ const AdminDashboard = () => {
                             >
                                 <em>Beige Italic</em>
                             </button>
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => {
-                                            const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
-                                            const input = document.getElementById(inputId);
+                                    const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
+                                    const input = document.getElementById(inputId);
                                     const start = input.selectionStart;
                                     const end = input.selectionEnd;
                                     const text = input.value;
@@ -1312,7 +1313,7 @@ const AdminDashboard = () => {
                             className="admin-input textarea"
                         />
                     </div>
-                ) : (typeof value === 'string' && (value.includes('youtube.com') || value.includes('youtu.be')) ) ? (
+                ) : (typeof value === 'string' && (value.includes('youtube.com') || value.includes('youtu.be'))) ? (
                     <>
                         {value && (
                             <div className="admin-media-preview" style={{ marginBottom: '10px' }}>
@@ -1352,11 +1353,11 @@ const AdminDashboard = () => {
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <div style={{ display: 'flex', gap: '6px', marginBottom: '2px' }}>
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => {
-                                            const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
-                                            const input = document.getElementById(inputId);
+                                    const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
+                                    const input = document.getElementById(inputId);
                                     const start = input.selectionStart;
                                     const end = input.selectionEnd;
                                     const text = input.value;
@@ -1370,11 +1371,11 @@ const AdminDashboard = () => {
                             >
                                 <em>Beige Italic</em>
                             </button>
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 onClick={() => {
-                                            const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
-                                            const input = document.getElementById(inputId);
+                                    const inputId = `field-${parentKey || 'top'}-${key}-${itemContext?.id || 'single'}`;
+                                    const input = document.getElementById(inputId);
                                     const start = input.selectionStart;
                                     const end = input.selectionEnd;
                                     const text = input.value;
@@ -1397,11 +1398,11 @@ const AdminDashboard = () => {
                             className="admin-input"
                         />
                         {(key.toLowerCase().includes('heading') || key.toLowerCase().includes('title') || key.toLowerCase().includes('tagline') || key.toLowerCase().includes('subtitle')) && value && (
-                            <div className="admin-field-preview" style={{ 
-                                marginTop: '4px', 
-                                padding: '12px', 
-                                background: '#fcfcfc', 
-                                border: '1px solid #eee', 
+                            <div className="admin-field-preview" style={{
+                                marginTop: '4px',
+                                padding: '12px',
+                                background: '#fcfcfc',
+                                border: '1px solid #eee',
                                 borderRadius: '6px',
                                 fontSize: '1.1rem',
                                 color: '#3a1219',
@@ -1412,7 +1413,7 @@ const AdminDashboard = () => {
                             </div>
                         )}
                     </div>
-                ) }
+                )}
                 {FIELD_HINTS[key] && (
                     <p className="admin-field-hint">
                         <AlertCircle size={10} style={{ marginRight: '4px' }} />
@@ -1436,7 +1437,7 @@ const AdminDashboard = () => {
             if (key === '_id' || key === '__v' || key === 'createdAt' || key === 'updatedAt') return;
 
             const header = groupHeaders[key];
-            
+
             if (header) {
                 // If this header title already exists in our map, add field to it
                 if (sectionsMap[header]) {
@@ -1476,7 +1477,7 @@ const AdminDashboard = () => {
 
                     return (
                         <div key={section.id} className={`admin-accordion__item ${isExpanded ? 'is-expanded' : ''}`}>
-                            <header 
+                            <header
                                 className="admin-accordion__header"
                                 onClick={() => toggleSection(section.id)}
                             >
@@ -1818,15 +1819,15 @@ const AdminDashboard = () => {
     /* ── Inquiries Panel Renderer ─────────────────── */
     const renderInquiriesPanel = () => {
         const TYPE_CONFIG = {
-            contact:  { label: 'Contact Form',  color: '#3a1219', bg: 'rgba(58, 18, 25, 0.08)',  icon: <Mail size={14} /> },
-            quote:    { label: 'Quote Request', color: '#C5A059', bg: 'rgba(197, 160, 89, 0.12)', icon: <Calendar size={14} /> },
-            whatsapp: { label: 'WhatsApp',      color: '#25D366', bg: 'rgba(37, 211, 102, 0.1)',   icon: <Phone size={14} /> },
+            contact: { label: 'Contact Form', color: '#3a1219', bg: 'rgba(58, 18, 25, 0.08)', icon: <Mail size={14} /> },
+            quote: { label: 'Quote Request', color: '#C5A059', bg: 'rgba(197, 160, 89, 0.12)', icon: <Calendar size={14} /> },
+            whatsapp: { label: 'WhatsApp', color: '#25D366', bg: 'rgba(37, 211, 102, 0.1)', icon: <Phone size={14} /> },
         };
 
         const STATUS_CONFIG = {
-            new:      { label: 'New',      color: '#dc2626', bg: 'rgba(220, 38, 38, 0.08)' },
-            read:     { label: 'Read',     color: '#2563eb', bg: 'rgba(37, 99, 235, 0.08)' },
-            replied:  { label: 'Replied',  color: '#16a34a', bg: 'rgba(22, 163, 74, 0.08)' },
+            new: { label: 'New', color: '#dc2626', bg: 'rgba(220, 38, 38, 0.08)' },
+            read: { label: 'Read', color: '#2563eb', bg: 'rgba(37, 99, 235, 0.08)' },
+            replied: { label: 'Replied', color: '#16a34a', bg: 'rgba(22, 163, 74, 0.08)' },
             archived: { label: 'Archived', color: '#6b7280', bg: 'rgba(107, 114, 128, 0.08)' },
         };
 
@@ -1834,15 +1835,15 @@ const AdminDashboard = () => {
             ? inquiries
             : inquiries.filter(inq => inq.type === inquiryFilter || inq.status === inquiryFilter);
 
-        const newCount      = inquiries.filter(i => i.status === 'new').length;
-        const contactCount  = inquiries.filter(i => i.type === 'contact').length;
-        const quoteCount    = inquiries.filter(i => i.type === 'quote').length;
+        const newCount = inquiries.filter(i => i.status === 'new').length;
+        const contactCount = inquiries.filter(i => i.type === 'contact').length;
+        const quoteCount = inquiries.filter(i => i.type === 'quote').length;
         const whatsappCount = inquiries.filter(i => i.type === 'whatsapp').length;
 
         const formatDate = (dateStr) => {
             const d = new Date(dateStr);
             return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) +
-                   ' at ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+                ' at ' + d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
         };
 
         if (inquiriesLoading) {
@@ -1859,9 +1860,9 @@ const AdminDashboard = () => {
                 {/* Summary Cards */}
                 <div className="admin-stats-bar" style={{ marginBottom: '2.5rem' }}>
                     {[
-                        { label: 'New',     value: newCount,      color: '#dc2626', icon: <AlertCircle size={22} /> },
-                        { label: 'Forms',   value: contactCount,  color: '#3a1219', icon: <Mail size={22} /> },
-                        { label: 'Quotes',  value: quoteCount,    color: '#C5A059', icon: <Calendar size={22} /> },
+                        { label: 'New', value: newCount, color: '#dc2626', icon: <AlertCircle size={22} /> },
+                        { label: 'Forms', value: contactCount, color: '#3a1219', icon: <Mail size={22} /> },
+                        { label: 'Quotes', value: quoteCount, color: '#C5A059', icon: <Calendar size={22} /> },
                         { label: 'WhatsApp', value: whatsappCount, color: '#25D366', icon: <Phone size={22} /> },
                     ].map((card, i) => (
                         <div key={i} className="admin-stat-card" style={{ borderBottom: `3px solid ${card.color}` }}>
@@ -1875,11 +1876,11 @@ const AdminDashboard = () => {
                 {/* Filter Bar */}
                 <div className="admin-filter-bar" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', flexWrap: 'wrap' }}>
                     {[
-                        { key: 'all',      label: 'All' },
-                        { key: 'contact',  label: 'Contact' },
-                        { key: 'quote',    label: 'Quotes' },
+                        { key: 'all', label: 'All' },
+                        { key: 'contact', label: 'Contact' },
+                        { key: 'quote', label: 'Quotes' },
                         { key: 'whatsapp', label: 'WhatsApp' },
-                        { key: 'new',      label: 'New Only' },
+                        { key: 'new', label: 'New Only' },
                     ].map(f => (
                         <button
                             key={f.key}
@@ -1913,8 +1914,8 @@ const AdminDashboard = () => {
                             const isExpanded = expandedInquiry === inq._id;
 
                             return (
-                                <div 
-                                    key={inq._id} 
+                                <div
+                                    key={inq._id}
                                     className={`inquiry-item ${isExpanded ? 'is-expanded' : ''}`}
                                     style={{ borderLeft: `3px solid ${typeConf.color}` }}
                                 >
@@ -1942,7 +1943,7 @@ const AdminDashboard = () => {
 
                                         <span className="inquiry-date">{formatDate(inq.createdAt)}</span>
 
-                                        <ArrowRight size={16} className="inquiry-row-arrow" style={{ 
+                                        <ArrowRight size={16} className="inquiry-row-arrow" style={{
                                             transform: isExpanded ? 'rotate(90deg)' : 'none',
                                             transition: 'transform 0.3s'
                                         }} />

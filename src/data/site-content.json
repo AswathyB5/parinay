@@ -36,7 +36,7 @@
     "introHeading": "Kerala's Bespoke Destination Wedding Specialists",
     "introSubText": "Parinay Weddings is a Trivandrum-based destination wedding planning company with over 8 years of experience planning weddings across Kerala - Munnar, Alleppey, Kovalam, Kumarakom, Kochi - and across South India including Goa, Tamil Nadu, and Karnataka.\n\nWe are not a template-driven company. Every wedding we plan is built from scratch around the couple - their story, their culture, their aesthetic. From intimate 50-guest celebrations to multi-day luxury weddings, we take complete ownership of every detail so you don't have\u00A0to.",
     "introBtnText": "Learn About Us →",
-    "stat1Label": "8+ Years of\\nExperience",
+    "stat1Label": "9+ Years of\\nExperience",
     "stat2Label": "Destination Wedding\\nSpecialists",
     "stat3Label": "South India\\n& Beyond",
     "stat4Label": "Fully Customised,\\nEnd-to-End Planning",
@@ -244,17 +244,17 @@
     "achievements": [
       {
         "id": 1,
-        "number": "1500+",
+        "number": "500+",
         "label": "Happy Couples"
       },
       {
         "id": 2,
-        "number": "4.9/5",
+        "number": "4.8/5",
         "label": "Google Rating"
       },
       {
         "id": 3,
-        "number": "10+",
+        "number": "9+",
         "label": "Years Of Experience"
       },
       {
@@ -272,14 +272,14 @@
     "pageBannerTitle": "About Parinay Weddings",
     "introLabel": "ABOUT US",
     "introHeading": "We Plan Destination Weddings That Feel Like You",
-    "introText": "Parinay Weddings is a destination wedding planning company based in Trivandrum, Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word [[Parinay]] - meaning  [[betrothal]]  in Sanskrit - reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
+    "introText": "Parinay Weddings is a destination wedding planning company based in Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word [[Parinay]] - meaning  [[betrothal]]  in Sanskrit - reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
     "introImage": "/uploads/upload_1775897905550_6647.avif",
     "differentiatorLabel": "What Makes Us Different",
     "differentiatorHeading": "Most wedding planners offer packages. [[We don't. ]]",
     "differentiatorText": "Every Parinay wedding is built from the ground up, a completely custom design, a carefully selected venue, and a planning process that begins with understanding who you are as a couple. Whether you're a Kerala couple planning a backwater celebration, an NRI planning your India wedding from abroad, or a family looking for a full multi-day destination event in Munnar or Goa, our approach is the same: deeply personal, meticulously executed.",
     "differentiatorImage": "/uploads/upload_1775900105146_4542.avif",
     "specialitiesLabel": "What We Specialise In",
-    "specialitiesSubtext": "We are destination wedding specialists.[[Our work spans:]]",
+    "specialitiesSubtext": "We are destination wedding specialists. [[Our work spans:]]",
     "specialitiesHeading": "Our Specialisations",
     "specialities": [
       {
@@ -339,8 +339,8 @@
         "image": "/uploads/upload_1775900404784_308.jpg"
       }
     ],
-    "stat1Label": "8+ Years Of\nExperience",
-    "stat2Label": "150+ Weddings\nPlanned",
+    "stat1Label": "9+ Years Of\nExperience",
+    "stat2Label": "500+ Weddings\nPlanned",
     "stat3Label": "Destination Wedding\nSpecialists",
     "stat4Label": "Trusted By Clients\nWorldwide",
     "philosophyQuote": "You will not find a Parinay wedding in a catalogue. [[If you've seen it before, we won't do it.]]",
@@ -494,7 +494,7 @@
     "phone": "+91 9447708597",
     "addressLabel": "Visit Us",
     "addressHeading": "Office Address",
-    "address": "Trivandrum, Kerala, India",
+    "address": "Kerala, India",
     "whatsappNumber": "+91 9645745111",
     "whatsappText": "Chat with us",
     "whatsappReply": "Typically replies within 1 hour",
@@ -893,14 +893,14 @@
     "logoImage": "/uploads/upload_1777017711206_9176.png",
     "logoWidth": "140px",
     "logoHeight": "auto",
-    "tagline": "Parinay Weddings - Bespoke destination wedding planners based in Trivandrum, Kerala. Planning customised luxury weddings across South India and beyond.",
+    "tagline": "Parinay Weddings - Bespoke destination wedding planners based in Kerala. Planning customised luxury weddings across South India and beyond.",
     "instagramUrl": "https://www.instagram.com/parinayweddings?igsh=MXZrdTI3NDdlMm8yeA==",
     "facebookUrl": "https://www.facebook.com/share/1Cj2QJcddt/",
     "pinterestUrl": "https://pin.it/7xoYEM4jY",
     "youtubeUrl": "https://youtube.com/@parinayweddingseventsiq5626?si=EsQeDR9NDMoSQKqD",
     "email": "info.parinayweddings@gmail.com",
     "phone": "+91 9447708597",
-    "address": "Trivandrum,Kerala, India",
+    "address": "Kerala, India",
     "whatsappNumber": "+91 9645745111",
     "ctaTagline": "Let's Start Your Journey",
     "ctaBtnText": "Book a Consultation.",

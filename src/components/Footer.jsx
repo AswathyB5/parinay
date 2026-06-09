@@ -19,7 +19,7 @@ const Footer = () => {
     const youtubeUrl = f.youtubeUrl || 'https://youtube.com/@parinayweddingseventsiq5626?si=EsQeDR9NDMoSQKqD';
     const email = f.email || 'info.parinayweddings@gmail.com';
     const phone = f.phone ? (f.phone.startsWith('+') ? f.phone : `+91 ${f.phone}`) : '+91 9447708597';
-    const address = f.address || 'Cochin, Kerala, India';
+    const address = 'Kerala, India';
     const whatsappNumber = f.whatsappNumber ? (String(f.whatsappNumber).startsWith('+') ? f.whatsappNumber : `+91 ${f.whatsappNumber}`) : '+91 9645745111';
     const whatsappNumberDigits = String(whatsappNumber).replace(/\D/g, '');
     const whatsappNumberClean =
@@ -58,16 +58,16 @@ const Footer = () => {
                                 <img
                                     src={resolveMediaURL('uploads/upload_1777017695831_3523.png')}
                                     alt={logoText}
-                                    style={{ 
-                                        width: logoWidth, 
-                                        height: logoHeight, 
-                                        objectFit: 'contain', 
+                                    style={{
+                                        width: logoWidth,
+                                        height: logoHeight,
+                                        objectFit: 'contain',
                                         display: 'block'
                                     }}
                                 />
                             )}
                             <div style={{ display: 'flex', alignItems: 'baseline' }}>
-                                {logoText}<span>{logoSub}</span>
+                                {logoText}&nbsp;<span>{logoSub}</span>
                             </div>
                         </Link>
                         <p>{renderText(tagline)}</p>

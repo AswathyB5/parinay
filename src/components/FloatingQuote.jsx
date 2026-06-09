@@ -9,17 +9,17 @@ const FloatingQuote = () => {
 
     const validateForm = (payload) => {
         if (!payload.name.trim()) return 'Please enter your full name.';
-        
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!payload.email.trim()) return 'Please enter your email.';
         if (!emailRegex.test(payload.email)) return 'Please enter a valid email.';
-        
+
         const phoneDigits = payload.phone.replace(/\D/g, '');
         if (phoneDigits.length < 10) return 'Please enter a valid phone number.';
 
         if (!payload.weddingDate) return 'Please select your wedding date.';
         if (!payload.weddingLocation.trim()) return 'Please enter the wedding venue or city.';
-        
+
         return null;
     };
 
@@ -134,15 +134,15 @@ const FloatingQuote = () => {
                 </div>
             )}
             {/* The Badge/Button */}
-            <div 
-                className={`floating-quote-badge ${isOpen ? 'active' : ''}`} 
+            <div
+                className={`floating-quote-badge ${isOpen ? 'active' : ''}`}
                 onClick={() => setIsOpen(true)}
             >
                 <div className="badge-content">
                     <span className="badge-icon">
                         <i className="fas fa-calendar-check"></i>
                     </span>
-                    <span className="badge-text">Get A Free Quote</span>
+                    <span className="badge-text">Schedule A Consultation</span>
                 </div>
             </div>
 
@@ -153,7 +153,7 @@ const FloatingQuote = () => {
                         <button className="quote-modal-close" onClick={() => setIsOpen(false)}>
                             <i className="fas fa-times"></i>
                         </button>
-                        
+
                         <div className="quote-modal-header">
                             <h2>Start Your Journey</h2>
                             <p>Request a personalised quote for your celebration</p>
