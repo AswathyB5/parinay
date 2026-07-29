@@ -368,7 +368,7 @@ const Home = () => {
                         {renderText(home.heroBody)}
                     </p>
                     <div className="pw-hero__ctas">
-                        <Link to={home.heroBtnUrl || "/contact"} className="pw-btn pw-btn--dark">
+                        <Link to={home.heroBtnUrl || "/contact-form"} className="pw-btn pw-btn--dark">
                             {home.heroBtnText || "Get Started"}
                         </Link>
                     </div>

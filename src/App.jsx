@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
+import ContactForm from './pages/ContactForm';
 import Stories from './pages/Stories';
 import Journals from './pages/Journals';
 import JournalDetail from './pages/JournalDetail';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/contact-form" element={<ContactForm />} />
           <Route path="/stories" element={<Weddingstories />} />
           <Route path="/destination-weddings" element={<Stories sectionKey="storiesDestination" />} />
           <Route path="/themed-weddings" element={<Stories sectionKey="storiesThemed" />} />

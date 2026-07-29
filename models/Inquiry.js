@@ -15,6 +15,22 @@ const InquirySchema = new mongoose.Schema({
     guestCount: { type: String, default: '' },
     serviceRequired: { type: String, default: '' },
     message: { type: String, default: '' },
+    brideName: { type: String, default: '' },
+    groomName: { type: String, default: '' },
+    city: { type: String, default: '' },
+    events: {
+        type: [{
+            type: { type: String, default: '' },
+            date: { type: String, default: '' },
+            guests: { type: String, default: '' },
+            venueStatus: { type: String, default: '' },
+            venueName: { type: String, default: '' },
+            _id: false,
+        }],
+        default: undefined,
+    },
+    servicesRequired: { type: [String], default: undefined },
+    budget: { type: String, default: '' },
     status: {
         type: String,
         default: 'new',

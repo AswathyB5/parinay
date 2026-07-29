@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import multer from 'multer';
+import nodemailer from 'nodemailer';
 import Content from './models/Content.js';
 import Inquiry from './models/Inquiry.js';
 import {
@@ -232,23 +233,100 @@ app.delete('/api/upload/:filename', requireAdminMiddleware, (req, res) => {
     });
 });
 
+/* ── Email Notification Helper ─────────────────── */
+const getMailer = () => {
+    const host = process.env.SMTP_HOST;
+    const port = Number(process.env.SMTP_PORT || 587);
+    const user = process.env.SMTP_USER;
+    const pass = process.env.SMTP_PASS;
+
+    if (!host || !user || !pass) return null;
+
+    return nodemailer.createTransport({
+        host,
+        port,
+        secure: port === 465,
+        auth: { user, pass },
+    });
+};
+
+const sendInquiryEmail = async (payload) => {
+    const transporter = getMailer();
+    if (!transporter) return { sent: false, reason: 'SMTP not configured' };
+
+    const to = process.env.INQUIRY_NOTIFICATION_EMAIL || 'info.parinayweddings@gmail.com';
+    const from = process.env.SMTP_FROM || process.env.SMTP_USER;
+    if (!from) return { sent: false, reason: 'Missing SMTP_FROM/SMTP_USER' };
+
+    const safe = (val) => (val ?? '').toString().trim() || '-';
+    const subject = `[Parinay] New ${safe(payload.type)} inquiry from ${safe(payload.name)}`;
+
+    const eventsText = Array.isArray(payload.events) && payload.events.length
+        ? payload.events.map((ev, i) => [
+            `  Event ${i + 1}: ${safe(ev.type)}`,
+            `    Date: ${safe(ev.date)}`,
+            `    Guests: ${safe(ev.guests)}`,
+            `    Venue status: ${safe(ev.venueStatus)}`,
+            ev.venueName ? `    Venue: ${safe(ev.venueName)}` : null,
+        ].filter(Boolean).join('\n')).join('\n')
+        : null;
+
+    const text = [
+        'New inquiry received:',
+        `Type: ${safe(payload.type)}`,
+        `Name: ${safe(payload.name)}`,
+        `Email: ${safe(payload.email)}`,
+        `Phone: ${safe(payload.phone)}`,
+        `Address: ${safe(payload.address)}`,
+        payload.brideName ? `Bride's Name: ${safe(payload.brideName)}` : null,
+        payload.groomName ? `Groom's Name: ${safe(payload.groomName)}` : null,
+        payload.city ? `City: ${safe(payload.city)}` : null,
+        `Wedding Date: ${safe(payload.weddingDate)}`,
+        `Wedding Location: ${safe(payload.weddingLocation)}`,
+        `Guest Count: ${safe(payload.guestCount)}`,
+        `Service Required: ${safe(payload.serviceRequired)}`,
+        Array.isArray(payload.servicesRequired) && payload.servicesRequired.length
+            ? `Services Required: ${payload.servicesRequired.join(', ')}` : null,
+        payload.budget ? `Estimated Budget: ${safe(payload.budget)}` : null,
+        eventsText ? `Events:\n${eventsText}` : null,
+        `Message: ${safe(payload.message)}`,
+    ].filter(Boolean).join('\n');
+
+    await transporter.sendMail({ to, from, subject, text });
+    return { sent: true };
+};
+
 /* ── Submit Inquiry (Contact / Quote / WhatsApp) ── */
 app.post('/api/inquiries', async (req, res) => {
     if (mongoose.connection.readyState !== 1) {
         return res.status(503).json({ error: 'Database not connected.' });
     }
     try {
-        const { type, name, email, phone, address, weddingDate, weddingLocation, guestCount, serviceRequired, message } = req.body;
+        const {
+            type, name, email, phone, address, weddingDate, weddingLocation,
+            guestCount, serviceRequired, message, brideName, groomName, city,
+            events, servicesRequired, budget,
+        } = req.body;
         if (!type) {
             return res.status(400).json({ success: false, error: 'Inquiry type is required.' });
         }
         const inquiry = new Inquiry({
             type, name, email, phone, address, weddingDate, weddingLocation,
-            guestCount, serviceRequired, message
+            guestCount, serviceRequired, message, brideName, groomName, city,
+            events, servicesRequired, budget,
         });
         await inquiry.save();
         console.log(`[Inquiry] New ${type} inquiry from ${name || 'Unknown'} (${email || 'No email'})`);
-        res.json({ success: true, message: 'Inquiry submitted successfully.', data: inquiry });
+
+        let emailNotification = { sent: false, reason: 'Not attempted' };
+        try {
+            emailNotification = await sendInquiryEmail(req.body);
+        } catch (mailErr) {
+            console.error('[Inquiry] EMAIL SEND ERROR:', mailErr.message);
+            emailNotification = { sent: false, reason: mailErr.message };
+        }
+
+        res.json({ success: true, message: 'Inquiry submitted successfully.', data: inquiry, emailNotification });
     } catch (err) {
         console.error('[POST /api/inquiries] SAVE ERROR:', err);
         res.status(500).json({ success: false, error: err.message });
