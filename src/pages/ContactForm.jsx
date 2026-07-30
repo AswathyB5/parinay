@@ -290,6 +290,7 @@ const ContactForm = () => {
                         access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
                         subject: `New Wedding Enquiry — ${name.trim()} (${city.trim() || 'Location not given'})`,
                         from_name: 'Parinay Weddings Website',
+                        template: 'table',
                         'Submitted At (IST)': istTime,
                         'Contact Name': name.trim(),
                         'WhatsApp Number': phone.trim(),

@@ -101,6 +101,7 @@ const Contact = () => {
                         access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
                         subject: `New Wedding Inquiry — ${payload.name || 'Website Visitor'}`,
                         from_name: 'Parinay Weddings Website',
+                        template: 'table',
                         'Submitted At (IST)': istTime,
                         'Contact Name': payload.name || '—',
                         'WhatsApp Number': payload.phone || '—',
