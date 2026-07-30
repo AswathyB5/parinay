@@ -9,7 +9,8 @@ export default async function handler(req, res) {
             const doc = await Content.findOne().sort({ createdAt: -1 }).lean();
             return res.status(200).json(doc ? doc.data : null);
         } catch (error) {
-            return res.status(500).json({ error: 'Failed to load content.', detail: error.message });
+            console.warn('[api/content] Database connection issue, returning fallback:', error.message);
+            return res.status(200).json(null);
         }
     }
 
