@@ -262,25 +262,31 @@ const ContactForm = () => {
 
         setSubmitting(true);
         try {
-            const eventsText = events.map((ev, i) =>
-                `Event ${i + 1}: ${ev.type}${ev.date ? ` | Date: ${ev.date}` : ''}${ev.guests ? ` | Guests: ${ev.guests}` : ''}${ev.venueStatus ? ` | Venue: ${ev.venueStatus}` : ''}${ev.venueName ? ` (${ev.venueName})` : ''}`
-            ).join('\n');
+            const eventsText = events.map((ev, i) => {
+                const venueMap = { yes: 'Already selected a venue', no: 'Still looking for a venue', help: 'Need help finding a venue' };
+                return [
+                    `— Event ${i + 1}: ${ev.type}`,
+                    ev.date ? `  Date: ${ev.date}` : '',
+                    ev.guests ? `  Guests: ${ev.guests}` : '',
+                    ev.venueStatus ? `  Venue: ${venueMap[ev.venueStatus] || ev.venueStatus}` : '',
+                    ev.venueName ? `  Venue Name: ${ev.venueName}` : '',
+                ].filter(Boolean).join('\n');
+            }).join('\n\n');
 
-            const res = await fetch('https://formsubmit.co/ajax/technologiesvoicene@gmail.com', {
+            const res = await fetch('https://formsubmit.co/ajax/aswathybcontact@gmail.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
-                    _subject: `New Wedding Enquiry from ${name.trim()}`,
-                    name: name.trim(),
-                    whatsapp_number: phone.trim(),
-                    bride_name: brideName.trim() || 'Not provided',
-                    groom_name: groomName.trim() || 'Not provided',
-                    city: city.trim() || 'Not provided',
-                    events: eventsText || 'Not provided',
-                    services_required: services.length ? services.join(', ') : 'Not provided',
-                    estimated_budget: budgetLabel(budget),
-                    additional_notes: notes.trim() || 'None',
-                    _captcha: 'false',
+                    _subject: `New Wedding Enquiry — ${name.trim()} (${city.trim() || 'Location not given'})`,
+                    'Contact Name': name.trim(),
+                    'WhatsApp Number': phone.trim(),
+                    'Bride Name': brideName.trim() || '—',
+                    'Groom Name': groomName.trim() || '—',
+                    'City / Location': city.trim() || '—',
+                    'Events & Dates': eventsText || '—',
+                    'Services Required': services.length ? services.join(', ') : '—',
+                    'Estimated Budget': budgetLabel(budget),
+                    'Additional Notes': notes.trim() || '—', _captcha: 'false',
                     _template: 'table',
                 }),
             });
@@ -338,144 +344,144 @@ const ContactForm = () => {
 
                     <div className="ef-card">
 
-                    <div className="ef-sec">
-                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-user"></i></span><span>About you</span></div>
-                        <div className="ef-sec__body">
-                            <div className="ef-g4">
-                                <div className="ef-field">
-                                    <label className="ef-lbl">Your name <span className="ef-req">*</span></label>
-                                    <input type="text" placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} />
-                                    {errors.name && <div className="ef-err">{errors.name}</div>}
+                        <div className="ef-sec">
+                            <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-user"></i></span><span>About you</span></div>
+                            <div className="ef-sec__body">
+                                <div className="ef-g4">
+                                    <div className="ef-field">
+                                        <label className="ef-lbl">Your name <span className="ef-req">*</span></label>
+                                        <input type="text" placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} />
+                                        {errors.name && <div className="ef-err">{errors.name}</div>}
+                                    </div>
+                                    <div className="ef-field">
+                                        <label className="ef-lbl">WhatsApp number <span className="ef-req">*</span></label>
+                                        <input type="tel" placeholder="+91 98765 43210" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                                        {errors.phone && <div className="ef-err">{errors.phone}</div>}
+                                    </div>
+                                    <div className="ef-field">
+                                        <label className="ef-lbl">Bride's name</label>
+                                        <input type="text" placeholder="Bride's name" value={brideName} onChange={(e) => setBrideName(e.target.value)} />
+                                    </div>
+                                    <div className="ef-field">
+                                        <label className="ef-lbl">Groom's name</label>
+                                        <input type="text" placeholder="Groom's name" value={groomName} onChange={(e) => setGroomName(e.target.value)} />
+                                    </div>
                                 </div>
                                 <div className="ef-field">
-                                    <label className="ef-lbl">WhatsApp number <span className="ef-req">*</span></label>
-                                    <input type="tel" placeholder="+91 98765 43210" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                                    {errors.phone && <div className="ef-err">{errors.phone}</div>}
+                                    <label className="ef-lbl">Your city / where you're based <span className="ef-req">*</span></label>
+                                    <input type="text" placeholder="e.g. Kochi, Bangalore, Dubai..." value={city} onChange={(e) => setCity(e.target.value)} />
+                                    {errors.city && <div className="ef-err">{errors.city}</div>}
                                 </div>
-                                <div className="ef-field">
-                                    <label className="ef-lbl">Bride's name</label>
-                                    <input type="text" placeholder="Bride's name" value={brideName} onChange={(e) => setBrideName(e.target.value)} />
-                                </div>
-                                <div className="ef-field">
-                                    <label className="ef-lbl">Groom's name</label>
-                                    <input type="text" placeholder="Groom's name" value={groomName} onChange={(e) => setGroomName(e.target.value)} />
-                                </div>
-                            </div>
-                            <div className="ef-field">
-                                <label className="ef-lbl">Your city / where you're based <span className="ef-req">*</span></label>
-                                <input type="text" placeholder="e.g. Kochi, Bangalore, Dubai..." value={city} onChange={(e) => setCity(e.target.value)} />
-                                {errors.city && <div className="ef-err">{errors.city}</div>}
                             </div>
                         </div>
-                    </div>
 
-                    <div className="ef-sec">
-                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-calendar-days"></i></span><span>Events</span></div>
-                        <div className="ef-sec__body">
-                            {events.map((ev, idx) => (
-                                <div className="ef-ev" key={ev.id}>
-                                    <div className="ef-ev__hd">
-                                        <span className="ef-ev__label"><i className="fa-solid fa-champagne-glasses"></i>Event {idx + 1}</span>
-                                        {idx > 0 && (
-                                            <button type="button" className="ef-rm" onClick={() => removeEvent(ev.id)}>
-                                                <i className="fa-solid fa-xmark"></i> Remove
-                                            </button>
+                        <div className="ef-sec">
+                            <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-calendar-days"></i></span><span>Events</span></div>
+                            <div className="ef-sec__body">
+                                {events.map((ev, idx) => (
+                                    <div className="ef-ev" key={ev.id}>
+                                        <div className="ef-ev__hd">
+                                            <span className="ef-ev__label"><i className="fa-solid fa-champagne-glasses"></i>Event {idx + 1}</span>
+                                            {idx > 0 && (
+                                                <button type="button" className="ef-rm" onClick={() => removeEvent(ev.id)}>
+                                                    <i className="fa-solid fa-xmark"></i> Remove
+                                                </button>
+                                            )}
+                                        </div>
+                                        <div className="ef-g4">
+                                            <div className="ef-field">
+                                                <label className="ef-lbl">Event type <span className="ef-req">*</span></label>
+                                                <select value={ev.type} onChange={(e) => updateEvent(ev.id, 'type', e.target.value)}>
+                                                    {EVENT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+                                                </select>
+                                                {errors[`event-type-${ev.id}`] && <div className="ef-err">{errors[`event-type-${ev.id}`]}</div>}
+                                            </div>
+                                            <div className="ef-field">
+                                                <label className="ef-lbl">Preferred date <span className="ef-req">*</span></label>
+                                                <input type="date" min={todayStr} value={ev.date} onChange={(e) => updateEvent(ev.id, 'date', e.target.value)} />
+                                                {errors[`event-date-${ev.id}`] && <div className="ef-err">{errors[`event-date-${ev.id}`]}</div>}
+                                            </div>
+                                            <div className="ef-field">
+                                                <label className="ef-lbl">Number of guests <span className="ef-req">*</span></label>
+                                                <input type="number" placeholder="e.g. 250" min="1" value={ev.guests} onChange={(e) => updateEvent(ev.id, 'guests', e.target.value)} />
+                                                {errors[`event-guests-${ev.id}`] && <div className="ef-err">{errors[`event-guests-${ev.id}`]}</div>}
+                                            </div>
+                                            <div className="ef-field">
+                                                <label className="ef-lbl">Venue status <span className="ef-req">*</span></label>
+                                                <select value={ev.venueStatus} onChange={(e) => updateEvent(ev.id, 'venueStatus', e.target.value)}>
+                                                    <option value="">Select status…</option>
+                                                    <option value="yes">Already selected a venue</option>
+                                                    <option value="no">Still looking for a venue</option>
+                                                    <option value="help">Need help finding a venue</option>
+                                                </select>
+                                                {errors[`event-venue-${ev.id}`] && <div className="ef-err">{errors[`event-venue-${ev.id}`]}</div>}
+                                            </div>
+                                        </div>
+                                        {ev.venueStatus === 'yes' && (
+                                            <div className="ef-field" style={{ marginTop: '10px', marginBottom: 0 }}>
+                                                <label className="ef-lbl">Venue name / location</label>
+                                                <input type="text" placeholder="e.g. The Leela Palace, Udaipur" value={ev.venueName} onChange={(e) => updateEvent(ev.id, 'venueName', e.target.value)} />
+                                            </div>
                                         )}
                                     </div>
-                                    <div className="ef-g4">
-                                        <div className="ef-field">
-                                            <label className="ef-lbl">Event type <span className="ef-req">*</span></label>
-                                            <select value={ev.type} onChange={(e) => updateEvent(ev.id, 'type', e.target.value)}>
-                                                {EVENT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
-                                            </select>
-                                            {errors[`event-type-${ev.id}`] && <div className="ef-err">{errors[`event-type-${ev.id}`]}</div>}
-                                        </div>
-                                        <div className="ef-field">
-                                            <label className="ef-lbl">Preferred date <span className="ef-req">*</span></label>
-                                            <input type="date" min={todayStr} value={ev.date} onChange={(e) => updateEvent(ev.id, 'date', e.target.value)} />
-                                            {errors[`event-date-${ev.id}`] && <div className="ef-err">{errors[`event-date-${ev.id}`]}</div>}
-                                        </div>
-                                        <div className="ef-field">
-                                            <label className="ef-lbl">Number of guests <span className="ef-req">*</span></label>
-                                            <input type="number" placeholder="e.g. 250" min="1" value={ev.guests} onChange={(e) => updateEvent(ev.id, 'guests', e.target.value)} />
-                                            {errors[`event-guests-${ev.id}`] && <div className="ef-err">{errors[`event-guests-${ev.id}`]}</div>}
-                                        </div>
-                                        <div className="ef-field">
-                                            <label className="ef-lbl">Venue status <span className="ef-req">*</span></label>
-                                            <select value={ev.venueStatus} onChange={(e) => updateEvent(ev.id, 'venueStatus', e.target.value)}>
-                                                <option value="">Select status…</option>
-                                                <option value="yes">Already selected a venue</option>
-                                                <option value="no">Still looking for a venue</option>
-                                                <option value="help">Need help finding a venue</option>
-                                            </select>
-                                            {errors[`event-venue-${ev.id}`] && <div className="ef-err">{errors[`event-venue-${ev.id}`]}</div>}
-                                        </div>
-                                    </div>
-                                    {ev.venueStatus === 'yes' && (
-                                        <div className="ef-field" style={{ marginTop: '10px', marginBottom: 0 }}>
-                                            <label className="ef-lbl">Venue name / location</label>
-                                            <input type="text" placeholder="e.g. The Leela Palace, Udaipur" value={ev.venueName} onChange={(e) => updateEvent(ev.id, 'venueName', e.target.value)} />
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                            <button type="button" className="ef-add" onClick={addEvent}>
-                                <i className="fa-solid fa-plus"></i> Add another event
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="ef-sec">
-                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-wand-magic-sparkles"></i></span><span>Services required <span className="ef-req">*</span></span></div>
-                        <div className="ef-sec__body">
-                            <div className="ef-chips">
-                                {SERVICES.map((s) => (
-                                    <label className={`ef-chip${services.includes(s) ? ' on' : ''}`} key={s}>
-                                        <input
-                                            type="checkbox"
-                                            checked={services.includes(s)}
-                                            onChange={() => toggleService(s)}
-                                        />
-                                        <div className="ef-chip__box"></div>
-                                        <span>{s}</span>
-                                    </label>
                                 ))}
+                                <button type="button" className="ef-add" onClick={addEvent}>
+                                    <i className="fa-solid fa-plus"></i> Add another event
+                                </button>
                             </div>
-                            {errors.services && <div className="ef-err" style={{ marginTop: '12px' }}>{errors.services}</div>}
                         </div>
-                    </div>
 
-                    <div className="ef-sec">
-                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-wallet"></i></span><span>Estimated budget</span></div>
-                        <div className="ef-sec__body">
-                            <div className="ef-brow">
-                                <span className="ef-bval">{budgetLabel(budget)}</span>
-                                <span className="ef-bnote">Excl. venue, catering &amp; photography</span>
+                        <div className="ef-sec">
+                            <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-wand-magic-sparkles"></i></span><span>Services required <span className="ef-req">*</span></span></div>
+                            <div className="ef-sec__body">
+                                <div className="ef-chips">
+                                    {SERVICES.map((s) => (
+                                        <label className={`ef-chip${services.includes(s) ? ' on' : ''}`} key={s}>
+                                            <input
+                                                type="checkbox"
+                                                checked={services.includes(s)}
+                                                onChange={() => toggleService(s)}
+                                            />
+                                            <div className="ef-chip__box"></div>
+                                            <span>{s}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                                {errors.services && <div className="ef-err" style={{ marginTop: '12px' }}>{errors.services}</div>}
                             </div>
-                            <input
-                                type="range"
-                                className="ef-bslider"
-                                min="1"
-                                max="100"
-                                step="1"
-                                value={budget}
-                                onChange={(e) => setBudget(parseInt(e.target.value, 10))}
-                                style={{ background: `linear-gradient(to right, var(--primary-color) ${budgetPct}%, rgba(58,18,25,0.15) ${budgetPct}%)` }}
-                            />
-                            <div className="ef-bmarks"><span>₹1L</span><span>₹25L</span><span>₹50L</span><span>₹75L</span><span>₹1Cr+</span></div>
                         </div>
-                    </div>
 
-                    <div className="ef-sec">
-                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-note-sticky"></i></span><span>Additional notes</span></div>
-                        <div className="ef-sec__body">
-                            <div className="ef-field" style={{ marginBottom: 0 }}>
-                                <label className="ef-lbl">Any special requests, inspiration or questions <span className="ef-req">*</span></label>
-                                <textarea placeholder="Tell us more about your vision…" value={notes} onChange={(e) => setNotes(e.target.value)}></textarea>
-                                {errors.notes && <div className="ef-err">{errors.notes}</div>}
+                        <div className="ef-sec">
+                            <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-wallet"></i></span><span>Estimated budget</span></div>
+                            <div className="ef-sec__body">
+                                <div className="ef-brow">
+                                    <span className="ef-bval">{budgetLabel(budget)}</span>
+                                    <span className="ef-bnote">Excl. venue, catering &amp; photography</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    className="ef-bslider"
+                                    min="1"
+                                    max="100"
+                                    step="1"
+                                    value={budget}
+                                    onChange={(e) => setBudget(parseInt(e.target.value, 10))}
+                                    style={{ background: `linear-gradient(to right, var(--primary-color) ${budgetPct}%, rgba(58,18,25,0.15) ${budgetPct}%)` }}
+                                />
+                                <div className="ef-bmarks"><span>₹1L</span><span>₹25L</span><span>₹50L</span><span>₹75L</span><span>₹1Cr+</span></div>
                             </div>
                         </div>
-                    </div>
+
+                        <div className="ef-sec">
+                            <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-note-sticky"></i></span><span>Additional notes</span></div>
+                            <div className="ef-sec__body">
+                                <div className="ef-field" style={{ marginBottom: 0 }}>
+                                    <label className="ef-lbl">Any special requests, inspiration or questions <span className="ef-req">*</span></label>
+                                    <textarea placeholder="Tell us more about your vision…" value={notes} onChange={(e) => setNotes(e.target.value)}></textarea>
+                                    {errors.notes && <div className="ef-err">{errors.notes}</div>}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
