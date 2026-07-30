@@ -92,24 +92,68 @@ const Contact = () => {
                 hour12: true,
             });
 
-            const res = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    formType: 'contact',
-                    submittedAt: istTime,
-                    contactName: payload.name,
-                    whatsappNumber: payload.phone,
-                    city: payload.weddingLocation || payload.address || '—',
-                    eventsText: `Wedding Date: ${payload.weddingDate || '—'}\nGuests: ${payload.guestCount || '—'}`,
-                    servicesRequired: payload.serviceRequired || '—',
-                    estimatedBudget: '—',
-                    additionalNotes: payload.message || '—',
-                }),
-            });
-            const data = await res.json().catch(() => ({}));
+            let success = false;
+            try {
+                const w3fRes = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
+                        subject: `New Wedding Inquiry — ${payload.name || 'Website Visitor'}`,
+                        from_name: 'Parinay Weddings Website',
+                        'Submitted At (IST)': istTime,
+                        'Contact Name': payload.name || '—',
+                        'WhatsApp Number': payload.phone || '—',
+                        'Location': payload.weddingLocation || payload.address || '—',
+                        'Wedding Date': payload.weddingDate || '—',
+                        'Guest Count': payload.guestCount || '—',
+                        'Service Required': payload.serviceRequired || '—',
+                        'Message': payload.message || '—',
+                    }),
+                });
+                const w3fData = await w3fRes.json().catch(() => ({}));
+                if (w3fData.success) success = true;
+            } catch (err) {
+                console.error('[Web3Forms Direct Submit Error]:', err);
+            }
 
-            if (data.success) {
+            if (!success) {
+                const res = await fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        formType: 'contact',
+                        submittedAt: istTime,
+                        contactName: payload.name,
+                        whatsappNumber: payload.phone,
+                        city: payload.weddingLocation || payload.address || '—',
+                        eventsText: `Wedding Date: ${payload.weddingDate || '—'}\nGuests: ${payload.guestCount || '—'}`,
+                        servicesRequired: payload.serviceRequired || '—',
+                        estimatedBudget: '—',
+                        additionalNotes: payload.message || '—',
+                    }),
+                });
+                const data = await res.json().catch(() => ({}));
+                if (data.success) success = true;
+            } else {
+                fetch('/api/send-email', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        formType: 'contact',
+                        submittedAt: istTime,
+                        contactName: payload.name,
+                        whatsappNumber: payload.phone,
+                        city: payload.weddingLocation || payload.address || '—',
+                        eventsText: `Wedding Date: ${payload.weddingDate || '—'}\nGuests: ${payload.guestCount || '—'}`,
+                        servicesRequired: payload.serviceRequired || '—',
+                        estimatedBudget: '—',
+                        additionalNotes: payload.message || '—',
+                    }),
+                }).catch(() => {});
+            }
+
+            if (success) {
                 setPopup({
                     open: true,
                     title: 'Thank You! 🌸',
