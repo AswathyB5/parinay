@@ -81,9 +81,29 @@ export default async function handler(req, res) {
     `;
 
   try {
-    // Option 1: Gmail SMTP (Nodemailer) - Primary Background Email Handler
+    // Option 1: Web3Forms (Primary Zero-Ad Background Email Handler)
+    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY || 'e6f81456-0654-4f4f-b082-db86d2e378a5';
+    if (w3fKey) {
+      const w3fRes = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: w3fKey,
+          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+          from_name: 'Parinay Weddings Website',
+          to: toEmail,
+          html: html,
+        }),
+      });
+      const w3fData = await w3fRes.json().catch(() => ({}));
+      if (w3fData.success) {
+        return res.status(200).json({ success: true, provider: 'web3forms' });
+      }
+    }
+
+    // Option 2: Gmail SMTP (Nodemailer Fallback)
     const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
-    const smtpPass = process.env.SMTP_PASS || 'wyqykqywnpfgfcrc';
+    const smtpPass = process.env.SMTP_PASS;
 
     if (smtpUser && smtpPass) {
       try {
@@ -106,44 +126,6 @@ export default async function handler(req, res) {
         return res.status(200).json({ success: true, provider: 'smtp' });
       } catch (smtpErr) {
         console.error('[SMTP Error]:', smtpErr);
-      }
-    }
-
-    // Option 2: Google Apps Script Web App
-    if (process.env.GOOGLE_SCRIPT_URL) {
-      const gsRes = await fetch(process.env.GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          submittedAt, contactName, whatsappNumber,
-          brideName, groomName, city,
-          eventsText, servicesRequired,
-          estimatedBudget, additionalNotes,
-          toEmail
-        }),
-      });
-      const gsData = await gsRes.json().catch(() => ({}));
-      if (gsData.success) {
-        return res.status(200).json({ success: true, provider: 'google_script' });
-      }
-    }
-
-    // Option 3: Web3Forms Access Key
-    if (process.env.WEB3FORMS_ACCESS_KEY) {
-      const w3fRes = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          access_key: process.env.WEB3FORMS_ACCESS_KEY,
-          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
-          from_name: 'Parinay Weddings Website',
-          to: toEmail,
-          html: html,
-        }),
-      });
-      const w3fData = await w3fRes.json().catch(() => ({}));
-      if (w3fData.success) {
-        return res.status(200).json({ success: true });
       }
     }
 
