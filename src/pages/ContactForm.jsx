@@ -252,26 +252,26 @@ const ContactForm = () => {
 
         setSubmitting(true);
         try {
-            const res = await fetch(`${API}/api/inquiries`, {
+            const eventsText = events.map((ev, i) =>
+                `Event ${i + 1}: ${ev.type}${ev.date ? ` | Date: ${ev.date}` : ''}${ev.guests ? ` | Guests: ${ev.guests}` : ''}${ev.venueStatus ? ` | Venue: ${ev.venueStatus}` : ''}${ev.venueName ? ` (${ev.venueName})` : ''}`
+            ).join('\n');
+
+            const res = await fetch('https://formsubmit.co/ajax/info.parinayweddings@gmail.com', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
-                    type: 'quote',
+                    _subject: `New Wedding Enquiry from ${name.trim()}`,
                     name: name.trim(),
-                    phone: phone.trim(),
-                    brideName: brideName.trim(),
-                    groomName: groomName.trim(),
-                    city: city.trim(),
-                    events: events.map((ev) => ({
-                        type: ev.type,
-                        date: ev.date,
-                        guests: ev.guests,
-                        venueStatus: ev.venueStatus,
-                        venueName: ev.venueName,
-                    })),
-                    servicesRequired: services,
-                    budget: budgetLabel(budget),
-                    message: notes.trim(),
+                    whatsapp_number: phone.trim(),
+                    bride_name: brideName.trim() || 'Not provided',
+                    groom_name: groomName.trim() || 'Not provided',
+                    city: city.trim() || 'Not provided',
+                    events: eventsText || 'Not provided',
+                    services_required: services.length ? services.join(', ') : 'Not provided',
+                    estimated_budget: budgetLabel(budget),
+                    additional_notes: notes.trim() || 'None',
+                    _captcha: 'false',
+                    _template: 'table',
                 }),
             });
             const data = await res.json().catch(() => ({}));
@@ -289,7 +289,7 @@ const ContactForm = () => {
                     open: true,
                     type: 'error',
                     title: 'Submission Failed',
-                    message: data.error || 'Something went wrong. Please try again or reach out to us directly.',
+                    message: 'Something went wrong. Please try again or reach us at info.parinayweddings@gmail.com',
                 });
             }
         } catch {
@@ -297,7 +297,7 @@ const ContactForm = () => {
                 open: true,
                 type: 'error',
                 title: 'Connection Issue',
-                message: 'We couldn\'t reach our servers right now. Please check your internet connection and try again.',
+                message: 'Could not send your message. Please check your internet and try again, or email us at info.parinayweddings@gmail.com',
             });
         } finally {
             setSubmitting(false);

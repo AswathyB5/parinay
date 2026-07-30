@@ -85,40 +85,47 @@ const Contact = () => {
         submitBtn.disabled = true;
 
         try {
-            const url = `${API}/api/inquiries`;
-            console.log('[Contact Form] Submitting to:', url);
-            const res = await fetch(url, {
+            const res = await fetch('https://formsubmit.co/ajax/info.parinayweddings@gmail.com', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    _subject: `New Wedding Inquiry from ${payload.name}`,
+                    name: payload.name,
+                    email: payload.email || 'Not provided',
+                    phone: payload.phone || 'Not provided',
+                    address: payload.address || 'Not provided',
+                    wedding_date: payload.weddingDate || 'Not provided',
+                    wedding_location: payload.weddingLocation || 'Not provided',
+                    guest_count: payload.guestCount || 'Not provided',
+                    service_required: payload.serviceRequired || 'Not provided',
+                    message: payload.message || 'Not provided',
+                    _captcha: 'false',
+                    _template: 'table',
+                }),
             });
-            console.log('[Contact Form] Response status:', res.status);
             const data = await res.json().catch(() => ({}));
 
             if (data.success) {
-                console.log('[Contact Form] SUCCESS');
                 setPopup({
                     open: true,
-                    title: 'Thank You!',
-                    message: 'We have received your inquiry. Our team will get back to you shortly.',
+                    title: 'Thank You! 🌸',
+                    message: 'Your inquiry has been received by the Parinay Weddings team. We\'ll personally reach out within 24 hours to begin crafting your dream celebration.',
                     type: 'success'
                 });
                 formEl.reset();
             } else {
-                console.warn('[Contact Form] FAILED:', data);
                 setPopup({
                     open: true,
                     title: 'Submission Failed',
-                    message: data.error || 'Something went wrong. Please try again.',
+                    message: 'Something went wrong. Please try again or reach us directly at info.parinayweddings@gmail.com',
                     type: 'error'
                 });
             }
         } catch (err) {
-            console.error('[Contact Form] FETCH ERROR:', err);
             setPopup({
                 open: true,
                 title: 'Connection Issue',
-                message: 'Could not reach the server right now. Please check your internet and try again.',
+                message: 'Could not send your message. Please try again or email us at info.parinayweddings@gmail.com',
                 type: 'error'
             });
         }
