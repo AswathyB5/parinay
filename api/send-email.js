@@ -117,8 +117,18 @@ export default async function handler(req, res) {
           html: html,
         }),
       });
+      const resendData = await resendRes.json().catch(() => ({}));
       if (resendRes.ok) {
-        return res.status(200).json({ success: true });
+        return res.status(200).json({ success: true, provider: 'resend' });
+      } else {
+        console.error('[Resend Error]:', resendData);
+        // If Resend failed, include error details in response
+        return res.status(400).json({
+          success: false,
+          provider: 'resend',
+          error: resendData.message || 'Resend rejected email delivery.',
+          detail: resendData
+        });
       }
     }
 
