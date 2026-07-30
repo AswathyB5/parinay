@@ -28,20 +28,39 @@ const sendInquiryEmail = async (payload) => {
     if (!from) return { sent: false, reason: 'Missing SMTP_FROM/SMTP_USER' };
 
     const safe = (val) => (val ?? '').toString().trim() || '-';
-    const subject = `[Parinay] New ${safe(payload.type)} inquiry`;
+    const subject = `[Parinay] New ${safe(payload.type)} inquiry from ${safe(payload.name)}`;
+
+    const eventsText = Array.isArray(payload.events) && payload.events.length
+        ? payload.events.map((ev, i) => [
+            `  Event ${i + 1}: ${safe(ev.type)}`,
+            `    Date: ${safe(ev.date)}`,
+            `    Guests: ${safe(ev.guests)}`,
+            `    Venue status: ${safe(ev.venueStatus)}`,
+            ev.venueName ? `    Venue: ${safe(ev.venueName)}` : null,
+        ].filter(Boolean).join('\n')).join('\n')
+        : null;
+
     const text = [
-        'New inquiry received:',
+        '=== NEW PARINAY WEDDINGS INQUIRY ===',
         `Type: ${safe(payload.type)}`,
         `Name: ${safe(payload.name)}`,
-        `Email: ${safe(payload.email)}`,
+        payload.email ? `Email: ${safe(payload.email)}` : null,
         `Phone: ${safe(payload.phone)}`,
-        `Address: ${safe(payload.address)}`,
-        `Wedding Date: ${safe(payload.weddingDate)}`,
-        `Wedding Location: ${safe(payload.weddingLocation)}`,
-        `Guest Count: ${safe(payload.guestCount)}`,
-        `Service Required: ${safe(payload.serviceRequired)}`,
-        `Message: ${safe(payload.message)}`,
-    ].join('\n');
+        payload.address ? `Address: ${safe(payload.address)}` : null,
+        payload.brideName ? `Bride's Name: ${safe(payload.brideName)}` : null,
+        payload.groomName ? `Groom's Name: ${safe(payload.groomName)}` : null,
+        payload.city ? `City: ${safe(payload.city)}` : null,
+        payload.weddingDate ? `Wedding Date: ${safe(payload.weddingDate)}` : null,
+        payload.weddingLocation ? `Wedding Location: ${safe(payload.weddingLocation)}` : null,
+        payload.guestCount ? `Guest Count: ${safe(payload.guestCount)}` : null,
+        payload.serviceRequired ? `Service Required: ${safe(payload.serviceRequired)}` : null,
+        Array.isArray(payload.servicesRequired) && payload.servicesRequired.length
+            ? `Services Required: ${payload.servicesRequired.join(', ')}` : null,
+        payload.budget ? `Estimated Budget: ${safe(payload.budget)}` : null,
+        eventsText ? `Events:\n${eventsText}` : null,
+        payload.message ? `Message: ${safe(payload.message)}` : null,
+        '=====================================',
+    ].filter(Boolean).join('\n');
 
     await transporter.sendMail({ to, from, subject, text });
     return { sent: true };
@@ -62,6 +81,12 @@ export default async function handler(req, res) {
                 guestCount,
                 serviceRequired,
                 message,
+                brideName,
+                groomName,
+                city,
+                events,
+                servicesRequired,
+                budget,
             } = req.body || {};
 
             if (!type) {
@@ -79,21 +104,16 @@ export default async function handler(req, res) {
                 guestCount,
                 serviceRequired,
                 message,
+                brideName,
+                groomName,
+                city,
+                events,
+                servicesRequired,
+                budget,
             });
 
             await inquiry.save();
-            const mailStatus = await sendInquiryEmail({
-                type,
-                name,
-                email,
-                phone,
-                address,
-                weddingDate,
-                weddingLocation,
-                guestCount,
-                serviceRequired,
-                message,
-            });
+            const mailStatus = await sendInquiryEmail(req.body).catch(err => ({ sent: false, reason: err.message }));
             return res.status(200).json({
                 success: true,
                 message: 'Inquiry submitted successfully.',

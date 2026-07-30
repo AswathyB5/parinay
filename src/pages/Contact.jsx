@@ -139,74 +139,105 @@ const Contact = () => {
             {popup.open && (
                 <div style={{
                     position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    backgroundColor: 'rgba(0, 0, 0, 0.85)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 9999999,
-                    backdropFilter: 'blur(10px)',
-                    padding: '20px'
+                    top: 0, left: 0, width: '100%', height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0, 0.88)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    zIndex: 9999999, backdropFilter: 'blur(12px)', padding: '20px',
+                    animation: 'cFadeIn 0.3s ease'
                 }}>
+                    <style>{`
+                        @keyframes cFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+                        @keyframes cSlideUp { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+                        @keyframes cPulse   { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+                    `}</style>
                     <div style={{
-                        width: '100%',
-                        maxWidth: '440px',
-                        background: 'linear-gradient(155deg, #fffdf8 0%, #fff3df 45%, #f8f1e8 100%)',
-                        borderRadius: '24px',
-                        padding: '45px 35px',
-                        textAlign: 'center',
-                        boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
-                        borderTop: `8px solid ${popup.type === 'success' ? '#3a1219' : '#9e2a2b'}`,
-                        borderLeft: '1px solid rgba(197,160,89,0.3)',
-                        borderRight: '1px solid rgba(197,160,89,0.3)',
-                        borderBottom: '1px solid rgba(197,160,89,0.3)',
-                        position: 'relative',
-                        overflow: 'hidden'
+                        width: '100%', maxWidth: '460px',
+                        background: popup.type === 'success'
+                            ? 'linear-gradient(155deg, #fffdf8 0%, #fff5e4 50%, #f8f0e6 100%)'
+                            : 'linear-gradient(155deg, #fff8f8 0%, #ffe4e4 50%, #f8e8e8 100%)',
+                        borderRadius: '28px', padding: '50px 40px', textAlign: 'center',
+                        boxShadow: popup.type === 'success'
+                            ? '0 40px 100px rgba(58,18,25,0.5), 0 0 0 1px rgba(197,160,89,0.2)'
+                            : '0 40px 100px rgba(158,42,43,0.4), 0 0 0 1px rgba(158,42,43,0.15)',
+                        borderTop: `6px solid ${popup.type === 'success' ? '#c5a059' : '#9e2a2b'}`,
+                        position: 'relative', overflow: 'hidden',
+                        animation: 'cSlideUp 0.4s cubic-bezier(0.16,1,0.3,1)'
                     }}>
-                        <div style={{ 
-                            fontSize: '3.5rem', 
-                            marginBottom: '20px',
-                            color: popup.type === 'success' ? '#3a1219' : '#9e2a2b'
+                        {/* Decorative glow corner */}
+                        <div style={{
+                            position: 'absolute', top: 0, right: 0, width: '140px', height: '140px',
+                            background: popup.type === 'success'
+                                ? 'radial-gradient(circle at top right, rgba(197,160,89,0.12), transparent 70%)'
+                                : 'radial-gradient(circle at top right, rgba(158,42,43,0.1), transparent 70%)',
+                            pointerEvents: 'none'
+                        }} />
+                        {/* Animated icon */}
+                        <div style={{
+                            width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 28px',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            background: popup.type === 'success'
+                                ? 'linear-gradient(135deg, #3a1219, #6b1e28)'
+                                : 'linear-gradient(135deg, #9e2a2b, #c0392b)',
+                            boxShadow: popup.type === 'success'
+                                ? '0 12px 35px rgba(58,18,25,0.4)'
+                                : '0 12px 35px rgba(158,42,43,0.4)',
+                            fontSize: '2rem', color: '#fff',
+                            animation: 'cPulse 2.5s ease infinite'
                         }}>
                             {popup.type === 'success' ? '✓' : '⚠'}
                         </div>
-                        <h2 style={{ 
-                            fontFamily: 'Playfair Display, serif', 
-                            fontSize: '2.2rem', 
-                            color: popup.type === 'success' ? '#3a1219' : '#540b0e', 
-                            marginBottom: '15px' 
+                        {/* Title */}
+                        <h2 style={{
+                            fontFamily: 'Playfair Display, serif', fontSize: '2rem',
+                            color: popup.type === 'success' ? '#3a1219' : '#540b0e',
+                            marginBottom: '16px', lineHeight: '1.2'
                         }}>
                             {popup.title}
                         </h2>
-                        <p style={{ 
-                            fontSize: '1.15rem', 
-                            color: '#4f5c56', 
-                            lineHeight: '1.6', 
-                            marginBottom: '35px' 
+                        {/* Message */}
+                        <p style={{
+                            fontSize: '1.05rem', color: '#5a5a5a', lineHeight: '1.75',
+                            marginBottom: '32px', maxWidth: '360px', margin: '0 auto 32px'
                         }}>
                             {popup.message}
                         </p>
-                        <button 
+                        {/* Signature for success */}
+                        {popup.type === 'success' && (
+                            <p style={{
+                                fontFamily: 'Playfair Display, serif', fontSize: '0.9rem',
+                                color: '#c5a059', fontStyle: 'italic',
+                                marginBottom: '28px', marginTop: '-18px'
+                            }}>
+                                — The Parinay Weddings Team
+                            </p>
+                        )}
+                        {/* Close button */}
+                        <button
                             onClick={() => setPopup({ open: false, title: '', message: '', type: '' })}
-                            className="pw-btn pw-btn--dark"
-                            style={{ 
-                                width: '100%', 
-                                padding: '18px', 
-                                borderRadius: '12px',
-                                backgroundColor: '#3a1219',
-                                border: 'none',
-                                color: '#fff',
-                                fontWeight: '600',
-                                fontSize: '1.1rem',
-                                cursor: 'pointer',
-                                transition: 'opacity 0.2s',
-                                boxShadow: '0 10px 20px rgba(0,0,0,0.2)'
+                            style={{
+                                width: '100%', padding: '18px', borderRadius: '14px', border: 'none',
+                                background: popup.type === 'success'
+                                    ? 'linear-gradient(135deg, #3a1219, #6b1e28)'
+                                    : 'linear-gradient(135deg, #9e2a2b, #c0392b)',
+                                color: '#fff', fontWeight: '600', fontSize: '1rem',
+                                cursor: 'pointer', letterSpacing: '0.5px',
+                                boxShadow: popup.type === 'success'
+                                    ? '0 8px 25px rgba(58,18,25,0.35)'
+                                    : '0 8px 25px rgba(158,42,43,0.35)',
+                                transition: 'transform 0.2s, box-shadow 0.2s'
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = '0 14px 32px rgba(58,18,25,0.45)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = popup.type === 'success'
+                                    ? '0 8px 25px rgba(58,18,25,0.35)'
+                                    : '0 8px 25px rgba(158,42,43,0.35)';
                             }}
                         >
-                            {popup.type === 'success' ? 'Perfect' : 'Try Again'}
+                            {popup.type === 'success' ? 'Perfect, thank you! ✨' : 'Try Again'}
                         </button>
                     </div>
                 </div>

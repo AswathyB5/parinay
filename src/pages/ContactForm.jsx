@@ -40,6 +40,154 @@ const emptyEvent = () => ({
     venueName: '',
 });
 
+/* ── Premium Popup Overlay ─────────────────────── */
+const PremiumPopup = ({ popup, onClose }) => {
+    if (!popup.open) return null;
+    const isSuccess = popup.type === 'success';
+
+    return (
+        <div style={{
+            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+            backgroundColor: 'rgba(0,0,0,0.88)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 9999999, backdropFilter: 'blur(12px)', padding: '20px',
+            animation: 'cfFadeIn 0.3s ease'
+        }}>
+            <style>{`
+                @keyframes cfFadeIn  { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes cfSlideUp { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+                @keyframes cfPulse   { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+                @keyframes cfSpin    { to { transform: rotate(360deg); } }
+            `}</style>
+            <div style={{
+                width: '100%', maxWidth: '460px',
+                background: isSuccess
+                    ? 'linear-gradient(155deg, #fffdf8 0%, #fff5e4 50%, #f8f0e6 100%)'
+                    : 'linear-gradient(155deg, #fff8f8 0%, #ffe4e4 50%, #f8e8e8 100%)',
+                borderRadius: '28px', padding: '50px 40px', textAlign: 'center',
+                boxShadow: isSuccess
+                    ? '0 40px 100px rgba(58,18,25,0.5), 0 0 0 1px rgba(197,160,89,0.2)'
+                    : '0 40px 100px rgba(158,42,43,0.4), 0 0 0 1px rgba(158,42,43,0.15)',
+                borderTop: `6px solid ${isSuccess ? '#c5a059' : '#9e2a2b'}`,
+                position: 'relative', overflow: 'hidden',
+                animation: 'cfSlideUp 0.4s cubic-bezier(0.16,1,0.3,1)'
+            }}>
+                {/* Decorative glow corner */}
+                <div style={{
+                    position: 'absolute', top: 0, right: 0, width: '140px', height: '140px',
+                    background: isSuccess
+                        ? 'radial-gradient(circle at top right, rgba(197,160,89,0.12), transparent 70%)'
+                        : 'radial-gradient(circle at top right, rgba(158,42,43,0.1), transparent 70%)',
+                    pointerEvents: 'none'
+                }} />
+                {/* Icon */}
+                <div style={{
+                    width: '80px', height: '80px', borderRadius: '50%', margin: '0 auto 28px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: isSuccess
+                        ? 'linear-gradient(135deg, #3a1219, #6b1e28)'
+                        : 'linear-gradient(135deg, #9e2a2b, #c0392b)',
+                    boxShadow: isSuccess
+                        ? '0 12px 35px rgba(58,18,25,0.4)'
+                        : '0 12px 35px rgba(158,42,43,0.4)',
+                    fontSize: '2rem', color: '#fff',
+                    animation: 'cfPulse 2.5s ease infinite'
+                }}>
+                    {isSuccess ? '✓' : '⚠'}
+                </div>
+                {/* Title */}
+                <h2 style={{
+                    fontFamily: 'Playfair Display, serif', fontSize: '2rem',
+                    color: isSuccess ? '#3a1219' : '#540b0e',
+                    marginBottom: '16px', lineHeight: '1.2'
+                }}>
+                    {popup.title}
+                </h2>
+                {/* Message */}
+                <p style={{
+                    fontSize: '1.05rem', color: '#5a5a5a', lineHeight: '1.75',
+                    marginBottom: '32px', maxWidth: '360px', margin: '0 auto 32px'
+                }}>
+                    {popup.message}
+                </p>
+                {/* Signature line for success */}
+                {isSuccess && (
+                    <p style={{
+                        fontFamily: 'Playfair Display, serif', fontSize: '0.9rem',
+                        color: '#c5a059', fontStyle: 'italic',
+                        marginBottom: '28px', marginTop: '-18px'
+                    }}>
+                        — The Parinay Weddings Team
+                    </p>
+                )}
+                {/* CTA Button */}
+                <button
+                    onClick={onClose}
+                    style={{
+                        width: '100%', padding: '18px', borderRadius: '14px', border: 'none',
+                        background: isSuccess
+                            ? 'linear-gradient(135deg, #3a1219, #6b1e28)'
+                            : 'linear-gradient(135deg, #9e2a2b, #c0392b)',
+                        color: '#fff', fontWeight: '600', fontSize: '1rem',
+                        cursor: 'pointer', letterSpacing: '0.5px',
+                        boxShadow: isSuccess
+                            ? '0 8px 25px rgba(58,18,25,0.35)'
+                            : '0 8px 25px rgba(158,42,43,0.35)',
+                        transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 14px 32px rgba(58,18,25,0.45)';
+                    }}
+                    onMouseLeave={e => {
+                        e.currentTarget.style.transform = '';
+                        e.currentTarget.style.boxShadow = isSuccess
+                            ? '0 8px 25px rgba(58,18,25,0.35)'
+                            : '0 8px 25px rgba(158,42,43,0.35)';
+                    }}
+                >
+                    {isSuccess ? 'Perfect, thank you! ✨' : 'Try Again'}
+                </button>
+            </div>
+        </div>
+    );
+};
+
+/* ── Sending Overlay ───────────────────────────── */
+const SendingOverlay = () => (
+    <div style={{
+        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+        backgroundColor: 'rgba(0,0,0,0.65)', display: 'flex',
+        alignItems: 'center', justifyContent: 'center',
+        zIndex: 9999998, backdropFilter: 'blur(8px)'
+    }}>
+        <div style={{
+            background: 'linear-gradient(155deg, #fffdf8, #fff3df)',
+            borderRadius: '22px', padding: '45px 55px', textAlign: 'center',
+            boxShadow: '0 30px 70px rgba(0,0,0,0.4)',
+            borderTop: '4px solid #c5a059'
+        }}>
+            <div style={{
+                width: '52px', height: '52px',
+                border: '3px solid rgba(58,18,25,0.12)',
+                borderTop: '3px solid #3a1219', borderRadius: '50%',
+                margin: '0 auto 22px',
+                animation: 'cfSpin 0.8s linear infinite'
+            }} />
+            <p style={{
+                fontFamily: 'Playfair Display, serif', color: '#3a1219',
+                fontSize: '1.15rem', margin: 0, letterSpacing: '0.3px'
+            }}>
+                Sending your enquiry…
+            </p>
+            <p style={{ color: '#888', fontSize: '0.85rem', marginTop: '8px' }}>
+                Please wait a moment
+            </p>
+        </div>
+    </div>
+);
+
+/* ── Main Component ────────────────────────────── */
 const ContactForm = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -53,8 +201,7 @@ const ContactForm = () => {
 
     const [errors, setErrors] = useState({});
     const [submitting, setSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    const [submitError, setSubmitError] = useState('');
+    const [popup, setPopup] = useState({ open: false, type: '', title: '', message: '' });
 
     const nextIdRef = useRef(2);
 
@@ -92,9 +239,15 @@ const ContactForm = () => {
         return Object.keys(nextErrors).length === 0;
     };
 
+    const resetForm = () => {
+        setName(''); setPhone(''); setBrideName(''); setGroomName('');
+        setCity(''); setEvents([{ id: 1, ...emptyEvent() }]);
+        setServices([]); setBudget(15); setNotes('');
+        nextIdRef.current = 2;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitError('');
         if (!validate()) return;
 
         setSubmitting(true);
@@ -124,35 +277,43 @@ const ContactForm = () => {
             const data = await res.json().catch(() => ({}));
 
             if (data.success) {
-                setSubmitted(true);
+                resetForm();
+                setPopup({
+                    open: true,
+                    type: 'success',
+                    title: 'Thank You! 🌸',
+                    message: 'Your enquiry has been received by the Parinay Weddings team. We\'ll personally reach out within 24 hours to begin crafting your dream celebration.',
+                });
             } else {
-                setSubmitError(data.error || 'Something went wrong. Please try again.');
+                setPopup({
+                    open: true,
+                    type: 'error',
+                    title: 'Submission Failed',
+                    message: data.error || 'Something went wrong. Please try again or reach out to us directly.',
+                });
             }
         } catch {
-            setSubmitError('Could not reach the server right now. Please check your internet and try again.');
+            setPopup({
+                open: true,
+                type: 'error',
+                title: 'Connection Issue',
+                message: 'We couldn\'t reach our servers right now. Please check your internet connection and try again.',
+            });
         } finally {
             setSubmitting(false);
         }
     };
 
-    if (submitted) {
-        return (
-            <div className="pw-page ef-page">
-                <div className="ef-wrap">
-                    <div className="ef-ok">
-                        <div className="ef-ok__icon"><i className="fa-solid fa-check"></i></div>
-                        <h3>Enquiry received!</h3>
-                        <p>Thank you for reaching out to Parinay Weddings.<br />We'll be in touch within 24 hours.</p>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    const closePopup = () => setPopup({ open: false, type: '', title: '', message: '' });
 
     const budgetPct = ((budget - 1) / 99) * 100;
 
     return (
         <div className="pw-page ef-page">
+            {/* Premium popups */}
+            <PremiumPopup popup={popup} onClose={closePopup} />
+            {submitting && <SendingOverlay />}
+
             <section className="about-hero-new">
                 <div className="container">
                     <h1>Parinay Weddings</h1>
@@ -302,10 +463,8 @@ const ContactForm = () => {
 
                     </div>
 
-                    {submitError && <div className="ef-submit-err">{submitError}</div>}
-
                     <button type="submit" className="ef-submit" disabled={submitting}>
-                        {submitting ? 'Sending…' : <>Send Enquiry <i className="fa-solid fa-paper-plane"></i></>}
+                        {submitting ? 'Sending…' : <><span>Send Enquiry</span> <i className="fa-solid fa-paper-plane"></i></>}
                     </button>
                 </form>
             </div>
