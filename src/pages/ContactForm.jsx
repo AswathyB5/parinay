@@ -218,36 +218,33 @@ const ContactForm = () => {
         setEvents((prev) => prev.map((ev) => (ev.id === id ? { ...ev, [field]: value } : ev)));
     };
 
+    const validate = () => {
+        const nextErrors = {};
+        if (!name.trim()) nextErrors.name = 'Please enter your full name.';
+        if (!phone.trim() || phone.trim().replace(/\D/g, '').length < 7) {
+            nextErrors.phone = 'Please enter a valid WhatsApp or phone number.';
+        }
+
+        setErrors(nextErrors);
+
+        if (Object.keys(nextErrors).length > 0) {
+            setTimeout(() => {
+                const firstErr = document.querySelector('.ef-err');
+                if (firstErr) {
+                    firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 50);
+            return false;
+        }
+        return true;
+    };
+
     const toggleService = (service) => {
         setServices((prev) =>
             prev.includes(service) ? prev.filter((s) => s !== service) : [...prev, service]
         );
     };
 
-    const validate = () => {
-        const nextErrors = {};
-
-        if (!name.trim()) nextErrors.name = 'Please enter your name.';
-
-        const phoneDigits = phone.replace(/\D/g, '');
-        if (!phone.trim()) nextErrors.phone = 'Please enter your WhatsApp number.';
-        else if (phoneDigits.length < 10) nextErrors.phone = 'Please enter a valid phone number (at least 10 digits).';
-
-        if (!city.trim()) nextErrors.city = 'Please enter your city.';
-
-        events.forEach((ev) => {
-            if (!ev.type) nextErrors[`event-type-${ev.id}`] = 'Please select an event type.';
-            if (!ev.date) nextErrors[`event-date-${ev.id}`] = 'Please select a preferred date.';
-            if (!ev.guests) nextErrors[`event-guests-${ev.id}`] = 'Please enter the number of guests.';
-            if (!ev.venueStatus) nextErrors[`event-venue-${ev.id}`] = 'Please select a venue status.';
-        });
-
-        if (services.length === 0) nextErrors.services = 'Please select at least one service.';
-        if (!notes.trim()) nextErrors.notes = 'Please share your vision or any special requests.';
-
-        setErrors(nextErrors);
-        return Object.keys(nextErrors).length === 0;
-    };
 
     const resetForm = () => {
         setName(''); setPhone(''); setBrideName(''); setGroomName('');
