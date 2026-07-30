@@ -94,63 +94,6 @@ const Contact = () => {
 
             let success = false;
             try {
-                const htmlTable = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                  <meta charset="UTF-8">
-                  <style>
-                    body { font-family: Georgia, serif; background: #fdf8f2; margin: 0; padding: 20px; }
-                    .wrap { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 1px solid #f0e8dc; }
-                    .header { background: linear-gradient(135deg, #3a1219, #6b1e28); padding: 32px 36px; text-align: center; }
-                    .header h1 { color: #c5a059; font-size: 24px; margin: 0 0 6px; letter-spacing: 1px; }
-                    .header p { color: rgba(255,255,255,0.75); font-size: 13px; margin: 0; }
-                    .body { padding: 32px 36px; }
-                    .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a059; padding: 14px 12px 6px; border-bottom: 2px solid #f0e8dc; font-weight: 700; margin-top: 12px; }
-                    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
-                    td { padding: 12px; font-size: 14px; border-bottom: 1px solid #f0e8dc; vertical-align: top; }
-                    td.lbl { color: #888; width: 38%; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; font-weight: 600; }
-                    td.val { color: #2d1a10; font-weight: 500; }
-                    .footer { background: #fdf8f2; padding: 20px 36px; text-align: center; border-top: 1px solid #f0e8dc; }
-                    .footer p { color: #aaa; font-size: 12px; margin: 0; }
-                    .footer strong { color: #c5a059; }
-                  </style>
-                </head>
-                <body>
-                  <div class="wrap">
-                    <div class="header">
-                      <h1>Parinay Weddings</h1>
-                      <p>New Contact Inquiry Received</p>
-                    </div>
-                    <div class="body">
-                      <div class="section-title">Submission Info</div>
-                      <table>
-                        <tr><td class="lbl">Submitted At</td><td class="val">${istTime}</td></tr>
-                      </table>
-
-                      <div class="section-title">Contact Details</div>
-                      <table>
-                        <tr><td class="lbl">Contact Name</td><td class="val"><strong>${payload.name || '—'}</strong></td></tr>
-                        <tr><td class="lbl">WhatsApp / Phone</td><td class="val"><strong>${payload.phone || '—'}</strong></td></tr>
-                        <tr><td class="lbl">Location</td><td class="val">${payload.weddingLocation || payload.address || '—'}</td></tr>
-                      </table>
-
-                      <div class="section-title">Wedding Details</div>
-                      <table>
-                        <tr><td class="lbl">Wedding Date</td><td class="val">${payload.weddingDate || '—'}</td></tr>
-                        <tr><td class="lbl">Guest Count</td><td class="val">${payload.guestCount || '—'}</td></tr>
-                        <tr><td class="lbl">Service Required</td><td class="val">${payload.serviceRequired || '—'}</td></tr>
-                        <tr><td class="lbl">Expectations & Vision</td><td class="val">${payload.message || '—'}</td></tr>
-                      </table>
-                    </div>
-                    <div class="footer">
-                      <p>Sent from <strong>Parinay Weddings</strong> website contact form</p>
-                    </div>
-                  </div>
-                </body>
-                </html>
-                `;
-
                 const w3fRes = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -158,7 +101,6 @@ const Contact = () => {
                         access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
                         subject: `New Wedding Inquiry — ${payload.name || 'Website Visitor'}`,
                         from_name: 'Parinay Weddings Website',
-                        html: htmlTable,
                         'Submitted At (IST)': istTime,
                         'Contact Name': payload.name || '—',
                         'WhatsApp Number': payload.phone || '—',
