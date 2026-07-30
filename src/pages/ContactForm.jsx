@@ -189,6 +189,7 @@ const SendingOverlay = () => (
 
 /* ── Main Component ────────────────────────────── */
 const ContactForm = () => {
+    const todayStr = new Date().toISOString().split('T')[0];
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [brideName, setBrideName] = useState('');
@@ -391,7 +392,7 @@ const ContactForm = () => {
                                         </div>
                                         <div className="ef-field">
                                             <label className="ef-lbl">Preferred date <span className="ef-req">*</span></label>
-                                            <input type="date" value={ev.date} onChange={(e) => updateEvent(ev.id, 'date', e.target.value)} />
+                                            <input type="date" min={todayStr} value={ev.date} onChange={(e) => updateEvent(ev.id, 'date', e.target.value)} />
                                             {errors[`event-date-${ev.id}`] && <div className="ef-err">{errors[`event-date-${ev.id}`]}</div>}
                                         </div>
                                         <div className="ef-field">
