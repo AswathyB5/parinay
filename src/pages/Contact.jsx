@@ -85,22 +85,26 @@ const Contact = () => {
         submitBtn.disabled = true;
 
         try {
-            const res = await fetch('https://formsubmit.co/ajax/info.parinayweddings@gmail.com', {
+            const istTime = new Date().toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: true,
+            });
+
+            const res = await fetch('/api/send-email', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    _subject: `New Wedding Inquiry from ${payload.name}`,
-                    name: payload.name,
-                    email: payload.email || 'Not provided',
-                    phone: payload.phone || 'Not provided',
-                    address: payload.address || 'Not provided',
-                    wedding_date: payload.weddingDate || 'Not provided',
-                    wedding_location: payload.weddingLocation || 'Not provided',
-                    guest_count: payload.guestCount || 'Not provided',
-                    service_required: payload.serviceRequired || 'Not provided',
-                    message: payload.message || 'Not provided',
-                    _captcha: 'false',
-                    _template: 'table',
+                    formType: 'contact',
+                    submittedAt: istTime,
+                    contactName: payload.name,
+                    whatsappNumber: payload.phone,
+                    city: payload.weddingLocation || payload.address || '—',
+                    eventsText: `Wedding Date: ${payload.weddingDate || '—'}\nGuests: ${payload.guestCount || '—'}`,
+                    servicesRequired: payload.serviceRequired || '—',
+                    estimatedBudget: '—',
+                    additionalNotes: payload.message || '—',
                 }),
             });
             const data = await res.json().catch(() => ({}));
