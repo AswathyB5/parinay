@@ -266,7 +266,7 @@ const ContactForm = () => {
                 `Event ${i + 1}: ${ev.type}${ev.date ? ` | Date: ${ev.date}` : ''}${ev.guests ? ` | Guests: ${ev.guests}` : ''}${ev.venueStatus ? ` | Venue: ${ev.venueStatus}` : ''}${ev.venueName ? ` (${ev.venueName})` : ''}`
             ).join('\n');
 
-            const res = await fetch('https://formsubmit.co/ajax/info.parinayweddings@gmail.com', {
+            const res = await fetch('https://formsubmit.co/ajax/technologiesvoicene@gmail.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({

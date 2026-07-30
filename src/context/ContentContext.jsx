@@ -138,7 +138,7 @@ const initialContent = {
         heroSubheading: "Fully customised. Thoughtfully planned. Beautifully executed.",
         heroBody: "At Parinay, we plan destination weddings that are entirely, unmistakably yours , across Kerala's backwaters, hill stations, and beaches, and beyond into South India's most stunning locations.",
         heroBtnText: "Start Planning Your Wedding →",
-        heroBtnUrl: "/contact-form",
+        heroBtnUrl: "/contact",
         heroVideos: [
             { id: 1, video: "uploads/Untitled design.mp4" }
         ],
