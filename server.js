@@ -254,7 +254,7 @@ const sendInquiryEmail = async (payload) => {
     const transporter = getMailer();
     if (!transporter) return { sent: false, reason: 'SMTP not configured' };
 
-    const to = process.env.INQUIRY_NOTIFICATION_EMAIL || 'info.parinayweddings@gmail.com';
+    const to = process.env.INQUIRY_NOTIFICATION_EMAIL || 'aswathybcontact@gmail.com';
     const from = process.env.SMTP_FROM || process.env.SMTP_USER;
     if (!from) return { sent: false, reason: 'Missing SMTP_FROM/SMTP_USER' };
 

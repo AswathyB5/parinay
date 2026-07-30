@@ -308,19 +308,49 @@ const ContactForm = () => {
                     message: 'Your enquiry has been received by the Parinay Weddings team. We\'ll personally reach out within 24 hours to begin crafting your dream celebration.',
                 });
             } else {
+                // Fallback to native email mailto if backend provider fails
+                const mailSubject = encodeURIComponent(`New Wedding Enquiry — ${name.trim()}`);
+                const mailBody = encodeURIComponent(
+                    `NEW WEDDING ENQUIRY\n\n` +
+                    `Name: ${name.trim()}\n` +
+                    `WhatsApp: ${phone.trim()}\n` +
+                    `Bride Name: ${brideName.trim() || '—'}\n` +
+                    `Groom Name: ${groomName.trim() || '—'}\n` +
+                    `City/Location: ${city.trim() || '—'}\n` +
+                    `Events: ${eventsText || '—'}\n` +
+                    `Services: ${services.length ? services.join(', ') : '—'}\n` +
+                    `Budget: ${budgetLabel(budget)}\n` +
+                    `Notes: ${notes.trim() || '—'}`
+                );
+                window.location.href = `mailto:aswathybcontact@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+                resetForm();
                 setPopup({
                     open: true,
-                    type: 'error',
-                    title: 'Submission Failed',
-                    message: 'Something went wrong. Please try again or reach us at info.parinayweddings@gmail.com',
+                    type: 'success',
+                    title: 'Enquiry Prepared! 🌸',
+                    message: 'Your email application has been opened with your enquiry pre-filled for aswathybcontact@gmail.com.',
                 });
             }
         } catch {
+            const mailSubject = encodeURIComponent(`New Wedding Enquiry — ${name.trim()}`);
+            const mailBody = encodeURIComponent(
+                `NEW WEDDING ENQUIRY\n\n` +
+                `Name: ${name.trim()}\n` +
+                `WhatsApp: ${phone.trim()}\n` +
+                `Bride Name: ${brideName.trim() || '—'}\n` +
+                `Groom Name: ${groomName.trim() || '—'}\n` +
+                `City/Location: ${city.trim() || '—'}\n` +
+                `Events: ${eventsText || '—'}\n` +
+                `Services: ${services.length ? services.join(', ') : '—'}\n` +
+                `Budget: ${budgetLabel(budget)}\n` +
+                `Notes: ${notes.trim() || '—'}`
+            );
+            window.location.href = `mailto:aswathybcontact@gmail.com?subject=${mailSubject}&body=${mailBody}`;
             setPopup({
                 open: true,
-                type: 'error',
-                title: 'Connection Issue',
-                message: 'Could not send your message. Please check your internet and try again, or email us at info.parinayweddings@gmail.com',
+                type: 'success',
+                title: 'Enquiry Prepared! 🌸',
+                message: 'Your email application has been opened with your enquiry pre-filled for aswathybcontact@gmail.com.',
             });
         } finally {
             setSubmitting(false);

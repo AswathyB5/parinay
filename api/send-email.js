@@ -13,9 +13,7 @@ export default async function handler(req, res) {
     formType
   } = req.body;
 
-  const toEmail = formType === 'contact'
-    ? 'info.parinayweddings@gmail.com'
-    : 'aswathybcontact@gmail.com';
+  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'aswathybcontact@gmail.com';
 
   const html = `
     <!DOCTYPE html>
@@ -83,6 +81,25 @@ export default async function handler(req, res) {
     `;
 
   try {
+    // Option 0: Google Apps Script Web App
+    if (process.env.GOOGLE_SCRIPT_URL) {
+      const gsRes = await fetch(process.env.GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          submittedAt, contactName, whatsappNumber,
+          brideName, groomName, city,
+          eventsText, servicesRequired,
+          estimatedBudget, additionalNotes,
+          toEmail
+        }),
+      });
+      const gsData = await gsRes.json().catch(() => ({}));
+      if (gsData.success) {
+        return res.status(200).json({ success: true, provider: 'google_script' });
+      }
+    }
+
     // Option 1: Web3Forms Access Key
     if (process.env.WEB3FORMS_ACCESS_KEY) {
       const w3fRes = await fetch('https://api.web3forms.com/submit', {
@@ -132,25 +149,28 @@ export default async function handler(req, res) {
       }
     }
 
-    // Option 3: SMTP (Developer / Sender Gmail)
-    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+    // Option 3: SMTP (Gmail Nodemailer - Default Auto-Configured)
+    const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
+    const smtpPass = process.env.SMTP_PASS || 'wyqykqywnpfgfcrc';
+
+    if (smtpUser && smtpPass) {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.gmail.com',
         port: parseInt(process.env.SMTP_PORT || '465', 10),
         secure: true,
         auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
+          user: smtpUser,
+          pass: smtpPass,
         },
       });
 
       await transporter.sendMail({
-        from: `"Parinay Weddings Website" <${process.env.SMTP_USER}>`,
+        from: `"Parinay Weddings Website" <${smtpUser}>`,
         to: toEmail,
         subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
         html,
       });
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ success: true, provider: 'smtp' });
     }
 
     // Option 4: Automatic Fallback (Ensures form never fails with 500)

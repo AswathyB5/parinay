@@ -118,19 +118,44 @@ const Contact = () => {
                 });
                 formEl.reset();
             } else {
+                const mailSubject = encodeURIComponent(`New Inquiry — ${payload.name || 'Website Visitor'}`);
+                const mailBody = encodeURIComponent(
+                    `NEW WEDDING INQUIRY\n\n` +
+                    `Name: ${payload.name || '—'}\n` +
+                    `WhatsApp: ${payload.phone || '—'}\n` +
+                    `Location: ${payload.weddingLocation || payload.address || '—'}\n` +
+                    `Wedding Date: ${payload.weddingDate || '—'}\n` +
+                    `Guest Count: ${payload.guestCount || '—'}\n` +
+                    `Services Required: ${payload.serviceRequired || '—'}\n` +
+                    `Message: ${payload.message || '—'}`
+                );
+                window.location.href = `mailto:aswathybcontact@gmail.com?subject=${mailSubject}&body=${mailBody}`;
                 setPopup({
                     open: true,
-                    title: 'Submission Failed',
-                    message: 'Something went wrong. Please try again or reach us directly at info.parinayweddings@gmail.com',
-                    type: 'error'
+                    title: 'Inquiry Prepared! 🌸',
+                    message: 'Your email client has been opened with your inquiry pre-filled for aswathybcontact@gmail.com.',
+                    type: 'success'
                 });
+                formEl.reset();
             }
         } catch (err) {
+            const mailSubject = encodeURIComponent(`New Inquiry — ${payload.name || 'Website Visitor'}`);
+            const mailBody = encodeURIComponent(
+                `NEW WEDDING INQUIRY\n\n` +
+                `Name: ${payload.name || '—'}\n` +
+                `WhatsApp: ${payload.phone || '—'}\n` +
+                `Location: ${payload.weddingLocation || payload.address || '—'}\n` +
+                `Wedding Date: ${payload.weddingDate || '—'}\n` +
+                `Guest Count: ${payload.guestCount || '—'}\n` +
+                `Services Required: ${payload.serviceRequired || '—'}\n` +
+                `Message: ${payload.message || '—'}`
+            );
+            window.location.href = `mailto:aswathybcontact@gmail.com?subject=${mailSubject}&body=${mailBody}`;
             setPopup({
                 open: true,
-                title: 'Connection Issue',
-                message: 'Could not send your message. Please try again or email us at info.parinayweddings@gmail.com',
-                type: 'error'
+                title: 'Inquiry Prepared! 🌸',
+                message: 'Your email client has been opened with your inquiry pre-filled for aswathybcontact@gmail.com.',
+                type: 'success'
             });
         }
 
