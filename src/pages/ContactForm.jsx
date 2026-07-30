@@ -280,22 +280,21 @@ const ContactForm = () => {
                 hour12: true,
             });
 
-            const res = await fetch('https://formsubmit.co/ajax/technologiesvoicene@gmail.com', {
+            const res = await fetch('/api/send-email', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    _subject: `New Wedding Enquiry — ${name.trim()} (${city.trim() || 'Location not given'})`,
-                    'Submitted At (IST)': istTime,
-                    'Contact Name': name.trim(),
-                    'WhatsApp Number': phone.trim(),
-                    'Bride Name': brideName.trim() || '—',
-                    'Groom Name': groomName.trim() || '—',
-                    'City / Location': city.trim() || '—',
-                    'Events & Dates': eventsText || '—',
-                    'Services Required': services.length ? services.join(', ') : '—',
-                    'Estimated Budget': budgetLabel(budget),
-                    'Additional Notes': notes.trim() || '—', _captcha: 'false',
-                    _template: 'table',
+                    formType: 'enquiry',
+                    submittedAt: istTime,
+                    contactName: name.trim(),
+                    whatsappNumber: phone.trim(),
+                    brideName: brideName.trim() || '—',
+                    groomName: groomName.trim() || '—',
+                    city: city.trim() || '—',
+                    eventsText: eventsText || '—',
+                    servicesRequired: services.length ? services.join(', ') : '—',
+                    estimatedBudget: budgetLabel(budget),
+                    additionalNotes: notes.trim() || '—',
                 }),
             });
             const data = await res.json().catch(() => ({}));
