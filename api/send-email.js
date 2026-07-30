@@ -81,7 +81,35 @@ export default async function handler(req, res) {
     `;
 
   try {
-    // Option 0: Google Apps Script Web App
+    // Option 1: Gmail SMTP (Nodemailer) - Primary Background Email Handler
+    const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
+    const smtpPass = process.env.SMTP_PASS || 'wyqykqywnpfgfcrc';
+
+    if (smtpUser && smtpPass) {
+      try {
+        const transporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST || 'smtp.gmail.com',
+          port: parseInt(process.env.SMTP_PORT || '465', 10),
+          secure: true,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass,
+          },
+        });
+
+        await transporter.sendMail({
+          from: `"Parinay Weddings Website" <${smtpUser}>`,
+          to: toEmail,
+          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+          html,
+        });
+        return res.status(200).json({ success: true, provider: 'smtp' });
+      } catch (smtpErr) {
+        console.error('[SMTP Error]:', smtpErr);
+      }
+    }
+
+    // Option 2: Google Apps Script Web App
     if (process.env.GOOGLE_SCRIPT_URL) {
       const gsRes = await fetch(process.env.GOOGLE_SCRIPT_URL, {
         method: 'POST',
@@ -100,7 +128,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // Option 1: Web3Forms Access Key
+    // Option 3: Web3Forms Access Key
     if (process.env.WEB3FORMS_ACCESS_KEY) {
       const w3fRes = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -119,7 +147,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // Option 2: Resend API Key
+    // Option 4: Resend API Key
     if (process.env.RESEND_API_KEY) {
       const resendRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -137,40 +165,7 @@ export default async function handler(req, res) {
       const resendData = await resendRes.json().catch(() => ({}));
       if (resendRes.ok) {
         return res.status(200).json({ success: true, provider: 'resend' });
-      } else {
-        console.error('[Resend Error]:', resendData);
-        // If Resend failed, include error details in response
-        return res.status(400).json({
-          success: false,
-          provider: 'resend',
-          error: resendData.message || 'Resend rejected email delivery.',
-          detail: resendData
-        });
       }
-    }
-
-    // Option 3: SMTP (Gmail Nodemailer - Default Auto-Configured)
-    const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
-    const smtpPass = process.env.SMTP_PASS || 'wyqykqywnpfgfcrc';
-
-    if (smtpUser && smtpPass) {
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: parseInt(process.env.SMTP_PORT || '465', 10),
-        secure: true,
-        auth: {
-          user: smtpUser,
-          pass: smtpPass,
-        },
-      });
-
-      await transporter.sendMail({
-        from: `"Parinay Weddings Website" <${smtpUser}>`,
-        to: toEmail,
-        subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
-        html,
-      });
-      return res.status(200).json({ success: true, provider: 'smtp' });
     }
 
     // Option 4: Automatic Fallback (Ensures form never fails with 500)
