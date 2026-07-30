@@ -225,15 +225,26 @@ const ContactForm = () => {
 
     const validate = () => {
         const nextErrors = {};
+
         if (!name.trim()) nextErrors.name = 'Please enter your name.';
 
         const phoneDigits = phone.replace(/\D/g, '');
         if (!phone.trim()) nextErrors.phone = 'Please enter your WhatsApp number.';
         else if (phoneDigits.length < 10) nextErrors.phone = 'Please enter a valid phone number (at least 10 digits).';
 
+        if (!brideName.trim()) nextErrors.brideName = "Please enter the bride's name.";
+        if (!groomName.trim()) nextErrors.groomName = "Please enter the groom's name.";
+        if (!city.trim()) nextErrors.city = 'Please enter your city.';
+
         events.forEach((ev) => {
-            if (!ev.type) nextErrors[`event-${ev.id}`] = 'Please select an event type.';
+            if (!ev.type) nextErrors[`event-type-${ev.id}`] = 'Please select an event type.';
+            if (!ev.date) nextErrors[`event-date-${ev.id}`] = 'Please select a preferred date.';
+            if (!ev.guests) nextErrors[`event-guests-${ev.id}`] = 'Please enter the number of guests.';
+            if (!ev.venueStatus) nextErrors[`event-venue-${ev.id}`] = 'Please select a venue status.';
         });
+
+        if (services.length === 0) nextErrors.services = 'Please select at least one service.';
+        if (!notes.trim()) nextErrors.notes = 'Please share your vision or any special requests.';
 
         setErrors(nextErrors);
         return Object.keys(nextErrors).length === 0;
@@ -343,17 +354,20 @@ const ContactForm = () => {
                                     {errors.phone && <div className="ef-err">{errors.phone}</div>}
                                 </div>
                                 <div className="ef-field">
-                                    <label className="ef-lbl">Bride's name</label>
+                                    <label className="ef-lbl">Bride's name <span className="ef-req">*</span></label>
                                     <input type="text" placeholder="Bride's name" value={brideName} onChange={(e) => setBrideName(e.target.value)} />
+                                    {errors.brideName && <div className="ef-err">{errors.brideName}</div>}
                                 </div>
                                 <div className="ef-field">
-                                    <label className="ef-lbl">Groom's name</label>
+                                    <label className="ef-lbl">Groom's name <span className="ef-req">*</span></label>
                                     <input type="text" placeholder="Groom's name" value={groomName} onChange={(e) => setGroomName(e.target.value)} />
+                                    {errors.groomName && <div className="ef-err">{errors.groomName}</div>}
                                 </div>
                             </div>
                             <div className="ef-field">
-                                <label className="ef-lbl">Your city / where you're based</label>
+                                <label className="ef-lbl">Your city / where you're based <span className="ef-req">*</span></label>
                                 <input type="text" placeholder="e.g. Kochi, Bangalore, Dubai..." value={city} onChange={(e) => setCity(e.target.value)} />
+                                {errors.city && <div className="ef-err">{errors.city}</div>}
                             </div>
                         </div>
                     </div>
@@ -377,24 +391,27 @@ const ContactForm = () => {
                                             <select value={ev.type} onChange={(e) => updateEvent(ev.id, 'type', e.target.value)}>
                                                 {EVENT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
                                             </select>
-                                            {errors[`event-${ev.id}`] && <div className="ef-err">{errors[`event-${ev.id}`]}</div>}
+                                            {errors[`event-type-${ev.id}`] && <div className="ef-err">{errors[`event-type-${ev.id}`]}</div>}
                                         </div>
                                         <div className="ef-field">
-                                            <label className="ef-lbl">Preferred date</label>
+                                            <label className="ef-lbl">Preferred date <span className="ef-req">*</span></label>
                                             <input type="date" value={ev.date} onChange={(e) => updateEvent(ev.id, 'date', e.target.value)} />
+                                            {errors[`event-date-${ev.id}`] && <div className="ef-err">{errors[`event-date-${ev.id}`]}</div>}
                                         </div>
                                         <div className="ef-field">
-                                            <label className="ef-lbl">Number of guests</label>
+                                            <label className="ef-lbl">Number of guests <span className="ef-req">*</span></label>
                                             <input type="number" placeholder="e.g. 250" min="1" value={ev.guests} onChange={(e) => updateEvent(ev.id, 'guests', e.target.value)} />
+                                            {errors[`event-guests-${ev.id}`] && <div className="ef-err">{errors[`event-guests-${ev.id}`]}</div>}
                                         </div>
                                         <div className="ef-field">
-                                            <label className="ef-lbl">Venue status</label>
+                                            <label className="ef-lbl">Venue status <span className="ef-req">*</span></label>
                                             <select value={ev.venueStatus} onChange={(e) => updateEvent(ev.id, 'venueStatus', e.target.value)}>
                                                 <option value="">Select status…</option>
                                                 <option value="yes">Already selected a venue</option>
                                                 <option value="no">Still looking for a venue</option>
                                                 <option value="help">Need help finding a venue</option>
                                             </select>
+                                            {errors[`event-venue-${ev.id}`] && <div className="ef-err">{errors[`event-venue-${ev.id}`]}</div>}
                                         </div>
                                     </div>
                                     {ev.venueStatus === 'yes' && (
@@ -412,7 +429,7 @@ const ContactForm = () => {
                     </div>
 
                     <div className="ef-sec">
-                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-wand-magic-sparkles"></i></span><span>Services required</span></div>
+                        <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-wand-magic-sparkles"></i></span><span>Services required <span className="ef-req">*</span></span></div>
                         <div className="ef-sec__body">
                             <div className="ef-chips">
                                 {SERVICES.map((s) => (
@@ -427,6 +444,7 @@ const ContactForm = () => {
                                     </label>
                                 ))}
                             </div>
+                            {errors.services && <div className="ef-err" style={{ marginTop: '12px' }}>{errors.services}</div>}
                         </div>
                     </div>
 
@@ -455,8 +473,9 @@ const ContactForm = () => {
                         <div className="ef-sec__head"><span className="ef-sec__icon"><i className="fa-solid fa-note-sticky"></i></span><span>Additional notes</span></div>
                         <div className="ef-sec__body">
                             <div className="ef-field" style={{ marginBottom: 0 }}>
-                                <label className="ef-lbl">Any special requests, inspiration or questions</label>
+                                <label className="ef-lbl">Any special requests, inspiration or questions <span className="ef-req">*</span></label>
                                 <textarea placeholder="Tell us more about your vision…" value={notes} onChange={(e) => setNotes(e.target.value)}></textarea>
+                                {errors.notes && <div className="ef-err">{errors.notes}</div>}
                             </div>
                         </div>
                     </div>
