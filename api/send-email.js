@@ -17,16 +17,6 @@ export default async function handler(req, res) {
         ? 'info.parinayweddings@gmail.com'
         : 'technologiesvoicene@gmail.com';
 
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
-        },
-    });
-
     const html = `
     <!DOCTYPE html>
     <html>
@@ -93,13 +83,71 @@ export default async function handler(req, res) {
     `;
 
     try {
-        await transporter.sendMail({
-            from: `"Parinay Weddings Website" <${process.env.SMTP_USER}>`,
-            to: toEmail,
-            subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
-            html,
+        // Option 1: Web3Forms Access Key
+        if (process.env.WEB3FORMS_ACCESS_KEY) {
+            const w3fRes = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({
+                    access_key: process.env.WEB3FORMS_ACCESS_KEY,
+                    subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+                    from_name: 'Parinay Weddings Website',
+                    to: toEmail,
+                    html: html,
+                }),
+            });
+            const w3fData = await w3fRes.json().catch(() => ({}));
+            if (w3fData.success) {
+                return res.status(200).json({ success: true });
+            }
+        }
+
+        // Option 2: Resend API Key
+        if (process.env.RESEND_API_KEY) {
+            const resendRes = await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    from: 'Parinay Weddings <onboarding@resend.dev>',
+                    to: [toEmail],
+                    subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+                    html: html,
+                }),
+            });
+            if (resendRes.ok) {
+                return res.status(200).json({ success: true });
+            }
+        }
+
+        // Option 3: SMTP (Developer / Sender Gmail)
+        if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+            const transporter = nodemailer.createTransport({
+                host: process.env.SMTP_HOST || 'smtp.gmail.com',
+                port: parseInt(process.env.SMTP_PORT || '465', 10),
+                secure: true,
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASS,
+                },
+            });
+
+            await transporter.sendMail({
+                from: `"Parinay Weddings Website" <${process.env.SMTP_USER}>`,
+                to: toEmail,
+                subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+                html,
+            });
+            return res.status(200).json({ success: true });
+        }
+
+        return res.status(500).json({
+            success: false,
+            error: 'No email service configured. Please set WEB3FORMS_ACCESS_KEY, RESEND_API_KEY, or SMTP_USER/SMTP_PASS in Vercel environment variables.'
         });
-        return res.status(200).json({ success: true });
+
     } catch (err) {
         console.error('Email send error:', err);
         return res.status(500).json({ success: false, error: 'Failed to send email.' });
