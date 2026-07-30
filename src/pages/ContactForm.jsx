@@ -273,7 +273,7 @@ const ContactForm = () => {
                 ].filter(Boolean).join('\n');
             }).join('\n\n');
 
-            const res = await fetch('https://formsubmit.co/ajax/aswathybcontact@gmail.com', {
+            const res = await fetch('https://formsubmit.co/ajax/technologiesvoicene@gmail.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
