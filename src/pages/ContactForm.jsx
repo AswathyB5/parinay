@@ -273,11 +273,19 @@ const ContactForm = () => {
                 ].filter(Boolean).join('\n');
             }).join('\n\n');
 
+            const istTime = new Date().toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: true,
+            });
+
             const res = await fetch('https://formsubmit.co/ajax/technologiesvoicene@gmail.com', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
                 body: JSON.stringify({
                     _subject: `New Wedding Enquiry — ${name.trim()} (${city.trim() || 'Location not given'})`,
+                    'Submitted At (IST)': istTime,
                     'Contact Name': name.trim(),
                     'WhatsApp Number': phone.trim(),
                     'Bride Name': brideName.trim() || '—',
