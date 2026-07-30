@@ -22,12 +22,13 @@ const isLocalHost =
     host.startsWith('172.');
 
 // API resolution order:
-// 1) Use VITE_API_URL when explicitly provided (production/staging).
-// 2) Use local backend on :5000 for local-network development.
-// 3) Use same-origin relative API in production when frontend+backend share host.
-export const API = VITE_API_URL
-    ? VITE_API_URL.replace(/\/+$/, '')
-    : '';
+// 1) Use VITE_API_URL if provided, UNLESS it points to localhost while running on live web.
+// 2) Use same-origin relative API in production when frontend+backend share host.
+export const API = (() => {
+    if (!VITE_API_URL) return '';
+    if (VITE_API_URL.includes('localhost') && !isLocalHost) return '';
+    return VITE_API_URL.replace(/\/+$/, '');
+})();
 
 console.log('[ContentContext] API endpoint set to:', API || 'Relative (Same Origin)');
 
