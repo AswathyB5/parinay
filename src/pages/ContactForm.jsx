@@ -232,8 +232,6 @@ const ContactForm = () => {
         if (!phone.trim()) nextErrors.phone = 'Please enter your WhatsApp number.';
         else if (phoneDigits.length < 10) nextErrors.phone = 'Please enter a valid phone number (at least 10 digits).';
 
-        if (!brideName.trim()) nextErrors.brideName = "Please enter the bride's name.";
-        if (!groomName.trim()) nextErrors.groomName = "Please enter the groom's name.";
         if (!city.trim()) nextErrors.city = 'Please enter your city.';
 
         events.forEach((ev) => {
@@ -354,14 +352,12 @@ const ContactForm = () => {
                                     {errors.phone && <div className="ef-err">{errors.phone}</div>}
                                 </div>
                                 <div className="ef-field">
-                                    <label className="ef-lbl">Bride's name <span className="ef-req">*</span></label>
+                                    <label className="ef-lbl">Bride's name</label>
                                     <input type="text" placeholder="Bride's name" value={brideName} onChange={(e) => setBrideName(e.target.value)} />
-                                    {errors.brideName && <div className="ef-err">{errors.brideName}</div>}
                                 </div>
                                 <div className="ef-field">
-                                    <label className="ef-lbl">Groom's name <span className="ef-req">*</span></label>
+                                    <label className="ef-lbl">Groom's name</label>
                                     <input type="text" placeholder="Groom's name" value={groomName} onChange={(e) => setGroomName(e.target.value)} />
-                                    {errors.groomName && <div className="ef-err">{errors.groomName}</div>}
                                 </div>
                             </div>
                             <div className="ef-field">
