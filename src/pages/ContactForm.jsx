@@ -302,20 +302,8 @@ const ContactForm = () => {
                 });
                 const data = await res.json().catch(() => ({}));
                 if (data.success) success = true;
-                    body: JSON.stringify({
-                        formType: 'enquiry',
-                        submittedAt: istTime,
-                        contactName: name.trim(),
-                        whatsappNumber: phone.trim(),
-                        brideName: brideName.trim() || '—',
-                        groomName: groomName.trim() || '—',
-                        city: city.trim() || '—',
-                        eventsText: eventsText || '—',
-                        servicesRequired: services.length ? services.join(', ') : '—',
-                        estimatedBudget: budgetLabel(budget),
-                        additionalNotes: notes.trim() || '—',
-                    }),
-                }).catch(() => {});
+            } catch (err) {
+                console.error('[Nodemailer Send API Error]:', err);
             }
 
             if (success) {
