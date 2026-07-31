@@ -82,30 +82,49 @@ export default async function handler(req, res) {
 
   try {
     // Option 1: Nodemailer (Gmail SMTP - Direct Unbranded Delivery)
-    const smtpUser = process.env.SMTP_USER || 'aswathyb.official@gmail.com';
-    const smtpPass = process.env.SMTP_PASS || Buffer.from('aXh0bHdmZm1vZXhuY2Zteg==', 'base64').toString('utf-8');
+    const verifiedUser = 'aswathyb.official@gmail.com';
+    const verifiedPass = Buffer.from('aXh0bHdmZm1vZXhuY2Zteg==', 'base64').toString('utf-8');
 
-    if (smtpUser && smtpPass) {
+    const smtpUser = process.env.SMTP_USER || verifiedUser;
+    const smtpPass = process.env.SMTP_PASS || verifiedPass;
+
+    try {
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
+        },
+      });
+
+      await transporter.sendMail({
+        from: `"Parinay Weddings" <${smtpUser}>`,
+        to: toEmail,
+        subject: `New Wedding Enquiry — ${contactName || 'Website Visitor'} (${city || 'Location not given'})`,
+        html,
+      });
+      return res.status(200).json({ success: true, provider: 'nodemailer' });
+    } catch (smtpErr) {
+      console.error('[Nodemailer Primary Error, trying verified fallback]:', smtpErr);
       try {
-        const transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST || 'smtp.gmail.com',
-          port: parseInt(process.env.SMTP_PORT || '465', 10),
+        const fallbackTransporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 465,
           secure: true,
-          auth: {
-            user: smtpUser,
-            pass: smtpPass,
-          },
+          auth: { user: verifiedUser, pass: verifiedPass },
         });
 
-        await transporter.sendMail({
-          from: `"Parinay Weddings" <${smtpUser}>`,
+        await fallbackTransporter.sendMail({
+          from: `"Parinay Weddings" <${verifiedUser}>`,
           to: toEmail,
-          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+          subject: `New Wedding Enquiry — ${contactName || 'Website Visitor'} (${city || 'Location not given'})`,
           html,
         });
-        return res.status(200).json({ success: true, provider: 'nodemailer' });
-      } catch (smtpErr) {
-        console.error('[Nodemailer Error]:', smtpErr);
+        return res.status(200).json({ success: true, provider: 'nodemailer-fallback' });
+      } catch (fallbackErr) {
+        console.error('[Nodemailer Fallback Error]:', fallbackErr);
       }
     }
 
