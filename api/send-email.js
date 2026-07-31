@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     formType
   } = req.body;
 
-  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'technologiesvoicene@gmail.com';
+  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'aswathybcontact@gmail.com';
 
   const html = `
     <!DOCTYPE html>
@@ -102,7 +102,7 @@ export default async function handler(req, res) {
     }
 
     // Option 2: Gmail SMTP (Nodemailer Fallback)
-    const smtpUser = process.env.SMTP_USER || 'technologiesvoicene@gmail.com';
+    const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpUser && smtpPass) {
