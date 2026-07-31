@@ -109,7 +109,7 @@ export default async function handler(req, res) {
   try {
     // Option 1: Nodemailer (Gmail SMTP - Direct Unbranded Delivery)
     const verifiedUser = 'aswathyb.official@gmail.com';
-    const verifiedPass = Buffer.from('aXh0bHdmZm1vZXhuY2Zteg==', 'base64').toString('utf-8');
+    const verifiedPass = Buffer.from('aXh0bHdmZm1vZXhuY2Zreg==', 'base64').toString('utf-8');
 
     const smtpUser = process.env.SMTP_USER || verifiedUser;
     const smtpPass = process.env.SMTP_PASS || verifiedPass;
