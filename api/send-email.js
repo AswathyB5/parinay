@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     formType
   } = req.body;
 
-  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'aswathykurup17@gmail.com';
+  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'technologiesvoicene@gmail.com';
 
   const html = `
     <!DOCTYPE html>
