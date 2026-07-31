@@ -280,37 +280,9 @@ const ContactForm = () => {
                 hour12: true,
             });
 
-            // Try Web3Forms direct browser submission
+            // 1. Primary: Call backend /api/send-email (Nodemailer Gmail SMTP)
             let success = false;
             try {
-                const w3fRes = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({
-                        access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
-                        subject: `🌸 NEW WEDDING ENQUIRY — ${name.trim()} (${city.trim() || 'Location not given'})`,
-                        from_name: 'Parinay Weddings Website',
-                        template: 'table',
-                        '📅 Submitted At': istTime,
-                        '👤 Contact Name': name.trim(),
-                        '📱 WhatsApp Number': phone.trim(),
-                        '👰 Bride Name': brideName.trim() || '—',
-                        '🤵 Groom Name': groomName.trim() || '—',
-                        '📍 City / Location': city.trim() || '—',
-                        '✨ Services Required': services.length ? services.join(', ') : '—',
-                        '💰 Estimated Budget': budgetLabel(budget),
-                        '🗓️ Events & Dates': eventsText || '—',
-                        '📝 Vision & Notes': notes.trim() || '—',
-                    }),
-                });
-                const w3fData = await w3fRes.json().catch(() => ({}));
-                if (w3fData.success) success = true;
-            } catch (err) {
-                console.error('[Web3Forms Direct Submit Error]:', err);
-            }
-
-            // Fallback to server API if Web3Forms direct submit failed
-            if (!success) {
                 const res = await fetch('/api/send-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -330,11 +302,6 @@ const ContactForm = () => {
                 });
                 const data = await res.json().catch(() => ({}));
                 if (data.success) success = true;
-            } else {
-                // Silently log to DB backend
-                fetch('/api/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         formType: 'enquiry',
                         submittedAt: istTime,

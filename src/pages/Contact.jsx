@@ -92,33 +92,9 @@ const Contact = () => {
                 hour12: true,
             });
 
+            // Primary: Call backend /api/send-email (Nodemailer Gmail SMTP)
             let success = false;
             try {
-                const w3fRes = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify({
-                        access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
-                        subject: `💌 NEW WEDDING INQUIRY — ${payload.name || 'Website Visitor'}`,
-                        from_name: 'Parinay Weddings Website',
-                        template: 'table',
-                        '📅 Submitted At': istTime,
-                        '👤 Contact Name': payload.name || '—',
-                        '📱 WhatsApp / Phone': payload.phone || '—',
-                        '📍 Location': payload.weddingLocation || payload.address || '—',
-                        '🗓️ Wedding Date': payload.weddingDate || '—',
-                        '👥 Guest Count': payload.guestCount || '—',
-                        '✨ Service Required': payload.serviceRequired || '—',
-                        '📝 Message & Vision': payload.message || '—',
-                    }),
-                });
-                const w3fData = await w3fRes.json().catch(() => ({}));
-                if (w3fData.success) success = true;
-            } catch (err) {
-                console.error('[Web3Forms Direct Submit Error]:', err);
-            }
-
-            if (!success) {
                 const res = await fetch('/api/send-email', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -136,22 +112,36 @@ const Contact = () => {
                 });
                 const data = await res.json().catch(() => ({}));
                 if (data.success) success = true;
-            } else {
-                fetch('/api/send-email', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        formType: 'contact',
-                        submittedAt: istTime,
-                        contactName: payload.name,
-                        whatsappNumber: payload.phone,
-                        city: payload.weddingLocation || payload.address || '—',
-                        eventsText: `Wedding Date: ${payload.weddingDate || '—'}\nGuests: ${payload.guestCount || '—'}`,
-                        servicesRequired: payload.serviceRequired || '—',
-                        estimatedBudget: '—',
-                        additionalNotes: payload.message || '—',
-                    }),
-                }).catch(() => {});
+            } catch (err) {
+                console.error('[Nodemailer Send API Error]:', err);
+            }
+
+            // Fallback: Web3Forms
+            if (!success) {
+                try {
+                    const w3fRes = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            access_key: 'e6f81456-0654-4f4f-b082-db86d2e378a5',
+                            subject: `💌 NEW WEDDING INQUIRY — ${payload.name || 'Website Visitor'}`,
+                            from_name: 'Parinay Weddings Website',
+                            template: 'table',
+                            '📅 Submitted At': istTime,
+                            '👤 Contact Name': payload.name || '—',
+                            '📱 WhatsApp / Phone': payload.phone || '—',
+                            '📍 Location': payload.weddingLocation || payload.address || '—',
+                            '🗓️ Wedding Date': payload.weddingDate || '—',
+                            '👥 Guest Count': payload.guestCount || '—',
+                            '✨ Service Required': payload.serviceRequired || '—',
+                            '📝 Message & Vision': payload.message || '—',
+                        }),
+                    });
+                    const w3fData = await w3fRes.json().catch(() => ({}));
+                    if (w3fData.success) success = true;
+                } catch (err) {
+                    console.error('[Web3Forms Direct Submit Error]:', err);
+                }
             }
 
             if (success) {
