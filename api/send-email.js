@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     formType
   } = req.body;
 
-  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'aswathybcontact@gmail.com';
+  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'technologiesvoicene@gmail.com';
 
   const html = `
     <!DOCTYPE html>
@@ -81,8 +81,8 @@ export default async function handler(req, res) {
     `;
 
   try {
-    // Option 1: Web3Forms (Primary Zero-Ad Background Email Handler)
-    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY || 'e6f81456-0654-4f4f-b082-db86d2e378a5';
+    // Option 1: Web3Forms
+    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY;
     if (w3fKey) {
       const w3fRes = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -102,7 +102,7 @@ export default async function handler(req, res) {
     }
 
     // Option 2: Gmail SMTP (Nodemailer Fallback)
-    const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
+    const smtpUser = process.env.SMTP_USER || 'technologiesvoicene@gmail.com';
     const smtpPass = process.env.SMTP_PASS;
 
     if (smtpUser && smtpPass) {
