@@ -164,11 +164,11 @@ const Contact = () => {
                     `Services Required: ${payload.serviceRequired || '—'}\n` +
                     `Message: ${payload.message || '—'}`
                 );
-                window.location.href = `mailto:technologiesvoicene@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+                window.location.href = `mailto:aswathykurup17@gmail.com?subject=${mailSubject}&body=${mailBody}`;
                 setPopup({
                     open: true,
                     title: 'Inquiry Prepared! 🌸',
-                    message: 'Your email client has been opened with your inquiry pre-filled for technologiesvoicene@gmail.com.',
+                    message: 'Your email client has been opened with your inquiry pre-filled for aswathykurup17@gmail.com.',
                     type: 'success'
                 });
                 formEl.reset();
@@ -185,11 +185,11 @@ const Contact = () => {
                 `Services Required: ${payload.serviceRequired || '—'}\n` +
                 `Message: ${payload.message || '—'}`
             );
-            window.location.href = `mailto:technologiesvoicene@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+            window.location.href = `mailto:aswathykurup17@gmail.com?subject=${mailSubject}&body=${mailBody}`;
             setPopup({
                 open: true,
                 title: 'Inquiry Prepared! 🌸',
-                message: 'Your email client has been opened with your inquiry pre-filled for technologiesvoicene@gmail.com.',
+                message: 'Your email client has been opened with your inquiry pre-filled for aswathykurup17@gmail.com.',
                 type: 'success'
             });
         }

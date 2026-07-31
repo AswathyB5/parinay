@@ -341,13 +341,13 @@ const ContactForm = () => {
                     `Budget: ${budgetLabel(budget)}\n` +
                     `Notes: ${notes.trim() || '—'}`
                 );
-                window.location.href = `mailto:technologiesvoicene@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+                window.location.href = `mailto:aswathykurup17@gmail.com?subject=${mailSubject}&body=${mailBody}`;
                 resetForm();
                 setPopup({
                     open: true,
                     type: 'success',
                     title: 'Enquiry Prepared! 🌸',
-                    message: 'Your email application has been opened with your enquiry pre-filled for technologiesvoicene@gmail.com.',
+                    message: 'Your email application has been opened with your enquiry pre-filled for aswathykurup17@gmail.com.',
                 });
             }
         } catch {
@@ -364,12 +364,12 @@ const ContactForm = () => {
                 `Budget: ${budgetLabel(budget)}\n` +
                 `Notes: ${notes.trim() || '—'}`
             );
-            window.location.href = `mailto:technologiesvoicene@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+            window.location.href = `mailto:aswathykurup17@gmail.com?subject=${mailSubject}&body=${mailBody}`;
             setPopup({
                 open: true,
                 type: 'success',
                 title: 'Enquiry Prepared! 🌸',
-                message: 'Your email application has been opened with your enquiry pre-filled for technologiesvoicene@gmail.com.',
+                message: 'Your email application has been opened with your enquiry pre-filled for aswathykurup17@gmail.com.',
             });
         } finally {
             setSubmitting(false);
