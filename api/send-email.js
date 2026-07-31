@@ -20,62 +20,88 @@ export default async function handler(req, res) {
     <html>
     <head>
       <meta charset="UTF-8">
-      <style>
-        body { font-family: Georgia, serif; background: #fdf8f2; margin: 0; padding: 0; }
-        .wrap { max-width: 600px; margin: 30px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
-        .header { background: linear-gradient(135deg, #3a1219, #6b1e28); padding: 36px 40px; text-align: center; }
-        .header h1 { color: #c5a059; font-size: 26px; margin: 0 0 6px; letter-spacing: 1px; }
-        .header p { color: rgba(255,255,255,0.7); font-size: 13px; margin: 0; }
-        .body { padding: 36px 40px; }
-        .badge { display: inline-block; background: #fdf0e0; color: #c5a059; border: 1px solid #c5a059; border-radius: 20px; padding: 4px 14px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
-        table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
-        td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid #f0e8dc; vertical-align: top; }
-        td:first-child { color: #888; width: 38%; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
-        td:last-child { color: #2d1a10; font-weight: 500; }
-        .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a059; padding: 18px 16px 6px; border-bottom: 1px solid #f0e8dc; font-weight: 600; }
-        .events-text { white-space: pre-line; line-height: 1.8; }
-        .footer { background: #fdf8f2; padding: 24px 40px; text-align: center; border-top: 1px solid #f0e8dc; }
-        .footer p { color: #aaa; font-size: 12px; margin: 0; }
-        .footer strong { color: #c5a059; }
-      </style>
     </head>
-    <body>
-      <div class="wrap">
-        <div class="header">
-          <h1>Parinay Weddings</h1>
-          <p>New Wedding Enquiry Received</p>
-        </div>
-        <div class="body">
-          <div class="badge">New Enquiry</div>
-          <table>
-            <tr><td>Submitted At</td><td>${submittedAt || '—'}</td></tr>
-          </table>
+    <body style="font-family: Georgia, serif; background-color: #fdf8f2; margin: 0; padding: 20px;">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5d8c5; box-shadow: 0 4px 20px rgba(0,0,0,0.06);">
+        <tr>
+          <td style="background: linear-gradient(135deg, #3a1219, #6b1e28); padding: 32px 30px; text-align: center;">
+            <h1 style="color: #c5a059; font-size: 26px; margin: 0 0 6px; letter-spacing: 1px; font-weight: normal;">Parinay Weddings</h1>
+            <p style="color: #fdf8f2; opacity: 0.8; font-size: 13px; margin: 0; text-transform: uppercase; letter-spacing: 1.5px;">New Client Enquiry</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 30px;">
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin-bottom: 20px;">
+              <tr>
+                <td colspan="2" style="background-color: #fdf0e0; color: #3a1219; font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; border-left: 4px solid #c5a059;">
+                  👤 Contact Details
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 38%; padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Submitted At</td>
+                <td style="width: 62%; padding: 12px 14px; color: #2d1a10; font-size: 14px; font-weight: 500; border-bottom: 1px solid #f0e8dc;">${submittedAt || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Full Name</td>
+                <td style="padding: 12px 14px; color: #2d1a10; font-size: 14px; font-weight: bold; border-bottom: 1px solid #f0e8dc;">${contactName || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">WhatsApp / Phone</td>
+                <td style="padding: 12px 14px; color: #2d1a10; font-size: 14px; font-weight: bold; border-bottom: 1px solid #f0e8dc;">${whatsappNumber || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Bride's Name</td>
+                <td style="padding: 12px 14px; color: #2d1a10; font-size: 14px; border-bottom: 1px solid #f0e8dc;">${brideName || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Groom's Name</td>
+                <td style="padding: 12px 14px; color: #2d1a10; font-size: 14px; border-bottom: 1px solid #f0e8dc;">${groomName || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">City / Location</td>
+                <td style="padding: 12px 14px; color: #2d1a10; font-size: 14px; border-bottom: 1px solid #f0e8dc;">${city || '—'}</td>
+              </tr>
+            </table>
 
-          <div class="section-title">Contact Details</div>
-          <table>
-            <tr><td>Full Name</td><td>${contactName || '—'}</td></tr>
-            <tr><td>WhatsApp</td><td>${whatsappNumber || '—'}</td></tr>
-            <tr><td>Bride's Name</td><td>${brideName || '—'}</td></tr>
-            <tr><td>Groom's Name</td><td>${groomName || '—'}</td></tr>
-            <tr><td>City / Location</td><td>${city || '—'}</td></tr>
-          </table>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin-bottom: 20px;">
+              <tr>
+                <td colspan="2" style="background-color: #fdf0e0; color: #3a1219; font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; border-left: 4px solid #c5a059;">
+                  🗓️ Event Details
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 38%; padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Events & Dates</td>
+                <td style="width: 62%; padding: 12px 14px; color: #2d1a10; font-size: 14px; white-space: pre-line; line-height: 1.6; border-bottom: 1px solid #f0e8dc;">${eventsText || '—'}</td>
+              </tr>
+            </table>
 
-          <div class="section-title">Event Details</div>
-          <table>
-            <tr><td>Events</td><td class="events-text">${eventsText || '—'}</td></tr>
-          </table>
-
-          <div class="section-title">Requirements</div>
-          <table>
-            <tr><td>Services</td><td>${servicesRequired || '—'}</td></tr>
-            <tr><td>Budget</td><td>${estimatedBudget || '—'}</td></tr>
-            <tr><td>Notes</td><td>${additionalNotes || '—'}</td></tr>
-          </table>
-        </div>
-        <div class="footer">
-          <p>Sent from <strong>Parinay Weddings</strong> website enquiry form</p>
-        </div>
-      </div>
+            <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+              <tr>
+                <td colspan="2" style="background-color: #fdf0e0; color: #3a1219; font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 14px; border-left: 4px solid #c5a059;">
+                  ✨ Requirements & Budget
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 38%; padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Services Required</td>
+                <td style="width: 62%; padding: 12px 14px; color: #2d1a10; font-size: 14px; font-weight: bold; border-bottom: 1px solid #f0e8dc;">${servicesRequired || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Estimated Budget</td>
+                <td style="padding: 12px 14px; color: #c5a059; font-size: 15px; font-weight: bold; border-bottom: 1px solid #f0e8dc;">${estimatedBudget || '—'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 14px; color: #777777; font-size: 12px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #f0e8dc;">Additional Notes</td>
+                <td style="padding: 12px 14px; color: #2d1a10; font-size: 14px; line-height: 1.6; border-bottom: 1px solid #f0e8dc;">${additionalNotes || '—'}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color: #fdf8f2; padding: 20px; text-align: center; border-top: 1px solid #f0e8dc;">
+            <p style="color: #aaaaaa; font-size: 12px; margin: 0;">Sent directly from <strong style="color: #c5a059;">Parinay Weddings</strong> website enquiry form</p>
+          </td>
+        </tr>
+      </table>
     </body>
     </html>
     `;
