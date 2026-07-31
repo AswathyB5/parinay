@@ -81,49 +81,7 @@ export default async function handler(req, res) {
     `;
 
   try {
-    // Option 1: Resend API (Primary Clean HTML Provider)
-    const resendKey = process.env.RESEND_API_KEY;
-    if (resendKey) {
-      const resendRes = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: 'Parinay Weddings <onboarding@resend.dev>',
-          to: [toEmail],
-          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
-          html: html,
-        }),
-      });
-      const resendData = await resendRes.json().catch(() => ({}));
-      if (resendRes.ok) {
-        return res.status(200).json({ success: true, provider: 'resend', id: resendData.id });
-      }
-    }
-
-    // Option 2: Web3Forms Fallback
-    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY;
-    if (w3fKey) {
-      const w3fRes = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          access_key: w3fKey,
-          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
-          from_name: 'Parinay Weddings Website',
-          to: toEmail,
-          html: html,
-        }),
-      });
-      const w3fData = await w3fRes.json().catch(() => ({}));
-      if (w3fData.success) {
-        return res.status(200).json({ success: true, provider: 'web3forms' });
-      }
-    }
-
-    // Option 2: Gmail SMTP (Nodemailer Fallback)
+    // Option 1: Nodemailer (Gmail SMTP - Direct Unbranded Delivery)
     const smtpUser = process.env.SMTP_USER || 'aswathybcontact@gmail.com';
     const smtpPass = process.env.SMTP_PASS;
 
@@ -140,14 +98,14 @@ export default async function handler(req, res) {
         });
 
         await transporter.sendMail({
-          from: `"Parinay Weddings Website" <${smtpUser}>`,
+          from: `"Parinay Weddings" <${smtpUser}>`,
           to: toEmail,
           subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
           html,
         });
-        return res.status(200).json({ success: true, provider: 'smtp' });
+        return res.status(200).json({ success: true, provider: 'nodemailer' });
       } catch (smtpErr) {
-        console.error('[SMTP Error]:', smtpErr);
+        console.error('[Nodemailer Error]:', smtpErr);
       }
     }
 
