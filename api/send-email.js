@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     formType
   } = req.body;
 
-  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'technologiesvoicene@gmail.com';
+  const toEmail = process.env.INQUIRY_NOTIFICATION_EMAIL || 'aswathybv2019@gmail.com';
 
   const html = `
     <!DOCTYPE html>
@@ -81,8 +81,30 @@ export default async function handler(req, res) {
     `;
 
   try {
-    // Option 1: Web3Forms (Primary Zero-Ad Background Email Handler)
-    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY || 'e6f81456-0654-4f4f-b082-db86d2e378a5';
+    // Option 1: Resend API (Primary Clean HTML Provider)
+    const resendKey = process.env.RESEND_API_KEY;
+    if (resendKey) {
+      const resendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${resendKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Parinay Weddings <onboarding@resend.dev>',
+          to: [toEmail],
+          subject: `New Wedding Enquiry — ${contactName} (${city || 'Location not given'})`,
+          html: html,
+        }),
+      });
+      const resendData = await resendRes.json().catch(() => ({}));
+      if (resendRes.ok) {
+        return res.status(200).json({ success: true, provider: 'resend', id: resendData.id });
+      }
+    }
+
+    // Option 2: Web3Forms Fallback
+    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY;
     if (w3fKey) {
       const w3fRes = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
