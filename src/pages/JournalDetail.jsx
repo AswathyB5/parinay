@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ContentContext, renderText, resolveMediaURL } from '../context/ContentContext';
-import { Calendar, User, Facebook, Twitter, Instagram } from 'lucide-react';
+import { ContentContext, renderText } from '../context/ContentContext';
+import { Calendar, User } from 'lucide-react';
+import OptimizedImage, { ProgressiveGallery } from '../components/OptimizedImage';
 
 const JournalDetail = () => {
     const { id } = useParams();
@@ -46,6 +47,10 @@ const JournalDetail = () => {
     const paragraphs = post.content ? post.content.split('\n\n') : [];
     const introPara = paragraphs[0];
     const restOfContent = paragraphs.slice(1);
+    const galleryImages = (post.galleryImages || '')
+        .split(/\n/)
+        .map((url) => url.trim())
+        .filter(Boolean);
 
     return (
         <div className="pw-page">
@@ -77,9 +82,11 @@ const JournalDetail = () => {
                     }}>
                         {/* Featured Image */}
                         <div className="pw-article-img-wrap">
-                            <img 
-                                src={resolveMediaURL(post.image)} 
-                                alt={post.title} 
+                            <OptimizedImage
+                                src={post.image}
+                                alt={post.title}
+                                variant="gallery"
+                                priority
                                 className="pw-article-img-inner"
                             />
                         </div>
@@ -100,6 +107,18 @@ const JournalDetail = () => {
                             }
                             return <p key={idx} style={{ marginBottom: '30px' }}>{renderText(para)}</p>
                         })}
+
+                        {galleryImages.length > 0 && (
+                            <ProgressiveGallery
+                                images={galleryImages.filter((url) => url !== post.image)}
+                                alt={post.title}
+                                variant="gallery"
+                                initialCount={9}
+                                step={6}
+                                wrapClassName="pw-journal-detail-gallery"
+                                imgClassName="pw-journal-detail-gallery__img"
+                            />
+                        )}
                     </div>
 
                     <div className="pw-article-footer reveal" style={{ 
@@ -135,7 +154,7 @@ const JournalDetail = () => {
                         {journals.journalsList.filter(p => p.id !== parseInt(id)).slice(0, 3).map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
+                                    <OptimizedImage src={item.image} alt={item.title} variant="card" className="pw-journal__img" />
                                 </div>
                                 <div style={{ padding: '0 10px' }}>
                                     <span className="pw-journal__meta">{item.date} — Journal</span>

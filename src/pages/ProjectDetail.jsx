@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
+import OptimizedImage, { ProgressiveGallery } from '../components/OptimizedImage';
 import './ProjectDetail.css';
 
 const ProjectDetail = () => {
@@ -142,7 +143,7 @@ const ProjectDetail = () => {
                                 )
                             ) : (
                                 <>
-                                    <img src={resolveMediaURL(displayImage)} alt="Featured Moment" className="pd-moment__img" />
+                                    <OptimizedImage src={displayImage} alt="Featured Moment" variant="gallery" priority className="pd-moment__img" />
                                     <div className="pd-moment__overlay"></div>
                                     <div className="pd-moment__content">
                                         <div className="pd-play-icon">
@@ -182,17 +183,15 @@ const ProjectDetail = () => {
                 {/* PROJECT GALLERY */}
                 {projectImages.length > 0 && (
                     <div className="container container--wide pd-gallery-wrap">
-                        <div className="pd-gallery__grid">
-                            {projectImages.map((img, idx) => (
-                                <div key={idx} className={`pd-gallery__item reveal delay-${idx % 3}`}>
-                                    {isVideoUrl(img.url) ? (
-                                        <video key={resolveMediaURL(img.url)} src={resolveMediaURL(img.url)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    ) : (
-                                        <img src={resolveMediaURL(img.url)} alt={img.alt} loading="lazy" />
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                        <ProgressiveGallery
+                            images={projectImages.filter((img) => !isVideoUrl(img.url)).map((img) => img.url)}
+                            alt={project.title}
+                            variant="gallery"
+                            initialCount={9}
+                            step={6}
+                            wrapClassName="pd-gallery__grid"
+                            itemClassName="pd-gallery__item"
+                        />
                     </div>
                 )}
 

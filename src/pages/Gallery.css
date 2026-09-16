@@ -335,7 +335,7 @@ body.lightbox-active .app-container > .main-header {
 .pd-lightbox__close {
     position: absolute;
     top: 40px;
-    right: 40px;
+    left: 40px;
     width: 60px;
     height: 60px;
     background: var(--primary-color);
@@ -352,7 +352,7 @@ body.lightbox-active .app-container > .main-header {
 
 .pd-lightbox__close:hover {
     background: var(--accent-color);
-    transform: rotate(90deg);
+    transform: translateX(-4px);
 }
 
 .pd-lightbox__content {
@@ -431,7 +431,7 @@ body.lightbox-active .app-container > .main-header {
     }
     .pd-lightbox__close {
         top: 20px;
-        right: 20px;
+        left: 20px;
         width: 45px;
         height: 45px;
     }

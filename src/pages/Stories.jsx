@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
+import OptimizedImage from '../components/OptimizedImage';
 import './Gallery.css';
 
 const Stories = ({ sectionKey = "storiesDestination" }) => {
@@ -171,9 +172,10 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                                         playsInline
                                     />
                                 ) : (
-                                    <img
-                                        src={resolveMediaURL(displayImage)}
+                                    <OptimizedImage
+                                        src={displayImage}
                                         alt={item.title}
+                                        variant="card"
                                         className="wsl-item__thumb"
                                     />
                                 )}

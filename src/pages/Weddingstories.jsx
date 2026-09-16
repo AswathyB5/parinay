@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
+import OptimizedImage, { ProgressiveGallery } from '../components/OptimizedImage';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -127,13 +128,13 @@ const Gallery = () => {
                                     {isVideoUrl(item.displayImage) ? (
                                         <video key={resolveMediaURL(item.displayImage)} src={resolveMediaURL(item.displayImage)} autoPlay muted loop playsInline />
                                     ) : (
-                                        <img src={resolveMediaURL(item.displayImage)} alt={item.title || 'Wedding Gallery'} loading="lazy" />
+                                        <OptimizedImage src={item.displayImage} alt={item.title || 'Wedding Gallery'} variant="card" />
                                     )}
                                     <div className="gallery-overlay">
                                         <div className="gallery-info">
                                             <span className="gallery-cat">{item.category}</span>
                                             <h3>{renderText(item.title)}</h3>
-                                            <p>{item.loc || item.location} • Kerala</p>
+                                            <p>{item.location || item.loc || 'Kerala'}</p>
                                             <span className="gallery-btn">VIEW STORY <i className="fas fa-expand"></i></span>
                                         </div>
                                     </div>
@@ -152,8 +153,8 @@ const Gallery = () => {
             {/* LIGHTBOX OVERLAY */}
             {isLightboxOpen && selectedProject && (
                 <div className="pd-lightbox" onClick={closeLightbox}>
-                    <div className="pd-lightbox__close">
-                        <i className="fas fa-times"></i>
+                    <div className="pd-lightbox__close" role="button" aria-label="Back">
+                        <i className="fas fa-arrow-left"></i>
                     </div>
                     <div className="pd-lightbox__content" onClick={e => e.stopPropagation()}>
                         <div className="pd-lightbox__header">
@@ -161,17 +162,15 @@ const Gallery = () => {
                             <h2>{selectedProject.title}</h2>
                             <p>{renderText(selectedProject.displayDesc)}</p>
                         </div>
-                        <div className="pd-lightbox__grid">
-                            {selectedProject.related.map((img, i) => (
-                                <div key={i} className="pd-lightbox__item">
-                                    {isVideoUrl(img.url) ? (
-                                        <video key={resolveMediaURL(img.url)} src={resolveMediaURL(img.url)} controls width="100%" />
-                                    ) : (
-                                        <img src={resolveMediaURL(img.url)} alt={img.alt} />
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                        <ProgressiveGallery
+                            images={selectedProject.related.filter((img) => !isVideoUrl(img.url)).map((img) => img.url)}
+                            alt={selectedProject.title}
+                            variant="gallery"
+                            initialCount={9}
+                            step={6}
+                            wrapClassName="pd-lightbox__grid"
+                            itemClassName="pd-lightbox__item"
+                        />
                     </div>
                 </div>
             )}

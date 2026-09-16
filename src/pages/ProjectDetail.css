@@ -212,6 +212,8 @@
     object-fit: cover;
     display: block;
     transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    content-visibility: auto;
+    contain-intrinsic-size: 600px 400px;
 }
 
 .pd-gallery__item:hover img {

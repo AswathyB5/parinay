@@ -39,16 +39,30 @@ export const resolveMediaURL = (url) => {
 
     // Remove any leading slashes to normalize
     const cleanPath = url.replace(/^\/+/, '');
+    const encodePath = (p) => p.split('/').map((seg) => encodeURIComponent(seg)).join('/');
 
     // If it already starts with 'uploads/', return as absolute relative path
-    if (cleanPath.startsWith('uploads/')) return `/${cleanPath}`;
+    if (cleanPath.startsWith('uploads/')) return `/${encodePath(cleanPath)}`;
 
     // For root assets
     const rootAssets = ['logo-img.jpeg', 'favicon.ico', 'robots.txt'];
     if (rootAssets.includes(cleanPath)) return `/${cleanPath}`;
 
     // Otherwise, assume it's an upload and prepend /uploads/
-    return `/uploads/${cleanPath}`;
+    return `/uploads/${encodePath(cleanPath)}`;
+};
+
+/** Serve compressed WebP variants for couple-gallery originals (see scripts/optimize-gallery.mjs). */
+export const optimizedMediaURL = (url, variant = 'card') => {
+    const resolved = resolveMediaURL(url);
+    if (!resolved || typeof resolved !== 'string') return resolved;
+    const marker = '/uploads/gallery-couple/';
+    const idx = resolved.indexOf(marker);
+    if (idx === -1) return resolved;
+    const rest = resolved.slice(idx + marker.length);
+    const withoutExt = rest.replace(/\.[^.]+$/, '');
+    const size = variant === 'gallery' ? 'gallery' : 'card';
+    return `/uploads/gallery-couple-opt/${size}/${withoutExt}.webp`;
 };
 
 export const renderText = (text) => {
@@ -818,6 +832,18 @@ export const ContentProvider = ({ children }) => {
                     acc[section] = mergedSection;
                     return acc;
                 }, {});
+
+                // Couple gallery/journal photos live in site-content.json so local
+                // folder updates show even when the database still has placeholders.
+                if (fallbackData.home?.portfolioItems) {
+                    merged.home = { ...merged.home, portfolioItems: fallbackData.home.portfolioItems };
+                }
+                if (fallbackData.weddingStories?.storiesList) {
+                    merged.weddingStories = { ...merged.weddingStories, storiesList: fallbackData.weddingStories.storiesList };
+                }
+                if (fallbackData.journals?.journalsList) {
+                    merged.journals = { ...merged.journals, journalsList: fallbackData.journals.journalsList };
+                }
 
                 setContent(merged);
                 setIsLoaded(true);

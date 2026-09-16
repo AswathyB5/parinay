@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText, API } from '../context/ContentContext';
+import OptimizedImage from '../components/OptimizedImage';
 import heroVideoSrc from '../assets/t4.mp4';
 
 const StatCounter = ({ number, label, start }) => {
@@ -644,7 +645,7 @@ const Home = () => {
                                     {isVideoUrl(displayImage) ? (
                                         <video key={resolveMediaURL(displayImage)} src={resolveMediaURL(displayImage)} autoPlay muted loop playsInline className="pw-services__card-img" />
                                     ) : (
-                                        <img src={resolveMediaURL(displayImage)} alt={item.title} className="pw-services__card-img" />
+                                        <OptimizedImage src={displayImage} alt={item.title} variant="card" className="pw-services__card-img" />
                                     )}
                                     <div className="pw-services__card-overlay">
                                         <div className="pw-services__card-body">
@@ -880,7 +881,7 @@ const Home = () => {
                         {journalsList.map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
+                                    <OptimizedImage src={item.image} alt={item.title} variant="card" className="pw-journal__img" />
                                 </div>
                                 <span className="pw-journal__meta">{renderText(item.date)}</span>
                                 <h3 className="pw-journal__title">{renderText(item.title)}</h3>

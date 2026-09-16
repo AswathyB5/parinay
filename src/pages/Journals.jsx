@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, renderText, resolveMediaURL } from '../context/ContentContext';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Journals = () => {
     const { content } = useContext(ContentContext);
@@ -52,7 +53,7 @@ const Journals = () => {
                         {journals.journalsList?.filter(item => item.title && item.title.trim()).map((item) => (
                             <Link key={item.id} to={`/journals/${item.id}`} className="pw-journal__card" style={{ textDecoration: 'none' }}>
                                 <div className="pw-journal__img-wrap">
-                                    <img src={resolveMediaURL(item.image)} alt={item.title} className="pw-journal__img" />
+                                    <OptimizedImage src={item.image} alt={item.title} variant="card" className="pw-journal__img" />
                                 </div>
                                 <span className="pw-journal__meta">{renderText(item.date)}</span>
                                 <h3 className="pw-journal__title">{renderText(item.title)}</h3>
