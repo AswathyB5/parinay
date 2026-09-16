@@ -212,11 +212,13 @@ const Services = () => {
                                     "/uploads/couple/DSC05803.jpg", // Guest
                                     "/uploads/venue/7.jpg", // Event Production
                                     "/uploads/venue/ATHU9588 copy.jpg", // Entertainment
-                                    "/uploads/couple/_JKN8435.jpg", // Styling
-                                    "/uploads/couple/OSW09146 copy.jpg"  // Day Coordination
+                                    "/uploads/gallery-couple/1 AMI & RICHARD/AMU02883.jpg", // Styling
+                                    "/uploads/couple/DSC02454.jpg"  // Day Coordination
                                 ];
                                 const imgUrl = item.image || placeholderImages[idx] || placeholderImages[0];
-                                
+                                const topAlignedTitles = ['Bridal & Groom Styling', 'Wedding Day Coordination'];
+                                const imgObjectPosition = topAlignedTitles.includes(item.title) ? 'top' : 'center';
+
                                 return (
                                     <div key={idx} className="service-card">
                                         {/* Image Header */}
@@ -224,12 +226,12 @@ const Services = () => {
                                             {isVideoUrl(imgUrl) ? (
                                                 <video src={resolveMediaURL(imgUrl)} autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             ) : (
-                                                <img 
-                                                    src={resolveMediaURL(imgUrl)} 
-                                                    alt={item.title} 
+                                                <img
+                                                    src={resolveMediaURL(imgUrl)}
+                                                    alt={item.title}
                                                     loading="lazy"
                                                     decoding="async"
-                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }}
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: imgObjectPosition, transition: 'transform 0.8s ease' }}
                                                     className="service-card-img"
                                                 />
                                             )}

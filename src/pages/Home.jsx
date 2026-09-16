@@ -114,7 +114,6 @@ const Home = () => {
     const heroImages = useMemo(() => [
         { id: 101, image: "/uploads/couple/4.jpg", alt: "Wedding Celebration 1" },
         { id: 102, image: "/uploads/couple/DSC00266.jpg", alt: "Wedding Celebration 2" },
-        { id: 103, image: "/uploads/couple/DSC05970.jpg", alt: "Wedding Celebration 3" },
         { id: 104, image: "/uploads/couple/AMU09994.jpg", alt: "Wedding Celebration 4" },
         { id: 105, image: "/uploads/couple/0218.jpg", alt: "Wedding Celebration 5" },
         { id: 2, image: "/uploads/couple/VYBE3661.jpg", alt: "Wedding Celebration 6" },
