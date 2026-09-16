@@ -674,35 +674,7 @@ const initialContent = {
         pageBannerTitle: "Journal",
         sectionLabel: "Curated Pieces",
         sectionTitle: "Latest Writing",
-        journalsList: [
-            {
-                id: 101,
-                title: "Choosing the Perfect Backwater Venue in Kerala",
-                date: "February 12, 2026",
-                excerpt: "Discover our curated list of the most stunning luxury resorts for your destination backwater wedding.",
-                image: "https://jaredplatt.com/wp-content/uploads/2018/08/00431-20160418-181130-scaled.jpg",
-                author: "By Parinay",
-                content: "When it comes to destination weddings in Kerala... "
-            },
-            {
-                id: 102,
-                title: "Floral Trends for 2026: Sustainable Elegance",
-                date: "January 28, 2026",
-                excerpt: "From locally sourced blooms to artisanal floral installations... ",
-                image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
-                author: "By Sarah Thomas",
-                content: "Sustainability is no longer just a buzzword... "
-            },
-            {
-                id: 103,
-                title: "The Art of Managing a Luxury Wedding Budget",
-                date: "January 15, 2026",
-                excerpt: "Expert advice on where to invest and how to prioritise... ",
-                image: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80",
-                author: "By Rahul Nair",
-                content: "Planning a luxury wedding isn't just about spending... "
-            }
-        ],
+        journalsList: fallbackData.journals?.journalsList || [],
         guideLabel: "EXCLUSIVE ACCESS",
         guideTitle: "Download Our Complete Guide",
         guideDesc: "Get access to our 'Kerala Destination Wedding Checklist' and venue comparison guide. A must-have for every couple planning from afar.",
@@ -730,17 +702,17 @@ const initialContent = {
         logoHeight: "auto",
         nav1Label: "Home",
         nav1Url: "/",
-        nav2Label: "About",
+        nav2Label: "Our Story",
         nav2Url: "/about",
         nav3Label: "Services",
         nav3Url: "/services",
-        nav4Label: "Gallery",
+        nav4Label: "Our Portfolio",
         nav4Url: "/stories",
         nav4Sub1Label: "Destination Weddings",
         nav4Sub1Url: "/destination-weddings",
         nav5Label: "Journals",
         nav5Url: "/journals",
-        nav6Label: "Contact",
+        nav6Label: "Contact Us",
         nav6Url: "/contact"
     },
     footer: {
@@ -765,6 +737,13 @@ const initialContent = {
     }
 };
 
+const mergeFallbackContent = (base) => {
+    if (!fallbackData || typeof fallbackData !== 'object') return base;
+    return Object.keys(base).reduce((acc, section) => {
+        acc[section] = { ...(base[section] || {}), ...(fallbackData[section] || {}) };
+        return acc;
+    }, { ...base });
+};
 
 const loadFromDB = async () => {
     try {
@@ -804,7 +783,7 @@ const saveToDB = async (data) => {
 };
 
 export const ContentProvider = ({ children }) => {
-    const [content, setContent] = useState(initialContent);
+    const [content, setContent] = useState(() => mergeFallbackContent(initialContent));
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
@@ -843,6 +822,9 @@ export const ContentProvider = ({ children }) => {
                 }
                 if (fallbackData.journals?.journalsList) {
                     merged.journals = { ...merged.journals, journalsList: fallbackData.journals.journalsList };
+                }
+                if (fallbackData.header) {
+                    merged.header = { ...merged.header, ...fallbackData.header };
                 }
 
                 setContent(merged);

@@ -153,7 +153,7 @@ const Home = () => {
 
 
     // --- Journals Hardcoded Logic ---
-    const journalsList = content.journals?.journalsList || [];
+    const journalsList = (content.journals?.journalsList || []).slice(0, 3);
 
 
     // --- Portfolio Auto-slide Logic ---
