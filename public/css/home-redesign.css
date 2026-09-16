@@ -725,7 +725,9 @@ section.pw-hero .pw-hero__floating-img {
     display: block;
 }
 
-.pw-services__card:hover .pw-services__card-img {
+/* Videos are excluded from the hover zoom: scaling a playing <video> with a
+   CSS transform makes the decoded frame visibly judder/shiver. Only images zoom. */
+.pw-services__card:hover .pw-services__card-img:not(video) {
     transform: scale(1.1);
 }
 

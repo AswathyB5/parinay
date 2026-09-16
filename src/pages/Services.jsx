@@ -205,15 +205,15 @@ const Services = () => {
                         <div className="comprehensive-grid">
                             {services.comprehensiveList.map((item, idx) => {
                                 const placeholderImages = [
-                                    "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800", // Strategy
-                                    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=800", // Venue
-                                    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800", // Design
-                                    "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&q=80&w=800", // Vendor
-                                    "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=80&w=800", // Guest
-                                    "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800", // Event Production
-                                    "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800", // Entertainment
-                                    "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80", // Styling
-                                    "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80"  // Day Coordination
+                                    "/uploads/couple/DSC04817.jpg", // Strategy
+                                    "/uploads/venue/DJI_0700.jpg", // Venue
+                                    "/uploads/venue/OSW08657 copy.jpg", // Design
+                                    "/uploads/venue/PRS08307.jpg", // Vendor
+                                    "/uploads/couple/DSC05803.jpg", // Guest
+                                    "/uploads/venue/7.jpg", // Event Production
+                                    "/uploads/venue/ATHU9588 copy.jpg", // Entertainment
+                                    "/uploads/couple/_JKN8435.jpg", // Styling
+                                    "/uploads/couple/OSW09146 copy.jpg"  // Day Coordination
                                 ];
                                 const imgUrl = item.image || placeholderImages[idx] || placeholderImages[0];
                                 
@@ -227,6 +227,8 @@ const Services = () => {
                                                 <img 
                                                     src={resolveMediaURL(imgUrl)} 
                                                     alt={item.title} 
+                                                    loading="lazy"
+                                                    decoding="async"
                                                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }}
                                                     className="service-card-img"
                                                 />
@@ -355,7 +357,7 @@ const Services = () => {
                             <div style={{ 
                                 width: '100%', 
                                 height: '100%', 
-                                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')}')`,
+                                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${resolveMediaURL(services.ctaImage || '/uploads/couple/0170.jpg')}')`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}></div>

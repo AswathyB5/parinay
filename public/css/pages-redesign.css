@@ -750,7 +750,15 @@
     filter: none;
 }
 
-.wsl-item:hover .wsl-item__thumb {
+.wsl-item__thumb:not(video) {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Videos are excluded from the hover zoom: scaling a playing <video> with a
+   CSS transform makes the decoded frame visibly judder/shiver. Only images zoom. */
+.wsl-item:hover .wsl-item__thumb:not(video) {
     transform: scale(1.04);
 }
 
@@ -975,7 +983,15 @@
     filter: none;
 }
 
-.wsl-item:hover .wsl-item__thumb {
+.wsl-item__thumb:not(video) {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Videos are excluded from the hover zoom: scaling a playing <video> with a
+   CSS transform makes the decoded frame visibly judder/shiver. Only images zoom. */
+.wsl-item:hover .wsl-item__thumb:not(video) {
     transform: scale(1.04);
 }
 

@@ -9,7 +9,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "optimize:gallery": "node scripts/optimize-gallery.mjs"
+    "optimize:gallery": "node scripts/optimize-gallery.mjs",
+    "optimize:couple": "node scripts/optimize-couple.mjs",
+    "optimize:venue": "node scripts/optimize-venue.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

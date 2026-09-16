@@ -168,7 +168,16 @@ app.post('/api/upload', requireAdminMiddleware, upload.single('file'), (req, res
 /* ── Get Content ───────────────────────────────── */
 app.get('/api/content', async (_req, res) => {
     if (mongoose.connection.readyState !== 1) {
-        return res.status(503).json({ error: 'Database not connected. Please check your MongoDB server.' });
+        try {
+            const fallbackPath = path.join(__dirname, 'src', 'data', 'site-content.json');
+            if (fs.existsSync(fallbackPath)) {
+                const data = JSON.parse(fs.readFileSync(fallbackPath, 'utf8'));
+                return res.json(data);
+            }
+        } catch (e) {
+            console.warn('[GET /api/content] Fallback read failed:', e.message);
+        }
+        return res.json(null);
     }
     try {
         // Always return the most recently saved document
@@ -179,6 +188,13 @@ app.get('/api/content', async (_req, res) => {
         return res.json(null);
     } catch (err) {
         console.error('[GET /api/content]', err.message);
+        try {
+            const fallbackPath = path.join(__dirname, 'src', 'data', 'site-content.json');
+            if (fs.existsSync(fallbackPath)) {
+                const data = JSON.parse(fs.readFileSync(fallbackPath, 'utf8'));
+                return res.json(data);
+            }
+        } catch (e) {}
         res.status(500).json({ error: 'Failed to load content.' });
     }
 });

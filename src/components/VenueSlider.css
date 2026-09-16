@@ -1,0 +1,447 @@
+/* ══════════════════════════════════════════════════════════════════════
+   MODERN 3-SLIDE CENTERED VENUE CAROUSEL
+   ══════════════════════════════════════════════════════════════════════ */
+
+.venue-slider-section {
+    position: relative;
+    padding: 110px 0 120px;
+    background: linear-gradient(180deg, #ffffff 0%, #faf8f5 50%, #f6f1ea 100%);
+    border-top: 1px solid rgba(197, 160, 89, 0.2);
+    border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+    overflow: hidden;
+}
+
+.venue-slider-container {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+@media (max-width: 768px) {
+    .venue-slider-container {
+        padding: 0 20px;
+    }
+}
+
+/* Header & Controls */
+.venue-slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 50px;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.venue-slider-heading-wrap {
+    max-width: 680px;
+}
+
+.venue-slider-tag {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--accent-color, #c5a059);
+    margin-bottom: 12px;
+}
+
+.venue-slider-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    color: var(--primary-color, #3a1219);
+    line-height: 1.2;
+    margin: 0 0 16px;
+    font-weight: 400;
+}
+
+.venue-slider-title span {
+    font-style: italic;
+    color: var(--accent-color, #c5a059);
+}
+
+.venue-slider-desc {
+    font-size: 1.05rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Controls */
+.venue-slider-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.venue-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    color: var(--primary-color, #3a1219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.venue-nav-btn:hover {
+    background: var(--accent-color, #c5a059);
+    color: #ffffff;
+    border-color: var(--accent-color, #c5a059);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(197, 160, 89, 0.3);
+}
+
+.venue-play-pause-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(197, 160, 89, 0.35);
+    color: var(--primary-color, #3a1219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.venue-play-pause-btn:hover {
+    background: #fbf8f2;
+    border-color: var(--accent-color, #c5a059);
+}
+
+.venue-counter-pill {
+    padding: 8px 18px;
+    background: #ffffff;
+    border: 1px solid rgba(197, 160, 89, 0.25);
+    border-radius: 30px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--primary-color, #3a1219);
+    letter-spacing: 0.05em;
+}
+
+/* ─── 3-SLIDE STAGE CONTAINER ─────────────────────────────────────────── */
+.venue-stage-wrap {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    margin: 20px 0 35px;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+@media (max-width: 1024px) {
+    .venue-stage-wrap {
+        height: 440px;
+    }
+}
+
+@media (max-width: 768px) {
+    .venue-stage-wrap {
+        height: 360px;
+    }
+}
+
+@media (max-width: 480px) {
+    .venue-stage-wrap {
+        height: 280px;
+    }
+}
+
+/* Each Slide in Stage */
+.venue-slide-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    height: 380px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #151515;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.65s ease,
+                filter 0.65s ease,
+                box-shadow 0.65s ease;
+    will-change: transform, opacity;
+}
+
+@media (max-width: 1280px) {
+    .venue-slide-card {
+        width: 360px;
+        height: 330px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .venue-slide-card {
+        width: 300px;
+        height: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .venue-slide-card {
+        width: 240px;
+        height: 230px;
+    }
+}
+
+@media (max-width: 480px) {
+    .venue-slide-card {
+        width: 180px;
+        height: 180px;
+        border-radius: 14px;
+    }
+}
+
+/* 3-Slide Positions */
+/* Center Active Slide — Enlarge and Spotlight */
+.venue-slide-card.is-center {
+    z-index: 20;
+    opacity: 1;
+    filter: brightness(1);
+    box-shadow: 0 32px 70px rgba(58, 18, 25, 0.28), 0 0 0 2.5px rgba(197, 160, 89, 0.7);
+}
+
+.venue-slide-card.is-center:hover {
+    box-shadow: 0 38px 80px rgba(58, 18, 25, 0.36), 0 0 0 3px rgba(197, 160, 89, 0.9);
+}
+
+/* Side Slides (Left & Right) - Smaller and Nicely Dimmed */
+.venue-slide-card.is-left,
+.venue-slide-card.is-right {
+    z-index: 10;
+    opacity: 0.65;
+    filter: brightness(0.8);
+    cursor: pointer;
+}
+
+.venue-slide-card.is-left:hover,
+.venue-slide-card.is-right:hover {
+    opacity: 0.92 !important;
+    filter: brightness(0.95) !important;
+}
+
+.venue-slide-card.is-left:hover .venue-slide-img,
+.venue-slide-card.is-right:hover .venue-slide-img {
+    transform: scale(1.04);
+}
+
+/* Out of View Slides */
+.venue-slide-card.is-hidden {
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Image styling */
+.venue-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.venue-slide-card.is-center:hover .venue-slide-img {
+    transform: scale(1.06);
+}
+
+/* Direct Side Arrows on the Stage */
+.venue-stage-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    color: var(--primary-color, #3a1219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 30;
+}
+
+.venue-stage-arrow:hover {
+    background: var(--accent-color, #c5a059);
+    color: #ffffff;
+    border-color: var(--accent-color, #c5a059);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.venue-stage-arrow.prev {
+    left: 20px;
+}
+
+.venue-stage-arrow.next {
+    right: 20px;
+}
+
+@media (max-width: 768px) {
+    .venue-stage-arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 0.85rem;
+    }
+    .venue-stage-arrow.prev {
+        left: 8px;
+    }
+    .venue-stage-arrow.next {
+        right: 8px;
+    }
+}
+
+/* Bottom Progress Track */
+.venue-progress-bar-wrap {
+    max-width: 600px;
+    height: 4px;
+    background: rgba(197, 160, 89, 0.18);
+    border-radius: 2px;
+    margin: 20px auto 0;
+    overflow: hidden;
+}
+
+.venue-progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3a1219 0%, #c5a059 50%, #3a1219 100%);
+    border-radius: 2px;
+    transition: width 0.35s ease-out;
+}
+
+/* Lightbox overlay for Venue Images */
+.venue-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 4, 6, 0.96);
+    backdrop-filter: blur(16px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: venueFadeIn 0.3s ease;
+}
+
+@keyframes venueFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.venue-lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 35px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.venue-lightbox-close:hover {
+    background: var(--accent-color, #c5a059);
+    border-color: var(--accent-color, #c5a059);
+    transform: rotate(90deg);
+}
+
+.venue-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.venue-lightbox-nav:hover {
+    background: var(--accent-color, #c5a059);
+    border-color: var(--accent-color, #c5a059);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.venue-lightbox-nav.prev {
+    left: 30px;
+}
+
+.venue-lightbox-nav.next {
+    right: 30px;
+}
+
+.venue-lightbox-content {
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.venue-lightbox-img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.venue-lightbox-caption {
+    margin-top: 20px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.venue-lightbox-caption h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 0 0 6px;
+    font-weight: 400;
+    color: var(--accent-color, #c5a059);
+}
+
+.venue-lightbox-caption p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}

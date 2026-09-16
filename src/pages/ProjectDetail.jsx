@@ -213,7 +213,7 @@ const ProjectDetail = () => {
             <section className="pd-final-cta section-padding reveal">
                 {/* Fixed Background Layer */}
                 <div className="pd-final-cta__bg" style={{
-                    backgroundImage: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')})`
+                    backgroundImage: `url(${resolveMediaURL('/uploads/couple/ANS07477.jpg')})`
                 }}></div>
 
                 {/* Dark Overlay Layer */}

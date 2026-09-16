@@ -394,10 +394,10 @@ const Stories = ({ sectionKey = "storiesDestination" }) => {
                         backgroundImage: `url(${resolveMediaURL(
                             stories.ctaBgImage || 
                             (sectionKey === "storiesTraditional" 
-                                ? "/uploads/upload_1774345251045_4601.jpg" 
+                                ? "/uploads/couple/0218.jpg" 
                                 : sectionKey === "storiesThemed" 
-                                    ? "/uploads/upload_1775901602741_5362.webp" 
-                                    : "/uploads/upload_1778474854663_2232.jpg")
+                                    ? "/uploads/couple/DSC04956 copy.jpg" 
+                                    : "/uploads/couple/AMU02538.jpg")
                         )})`
                     }}
                 ></div>

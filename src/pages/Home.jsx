@@ -112,10 +112,15 @@ const Home = () => {
     // --- Hero Floating Image Slideshow Logic ---
     const [currentHeroImg, setCurrentHeroImg] = useState(0);
     const heroImages = useMemo(() => [
-        { id: 2, image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", alt: "Wedding Celebration 2" },
-        { id: 3, image: "https://i.pinimg.com/736x/d9/16/2a/d9162aded7c5c2347216669d559b265b.jpg", alt: "Wedding Celebration 3" },
-        { id: 4, image: "https://img.freepik.com/premium-photo/bride-groom-pose-front-window-dark-room_444642-4894.jpg", alt: "Wedding Celebration 4" },
-        { id: 1776150815650, image: "/uploads/upload_1776150824610_4382.jpg", alt: "Wedding" }
+        { id: 101, image: "/uploads/couple/4.jpg", alt: "Wedding Celebration 1" },
+        { id: 102, image: "/uploads/couple/DSC00266.jpg", alt: "Wedding Celebration 2" },
+        { id: 103, image: "/uploads/couple/DSC05970.jpg", alt: "Wedding Celebration 3" },
+        { id: 104, image: "/uploads/couple/AMU09994.jpg", alt: "Wedding Celebration 4" },
+        { id: 105, image: "/uploads/couple/0218.jpg", alt: "Wedding Celebration 5" },
+        { id: 2, image: "/uploads/couple/VYBE3661.jpg", alt: "Wedding Celebration 6" },
+        { id: 3, image: "/uploads/couple/J_J00333 copy.jpg", alt: "Wedding Celebration 7" },
+        { id: 4, image: "/uploads/couple/0K6A1598.jpg", alt: "Wedding Celebration 8" },
+        { id: 1776150815650, image: "/uploads/couple/0224.jpg", alt: "Wedding Celebration 9" }
     ], []);
 
     useEffect(() => {
@@ -382,6 +387,9 @@ const Home = () => {
                             src={resolveMediaURL(img.image)}
                             alt={img.alt || `Wedding Celebration ${index + 1}`}
                             className={`pw-hero__slider-img ${currentHeroImg === index ? 'is-active' : ''}`}
+                            loading={index === 0 ? "eager" : "lazy"}
+                            decoding="async"
+                            fetchPriority={index === 0 ? "high" : "low"}
                         />
                     ))}
                 </div>
@@ -474,7 +482,7 @@ const Home = () => {
                                     {isVideoUrl(s.image) ? (
                                         <video key={resolveMediaURL(s.image)} src={resolveMediaURL(s.image)} autoPlay muted loop playsInline />
                                     ) : (
-                                        <img src={resolveMediaURL(s.image)} alt={s.title} />
+                                        <img src={resolveMediaURL(s.image)} alt={s.title} loading="lazy" decoding="async" />
                                     )}
                                 </div>
                                 <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '8px', fontFamily: 'Playfair Display, serif' }}>
@@ -544,14 +552,18 @@ const Home = () => {
 
                         <div className="pw-destination__images reveal">
                             <img
-                                src={resolveMediaURL('https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg')}
+                                src={resolveMediaURL(home.destinationImage1 || '/uploads/couple/p (26).jpg')}
                                 alt="Kerala Destination Wedding"
                                 className="pw-destination__img-main"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <img
-                                src={resolveMediaURL('https://cdn.prod.website-files.com/62229207eeaf5c1ed4bd2d73/667bdc77569043f1671bb5a0_Evyssa%20Vacations%20-%20Wedding%20Destination%20Guide.webp')}
+                                src={resolveMediaURL(home.destinationImage2 || '/uploads/couple/OSW08599 copy.jpg')}
                                 alt="Sunset Wedding"
                                 className="pw-destination__img-sub"
+                                loading="lazy"
+                                decoding="async"
                             />
                         </div>
                     </div>
@@ -701,7 +713,7 @@ const Home = () => {
                                         <div className="video-frame">
                                             {home.youtubeEmbedUrl ? (
                                                 <iframe width="560" height="315"
-                                                    src="https://www.youtube.com/embed/s4dWp9_nNYk"
+                                                    src={getYoutubeEmbedUrl(home.youtubeEmbedUrl)}
                                                     title="Featured Video"
                                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                                     referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
@@ -910,7 +922,7 @@ const Home = () => {
             <section className="pw-transition">
                 <div className="pw-transition__video">
                     <video
-                        src={resolveMediaURL('/uploads/1330-147084829_medium.mp4')}
+                        src={resolveMediaURL('/uploads/weddings-videos/destination (2).mp4')}
                         autoPlay muted loop playsInline
                     />
                     <div className="pw-transition__overlay"></div>

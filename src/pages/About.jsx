@@ -59,7 +59,7 @@ const About = () => {
                             )}
                         </div>
                         <div className="about-intro-img reveal">
-                            <img src={resolveMediaURL('uploads/upload_1775897905550_6647.avif')} alt="Who we are" />
+                            <img src={resolveMediaURL('/uploads/couple/ATHU8942 copy.jpg')} alt="Who we are" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ const About = () => {
             {/* ABOUT CONTENT SECTION (What makes us different) */}
             <section className="about-founder-new reveal">
                 <div className="founder-image">
-                    <img src={resolveMediaURL('https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80')} alt="About Parinay" />
+                    <img src={resolveMediaURL(about.differentiatorImage || '/uploads/couple/VYBE6042.jpg')} alt="About Parinay" loading="lazy" decoding="async" />
                 </div>
                 <div className="founder-content">
                     <span className="section-label">{about.differentiatorLabel}</span>
@@ -171,7 +171,7 @@ const About = () => {
                     <video
                         autoPlay loop muted playsInline
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        src={resolveMediaURL('/uploads/about-video.mp4')}
+                        src={resolveMediaURL('/uploads/weddings-videos/destination.mp4')}
                     />
                     <div className="cta-video-overlay" style={{
                         position: 'absolute',

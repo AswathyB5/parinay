@@ -158,10 +158,15 @@ const initialContent = {
             { id: 1, video: "uploads/Untitled design.mp4" }
         ],
         heroImages: [
-
-            { id: 2, image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", alt: "Wedding Celebration 2" },
-            { id: 3, image: "https://i.pinimg.com/736x/d9/16/2a/d9162aded7c5c2347216669d559b265b.jpg", alt: "Wedding Celebration 3" },
-            { id: 4, image: "https://img.freepik.com/premium-photo/bride-groom-pose-front-window-dark-room_444642-4894.jpg", alt: "Wedding Celebration 4" }
+            { id: 101, image: "/uploads/couple/4.jpg", alt: "Wedding Celebration 1" },
+            { id: 102, image: "/uploads/couple/DSC00266.jpg", alt: "Wedding Celebration 2" },
+            { id: 103, image: "/uploads/couple/DSC05970.jpg", alt: "Wedding Celebration 3" },
+            { id: 104, image: "/uploads/couple/AMU09994.jpg", alt: "Wedding Celebration 4" },
+            { id: 105, image: "/uploads/couple/0218.jpg", alt: "Wedding Celebration 5" },
+            { id: 2, image: "/uploads/couple/VYBE3661.jpg", alt: "Wedding Celebration 6" },
+            { id: 3, image: "/uploads/couple/J_J00333 copy.jpg", alt: "Wedding Celebration 7" },
+            { id: 4, image: "/uploads/couple/0K6A1598.jpg", alt: "Wedding Celebration 8" },
+            { id: 1776150815650, image: "/uploads/couple/0224.jpg", alt: "Wedding Celebration 9" }
         ],
         introHeading: "Kerala's Bespoke Destination Wedding Specialists",
         introSubText: "Parinay Weddings is a Trivandrum-based destination wedding planning company with over 8 years of experience planning weddings across Kerala, Munnar, Alleppey, Kovalam, Kumarakom, Kochi, and across South India including Goa, Tamil Nadu, and Karnataka.\n\nWe are not a template-driven company. Every wedding we plan is built from scratch around the couple, their story, their culture, their aesthetic. From intimate 50-guest celebrations to multi-day luxury weddings, we take complete ownership of every detail so you don't have to.",
@@ -174,10 +179,10 @@ const initialContent = {
         servicesHeading: "Complete Destination Wedding Management, From First Call to Final Dance",
         servicesIntroText: "We manage every element of your wedding, so you experience only the joy of it.",
         homeServices: [
-            { id: 1, image: "https://i.pinimg.com/736x/dd/3b/f1/dd3bf1a9b863e7fac61532e7f7e52bfc.jpg", title: "Venue Sourcing & Coordination", desc: "We identify and secure the right venue for your vision, backwater resorts, heritage properties, beach venues, tea estate bungalows, and luxury hotels across South India." },
-            { id: 2, image: "https://i.pinimg.com/474x/fd/61/84/fd61841efb1466054aab3424f076cb98.jpg", title: "Custom Wedding Design & Décor", desc: "Every aesthetic decision, floral, lighting, stage, table settings, is designed specifically for you. No stock setups." },
-            { id: 3, image: "https://i.pinimg.com/736x/ce/f9/2c/cef92c351444a9eaf9623098cd44d70f.jpg", title: "Guest Management & Hospitality", desc: "Seamless logistics for your guests, including travel coordination, accommodation, and on-ground hospitality." },
-            { id: 4, image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80", title: "On-Ground Execution", desc: "Our team is present every moment of your wedding day, managing timelines, vendors, and logistics invisibly behind the scenes." }
+            { id: 1, image: "/uploads/couple/OSW09187 copy.jpg", title: "Venue Sourcing & Coordination", desc: "We identify and secure the right venue for your vision, backwater resorts, heritage properties, beach venues, tea estate bungalows, and luxury hotels across South India." },
+            { id: 2, image: "/uploads/couple/DSC07167 copy.jpg", title: "Custom Wedding Design & Décor", desc: "Every aesthetic decision, floral, lighting, stage, table settings, is designed specifically for you. No stock setups." },
+            { id: 3, image: "/uploads/couple/0297.jpg", title: "Guest Management & Hospitality", desc: "Seamless logistics for your guests, including travel coordination, accommodation, and on-ground hospitality." },
+            { id: 4, image: "/uploads/couple/JK_02482 copy.jpg", title: "On-Ground Execution", desc: "Our team is present every moment of your wedding day, managing timelines, vendors, and logistics invisibly behind the scenes." }
         ],
         servicesFooterText: "You enjoy every moment.\nWe handle everything else.",
         destinationLabel: "Destination Weddings Section",
@@ -187,28 +192,28 @@ const initialContent = {
         destinationBody3: "Locations we plan weddings in: Kerala (Alleppey | Munnar | Kovalam | Kumarakom | Trivandrum | Wayanad | Kochi) | Goa | Nagercoil | Chennai | and more across South India.",
         destinationBtnText: "Explore Destination Weddings →",
         destinationBtnUrl: "/destination-weddings",
-        destinationImage1: "https://greenweddingshoes.com/wp-content/uploads/2020/02/desertboho-styled-09.jpg",
-        destinationImage2: "https://cdn.prod.website-files.com/62229207eeaf5c1ed4bd2d73/667bdc77569043f1671bb5a0_Evyssa%20Vacations%20-%20Wedding%20Destination%20Guide.webp",
+        destinationImage1: "/uploads/couple/p (26).jpg",
+        destinationImage2: "/uploads/couple/OSW08599 copy.jpg",
         portfolioLabel: "Wedding Stories ",
         portfolioHeading: "Our Wedding Portfolio - Couples Across[[ Kerala & South India]]",
         portfolioBody: "Each wedding in our portfolio tells a different story. A different family, a different culture, a different idea of beauty.",
         portfolioItems: [
-            { id: 1, title: "Tropical Paradise", date: "January 2024", location: "Kerala", overview: "A tropical paradise wedding in the heart of Kerala. We focused on the candid emotional exchanges that define the essence of a wedding.", video: "", galleryImages: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80", result: "A flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80" },
-            { id: 2, title: "Backwater Magic", date: "November 2023", location: "Kumarakom", overview: "Magical backwater wedding in Kumarakom. This project was a meticulous exploration of heritage and modern luxury.", video: "", galleryImages: "", result: "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg" },
-            { id: 3, title: "Mist & Mountains", date: "December 2023", location: "Munnar", overview: "A wedding in the mist-filled hills of Munnar. Every element was planned with absolute directorial clarity.", video: "", galleryImages: "", result: "A timeless legacy preserved in every frame and every moment of the day.", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" },
-            { id: 4, title: "Timeless Romance", date: "October 2023", location: "Udaipur", overview: "Timeless romance at the lakes of Udaipur. We sought to capture the 'soul' of the union.", video: "", galleryImages: "", result: "A royal and romantic celebration that exceeded all expectations.", image: "https://briannakirkphotography.com/wp-content/uploads/2023/03/Ana-and-Jonah-Forden-Wedding-8.20.21-Cover-Pic-BKIRK-1-1.jpg" },
-            { id: 5, title: "Sunset Vows", date: "January 2024", location: "Goa", overview: "Sunset vows on the shores of Goa. A dreamy beach-themed celebration with golden hues.", video: "", galleryImages: "", result: "A beautiful shoreline victory for the couple.", image: "https://i.pinimg.com/236x/e7/03/e5/e703e5e43a036a403e3d46bbfb02577e.jpg" },
-            { id: 6, title: "Floral Elegance", date: "February 2024", location: "Jaipur", overview: "Floral elegance in the Pink City. A whimsical garden oasis transformed into a royal celebration.", video: "", galleryImages: "", result: "The final outcome was a stunningly beautiful celebration of love and culture.", image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80" }
+            { id: 1, title: "Tropical Paradise", date: "January 2024", location: "Kerala", overview: "A tropical paradise wedding in the heart of Kerala. We focused on the candid emotional exchanges that define the essence of a wedding.", video: "", galleryImages: "", result: "A flawlessly executed celebration that perfectly captured the couple's vision.", image: "/uploads/couple/0227.jpg" },
+            { id: 2, title: "Backwater Magic", date: "November 2023", location: "Kumarakom", overview: "Magical backwater wedding in Kumarakom. This project was a meticulous exploration of heritage and modern luxury.", video: "", galleryImages: "", result: "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision.", image: "/uploads/couple/0225.jpg" },
+            { id: 3, title: "Mist & Mountains", date: "December 2023", location: "Munnar", overview: "A wedding in the mist-filled hills of Munnar. Every element was planned with absolute directorial clarity.", video: "", galleryImages: "", result: "A timeless legacy preserved in every frame and every moment of the day.", image: "/uploads/couple/DSC05116.jpg" },
+            { id: 4, title: "Timeless Romance", date: "October 2023", location: "Udaipur", overview: "Timeless romance at the lakes of Udaipur. We sought to capture the 'soul' of the union.", video: "", galleryImages: "", result: "A royal and romantic celebration that exceeded all expectations.", image: "/uploads/couple/0K6A1598.jpg" },
+            { id: 5, title: "Sunset Vows", date: "January 2024", location: "Goa", overview: "Sunset vows on the shores of Goa. A dreamy beach-themed celebration with golden hues.", video: "", galleryImages: "", result: "A beautiful shoreline victory for the couple.", image: "/uploads/couple/DSC09190.jpg" },
+            { id: 6, title: "Floral Elegance", date: "February 2024", location: "Jaipur", overview: "Floral elegance in the Pink City. A whimsical garden oasis transformed into a royal celebration.", video: "", galleryImages: "", result: "The final outcome was a stunningly beautiful celebration of love and culture.", image: "/uploads/couple/J_J00333 copy.jpg" }
         ],
         portfolioViewAllText: "View All Wedding Stories →",
         portfolioViewAllUrl: "/stories",
         testimonialLabel: "Testimonials",
         testimonials: [
-            { id: 1, text: "To make this unique vision a reality, we did extensive online research before meeting Ambadi from Parinay Weddings. From our very first interaction, we felt a deep sense of confidence and reassurance that we were in the right hands. Every detail was thoughtfully planned, keeping in mind the sentiments, traditions, and expectations of two new families coming together.", author: "Priya Anil", location: "Kerala", image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=400&q=80" },
-            { id: 2, text: "A big thanks to Parinay Weddings & Events for their outstanding efforts in managing our son’s wedding reception, held at Trivandrum. The planning, execution, and attention to detail were exceptional. Truly professional and dependable_ highly recommended", author: "Nila & Nikhil", location: "Trivandrum", image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=400&q=80" },
-            { id: 3, text: "Madona and her team made our wedding magical at The Leela Ashtamudi. Everything was well organised and perfectly executed. The decoration team grasped my expectation and customised the designs.", author: "Shivananthitha & Sorna", location: "Kollam", image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=400&q=80" },
-            { id: 4, text: "We recently worked with Parinay and team to style our wedding. Right from the start Parinay and team was friendly,approachable and understood the concept we wanted to achieve. To be honest they helped us create our dream wedding. ", author: "Ruchitha & Anand", location: "Kerala", image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=400&q=80" },
-            { id: 5, text: "The moment I walked in, I knew I had to go find the Parinay Weddings team and theank them right away. It was THAT beautiful! I know I was a pain sometimes, but you handled everything so professionally and delivered every little thing I asked for.", author: "Krishna & Krishna", location: "Kerala", image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=400&q=80" }
+            { id: 1, text: "To make this unique vision a reality, we did extensive online research before meeting Ambadi from Parinay Weddings. From our very first interaction, we felt a deep sense of confidence and reassurance that we were in the right hands. Every detail was thoughtfully planned, keeping in mind the sentiments, traditions, and expectations of two new families coming together.", author: "Priya Anil", location: "Kerala", image: "/uploads/couple/DSC02859.jpg" },
+            { id: 2, text: "A big thanks to Parinay Weddings & Events for their outstanding efforts in managing our son's wedding reception, held at Trivandrum. The planning, execution, and attention to detail were exceptional. Truly professional and dependable_ highly recommended", author: "Nila & Nikhil", location: "Trivandrum", image: "/uploads/couple/DSC04034.jpg" },
+            { id: 3, text: "Madona and her team made our wedding magical at The Leela Ashtamudi. Everything was well organised and perfectly executed. The decoration team grasped my expectation and customised the designs.", author: "Shivananthitha & Sorna", location: "Kollam", image: "/uploads/couple/0208.jpg" },
+            { id: 4, text: "We recently worked with Parinay and team to style our wedding. Right from the start Parinay and team was friendly,approachable and understood the concept we wanted to achieve. To be honest they helped us create our dream wedding. ", author: "Ruchitha & Anand", location: "Kerala", image: "/uploads/couple/AMU09869.jpg" },
+            { id: 5, text: "The moment I walked in, I knew I had to go find the Parinay Weddings team and theank them right away. It was THAT beautiful! I know I was a pain sometimes, but you handled everything so professionally and delivered every little thing I asked for.", author: "Krishna & Krishna", location: "Kerala", image: "/uploads/couple/AMU09994.jpg" }
         ],
         transitionHeading: "Planning a Destination Wedding in Kerala or South India?",
         transitionSubtext: "We manage the complexity. You experience the celebration.",
@@ -222,12 +227,12 @@ const initialContent = {
         youtubeBtnText: "Watch Our Wedding Films →",
         youtubeBtnUrl: "https://www.youtube.com/@parinayweddings",
         youtubeVideos: [
-            { id: 1, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-            { id: 2, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-            { id: 3, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-            { id: 4, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-            { id: 5, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" },
-            { id: 6, url: "https://www.youtube.com/embed/s4dWp9_nNYk?si=QtQgHS5LEJmt8atS" }
+            { id: 1, url: "https://youtu.be/s-txAiSV_cY?si=7aV_qhgU9592OcMR" },
+            { id: 2, url: "https://youtu.be/z8CWALdpvgY?si=e9Y-iA947KXWH53N" },
+            { id: 3, url: "https://youtu.be/VBvabK-6Its?si=hv3jRlUUaKX0eoco" },
+            { id: 4, url: "https://youtu.be/T0xHHMtB780?si=UxJ2d7OskOig_Ogo" },
+            { id: 5, url: "https://youtu.be/w4fQUESjCDw?si=LytIUaNuHo3dCTHW" },
+            { id: 6, url: "https://youtu.be/xqG-Zz15Tzw?si=yVXSGsFEjtZYlQHU" }
         ],
         formLabel: "Contact / Consultation Form",
         formHeading: "Schedule a Personalised Wedding Consultation",
@@ -236,7 +241,7 @@ const initialContent = {
         ctaBtnUrl: "/contact",
         journalNote: "",
         testimonialHeading: "What Our Couples, [[Have to Say]]",
-        youtubeEmbedUrl: "https://www.youtube.com/watch?v=s4dWp9_nNYk",
+        youtubeEmbedUrl: "https://youtu.be/s-txAiSV_cY?si=7aV_qhgU9592OcMR",
         achievements: [
             { id: 1, number: "500+", label: "Happy Couples" },
             { id: 2, number: "4.8/5", label: "Google Rating" },
@@ -251,11 +256,11 @@ const initialContent = {
         introLabel: "ABOUT US",
         introHeading: "We Plan Destination Weddings That Feel Like You",
         introText: "Parinay Weddings is a destination wedding planning company based in Kerala, with over 8 years of experience planning highly customised weddings across South India.\n\nThe word Parinay, meaning betrothal in Sanskrit, reflects what we believe a wedding truly is: not just a ceremony, but the beginning of a life shared. Every wedding we plan carries that weight.",
-        introImage: "uploads/upload_1775897905550_6647.avif",
+        introImage: "/uploads/couple/ATHU8942 copy.jpg",
         differentiatorLabel: "What Makes Us Different",
         differentiatorHeading: "Most wedding planners offer packages. \n[[We don't. ]]",
         differentiatorText: "Most wedding planners offer packages. We don't.\n\nEvery Parinay wedding is built from the ground up, a completely custom design, a carefully selected venue, and a planning process that begins with understanding who you are as a couple. Whether you're a Kerala couple planning a backwater celebration, an NRI planning your India wedding from abroad, or a family looking for a full multi-day destination event in Munnar or Goa, our approach is the same: deeply personal, meticulously executed.",
-        differentiatorImage: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
+        differentiatorImage: "/uploads/couple/VYBE6042.jpg",
         specialitiesLabel: "What We Specialise In",
         specialitiesSubtext: "We are destination wedding specialists. Our work spans:",
         specialitiesHeading: "Our Specialisations",
@@ -266,16 +271,16 @@ const initialContent = {
             { id: 4, title: "Traditional & Cultural Weddings", desc: "Kerala Hindu, Christian, and Muslim weddings planned with deep respect for ritual and tradition, combined with refined aesthetics." },
             { id: 5, title: "Intimate & Luxury Weddings", desc: "From 30-guest private ceremonies to 3000-guest luxury celebrations, scale never changes our standard of personalisation." }
         ],
-        heroImage: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=1920&q=80",
+        heroImage: "/uploads/couple/OSW09045 copy.jpg",
         heroQuote: "Every couple has a story. Every wedding deserves its own identity.",
         teamLabel: "MEET THE EXPERTS",
         teamHeading: "Our Team",
         teamSubtext: "Behind every Parinay wedding is a dedicated team of planners, coordinators, and creative professionals who work seamlessly together",
         teamMembers: [
-            { id: 1, name: "Sarah Thomas", role: "Founder & Lead Planner", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" },
-            { id: 2, name: "Rahul Nair", role: "Creative Director", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" },
-            { id: 3, name: "Meera Krishna", role: "Logistics Head", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80" },
-            { id: 4, name: "Arjun Menon", role: "Senior Coordinator", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" }
+            { id: 1, name: "Sarah Thomas", role: "Founder & Lead Planner", image: "/uploads/couple/DSC02859.jpg" },
+            { id: 2, name: "Rahul Nair", role: "Creative Director", image: "/uploads/couple/DSC04034.jpg" },
+            { id: 3, name: "Meera Krishna", role: "Logistics Head", image: "/uploads/couple/DSC05803.jpg" },
+            { id: 4, name: "Arjun Menon", role: "Senior Coordinator", image: "/uploads/couple/DSC08712.jpg" }
         ],
         stat1Label: "8+ Years of\nExperience",
         stat2Label: "150+ Weddings\nPlanned",
@@ -354,7 +359,7 @@ const initialContent = {
             }
         ],
         ctaHeading: "Begin Your Journey",
-        ctaImage: "https://static.vecteezy.com/system/resources/previews/036/616/104/large_2x/a-young-wedding-couple-enjoys-romantic-moments-against-the-background-of-a-summer-forest-in-a-park-bride-in-white-wedding-dress-groom-in-white-shirt-waistcoat-and-bow-tie-hug-and-kiss-bride-photo.jpg",
+        ctaImage: "/uploads/couple/0170.jpg",
         ctaDesc: "At Parinay Weddings, we believe luxury lies not just in how a wedding looks, but in how effortlessly it is experienced.\n\nLet us craft a celebration that is timeless, personal, and truly unforgettable.",
         ctaBtnText: "Book a Wedding Consultation",
         ctaBtnUrl: "/contact",
@@ -365,62 +370,62 @@ const initialContent = {
             {
                 id: 1,
                 title: "Wedding Planning & Strategy",
-                image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
+                image: "/uploads/couple/DSC04817.jpg",
                 desc: "We begin every celebration with a deep understanding of your vision, traditions, and expectations. Our team develops a structured planning strategy that includes detailed consultations, budget planning, timelines, and event flow mapping. Every decision is thoughtfully guided to ensure clarity, efficiency, and a stress-free planning journey."
             },
             {
                 id: 2,
                 title: "Destination & Venue Management",
-                image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=800",
+                image: "/uploads/venue/DJI_0700.jpg",
                 desc: "From luxury resorts to heritage venues, we curate exceptional venues that perfectly complement your wedding vision. We handle venue sourcing, bookings, room blocking, and permits with precision. Our expertise as destination wedding planners in South India makes destination weddings smooth and worry-free for couples worldwide."
             },
             {
                 id: 3,
                 title: "Wedding Design & Creative Direction",
-                image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800",
+                image: "/uploads/venue/OSW08657 copy.jpg",
                 desc: "Our luxury wedding planning focus on bespoke theme conceptualisation, refined event styling, and elegant venue layouts that reflect your personality. Every detail, from colour palettes to spatial design, is curated to create a cohesive and visually stunning celebration that is distinctly yours."
             },
             {
                 id: 4,
                 title: "Vendor Sourcing & Management",
-                image: "https://images.unsplash.com/photo-1472653431158-6364773b2a56?auto=format&fit=crop&q=80&w=800",
+                image: "/uploads/venue/PRS08307.jpg",
                 desc: "The right vendors bring your wedding vision to life. As a leading luxury wedding planner in India, we collaborate with top professionals across catering, beauty, photography, and cultural services. We manage everything to ensure quality and consistency."
             },
             {
                 id: 5,
                 title: "Guest Hospitality & Wedding Logistics",
-                image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&q=80&w=800",
+                image: "/uploads/couple/DSC05803.jpg",
                 desc: "Indian weddings are defined by their warmth and hospitality, and we ensure every guest feels cared for. Our wedding planning services in Kerala include guest list management, RSVP tracking, welcome desks, concierge services, and seamless transportation logistics."
             },
             {
                 id: 6,
                 title: "Event Production",
-                image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=800",
+                image: "/uploads/venue/7.jpg",
                 desc: "Our expertise in luxury wedding production brings each celebration to life with precision and scale. From stage construction and advanced sound and lighting to visual production and special effects, every technical element is executed flawlessly. We integrate modern production techniques to enhance the overall experience."
             },
             {
                 id: 7,
                 title: "Entertainment",
-                image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/venue/ATHU9588 copy.jpg",
                 desc: "We curate engaging experiences that elevate every celebration. As an end-to-end destination wedding planner in India, we organise live bands, DJs, celebrity performances, and cultural shows. Each moment is designed to leave a lasting impression."
             },
             {
                 id: 8,
                 title: "Bridal & Groom Styling",
-                image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/_JKN8435.jpg",
                 desc: "From personalised styling consultations and trousseau planning to shopping assistance, hair, and makeup coordination, every detail is handled with care. As part of our luxury wedding planning services, we align your look with the overall wedding aesthetic."
             },
             {
                 id: 9,
                 title: "Wedding Day Coordination",
-                image: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/OSW09146 copy.jpg",
                 desc: "On your wedding day, our team ensures that everything unfolds exactly as planned. As an experienced wedding planner in South India, we manage timelines, guest flow, ritual coordination, and all on-ground operations. We proactively handle any challenges, allowing you and your family to remain fully present in every moment."
             }
         ]
     },
     contact: {
         pageBannerTitle: "Contact",
-        heroImage: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80",
+        heroImage: "/uploads/couple/1.jpg",
         heroTitle: "Let's Start Planning",
         heroTitleEm: "Your Masterpiece",
         heroSubtitle: "Every extraordinary wedding begins with a single conversation. We look forward to hearing your story and vision.",
@@ -458,11 +463,11 @@ const initialContent = {
                 date: "",
                 location: "Kerala Backwaters",
                 badge: "Destination",
-                video: "/uploads/upload_1773132860733_81.mp4",
+                video: "/uploads/weddings-videos/destination-backwater.mp4",
                 overview: "The backwaters of Alleppey and Kumarakom are Kerala's most iconic wedding setting — ceremonies on the banks of Vembanad Lake, receptions on decorated houseboats, and mornings that begin with mist rising off still water.\n\nWe manage backwater destination weddings of all scales — from intimate 30-guest houseboat ceremonies to multi-day celebrations at Kumarakom's luxury lakeside resorts. Venue selection, vendor coordination, guest transfers, and full on-ground execution are all handled by our team.\n\nBest for: Intimate weddings | Romantic two-day celebrations | Traditional Kerala ceremonies | NRI couples wanting an authentic Kerala experience",
                 galleryImages: "",
                 result: "",
-                image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/DSC04817.jpg",
                 desc: "Iconic ceremonies on the banks of Vembanad Lake and decorated houseboat receptions."
             },
             {
@@ -471,11 +476,11 @@ const initialContent = {
                 date: "",
                 location: "Munnar, Kerala",
                 badge: "Destination",
-                video: "/uploads/upload_1773132906231_395.mp4",
+                video: "/uploads/weddings-videos/destination.mp4",
                 overview: "A wedding in Munnar unfolds quietly — against rows of tea estates, cool mountain air, and a landscape that looks painted. Munnar is ideal for couples who want something serene and intimate, away from the heat and noise of the plains.\n\nParinay plans hill station weddings at Munnar's finest private estates and boutique resorts. We manage the unique logistics of a hill destination — guest transport, weather contingency planning, and décor that works with nature rather than against it.\n\nBest for: Intimate weddings | Celebrations with 20–100 guests | Couples who want a cool | quiet | nature-immersed setting",
                 galleryImages: "",
                 result: "",
-                image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/DSC05116.jpg",
                 desc: "Serene tea estate weddings in the cool mountain air of Kerala's finest hill station."
             },
             {
@@ -484,11 +489,11 @@ const initialContent = {
                 date: "",
                 location: "Kovalam & Trivandrum",
                 badge: "Destination",
-                video: "/uploads/upload_1773132909114_925.mp4",
+                video: "/uploads/weddings-videos/destination (2).mp4",
                 overview: "Kovalam's crescent beaches and cliffside resorts make it one of South India's finest beach wedding destinations — ceremony at sunset, sea breeze, and photographs that need no filters.\n\nTrivandrum offers a combination of heritage venues, luxury hotels, and direct proximity to Kovalam and Poovar, making it the most practical and well-connected base for destination weddings in southern Kerala. Couples and guests flying in via Trivandrum International Airport land minutes from some of Kerala's most beautiful wedding venues.\n\nBest for: Beach ceremonies | Luxury resort weddings | Large weddings with outstation or NRI guests | Couples who want city infrastructure with natural beauty close by",
                 galleryImages: "",
                 result: "",
-                image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/DSC05970.jpg",
                 desc: "Sun-kissed beach ceremonies and luxury city base weddings in southern Kerala."
             },
             {
@@ -497,11 +502,11 @@ const initialContent = {
                 date: "",
                 location: "Nagercoil & Kanyakumari",
                 badge: "Destination",
-                video: "/uploads/upload_1773132860733_81.mp4",
+                video: "/uploads/weddings-videos/destination.mp4",
                 overview: "The southernmost region of peninsular India offers something no other wedding destination does — the point where the Arabian Sea, the Bay of Bengal, and the Indian Ocean converge. It is a setting of quiet drama, heritage architecture, and a landscape that shifts from green hills to open coastline within miles.\n\nWe plan weddings across Nagercoil, Kanyakumari, and Padmanabhapuram for couples from both Kerala and Tamil Nadu. Heritage architecture, ancient temples, coastal resorts, and hillside estates all form part of our venue network in this region. Parinay brings the same standard of custom design and meticulous execution that we apply everywhere — combined with deep local knowledge of venues and vendors in this cross-border region.\n\nBest for: Traditional South Indian weddings | Christian | Hindu | and inter-cultural ceremonies | Couples from Nagercoil | Kanyakumari | and southern Tamil Nadu | Intimate heritage venue celebrations",
                 galleryImages: "",
                 result: "",
-                image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/DSC07838.jpg",
                 desc: "Heritage and coastal celebrations at the confluence of three oceans."
             },
             {
@@ -510,19 +515,19 @@ const initialContent = {
                 date: "",
                 location: "Kerala & Beyond",
                 badge: "Destination",
-                video: "/uploads/upload_1773132906231_395.mp4",
+                video: "/uploads/weddings-videos/destination (2).mp4",
                 overview: "Kerala has more to offer than its headline destinations. Varkala's cliff-top beaches provide a dramatic and less commercial alternative to Kovalam. Wayanad's jungle estates and mist-filled mornings create an entirely different kind of wedding experience. Poovar's island resort, accessible only by boat, is one of India's most private wedding locations.\n\nWe plan weddings across all of Kerala. If a venue exists here, we know how to make it work.",
                 galleryImages: "",
                 result: "",
-                image: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/DSC09190.jpg",
                 desc: "From cliff-top beaches to jungle estates, we explore Kerala's hidden gems."
             }
         ],
         nriH2: "NRI Wedding Planning — Your Kerala Wedding, Managed From Anywhere",
         nriBody: "Planning a destination wedding in Kerala from abroad is one of our core specialisations. We work regularly with couples based in the UAE, UK, USA, Singapore, and Australia who want a Kerala wedding without the stress of coordinating vendors across time zones.\n\nOur process is built for remote planning — regular video consultations, transparent vendor pricing, digital mood boards, and a dedicated planning team that manages everything on the ground. You make the decisions. We handle the execution.",
         nriBtnText: "Talk to Us About Your NRI Wedding →",
-        nriImage1: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
-        heroImage: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1920&q=80",
+        nriImage1: "/uploads/couple/JK_02358 copy.jpg",
+        heroImage: "/uploads/couple/0222.jpeg",
         ctaHeading: "Ready to Plan Your Destination Wedding in Kerala?",
         ctaBody: "Tell us where you want to celebrate. We'll take it from there.",
         ctaBtn1Text: "Schedule a Free Consultation →",
@@ -587,11 +592,11 @@ const initialContent = {
                 date: "October 2024",
                 location: "Kochi, Kerala",
                 badge: "Themed",
-                video: "/uploads/upload_1773132860733_81.mp4",
+                video: "/uploads/weddings-videos/themed.mp4",
                 overview: "A whimsical floral-themed wedding set within the lush gardens of a colonial heritage estate in Kochi. The vision was to create an immersive 'Secret Garden' experience where nature and luxury blend seamlessly. We utilised over 10,000 seasonal blooms, vintage birdcages, and soft fairy lighting to transform the space into an ethereal wonderland.\n\nThe ceremony took place under a century-old banyan tree, adorned with cascading wisteria and crystal chandeliers. Our team focused on creating an editorial narrative, capturing the intimate glances and the soft rustle of silk against the garden breeze. Every element, from the hand-painted floral stationery to the bespoke botanical cocktails, was designed to evoke a sense of timeless romance.",
-                galleryImages: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=800\nhttps://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
+                galleryImages: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800\nhttps://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
                 result: "The ethereal garden oasis came to life exactly as envisioned, providing a magical and serene backdrop for the couple's vows. The feedback from guests was overwhelming, many noting that they felt they had stepped into a different world. Beyond the visual success, the flow of the event was flawless, allowing the family to fully immerse themselves in the celebration without a single logistical concern.",
-                image: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/6.jpg",
                 desc: "A whimsical floral-themed wedding that transformed a colonial estate into an ethereal garden oasis."
             },
             {
@@ -600,15 +605,15 @@ const initialContent = {
                 date: "January 2025",
                 location: "Goa",
                 badge: "Themed",
-                video: "/uploads/upload_1773132906231_395.mp4",
+                video: "/uploads/weddings-videos/themed (2).mp4",
                 overview: "A dreamy beach-themed celebration on the pristine shores of South Goa. The concept focused on 'Barefoot Luxury', where the elegance of a high-end wedding met the relaxed, organic vibe of the ocean. We chose a palette of sea-glass blues, sandy beiges, and sunset corals to complement the natural surroundings.\n\nThe mandap was a minimalist structure of driftwood and diaphanous white silk, positioned so the sun would set directly behind the couple during the final rituals. We prioritized a cinematic approach to documentation, ensuring that every hue of the sky, every rhythmic sound of the waves, and every heartfelt ritual was preserved in its most authentic and beautiful form.",
                 galleryImages: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=80",
                 result: "A romantic sunset victory that perfectly captured the couple's free-spirited yet sophisticated style. The transition from the sun-drenched ceremony to the starlit dinner was seamless, with the décor evolving to include hundreds of lanterns and driftwood fire-pits. It was a celebration that felt both grand and deeply personal, leaving a lasting legacy of love by the sea.",
-                image: "https://images.unsplash.com/photo-1510076857177-7470076d4098?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/099.jpeg",
                 desc: "A dreamy beach-themed celebration where golden hues and ocean breezes created the most romantic backdrop."
             }
         ],
-        heroImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80",
+        heroImage: "/uploads/couple/0176 (1).jpg",
         heroTitle: "Signature Themed Concepts",
         heroSubtitle: "Transforming spaces into immersive worlds that tell your unique love story through design."
     },
@@ -621,11 +626,11 @@ const initialContent = {
                 date: "March 2025",
                 location: "Mysore, Karnataka",
                 badge: "Traditional",
-                video: "/uploads/upload_1773132909114_925.mp4",
+                video: "/uploads/weddings-videos/Traditional.mp4",
                 overview: "Royal heritage celebration in Mysore. This project was a meticulous exploration of heritage and traditions, planned with absolute clarity and respect for culture.",
                 galleryImages: "",
                 result: "A timeless legacy preserved. The opulent decor and traditional elements blended seamlessly to create a truly majestic atmosphere.",
-                image: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/DSC02454.jpg",
                 desc: "A royal celebration at a heritage palace, honouring centuries-old traditions with opulent decor and meticulous planning."
             },
             {
@@ -634,15 +639,15 @@ const initialContent = {
                 date: "September 2024",
                 location: "Madurai, Tamil Nadu",
                 badge: "Traditional",
-                video: "/uploads/upload_1773132860733_81.mp4",
+                video: "/uploads/weddings-videos/Traditional (2).mp4",
                 overview: "Centuries of ritual and vibrant color in Madurai. We focused on the soul of the union, weaving together the intimate details that make each tradition unique.",
                 galleryImages: "",
                 result: "Deeply cultural and visually stunning. The sacred rituals were executed with precision, resulting in a profoundly moving celebration.",
-                image: "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80",
+                image: "/uploads/couple/0222.jpeg",
                 desc: "A traditional Tamil wedding steeped in centuries of ritual, vibrant colour and deep cultural meaning."
             }
         ],
-        heroImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1920&q=80",
+        heroImage: "/uploads/couple/ANS06124.jpg",
         heroTitle: "Honouring Our Heritage",
         heroSubtitle: "Timeless traditions celebrated with contemporary elegance and profound respect for cultural roots."
     },
@@ -653,7 +658,7 @@ const initialContent = {
         pageBannerSubtitle: "Every wedding in this portfolio began the same way — with a couple who had a vision, and a team at Parinay who was committed to making it real. No two weddings here look alike. That is not an accident. We plan each wedding from scratch, which means what you see is not a template repeated with different flowers — it is a different story, told in a different place, for a different couple. \n\nBrowse our work below. Each wedding is a reflection of the people behind it.",
         ctaHeading: "Planning a Destination Wedding in Kerala or South India?",
         ctaBody: "Tell us your vision. We'll take care of everything else.",
-        ctaImage: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1920&q=80",
+        ctaImage: "/uploads/couple/OSW09391 copy.jpg",
         ctaBtnText: "Schedule a Consultation →",
         ctaBtnUrl: "/contact",
         ctaBtnIcon: "fas fa-calendar-alt",
@@ -661,12 +666,12 @@ const initialContent = {
         instagramUrl: "https://instagram.com/parinayweddings",
         instagramBtnIcon: "fab fa-instagram",
         storiesList: [
-            { id: 1001, title: "Tropical Paradise", date: "January 2024", location: "Kerala", overview: "A tropical paradise wedding in the heart of Kerala. We focused on the candid emotional exchanges that define the essence of a wedding.", video: "", galleryImages: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80\nhttps://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80\nhttps://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80\nhttps://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80", result: "A flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://img.freepik.com/free-photo/veil-covers-bride-s-hands-with-wedding-rings_8353-9002.jpg?semt=ais_hybrid&w=740&q=80", category: "Featured" },
-            { id: 1002, title: "Backwater Magic", date: "November 2023", location: "Kumarakom", overview: "Magical backwater wedding in Kumarakom. This project was a meticulous exploration of heritage and modern luxury.", video: "", galleryImages: "", result: "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision.", image: "https://i.pinimg.com/736x/ae/0b/cf/ae0bcf2c22a59084130a3f852ad973aa.jpg", category: "Destination" },
-            { id: 1003, title: "Mist & Mountains", date: "December 2023", location: "Munnar", overview: "A wedding in the mist-filled hills of Munnar. Every element was planned with absolute directorial clarity.", video: "", galleryImages: "", result: "A timeless legacy preserved in every frame and every moment of the day.", image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80", category: "Destination" },
-            { id: 1004, title: "Timeless Romance", date: "October 2023", location: "Udaipur", overview: "Timeless romance at the lakes of Udaipur. We sought to capture the 'soul' of the union.", video: "", galleryImages: "", result: "A royal and romantic celebration that exceeded all expectations.", image: "https://briannakirkphotography.com/wp-content/uploads/2023/03/Ana-and-Jonah-Forden-Wedding-8.20.21-Cover-Pic-BKIRK-1-1.jpg", category: "Traditional" },
-            { id: 1005, title: "Sunset Vows", date: "January 2024", location: "Goa", overview: "Sunset vows on the shores of Goa. A dreamy beach-themed celebration with golden hues.", video: "", galleryImages: "", result: "A beautiful shoreline victory for the couple.", image: "https://i.pinimg.com/236x/e7/03/e5/e703e5e43a036a403e3d46bbfb02577e.jpg", category: "Themed" },
-            { id: 1006, title: "Floral Elegance", date: "February 2024", location: "Jaipur", overview: "Floral elegance in the Pink City. A whimsical garden oasis transformed into a royal celebration.", video: "", galleryImages: "", result: "The final outcome was a stunningly beautiful celebration of love and culture.", image: "https://img.freepik.com/free-photo/beautiful-wedding-couple-hugging-park_1153-5209.jpg?semt=ais_user_personalization&w=740&q=80", category: "Themed" }
+            { id: 1001, title: "Tropical Paradise", date: "January 2024", location: "Kerala", overview: "A tropical paradise wedding in the heart of Kerala. We focused on the candid emotional exchanges that define the essence of a wedding.", video: "", galleryImages: "", result: "A flawlessly executed celebration that perfectly captured the couple's vision.", image: "/uploads/couple/0227.jpg", category: "Featured" },
+            { id: 1002, title: "Backwater Magic", date: "November 2023", location: "Kumarakom", overview: "Magical backwater wedding in Kumarakom. This project was a meticulous exploration of heritage and modern luxury.", video: "", galleryImages: "", result: "The final outcome was a flawlessly executed celebration that perfectly captured the couple's vision.", image: "/uploads/couple/0225.jpg", category: "Destination" },
+            { id: 1003, title: "Mist & Mountains", date: "December 2023", location: "Munnar", overview: "A wedding in the mist-filled hills of Munnar. Every element was planned with absolute directorial clarity.", video: "", galleryImages: "", result: "A timeless legacy preserved in every frame and every moment of the day.", image: "/uploads/couple/DSC05116.jpg", category: "Destination" },
+            { id: 1004, title: "Timeless Romance", date: "October 2023", location: "Udaipur", overview: "Timeless romance at the lakes of Udaipur. We sought to capture the 'soul' of the union.", video: "", galleryImages: "", result: "A royal and romantic celebration that exceeded all expectations.", image: "/uploads/couple/0K6A1598.jpg", category: "Traditional" },
+            { id: 1005, title: "Sunset Vows", date: "January 2024", location: "Goa", overview: "Sunset vows on the shores of Goa. A dreamy beach-themed celebration with golden hues.", video: "", galleryImages: "", result: "A beautiful shoreline victory for the couple.", image: "/uploads/couple/DSC09190.jpg", category: "Themed" },
+            { id: 1006, title: "Floral Elegance", date: "February 2024", location: "Jaipur", overview: "Floral elegance in the Pink City. A whimsical garden oasis transformed into a royal celebration.", video: "", galleryImages: "", result: "The final outcome was a stunningly beautiful celebration of love and culture.", image: "/uploads/couple/J_J00333 copy.jpg", category: "Themed" }
         ],
     },
 
@@ -817,11 +822,51 @@ export const ContentProvider = ({ children }) => {
                 if (fallbackData.home?.portfolioItems) {
                     merged.home = { ...merged.home, portfolioItems: fallbackData.home.portfolioItems };
                 }
+                if (fallbackData.home?.youtubeVideos) {
+                    merged.home = { 
+                        ...merged.home, 
+                        youtubeVideos: fallbackData.home.youtubeVideos,
+                        youtubeEmbedUrl: fallbackData.home.youtubeEmbedUrl
+                    };
+                }
                 if (fallbackData.weddingStories?.storiesList) {
-                    merged.weddingStories = { ...merged.weddingStories, storiesList: fallbackData.weddingStories.storiesList };
+                    merged.weddingStories = { 
+                        ...merged.weddingStories, 
+                        storiesList: fallbackData.weddingStories.storiesList,
+                        ctaImage: fallbackData.weddingStories.ctaImage || merged.weddingStories.ctaImage
+                    };
+                }
+                if (fallbackData.storiesTraditional) {
+                    merged.storiesTraditional = { ...merged.storiesTraditional, ...fallbackData.storiesTraditional };
+                }
+                if (fallbackData.storiesThemed) {
+                    merged.storiesThemed = { ...merged.storiesThemed, ...fallbackData.storiesThemed };
+                }
+                if (fallbackData.storiesDestination) {
+                    merged.storiesDestination = { ...merged.storiesDestination, ...fallbackData.storiesDestination };
                 }
                 if (fallbackData.journals?.journalsList) {
                     merged.journals = { ...merged.journals, journalsList: fallbackData.journals.journalsList };
+                }
+                if (fallbackData.home?.homeServices) {
+                    merged.home = { ...merged.home, homeServices: fallbackData.home.homeServices };
+                }
+                if (fallbackData.home?.destinationImage1) {
+                    merged.home.destinationImage1 = fallbackData.home.destinationImage1;
+                    merged.home.destinationImage2 = fallbackData.home.destinationImage2;
+                }
+                if (fallbackData.home?.heroImages) {
+                    merged.home.heroImages = fallbackData.home.heroImages;
+                }
+                if (fallbackData.about?.differentiatorImage) {
+                    merged.about = { ...merged.about, differentiatorImage: fallbackData.about.differentiatorImage };
+                }
+                if (fallbackData.services?.comprehensiveList) {
+                    merged.services = { 
+                        ...merged.services, 
+                        comprehensiveList: fallbackData.services.comprehensiveList,
+                        ctaImage: fallbackData.services.ctaImage || merged.services.ctaImage 
+                    };
                 }
                 if (fallbackData.header) {
                     merged.header = { ...merged.header, ...fallbackData.header };

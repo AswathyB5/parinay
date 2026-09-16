@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ContentContext, isVideoUrl, resolveMediaURL, renderText } from '../context/ContentContext';
 import OptimizedImage, { ProgressiveGallery } from '../components/OptimizedImage';
+import VenueSlider from '../components/VenueSlider';
 import './Gallery.css';
 
 const Gallery = () => {
@@ -150,6 +151,9 @@ const Gallery = () => {
                 </div>
             </section>
 
+            {/* ═══ MODERN VENUE SLIDER SECTION ═══ */}
+            <VenueSlider />
+
             {/* LIGHTBOX OVERLAY */}
             {isLightboxOpen && selectedProject && (
                 <div className="pd-lightbox" onClick={closeLightbox}>
@@ -181,7 +185,7 @@ const Gallery = () => {
                 <div 
                     className="pw-cta-section__bg"
                     style={{
-                        backgroundImage: `url(${resolveMediaURL('/uploads/upload_1778474854663_2232.jpg')})`
+                        backgroundImage: `url(${resolveMediaURL(ws.ctaImage || '/uploads/couple/OSW09391 copy.jpg')})`
                     }}
                 ></div>
 
